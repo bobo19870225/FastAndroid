@@ -24,6 +24,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutRes());
+        getTransferData();
+        setToolBar();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        int toolBarMenu = setToolBarMenu();
+        if (toolBarMenu != 0) {
+            getMenuInflater().inflate(toolBarMenu, menu);//加载menu文件到布局
+        }
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    private void getTransferData() {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("BUNDLE");
         if (bundle != null) {
@@ -31,6 +52,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             transferData = null;
         }
+    }
+
+    private void setToolBar() {
         Toolbar toolbar = findViewById(R.id.tool_bar);
         if (toolbar != null) {
             toolbar.setTitle(setToolBarTitle());
@@ -44,29 +68,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+
     protected abstract String setToolBarTitle();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        int toolBarMenu = setToolBarMenu();
-        if (toolBarMenu != 0) {
-            getMenuInflater().inflate(toolBarMenu, menu);//加载menu文件到布局
-        }
-        return super.onCreateOptionsMenu(menu);
-
-    }
-
-    protected abstract @MenuRes
-    int setToolBarMenu();
-
-    protected abstract @LayoutRes
-    int setLayoutRes();
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        initView();
-    }
 
     /**
      * 跳转
@@ -115,6 +119,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
+
+
+    protected abstract @MenuRes
+    int setToolBarMenu();
+
+    protected abstract @LayoutRes
+    int setLayoutRes();
 
     protected abstract void initView();
 }
