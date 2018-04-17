@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.jinkan.www.fastandroid.model.Movie;
 import com.jinkan.www.fastandroid.model.Subjects;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final TextView tvContent = findViewById(R.id.content);
         Button btnTest = findViewById(R.id.test);
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                                 new ObserverOnNextListener<Movie>() {
                                     @Override
                                     public void onNext(Movie movie) {
+                                        tvContent.setText(movie.getTitle());
                                         Log.d(TAG, "onNext: " + movie.getTitle());
                                         List<Subjects> list = movie.getSubjects();
                                         for (Subjects sub : list) {
