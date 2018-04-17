@@ -20,13 +20,14 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.jinkan.www.fastandroid.SystemParameter.baseUrl;
+
 /**
  * Created by Sampson on 2018/4/17.
  * FastAndroid
  */
 public class ApiStrategy {
 
-    public static String baseUrl = "https://api.douban.com/v2/movie/";
     //读超时长，单位：毫秒
     public static final int READ_TIME_OUT = 7676;
     //连接时长，单位：毫秒

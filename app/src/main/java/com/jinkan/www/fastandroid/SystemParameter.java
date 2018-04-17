@@ -5,5 +5,6 @@ package com.jinkan.www.fastandroid;
  * FastAndroid
  */
 public class SystemParameter {
+    public static String baseUrl = "https://api.douban.com/v2/movie/";
     public static final String strTestUrl = "https://api.github.com/users/basil2style";
 }
