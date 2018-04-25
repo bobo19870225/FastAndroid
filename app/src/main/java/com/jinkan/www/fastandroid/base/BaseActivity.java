@@ -57,7 +57,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setToolBar() {
         Toolbar toolbar = findViewById(R.id.tool_bar);
         if (toolbar != null) {
-            toolbar.setTitle(setToolBarTitle());
+            if (setToolBarTitle() != null)
+                toolbar.setTitle(setToolBarTitle());
             setSupportActionBar(toolbar);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
