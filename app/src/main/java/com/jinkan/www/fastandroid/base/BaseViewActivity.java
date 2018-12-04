@@ -1,7 +1,7 @@
 package com.jinkan.www.fastandroid.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Created by Sampson on 2018/4/17.
