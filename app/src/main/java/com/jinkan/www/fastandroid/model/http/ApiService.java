@@ -5,6 +5,7 @@ package com.jinkan.www.fastandroid.model.http;
 import com.jinkan.www.fastandroid.model.Movie;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -14,7 +15,7 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
     @GET("top250")
-    Observable<Movie> getTopMovie(@Query("start") int start, @Query("count") int count);
+    Call<Movie> getTopMovie(@Query("start") int start, @Query("count") int count);
 }
 
 
