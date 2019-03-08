@@ -1,12 +1,12 @@
-package com.jinkan.www.fastandroid;
+package com.jinkan.www.fastandroid.view;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
+import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.model.Movie;
-import com.jinkan.www.fastandroid.model.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 
 import javax.inject.Inject;
 
@@ -24,7 +24,6 @@ public class MainActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final TextView tvContent = findViewById(R.id.content);
         Button btnTest = findViewById(R.id.test);
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override

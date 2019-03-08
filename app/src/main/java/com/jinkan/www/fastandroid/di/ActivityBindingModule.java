@@ -1,6 +1,6 @@
 package com.jinkan.www.fastandroid.di;
 
-import com.jinkan.www.fastandroid.MainActivity;
+import com.jinkan.www.fastandroid.view.MainActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

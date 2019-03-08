@@ -3,7 +3,7 @@ package com.jinkan.www.fastandroid.di;
 import android.app.Application;
 
 import com.jinkan.www.fastandroid.ToDoApplication;
-import com.jinkan.www.fastandroid.model.RepositoryModule;
+import com.jinkan.www.fastandroid.model.repository.RepositoryModule;
 
 import javax.inject.Singleton;
 
