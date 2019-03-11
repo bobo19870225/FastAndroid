@@ -2,10 +2,13 @@ package com.jinkan.www.fastandroid.model.repository;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.PagedList;
 
 /**
  * Created by Sampson on 2019/3/4.
@@ -18,7 +21,7 @@ public class Listing<T> {
     }
 
     @NotNull
-    private LiveData<T> pagedList;
+    private LiveData<PagedList<T>> pagedList;
     @NotNull
     private LiveData<NetWorkState> networkState;
     @NotNull
@@ -26,11 +29,11 @@ public class Listing<T> {
     private ListingCallBack listingCallBack;
 
     @NotNull
-    public LiveData<T> getPagedList() {
+    public LiveData<PagedList<T>> getPagedList() {
         return pagedList;
     }
 
-    public void setPagedList(@NotNull LiveData<T> pagedList) {
+    public void setPagedList(@NotNull LiveData<PagedList<T>> pagedList) {
         this.pagedList = pagedList;
     }
 

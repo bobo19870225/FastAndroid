@@ -33,14 +33,16 @@ public class ByPageKeyRepository implements PostRepository {
 
     @Override
     @MainThread
+    @SuppressWarnings("unchecked")
     public Listing<Movie> post(String sub, Integer pageSize) {
         PagedList.Config config = new PagedList.Config.Builder()
                 .setPageSize(10)                         //配置分页加载的数量
                 .setEnablePlaceholders(false)     //配置是否启动PlaceHolders
                 .setInitialLoadSizeHint(10)              //初始化加载的数量
                 .build();
-        LiveData<Movie> liveData = new LivePagedListBuilder(movieDataSourceFactory, config).build();
 
+        LiveData<PagedList<Movie>> pagedListLiveData = new LivePagedListBuilder<>(movieDataSourceFactory, config).build();
+        movieListing.setPagedList(pagedListLiveData);
         return movieListing;
     }
 }
