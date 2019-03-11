@@ -24,8 +24,9 @@ import dagger.android.support.AndroidSupportInjectionModule;
  * // and location of subcomponents.
  */
 @Singleton
-@Component(modules = {RepositoryModule.class,
+@Component(modules = {
         ApplicationModule.class,
+        RepositoryModule.class,
         ActivityBindingModule.class,
         AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<ToDoApplication> {

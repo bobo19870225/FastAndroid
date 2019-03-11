@@ -23,9 +23,7 @@ public class ByPageKeyRepository implements PostRepository {
     public ByPageKeyRepository() {
     }
 
-    private PagedList pagedList;
-    @Inject
-    Listing<Movie> movieListing;
+
     @Inject
     MoviePageKeyedDataSource moviePageKeyedDataSource;
     @Inject
@@ -42,6 +40,7 @@ public class ByPageKeyRepository implements PostRepository {
                 .build();
 
         LiveData<PagedList<Movie>> pagedListLiveData = new LivePagedListBuilder<>(movieDataSourceFactory, config).build();
+        Listing<Movie> movieListing = new Listing<>();
         movieListing.setPagedList(pagedListLiveData);
         return movieListing;
     }

@@ -26,6 +26,7 @@ dependencies {
     implementation deps.support.v4
     implementation deps.support.design
     implementation deps.support.cardview
+    implementation deps.constraint_layout
 
     // Architecture components
     implementation deps.lifecycle.runtime
