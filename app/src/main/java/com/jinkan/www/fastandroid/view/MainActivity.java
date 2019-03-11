@@ -19,7 +19,8 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class MainActivity extends DaggerAppCompatActivity {
     @Inject
     ApiService apiService;
-    private String TAG = "test";
+    @Inject
+    ByPageKeyRepository byPageKeyRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,6 @@ public class MainActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.activity_main);
         Button btnTest = findViewById(R.id.test);
         final MovieAdapter movieAdapter = new MovieAdapter();
-        ByPageKeyRepository byPageKeyRepository = new ByPageKeyRepository();
         Listing<Movie> movieListing = byPageKeyRepository.post("", 10);
         movieListing.getPagedList().observe(this, new Observer<PagedList<Movie>>() {
             @Override

@@ -24,8 +24,8 @@ public class ByPageKeyRepository implements PostRepository {
     }
 
 
-    @Inject
-    MoviePageKeyedDataSource moviePageKeyedDataSource;
+    //    @Inject
+//    MoviePageKeyedDataSource moviePageKeyedDataSource;
     @Inject
     MovieDataSourceFactory movieDataSourceFactory;
 
