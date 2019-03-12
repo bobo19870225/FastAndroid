@@ -43,6 +43,7 @@ public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjec
 
     }
 
+    private Integer integer = 10;
     @Override
     public void loadAfter(@NonNull LoadParams<String> params, @NonNull LoadCallback<String, Subjects> callback) {
         Call<Movie> topMovie = apiService.getTopMovie(Integer.parseInt(params.key), params.requestedLoadSize);
@@ -51,7 +52,13 @@ public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjec
             if (response.isSuccessful()) {
                 Movie body = response.body();
                 if (body != null) {
-                    callback.onResult(body.getSubjects(), "10");
+                    integer += 10;
+                    if (integer == 30) {
+                        callback.onResult(body.getSubjects(), null);
+                    } else {
+                        callback.onResult(body.getSubjects(), String.valueOf(integer));
+                    }
+
                 }
             }
 
