@@ -32,7 +32,7 @@ public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjec
         Call<Movie> topMovie = apiService.getTopMovie(0, params.requestedLoadSize);
         try {
             Response<Movie> listResponse = topMovie.execute();
-            callback.onResult(listResponse.body().getSubjects(),"","");
+            callback.onResult(listResponse.body().getSubjects(), "0", "10");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,19 @@ public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjec
 
     @Override
     public void loadAfter(@NonNull LoadParams<String> params, @NonNull LoadCallback<String, Subjects> callback) {
-        apiService.getTopMovie(Integer.parseInt(params.key), params.requestedLoadSize);
+        Call<Movie> topMovie = apiService.getTopMovie(Integer.parseInt(params.key), params.requestedLoadSize);
+        try {
+            Response<Movie> response = topMovie.execute();
+            if (response.isSuccessful()) {
+                Movie body = response.body();
+                if (body != null) {
+                    callback.onResult(body.getSubjects(), "10");
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

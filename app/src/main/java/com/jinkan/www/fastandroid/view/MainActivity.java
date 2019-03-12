@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.model.Movie;
 import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
@@ -15,6 +14,7 @@ import javax.inject.Inject;
 
 import androidx.lifecycle.Observer;
 import androidx.paging.PagedList;
+import androidx.recyclerview.widget.RecyclerView;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class MainActivity extends DaggerAppCompatActivity {
@@ -28,7 +28,9 @@ public class MainActivity extends DaggerAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button btnTest = findViewById(R.id.test);
+        RecyclerView recyclerView = findViewById(R.id.list);
         final MovieAdapter movieAdapter = new MovieAdapter();
+        recyclerView.setAdapter(movieAdapter);
         Listing<Subjects> movieListing = byPageKeyRepository.post("", 10);
         movieListing.getPagedList().observe(this, new Observer<PagedList<Subjects>>() {
             @Override
