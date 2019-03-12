@@ -1,17 +1,17 @@
-package com.jinkan.www.fastandroid.base;
+package com.jinkan.www.fastandroid.view.base;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.Menu;
+
+import com.jinkan.www.fastandroid.R;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.MenuRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.view.Menu;
-import android.view.View;
-
-import com.jinkan.www.fastandroid.R;
 
 /**
  * Created by Sampson on 2018/4/16.
@@ -60,12 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (setToolBarTitle() != null)
                 toolbar.setTitle(setToolBarTitle());
             setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onBackPressed();
-                }
-            });
+            toolbar.setNavigationOnClickListener(view -> onBackPressed());
         }
     }
 
