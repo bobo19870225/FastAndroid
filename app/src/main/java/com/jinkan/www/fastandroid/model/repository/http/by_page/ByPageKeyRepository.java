@@ -1,6 +1,6 @@
 package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
-import com.jinkan.www.fastandroid.model.Movie;
+import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.PostRepository;
 
@@ -24,23 +24,21 @@ public class ByPageKeyRepository implements PostRepository {
     }
 
 
-    //    @Inject
-//    MoviePageKeyedDataSource moviePageKeyedDataSource;
     @Inject
     MovieDataSourceFactory movieDataSourceFactory;
 
     @Override
     @MainThread
     @SuppressWarnings("unchecked")
-    public Listing<Movie> post(String sub, Integer pageSize) {
+    public Listing<Subjects> post(String sub, Integer pageSize) {
         PagedList.Config config = new PagedList.Config.Builder()
                 .setPageSize(10)                         //配置分页加载的数量
                 .setEnablePlaceholders(false)     //配置是否启动PlaceHolders
                 .setInitialLoadSizeHint(10)              //初始化加载的数量
                 .build();
 
-        LiveData<PagedList<Movie>> pagedListLiveData = new LivePagedListBuilder<>(movieDataSourceFactory, config).build();
-        Listing<Movie> movieListing = new Listing<>();
+        LiveData<PagedList<Subjects>> pagedListLiveData = new LivePagedListBuilder<>(movieDataSourceFactory, config).build();
+        Listing<Subjects> movieListing = new Listing<>();
         movieListing.setPagedList(pagedListLiveData);
         return movieListing;
     }

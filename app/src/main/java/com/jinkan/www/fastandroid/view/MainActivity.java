@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.model.Movie;
+import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 import com.jinkan.www.fastandroid.model.repository.http.by_page.ByPageKeyRepository;
@@ -28,32 +29,17 @@ public class MainActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.activity_main);
         Button btnTest = findViewById(R.id.test);
         final MovieAdapter movieAdapter = new MovieAdapter();
-        Listing<Movie> movieListing = byPageKeyRepository.post("", 10);
-        movieListing.getPagedList().observe(this, new Observer<PagedList<Movie>>() {
+        Listing<Subjects> movieListing = byPageKeyRepository.post("", 10);
+        movieListing.getPagedList().observe(this, new Observer<PagedList<Subjects>>() {
             @Override
-            public void onChanged(PagedList<Movie> movies) {
-                movieAdapter.submitList(movies);
+            public void onChanged(PagedList<Subjects> subjects) {
+                movieAdapter.submitList(subjects);
             }
         });
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-//                ApiMethods.getTopMovie(
-//                        new ProgressObserver<Movie>(MainActivity.this,
-//                                new ObserverOnNextListener<Movie>() {
-//                                    @Override
-//                                    public void onNext(Movie movie) {
-//                                        tvContent.setText(movie.getTitle());
-//                                        Log.d(TAG, "onNext: " + movie.getTitle());
-//                                        List<Subjects> list = movie.getSubjects();
-//                                        for (Subjects sub : list) {
-//                                            Log.d(TAG, "onNext: " + sub.getId() + "," + sub.getYear() + "," + sub.getTitle());
-//                                        }
-//                                    }
-//
-//                                }), 0, 3);
+                apiService.getTopMovie(0, 10);
             }
         });
 

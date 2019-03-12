@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.model.Movie;
+import com.jinkan.www.fastandroid.model.Subjects;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +22,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.title);
     }
 
-    public void bind(Movie movie) {
+    public void bind(Subjects movie) {
         title.setText(movie.getTitle());
     }
 

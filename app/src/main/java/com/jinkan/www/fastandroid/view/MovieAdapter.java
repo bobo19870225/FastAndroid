@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.model.Movie;
+import com.jinkan.www.fastandroid.model.Subjects;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.DiffUtil;
  * Created by Sampson on 2019/3/11.
  * FastAndroid
  */
-public class MovieAdapter extends PagedListAdapter<Movie, MovieViewHolder> {
+public class MovieAdapter extends PagedListAdapter<Subjects, MovieViewHolder> {
     protected MovieAdapter() {
         super(DIFF_CALLBACK);
     }
@@ -36,18 +36,16 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieViewHolder> {
     /**
      * 后台线程DiffUtil类回调： 计算新的List和原来的List的差距
      */
-    public static final DiffUtil.ItemCallback<Movie> DIFF_CALLBACK = new DiffUtil.ItemCallback<Movie>() {
+    public static final DiffUtil.ItemCallback<Subjects> DIFF_CALLBACK = new DiffUtil.ItemCallback<Subjects>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
+        public boolean areItemsTheSame(@NonNull Subjects oldItem, @NonNull Subjects newItem) {
             return oldItem.getTitle().equals(newItem.getTitle());
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
+        public boolean areContentsTheSame(@NonNull Subjects oldItem, @NonNull Subjects newItem) {
             return oldItem.equals(newItem);
         }
-
-
     };
 
 }

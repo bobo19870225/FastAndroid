@@ -1,6 +1,6 @@
 package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
-import com.jinkan.www.fastandroid.model.Movie;
+import com.jinkan.www.fastandroid.model.Subjects;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,7 +14,7 @@ import androidx.paging.DataSource;
  * FastAndroid
  */
 @Singleton
-public class MovieDataSourceFactory extends DataSource.Factory<String, Movie> {
+public class MovieDataSourceFactory extends DataSource.Factory<String, Subjects> {
     public final MutableLiveData<MoviePageKeyedDataSource> sourceLiveData = new MutableLiveData<>();
     @Inject
     MoviePageKeyedDataSource moviePageKeyedDataSource;
@@ -24,7 +24,7 @@ public class MovieDataSourceFactory extends DataSource.Factory<String, Movie> {
 
     @NonNull
     @Override
-    public DataSource<String, Movie> create() {
+    public DataSource<String, Subjects> create() {
         sourceLiveData.postValue(moviePageKeyedDataSource);
         return moviePageKeyedDataSource;
     }

@@ -1,20 +1,25 @@
 package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
 import com.jinkan.www.fastandroid.model.Movie;
+import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Sampson on 2019/2/25.
  * FastAndroid
  */
 @Singleton
-public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Movie> {
+public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjects> {
     @Inject
     ApiService apiService;
 
@@ -23,17 +28,25 @@ public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Movie>
     }
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<String, Movie> callback) {
-        apiService.getTopMovie(0, params.requestedLoadSize);
+    public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<String, Subjects> callback) {
+        Call<Movie> topMovie = apiService.getTopMovie(0, params.requestedLoadSize);
+        try {
+            Response<Movie> listResponse = topMovie.execute();
+            callback.onResult(listResponse.body().getSubjects(),"","");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void loadBefore(@NonNull LoadParams<String> params, @NonNull LoadCallback<String, Movie> callback) {
+    public void loadBefore(@NonNull LoadParams<String> params, @NonNull LoadCallback<String, Subjects> callback) {
 
     }
 
     @Override
-    public void loadAfter(@NonNull LoadParams<String> params, @NonNull LoadCallback<String, Movie> callback) {
+    public void loadAfter(@NonNull LoadParams<String> params, @NonNull LoadCallback<String, Subjects> callback) {
         apiService.getTopMovie(Integer.parseInt(params.key), params.requestedLoadSize);
     }
+
+
 }
