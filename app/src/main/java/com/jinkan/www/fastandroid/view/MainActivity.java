@@ -8,7 +8,6 @@ import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends MVVMActivity<MainViewModel, ActivityMainBinding> {
@@ -39,12 +38,7 @@ public class MainActivity extends MVVMActivity<MainViewModel, ActivityMainBindin
         final MovieAdapter movieAdapter = new MovieAdapter();
         mViewDataBinding.list.setAdapter(movieAdapter);
         mViewDataBinding.getModel().movieListing.getPagedList().observe(this, subjects -> movieAdapter.submitList(subjects));
-        mViewModel.singleLiveEvent.observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(Void aVoid) {
-                finish();
-            }
-        });
+        mViewModel.singleLiveEvent.observe(this, aVoid -> finish());
 
     }
 }
