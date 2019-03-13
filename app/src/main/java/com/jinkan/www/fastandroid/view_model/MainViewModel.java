@@ -2,6 +2,7 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
+import com.jinkan.www.fastandroid.SingleLiveEvent;
 import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.http.by_page.ByPageKeyRepository;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
  * FastAndroid
  */
 public class MainViewModel extends BaseViewModel {
+    public final SingleLiveEvent<Void> singleLiveEvent = new SingleLiveEvent<>();
     public Listing<Subjects> movieListing;
     private ByPageKeyRepository byPageKeyRepository;
 
@@ -27,6 +29,12 @@ public class MainViewModel extends BaseViewModel {
     }
 
     public void test() {
+        singleLiveEvent.call();
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
 
     }
 }
