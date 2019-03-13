@@ -1,49 +1,41 @@
 package com.jinkan.www.fastandroid.view;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
 import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.model.Subjects;
-import com.jinkan.www.fastandroid.model.repository.Listing;
+import com.jinkan.www.fastandroid.databinding.ActivityMainBinding;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
-import com.jinkan.www.fastandroid.model.repository.http.by_page.ByPageKeyRepository;
+import com.jinkan.www.fastandroid.view.base.MVVMActivity;
+import com.jinkan.www.fastandroid.view_model.MainViewModel;
+import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.Observer;
-import androidx.paging.PagedList;
-import androidx.recyclerview.widget.RecyclerView;
-import dagger.android.support.DaggerAppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
-public class MainActivity extends DaggerAppCompatActivity {
+public class MainActivity extends MVVMActivity<MainViewModel, ActivityMainBinding> {
     @Inject
     ApiService apiService;
+    //    @Inject
+//    ByPageKeyRepository byPageKeyRepository;
     @Inject
-    ByPageKeyRepository byPageKeyRepository;
+    ViewModelFactory viewModelFactory;
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button btnTest = findViewById(R.id.test);
-        RecyclerView recyclerView = findViewById(R.id.list);
-        final MovieAdapter movieAdapter = new MovieAdapter();
-        recyclerView.setAdapter(movieAdapter);
-        Listing<Subjects> movieListing = byPageKeyRepository.post("", 10);
-        movieListing.getPagedList().observe(this, new Observer<PagedList<Subjects>>() {
-            @Override
-            public void onChanged(PagedList<Subjects> subjects) {
-                movieAdapter.submitList(subjects);
-            }
-        });
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                apiService.getTopMovie(0, 10);
-            }
-        });
+    protected int setLayoutRes() {
+        return R.layout.activity_main;
+    }
 
+    @Override
+    protected MainViewModel createdViewModel() {
+        return ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
+    }
+
+    @Override
+    protected void setView() {
+        setToolBar("测试");
+        final MovieAdapter movieAdapter = new MovieAdapter();
+        mViewDataBinding.list.setAdapter(movieAdapter);
+        mViewDataBinding.getModel().movieListing.getPagedList().observe(this, subjects -> movieAdapter.submitList(subjects));
     }
 }

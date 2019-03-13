@@ -1,28 +1,45 @@
 package com.jinkan.www.fastandroid.view.base;
 
+import com.jinkan.www.fastandroid.BR;
+import com.jinkan.www.fastandroid.view_model.BaseViewModel;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+
 /**
  * Created by Sampson on 2019/3/12.
  * FastAndroid
  * MVVM模式的View（Activity）基类
  */
-public class MVVMActivity extends BaseDaggerActivity {
+public abstract class MVVMActivity<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseDaggerActivity {
+    protected VM mViewModel;
+    protected VDB mViewDataBinding;
+
+    /**
+     * 绑定布局，获取mViewDataBinding和mViewModel。
+     */
     @Override
-    protected String setToolBarTitle() {
-        return null;
+    protected final void setRootView() {
+        mViewModel = createdViewModel();
+        if (mViewModel == null) {
+            throw new RuntimeException("ViewModel can't be null!");
+        } else {
+            mViewDataBinding = DataBindingUtil.setContentView(this, setLayoutRes());
+            mViewDataBinding.setLifecycleOwner(this);
+            mViewDataBinding.setVariable(BR.model, mViewModel);
+        }
     }
 
-    @Override
-    protected int setToolBarMenu() {
-        return 0;
-    }
+    protected abstract VM createdViewModel();
 
     @Override
-    protected int setLayoutRes() {
-        return 0;
+    protected final void initView() {
+        mViewModel.init();
+        setView();
     }
 
-    @Override
-    protected void initView() {
-
-    }
+    /**
+     * UI操作
+     */
+    protected abstract void setView();
 }

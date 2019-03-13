@@ -9,6 +9,7 @@ import com.jinkan.www.fastandroid.R;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.MenuRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import dagger.android.support.DaggerAppCompatActivity;
@@ -20,13 +21,19 @@ import dagger.android.support.DaggerAppCompatActivity;
  */
 public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     protected Object transferData;
-
+    private Toolbar toolbar;
+    private @MenuRes
+    int toolBarMenu = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(setLayoutRes());
+        setRootView();
         getTransferData();
-        setToolBar();
+        toolbar = findViewById(R.id.tool_bar);
+    }
+
+    protected void setRootView() {
+        setContentView(setLayoutRes());
     }
 
     @Override
@@ -37,7 +44,6 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        int toolBarMenu = setToolBarMenu();
         if (toolBarMenu != 0) {
             getMenuInflater().inflate(toolBarMenu, menu);//加载menu文件到布局
         }
@@ -55,18 +61,20 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
         }
     }
 
-    private void setToolBar() {
-        Toolbar toolbar = findViewById(R.id.tool_bar);
-        if (toolbar != null) {
-            if (setToolBarTitle() != null)
-                toolbar.setTitle(setToolBarTitle());
+    protected void setToolBar(@NonNull String toolBarTitle) {
+        if (toolbar == null) return;
+        toolbar.setTitle(toolBarTitle);
             setSupportActionBar(toolbar);
             toolbar.setNavigationOnClickListener(view -> onBackPressed());
-        }
+
+    }
+
+    protected void setToolBar(@NonNull String toolBarTitle, @MenuRes int toolBarMenuRes) {
+        setToolBar(toolBarTitle);
+        toolBarMenu = toolBarMenuRes;
     }
 
 
-    protected abstract String setToolBarTitle();
 
 
     /**
@@ -118,8 +126,8 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     }
 
 
-    protected abstract @MenuRes
-    int setToolBarMenu();
+//    protected abstract @MenuRes
+//    int setToolBarMenu();
 
     protected abstract @LayoutRes
     int setLayoutRes();
