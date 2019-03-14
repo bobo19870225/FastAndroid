@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.model.Subjects;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
@@ -14,8 +17,10 @@ import androidx.recyclerview.widget.DiffUtil;
  * Created by Sampson on 2019/3/11.
  * FastAndroid
  */
+@Singleton
 public class MovieAdapter extends PagedListAdapter<Subjects, MovieViewHolder> {
-    protected MovieAdapter() {
+    @Inject
+    public MovieAdapter() {
         super(DIFF_CALLBACK);
     }
 

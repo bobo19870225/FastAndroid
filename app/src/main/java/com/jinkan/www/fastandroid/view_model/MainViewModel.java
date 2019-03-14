@@ -13,9 +13,8 @@ import androidx.annotation.NonNull;
  * Created by Sampson on 2019/3/13.
  * FastAndroid
  */
-public class MainViewModel extends BaseViewModel {
+public class MainViewModel extends ListViewModel<Subjects> {
     public final SingleLiveEvent<Void> singleLiveEvent = new SingleLiveEvent<>();
-    public Listing<Subjects> movieListing;
     private ByPageKeyRepository byPageKeyRepository;
 
     public MainViewModel(@NonNull Application application, ByPageKeyRepository byPageKeyRepository) {
@@ -25,7 +24,13 @@ public class MainViewModel extends BaseViewModel {
 
     @Override
     public void init() {
-        movieListing = byPageKeyRepository.post("", 10);
+        super.init();
+
+    }
+
+    @Override
+    protected Listing<Subjects> getListing() {
+        return byPageKeyRepository.post("", 10);
     }
 
     public void test() {

@@ -2,22 +2,25 @@ package com.jinkan.www.fastandroid.view;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.ActivityMainBinding;
-import com.jinkan.www.fastandroid.view.base.MVVMActivity;
+import com.jinkan.www.fastandroid.view.base.MVVMListActivity;
 import com.jinkan.www.fastandroid.view_model.MainViewModel;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends MVVMActivity<MainViewModel, ActivityMainBinding> {
+public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBinding, MovieAdapter> {
     //    @Inject
 //    ApiService apiService;
 //    @Inject
 //    ByPageKeyRepository byPageKeyRepository;
     @Inject
     ViewModelFactory viewModelFactory;
-
+    @Inject
+    MovieAdapter movieAdapter;
 
 
     @Override
@@ -34,11 +37,21 @@ public class MainActivity extends MVVMActivity<MainViewModel, ActivityMainBindin
 
     @Override
     protected void setView() {
+        super.setView();
         setToolBar("测试");
-        final MovieAdapter movieAdapter = new MovieAdapter();
-        mViewDataBinding.list.setAdapter(movieAdapter);
-        mViewDataBinding.getModel().movieListing.getPagedList().observe(this, subjects -> movieAdapter.submitList(subjects));
         mViewModel.singleLiveEvent.observe(this, aVoid -> finish());
 
+    }
+
+    @NonNull
+    @Override
+    protected MovieAdapter setAdapter() {
+        return movieAdapter;
+    }
+
+    @NonNull
+    @Override
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.list;
     }
 }
