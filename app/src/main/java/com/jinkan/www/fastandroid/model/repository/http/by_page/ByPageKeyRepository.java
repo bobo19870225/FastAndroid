@@ -2,6 +2,7 @@ package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
 import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
+import com.jinkan.www.fastandroid.model.repository.ListingCallBack;
 import com.jinkan.www.fastandroid.model.repository.PostRepository;
 
 import javax.inject.Inject;
@@ -17,7 +18,7 @@ import androidx.paging.PagedList;
  * FastAndroid
  */
 @Singleton
-public class ByPageKeyRepository implements PostRepository {
+public class ByPageKeyRepository implements PostRepository, ListingCallBack {
 
     @Inject
     public ByPageKeyRepository() {
@@ -42,6 +43,20 @@ public class ByPageKeyRepository implements PostRepository {
 //        movieListing.networkState
 //        Listing<Subjects> movieListing = new Listing<>();
         movieListing.setPagedList(pagedListLiveData);
+        movieListing.setListingCallBack(this);
         return movieListing;
+    }
+
+    @Override
+    public void refresh() {
+        MoviePageKeyedDataSource moviePageKeyedDataSource = movieDataSourceFactory.sourceLiveData.getValue();
+        if (moviePageKeyedDataSource != null) {
+            moviePageKeyedDataSource.invalidate();
+        }
+    }
+
+    @Override
+    public void reTry() {
+
     }
 }

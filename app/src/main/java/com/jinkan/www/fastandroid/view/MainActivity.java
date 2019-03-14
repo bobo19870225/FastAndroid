@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBinding, MovieAdapter> {
     //    @Inject
@@ -47,6 +48,11 @@ public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBi
     @Override
     protected MovieAdapter setAdapter() {
         return movieAdapter;
+    }
+
+    @Override
+    protected SwipeRefreshLayout setSwipeRefreshLayout() {
+        return mViewDataBinding.swipeRefresh;
     }
 
     @NonNull

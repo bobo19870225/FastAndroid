@@ -16,7 +16,7 @@ import static com.jinkan.www.fastandroid.SystemParameter.baseUrl;
  * FastAndroid
  */
 @Module
-public class RepositoryModule {
+public abstract class RepositoryModule {
 
     @Singleton
     @Provides
@@ -28,4 +28,7 @@ public class RepositoryModule {
 //                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(ApiService.class);
     }
+
+//    @Binds
+//    abstract ListingCallBack provideListingCallBack(ByPageKeyRepository listingCallBack);
 }

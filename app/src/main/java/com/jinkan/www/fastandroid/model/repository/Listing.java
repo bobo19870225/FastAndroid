@@ -3,6 +3,7 @@ package com.jinkan.www.fastandroid.model.repository;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PagedList;
@@ -13,9 +14,21 @@ import androidx.paging.PagedList;
  */
 @Singleton
 public class Listing<T> {
+    @NonNull
+    public ListingCallBack getListingCallBack() {
+        return listingCallBack;
+    }
+
+    public void setListingCallBack(@NonNull ListingCallBack listingCallBack) {
+        this.listingCallBack = listingCallBack;
+    }
+
+
+    private ListingCallBack listingCallBack;
     @Inject
     public Listing() {
     }
+
 
     private LiveData<PagedList<T>> pagedList;
 
@@ -23,6 +36,9 @@ public class Listing<T> {
 
     public final MutableLiveData<NetWorkState> refreshState = new MutableLiveData<>();
 
+    public void refresh() {
+        listingCallBack.refresh();
+    }
 
     public LiveData<PagedList<T>> getPagedList() {
         return pagedList;
