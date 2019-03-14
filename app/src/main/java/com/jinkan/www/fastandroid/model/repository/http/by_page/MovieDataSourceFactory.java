@@ -1,6 +1,7 @@
 package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
 import com.jinkan.www.fastandroid.model.Subjects;
+import com.jinkan.www.fastandroid.model.repository.Listing;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

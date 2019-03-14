@@ -1,22 +1,27 @@
 package com.jinkan.www.fastandroid.model.repository;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PagedList;
 
 /**
  * Created by Sampson on 2019/3/4.
  * FastAndroid
  */
+@Singleton
 public class Listing<T> {
-
+    @Inject
+    public Listing() {
+    }
 
     private LiveData<PagedList<T>> pagedList;
 
-    private LiveData<NetWorkState> networkState;
+    public final MutableLiveData<NetWorkState> networkState = new MutableLiveData<>();
 
-    private LiveData<NetWorkState> refreshState;
-
-    private ListingCallBack listingCallBack;
+    public final MutableLiveData<NetWorkState> refreshState = new MutableLiveData<>();
 
 
     public LiveData<PagedList<T>> getPagedList() {
@@ -27,29 +32,4 @@ public class Listing<T> {
         this.pagedList = pagedList;
     }
 
-
-    public LiveData<NetWorkState> getNetworkState() {
-        return networkState;
-    }
-
-    public void setNetworkState(LiveData<NetWorkState> networkState) {
-        this.networkState = networkState;
-    }
-
-
-    public LiveData<NetWorkState> getRefreshState() {
-        return refreshState;
-    }
-
-    public void setRefreshState(LiveData<NetWorkState> refreshState) {
-        this.refreshState = refreshState;
-    }
-
-    public ListingCallBack getListingCallBack() {
-        return listingCallBack;
-    }
-
-    public void setListingCallBack(ListingCallBack listingCallBack) {
-        this.listingCallBack = listingCallBack;
-    }
 }

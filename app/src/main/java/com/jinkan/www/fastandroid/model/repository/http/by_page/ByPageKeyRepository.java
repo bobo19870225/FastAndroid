@@ -26,7 +26,8 @@ public class ByPageKeyRepository implements PostRepository {
 
     @Inject
     MovieDataSourceFactory movieDataSourceFactory;
-
+    @Inject
+    Listing<Subjects> movieListing;
     @Override
     @MainThread
     @SuppressWarnings("unchecked")
@@ -38,7 +39,8 @@ public class ByPageKeyRepository implements PostRepository {
                 .build();
 
         LiveData<PagedList<Subjects>> pagedListLiveData = new LivePagedListBuilder<>(movieDataSourceFactory, config).build();
-        Listing<Subjects> movieListing = new Listing<>();
+//        movieListing.networkState
+//        Listing<Subjects> movieListing = new Listing<>();
         movieListing.setPagedList(pagedListLiveData);
         return movieListing;
     }

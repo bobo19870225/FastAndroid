@@ -1,5 +1,7 @@
 package com.jinkan.www.fastandroid.view.base;
 
+import com.jinkan.www.fastandroid.model.repository.NetWorkState;
+import com.jinkan.www.fastandroid.model.repository.Status;
 import com.jinkan.www.fastandroid.view_model.ListViewModel;
 
 import androidx.annotation.CallSuper;
@@ -28,6 +30,16 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
         recyclerView.setAdapter(adapter);
         LiveData<PagedList> pagedList = mViewModel.listing.getPagedList();
         pagedList.observe(this, ts -> adapter.submitList(ts));
+        mViewModel.listing.networkState.observe(this, o -> {
+            Status status = ((NetWorkState) o).getStatus();
+            if (status == Status.RUNNING) {
+
+            } else if (status == Status.SUCCESS) {
+
+            } else if (status == Status.FAILED) {
+
+            }
+        });
     }
 
     @NonNull

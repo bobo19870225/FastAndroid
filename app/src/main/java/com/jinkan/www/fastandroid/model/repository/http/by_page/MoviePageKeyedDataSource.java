@@ -2,6 +2,8 @@ package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
 import com.jinkan.www.fastandroid.model.Movie;
 import com.jinkan.www.fastandroid.model.Subjects;
+import com.jinkan.www.fastandroid.model.repository.Listing;
+import com.jinkan.www.fastandroid.model.repository.NetWorkState;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 
 import java.io.IOException;
@@ -22,18 +24,24 @@ import retrofit2.Response;
 public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjects> {
     @Inject
     ApiService apiService;
-
+    @Inject
+    Listing<Subjects> listing;
     @Inject
     public MoviePageKeyedDataSource() {
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<String, Subjects> callback) {
+        listing.networkState.postValue(NetWorkState.loading());
         Call<Movie> topMovie = apiService.getTopMovie(0, params.requestedLoadSize);
         try {
             Response<Movie> listResponse = topMovie.execute();
-            callback.onResult(listResponse.body().getSubjects(), "0", "10");
+            if (listResponse.body() != null) {
+                callback.onResult(listResponse.body().getSubjects(), "0", "10");
+                listing.networkState.postValue(NetWorkState.loaded());
+            }
         } catch (IOException e) {
+            listing.networkState.postValue(NetWorkState.error(e.toString()));
             e.printStackTrace();
         }
     }
