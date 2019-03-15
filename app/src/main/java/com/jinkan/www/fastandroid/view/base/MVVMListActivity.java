@@ -33,7 +33,7 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
         pagedList = mViewModel.listing.getPagedList();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             mViewModel.listing.refreshState.setValue(swipeRefreshLayout.isRefreshing());
-            mViewModel.listing.refresh();
+            mViewModel.listing.refresh.invoke();
             swipeRefreshLayout.setRefreshing(false);
         });
 

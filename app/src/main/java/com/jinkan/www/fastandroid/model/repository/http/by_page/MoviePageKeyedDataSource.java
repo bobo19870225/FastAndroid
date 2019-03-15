@@ -3,7 +3,6 @@ package com.jinkan.www.fastandroid.model.repository.http.by_page;
 import com.jinkan.www.fastandroid.model.Movie;
 import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
-import com.jinkan.www.fastandroid.model.repository.ListingCallBack;
 import com.jinkan.www.fastandroid.model.repository.NetWorkState;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 
@@ -15,6 +14,8 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -23,14 +24,13 @@ import retrofit2.Response;
  * FastAndroid
  */
 
-public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjects> implements ListingCallBack {
+public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjects> {
 
-    private LoadInitialParams<String> params;
-    private LoadInitialCallback<String, Subjects> callback;
+
     private Executor NETWORK_IO = Executors.newFixedThreadPool(5);
     private Listing<Subjects> listing;
     private ApiService apiService;
-
+    private Function0 function;
     @Inject
     public MoviePageKeyedDataSource(Listing<Subjects> listing, ApiService apiService) {
         this.listing = listing;
@@ -39,17 +39,21 @@ public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjec
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<String, Subjects> callback) {
-        this.params = params;
-        this.callback = callback;
+
         listing.networkState.postValue(NetWorkState.loading());
         Call<Movie> topMovie = apiService.getTopMovie(0, params.requestedLoadSize);
         try {
             Response<Movie> listResponse = topMovie.execute();
             if (listResponse.body() != null) {
+                function = null;
                 callback.onResult(listResponse.body().getSubjects(), "0", "10");
                 listing.networkState.postValue(NetWorkState.loaded());
             }
         } catch (IOException e) {
+            function = () -> {
+                loadInitial(params, callback);
+                return Unit.INSTANCE;
+            };
             listing.networkState.postValue(NetWorkState.error(e.toString()));
             e.printStackTrace();
         }
@@ -80,19 +84,23 @@ public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjec
             }
 
         } catch (IOException e) {
+            function = () -> {
+                loadAfter(params, callback);
+                return Unit.INSTANCE;
+            };
             e.printStackTrace();
         }
     }
 
 
-    @Override
-    public void refresh() {
-        invalidate();
-    }
+    void reTry() {
+        Function0 function0 = function;
+        function = null;
+        if (function0 != null) {
+            NETWORK_IO.execute(function0::invoke);
 
-    @Override
-    public void reTry() {
-        NETWORK_IO.execute(() -> loadInitial(params, callback));
+        }
+
     }
 
 

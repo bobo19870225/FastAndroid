@@ -40,7 +40,7 @@ public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBi
     protected void setView() {
         super.setView();
         setToolBar("测试");
-        mViewModel.singleLiveEvent.observe(this, aVoid -> mViewModel.listing.reTry());
+        mViewModel.singleLiveEvent.observe(this, aVoid -> mViewModel.listing.reTry.invoke());
 
     }
 

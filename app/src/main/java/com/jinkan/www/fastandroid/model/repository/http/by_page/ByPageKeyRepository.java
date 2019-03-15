@@ -11,6 +11,7 @@ import androidx.annotation.MainThread;
 import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
+import kotlin.Unit;
 
 /**
  * Created by Sampson on 2019/3/4.
@@ -42,7 +43,20 @@ public class ByPageKeyRepository implements PostRepository {
 //        movieListing.networkState
 //        Listing<Subjects> movieListing = new Listing<>();
         movieListing.setPagedList(pagedListLiveData);
-//        movieListing.setListingCallBack(movieDataSourceFactory.moviePageKeyedDataSource);
+        movieListing.refresh = () -> {
+            MoviePageKeyedDataSource value = movieDataSourceFactory.sourceLiveData.getValue();
+            if (value != null) {
+                value.invalidate();
+            }
+            return Unit.INSTANCE;
+        };
+        movieListing.reTry = () -> {
+            MoviePageKeyedDataSource value = movieDataSourceFactory.sourceLiveData.getValue();
+            if (value != null) {
+                value.reTry();
+            }
+            return Unit.INSTANCE;
+        };
         return movieListing;
     }
 

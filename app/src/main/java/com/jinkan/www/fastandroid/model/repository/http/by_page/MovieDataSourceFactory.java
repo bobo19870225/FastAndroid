@@ -31,7 +31,6 @@ public class MovieDataSourceFactory extends DataSource.Factory<String, Subjects>
     public DataSource<String, Subjects> create() {
         MoviePageKeyedDataSource moviePageKeyedDataSource = new MoviePageKeyedDataSource(listing, apiService);
         sourceLiveData.postValue(moviePageKeyedDataSource);
-        listing.setListingCallBack(moviePageKeyedDataSource);
         return moviePageKeyedDataSource;
     }
 

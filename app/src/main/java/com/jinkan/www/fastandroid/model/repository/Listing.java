@@ -3,10 +3,10 @@ package com.jinkan.www.fastandroid.model.repository;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PagedList;
+import kotlin.jvm.functions.Function0;
 
 /**
  * Created by Sampson on 2019/3/4.
@@ -15,16 +15,10 @@ import androidx.paging.PagedList;
 @Singleton
 public class Listing<T> {
 
-    public void setListingCallBack(@NonNull ListingCallBack listingCallBack) {
-        this.listingCallBack = listingCallBack;
-    }
 
-
-    private ListingCallBack listingCallBack;
     @Inject
     public Listing() {
     }
-
 
     private LiveData<PagedList<T>> pagedList;
 
@@ -32,13 +26,7 @@ public class Listing<T> {
 
     public final MutableLiveData<NetWorkState> refreshState = new MutableLiveData<>();
 
-    public void refresh() {
-        listingCallBack.refresh();
-    }
 
-    public void reTry() {
-        listingCallBack.reTry();
-    }
     public LiveData<PagedList<T>> getPagedList() {
         return pagedList;
     }
@@ -47,4 +35,6 @@ public class Listing<T> {
         this.pagedList = pagedList;
     }
 
+    public Function0 refresh;
+    public Function0 reTry;
 }
