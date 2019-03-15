@@ -14,10 +14,6 @@ import androidx.paging.PagedList;
  */
 @Singleton
 public class Listing<T> {
-    @NonNull
-    public ListingCallBack getListingCallBack() {
-        return listingCallBack;
-    }
 
     public void setListingCallBack(@NonNull ListingCallBack listingCallBack) {
         this.listingCallBack = listingCallBack;
@@ -40,6 +36,9 @@ public class Listing<T> {
         listingCallBack.refresh();
     }
 
+    public void reTry() {
+        listingCallBack.reTry();
+    }
     public LiveData<PagedList<T>> getPagedList() {
         return pagedList;
     }

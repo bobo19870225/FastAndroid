@@ -2,6 +2,7 @@ package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
 import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
+import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -18,7 +19,9 @@ import androidx.paging.DataSource;
 public class MovieDataSourceFactory extends DataSource.Factory<String, Subjects> {
     public final MutableLiveData<MoviePageKeyedDataSource> sourceLiveData = new MutableLiveData<>();
     @Inject
-    MoviePageKeyedDataSource moviePageKeyedDataSource;
+    ApiService apiService;
+    @Inject
+    Listing<Subjects> listing;
     @Inject
     public MovieDataSourceFactory() {
     }
@@ -26,7 +29,11 @@ public class MovieDataSourceFactory extends DataSource.Factory<String, Subjects>
     @NonNull
     @Override
     public DataSource<String, Subjects> create() {
+        MoviePageKeyedDataSource moviePageKeyedDataSource = new MoviePageKeyedDataSource(listing, apiService);
         sourceLiveData.postValue(moviePageKeyedDataSource);
+        listing.setListingCallBack(moviePageKeyedDataSource);
         return moviePageKeyedDataSource;
     }
+
+
 }

@@ -3,13 +3,15 @@ package com.jinkan.www.fastandroid.model.repository.http.by_page;
 import com.jinkan.www.fastandroid.model.Movie;
 import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
+import com.jinkan.www.fastandroid.model.repository.ListingCallBack;
 import com.jinkan.www.fastandroid.model.repository.NetWorkState;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 
 import java.io.IOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
@@ -20,18 +22,25 @@ import retrofit2.Response;
  * Created by Sampson on 2019/2/25.
  * FastAndroid
  */
-@Singleton
-public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjects> {
+
+public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjects> implements ListingCallBack {
+
+    private LoadInitialParams<String> params;
+    private LoadInitialCallback<String, Subjects> callback;
+    private Executor NETWORK_IO = Executors.newFixedThreadPool(5);
+    private Listing<Subjects> listing;
+    private ApiService apiService;
+
     @Inject
-    ApiService apiService;
-    @Inject
-    Listing<Subjects> listing;
-    @Inject
-    public MoviePageKeyedDataSource() {
+    public MoviePageKeyedDataSource(Listing<Subjects> listing, ApiService apiService) {
+        this.listing = listing;
+        this.apiService = apiService;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<String, Subjects> callback) {
+        this.params = params;
+        this.callback = callback;
         listing.networkState.postValue(NetWorkState.loading());
         Call<Movie> topMovie = apiService.getTopMovie(0, params.requestedLoadSize);
         try {
@@ -73,6 +82,17 @@ public class MoviePageKeyedDataSource extends PageKeyedDataSource<String, Subjec
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void refresh() {
+        invalidate();
+    }
+
+    @Override
+    public void reTry() {
+        NETWORK_IO.execute(() -> loadInitial(params, callback));
     }
 
 
