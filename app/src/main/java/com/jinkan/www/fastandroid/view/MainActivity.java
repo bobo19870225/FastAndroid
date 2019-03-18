@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import kotlin.jvm.functions.Function0;
 
 public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBinding, MovieAdapter> {
     //    @Inject
@@ -20,8 +21,6 @@ public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBi
 //    ByPageKeyRepository byPageKeyRepository;
     @Inject
     ViewModelFactory viewModelFactory;
-    @Inject
-    MovieAdapter movieAdapter;
 
 
     @Override
@@ -46,8 +45,8 @@ public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBi
 
     @NonNull
     @Override
-    protected MovieAdapter setAdapter() {
-        return movieAdapter;
+    protected MovieAdapter setAdapter(Function0 reTry) {
+        return new MovieAdapter(reTry);
     }
 
     @Override

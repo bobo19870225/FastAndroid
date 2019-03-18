@@ -12,6 +12,7 @@ import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import kotlin.jvm.functions.Function0;
 
 /**
  * Created by Sampson on 2019/3/14.
@@ -28,13 +29,14 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
     @SuppressWarnings("unchecked")
     protected void setView() {
         recyclerView = setRecyclerView();
-        adapter = setAdapter();
+
         swipeRefreshLayout = setSwipeRefreshLayout();
         pagedList = mViewModel.listing.getPagedList();
+        adapter = setAdapter(mViewModel.listing.reTry);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             mViewModel.listing.refreshState.setValue(swipeRefreshLayout.isRefreshing());
             mViewModel.listing.refresh.invoke();
-            swipeRefreshLayout.setRefreshing(false);
+//            swipeRefreshLayout.setRefreshing(false);
         });
 
         recyclerView.setAdapter(adapter);
@@ -42,9 +44,9 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
         mViewModel.listing.networkState.observe(this, o -> {
             Status status = ((NetWorkState) o).getStatus();
             if (status == Status.RUNNING) {
-
+                swipeRefreshLayout.setRefreshing(true);
             } else if (status == Status.SUCCESS) {
-
+                swipeRefreshLayout.setRefreshing(false);
             } else if (status == Status.FAILED) {
 
             }
@@ -56,7 +58,7 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
     protected abstract RecyclerView setRecyclerView();
 
     @NonNull
-    protected abstract A setAdapter();
+    protected abstract A setAdapter(Function0 reTry);
 
     protected abstract SwipeRefreshLayout setSwipeRefreshLayout();
 
