@@ -1,6 +1,8 @@
 package com.jinkan.www.fastandroid.model.repository;
 
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.LiveDataCallAdapterFactory;
+import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.LiveDataResponseBodyConverterFactory;
 
 import javax.inject.Singleton;
 
@@ -24,11 +26,9 @@ public abstract class RepositoryModule {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())//请求的结果转为实体类
-                //适配RxJava2.0,RxJava1.x则为RxJavaCallAdapterFactory.create()
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(LiveDataResponseBodyConverterFactory.create())
+                .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
                 .build().create(ApiService.class);
     }
 
-//    @Binds
-//    abstract ListingCallBack provideListingCallBack(ByPageKeyRepository listingCallBack);
 }

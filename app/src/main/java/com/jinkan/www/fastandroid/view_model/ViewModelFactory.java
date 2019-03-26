@@ -18,6 +18,7 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
+import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 import com.jinkan.www.fastandroid.model.repository.http.by_page.ByPageKeyRepository;
 
 import javax.inject.Inject;
@@ -44,7 +45,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     @Inject
     ByPageKeyRepository byPageKeyRepository;
-
+    @Inject
+    ApiService apiService;
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
@@ -52,11 +54,11 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
             //noinspection unchecked
             return (T) new MainViewModel(application, byPageKeyRepository);
+        } else if (modelClass.isAssignableFrom(LoginViewModel.class)) {
+            //noinspection unchecked
+            return (T) new LoginViewModel(application, apiService);
         }
-//        else if (modelClass.isAssignableFrom(TaskDetailViewModel.class)) {
-//            //noinspection unchecked
-//            return (T) new TaskDetailViewModel(mApplication, mTasksRepository);
-//        } else if (modelClass.isAssignableFrom(AddEditTaskViewModel.class)) {
+// else if (modelClass.isAssignableFrom(AddEditTaskViewModel.class)) {
 //            //noinspection unchecked
 //            return (T) new AddEditTaskViewModel(mApplication, mTasksRepository);
 //        } else if (modelClass.isAssignableFrom(TasksViewModel.class)) {
