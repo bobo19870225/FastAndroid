@@ -25,9 +25,9 @@ public abstract class RepositoryModule {
     static ApiService provideApiService() {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())//请求的结果转为实体类
-                .addConverterFactory(LiveDataResponseBodyConverterFactory.create())
                 .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
+                .addConverterFactory(LiveDataResponseBodyConverterFactory.create())//有顺序的
+                .addConverterFactory(GsonConverterFactory.create())//请求的结果转为实体类
                 .build().create(ApiService.class);
     }
 
