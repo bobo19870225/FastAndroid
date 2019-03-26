@@ -42,13 +42,14 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
         recyclerView.setAdapter(adapter);
         pagedList.observe(this, ts -> adapter.submitList(ts));
         mViewModel.listing.networkState.observe(this, o -> {
+
             Status status = ((NetWorkState) o).getStatus();
             if (status == Status.RUNNING) {
                 swipeRefreshLayout.setRefreshing(true);
             } else if (status == Status.SUCCESS) {
                 swipeRefreshLayout.setRefreshing(false);
             } else if (status == Status.FAILED) {
-
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

@@ -12,8 +12,7 @@ import dagger.Module;
  * we simply need to expose our Application as Context.
  * One of the advantages of Dagger.Android is that your
  * Application & Activities are provided into your graph for you.
- * {@link
- * AppComponent}.
+ * {@link AppComponent}.
  */
 @Module
 public abstract class ApplicationModule {
