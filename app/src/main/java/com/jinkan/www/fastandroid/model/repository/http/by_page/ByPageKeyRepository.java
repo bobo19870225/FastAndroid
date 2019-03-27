@@ -40,8 +40,6 @@ public class ByPageKeyRepository implements PostRepository {
                 .build();
 
         LiveData<PagedList<Subjects>> pagedListLiveData = new LivePagedListBuilder<>(movieDataSourceFactory, config).build();
-//        movieListing.networkState
-//        Listing<Subjects> movieListing = new Listing<>();
         movieListing.setPagedList(pagedListLiveData);
         movieListing.refresh = () -> {
             MoviePageKeyedDataSource value = movieDataSourceFactory.sourceLiveData.getValue();

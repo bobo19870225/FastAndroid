@@ -220,6 +220,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                if (resource != null) {
                    List<User> users = resource.getContentList();
                    showProgress(false);
+                   skipTo(MainActivity.class,null);
                }
            }
         });

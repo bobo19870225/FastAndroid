@@ -15,10 +15,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import kotlin.jvm.functions.Function0;
 
 public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBinding, MovieAdapter> {
-    //    @Inject
-//    ApiService apiService;
-//    @Inject
-//    ByPageKeyRepository byPageKeyRepository;
     @Inject
     ViewModelFactory viewModelFactory;
 
