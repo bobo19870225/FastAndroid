@@ -21,9 +21,9 @@ public abstract class ListViewModel<T> extends BaseViewModel {
 
     @Override
     @CallSuper
-    public void init() {
-        listing = getListing();
+    public void init(Object data) {
+        listing = getListing(data);
     }
 
-    protected abstract Listing<T> getListing();
+    protected abstract Listing<T> getListing(Object data);
 }

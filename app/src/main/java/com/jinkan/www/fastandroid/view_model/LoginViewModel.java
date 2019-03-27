@@ -24,7 +24,7 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     @Override
-    public void init() {
+    public void init(Object data) {
 
     }
 

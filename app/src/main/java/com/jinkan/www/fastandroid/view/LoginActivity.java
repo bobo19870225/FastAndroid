@@ -218,9 +218,12 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
            if(messageResource.isSuccess()){
                Message<User> resource = messageResource.getResource();
                if (resource != null) {
-                   List<User> users = resource.getContentList();
                    showProgress(false);
-                   skipTo(MainActivity.class,null);
+                   List<User> users = resource.getContentList();
+                   if (users != null && !users.isEmpty()) {
+                       User user = users.get(0);
+                       skipTo(MainActivity.class, user.getToken());
+                   }
                }
            }
         });

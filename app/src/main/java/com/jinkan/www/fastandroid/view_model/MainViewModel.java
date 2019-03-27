@@ -23,13 +23,13 @@ public class MainViewModel extends ListViewModel<Goods> {
     }
 
     @Override
-    public void init() {
-        super.init();
+    public void init(Object data) {
+        super.init(data);
 
     }
 
     @Override
-    protected Listing<Goods> getListing() {
+    protected Listing<Goods> getListing(Object data) {
         return byPageKeyRepository.post("", 10);
     }
 

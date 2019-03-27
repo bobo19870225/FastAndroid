@@ -34,7 +34,7 @@ public abstract class MVVMActivity<VM extends BaseViewModel, VDB extends ViewDat
 
     @Override
     protected final void initView() {
-        mViewModel.init();
+        mViewModel.init(transferData);
         setView();
     }
 

@@ -23,5 +23,5 @@ public abstract class BaseViewModel extends AndroidViewModel {
     /**
      * 开始时调用
      */
-    public abstract void init();
+    public abstract void init(Object data);
 }
