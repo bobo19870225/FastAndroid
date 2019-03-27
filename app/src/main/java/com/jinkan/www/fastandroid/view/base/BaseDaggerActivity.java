@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
+import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.jinkan.www.fastandroid.R;
 
 import androidx.annotation.LayoutRes;
@@ -24,22 +26,22 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     private Toolbar toolbar;
     private @MenuRes
     int toolBarMenu = 0;
+    private View mRootView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRootView();
+        mRootView = setRootView();
         getTransferData();
         toolbar = findViewById(R.id.tool_bar);
-    }
-
-    protected void setRootView() {
-        setContentView(setLayoutRes());
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         initView();
+    }
+
+    @NonNull
+    protected View setRootView() {
+        View inflate = getLayoutInflater().inflate(setLayoutRes(), null, false);
+        setContentView(setLayoutRes());
+        return inflate;
     }
 
     @Override
@@ -75,8 +77,9 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     }
 
 
-
-
+    public void toast(String msg) {
+        Snackbar.make(mRootView, msg, Snackbar.LENGTH_LONG).show();
+    }
     /**
      * 跳转
      *
@@ -84,10 +87,10 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
      * @param mClass 类名
      */
     public void skipTo(Class<?> mClass, Object data) {
-        if (mClass.isAssignableFrom(BaseActivity.class)) {
+//        if (mClass.isAssignableFrom(BaseDaggerActivity.class)) {
             Intent intent = new Intent();
             skipTo(mClass, data, intent);
-        }
+//        }
     }
 
     /**

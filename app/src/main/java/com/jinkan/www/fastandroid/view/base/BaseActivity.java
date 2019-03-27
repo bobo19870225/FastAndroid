@@ -75,10 +75,10 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param mClass 类名
      */
     public void skipTo(Class<?> mClass, Object data) {
-        if (mClass.isAssignableFrom(BaseActivity.class)) {
+//        if (mClass.isAssignableFrom(BaseActivity.class)) {
             Intent intent = new Intent();
             skipTo(mClass, data, intent);
-        }
+//        }
     }
 
     /**

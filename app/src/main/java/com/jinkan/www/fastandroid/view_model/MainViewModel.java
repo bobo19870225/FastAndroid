@@ -30,7 +30,7 @@ public class MainViewModel extends ListViewModel<Goods> {
 
     @Override
     protected Listing<Goods> getListing(Object data) {
-        return byPageKeyRepository.post("", 10);
+        return byPageKeyRepository.post((String) data, 10);
     }
 
     public void test() {

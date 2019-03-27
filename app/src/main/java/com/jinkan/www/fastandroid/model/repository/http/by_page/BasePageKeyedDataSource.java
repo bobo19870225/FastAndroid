@@ -68,9 +68,8 @@ public abstract class BasePageKeyedDataSource<Key, Value, T> extends PageKeyedDa
         }
     }
 
-
+    @NonNull
     protected abstract Call<T> setLoadInitialCall(ApiService apiService, LoadInitialParams<Key> params);
-
     protected abstract void setLoadInitialCallback(T body, LoadInitialCallback<Key, Value> callback);
 
     @Override
@@ -102,7 +101,7 @@ public abstract class BasePageKeyedDataSource<Key, Value, T> extends PageKeyedDa
         }
     }
 
+    @NonNull
     protected abstract Call<T> setLoadAfterCall(ApiService apiService, LoadParams<Key> params);
-
     protected abstract void setLoadCallback(T body, LoadParams<Key> params, LoadCallback<Key, Value> callback);
 }

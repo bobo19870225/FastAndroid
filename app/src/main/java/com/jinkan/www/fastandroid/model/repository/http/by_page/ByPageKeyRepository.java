@@ -3,9 +3,7 @@ package com.jinkan.www.fastandroid.model.repository.http.by_page;
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.PostRepository;
 import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 
 import androidx.annotation.MainThread;
 import androidx.lifecycle.LiveData;
@@ -17,18 +15,17 @@ import kotlin.Unit;
  * Created by Sampson on 2019/3/4.
  * FastAndroid
  */
-@Singleton
+
 public class ByPageKeyRepository implements PostRepository<Goods> {
 
-    @Inject
-    public ByPageKeyRepository() {
+    private Listing<Goods> goodsListing;
+    private ApiService apiService;
+
+    public ByPageKeyRepository(ApiService apiService, Listing<Goods> goodsListing) {
+        this.apiService = apiService;
+        this.goodsListing = goodsListing;
     }
 
-
-    @Inject
-    MovieDataSourceFactory movieDataSourceFactory;
-    @Inject
-    Listing<Goods> movieListing;
     @Override
     @MainThread
     @SuppressWarnings("unchecked")
@@ -38,24 +35,25 @@ public class ByPageKeyRepository implements PostRepository<Goods> {
                 .setEnablePlaceholders(false)     //配置是否启动PlaceHolders
                 .setInitialLoadSizeHint(10)              //初始化加载的数量
                 .build();
+        GoodsDataSourceFactory goodsDataSourceFactory = new GoodsDataSourceFactory(apiService, goodsListing, sub);
+        LiveData<PagedList<Goods>> pagedListLiveData = new LivePagedListBuilder<>(goodsDataSourceFactory, config).build();
+        goodsListing.setPagedList(pagedListLiveData);
 
-        LiveData<PagedList<Goods>> pagedListLiveData = new LivePagedListBuilder<>(movieDataSourceFactory, config).build();
-        movieListing.setPagedList(pagedListLiveData);
-        movieListing.refresh = () -> {
-            GoodsPageKeyedDataSource value = movieDataSourceFactory.sourceLiveData.getValue();
+        goodsListing.refresh = () -> {
+            GoodsPageKeyedDataSource value = (GoodsPageKeyedDataSource) goodsDataSourceFactory.dataSourceMutableLiveData.getValue();
             if (value != null) {
                 value.invalidate();
             }
             return Unit.INSTANCE;
         };
-        movieListing.reTry = () -> {
-            GoodsPageKeyedDataSource value = movieDataSourceFactory.sourceLiveData.getValue();
+        goodsListing.reTry = () -> {
+            GoodsPageKeyedDataSource value = (GoodsPageKeyedDataSource) goodsDataSourceFactory.dataSourceMutableLiveData.getValue();
             if (value != null) {
                 value.reTry();
             }
             return Unit.INSTANCE;
         };
-        return movieListing;
+        return goodsListing;
     }
 
 

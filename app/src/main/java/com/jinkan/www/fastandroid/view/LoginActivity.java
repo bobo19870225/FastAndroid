@@ -215,17 +215,28 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mViewModel.ldLogin.observe(this, messageResource -> {
-           if(messageResource.isSuccess()){
-               Message<User> resource = messageResource.getResource();
-               if (resource != null) {
-                   showProgress(false);
-                   List<User> users = resource.getContentList();
-                   if (users != null && !users.isEmpty()) {
-                       User user = users.get(0);
-                       skipTo(MainActivity.class, user.getToken());
-                   }
-               }
-           }
+//            mViewModel.ldLogin.removeObservers(this);
+            if (messageResource.isSuccess()) {
+                Message<User> resource = messageResource.getResource();
+                if (resource != null) {
+                    showProgress(false);
+                    if (resource.getCode() == 0) {
+                        User user = resource.getContent();
+                        if (user != null) {
+                            skipTo(MainActivity.class, user.getToken(), true);
+                            finish();
+                        }
+                    } else {
+                        toast(resource.getMsg());
+                    }
+
+                }
+            } else {
+                Throwable error = messageResource.getError();
+                if (error != null) {
+                    toast(error.toString());
+                }
+            }
         });
     }
 }
