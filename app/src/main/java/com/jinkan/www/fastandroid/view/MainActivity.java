@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import kotlin.jvm.functions.Function0;
 
-public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBinding, MovieAdapter> {
+public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBinding, GoodsAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
 
@@ -41,8 +41,8 @@ public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBi
 
     @NonNull
     @Override
-    protected MovieAdapter setAdapter(Function0 reTry) {
-        return new MovieAdapter(reTry);
+    protected GoodsAdapter setAdapter(Function0 reTry) {
+        return new GoodsAdapter(reTry);
     }
 
     @Override

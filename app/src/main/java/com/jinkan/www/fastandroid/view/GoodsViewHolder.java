@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.model.Subjects;
+import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,22 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by Sampson on 2019/3/11.
  * FastAndroid
  */
-public class MovieViewHolder extends RecyclerView.ViewHolder {
+public class GoodsViewHolder extends RecyclerView.ViewHolder {
     private TextView title;
 
-    private MovieViewHolder(@NonNull View itemView) {
+    private GoodsViewHolder(@NonNull View itemView) {
         super(itemView);
         title = itemView.findViewById(R.id.title);
     }
 
-    public static MovieViewHolder create(ViewGroup parent) {
+    public static GoodsViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_item, parent, false);
-        return new MovieViewHolder(view);
+        return new GoodsViewHolder(view);
     }
 
-    void bind(Subjects movie) {
-        title.setText(movie.getTitle());
+    void bind(Goods goods) {
+        title.setText(goods.getGoodsName());
     }
 
 }

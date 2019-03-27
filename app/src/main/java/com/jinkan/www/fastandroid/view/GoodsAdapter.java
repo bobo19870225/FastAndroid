@@ -3,8 +3,8 @@ package com.jinkan.www.fastandroid.view;
 import android.view.ViewGroup;
 
 import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.NetWorkState;
+import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
@@ -16,13 +16,13 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019/3/11.
  * FastAndroid
  */
-public class MovieAdapter extends PagedListAdapter<Subjects, RecyclerView.ViewHolder> {
+public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolder> {
 
     private Function0 retryCallback;
     private NetWorkState netWorkState;
 
 
-    public MovieAdapter(Function0 retryCallback) {
+    public GoodsAdapter(Function0 retryCallback) {
         super(DIFF_CALLBACK);
         this.retryCallback = retryCallback;
     }
@@ -34,7 +34,7 @@ public class MovieAdapter extends PagedListAdapter<Subjects, RecyclerView.ViewHo
 
         switch (viewType) {
             case R.layout.movie_item:
-                return MovieViewHolder.create(parent);
+                return GoodsViewHolder.create(parent);
             case R.layout.network_state_item:
                 return NetworkStateItemViewHolder.create(parent, retryCallback);
             default:
@@ -46,7 +46,7 @@ public class MovieAdapter extends PagedListAdapter<Subjects, RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case R.layout.movie_item:
-                ((MovieViewHolder) holder).bind(getItem(position));
+                ((GoodsViewHolder) holder).bind(getItem(position));
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindTo(netWorkState);
@@ -96,14 +96,14 @@ public class MovieAdapter extends PagedListAdapter<Subjects, RecyclerView.ViewHo
     /**
      * 后台线程DiffUtil类回调： 计算新的List和原来的List的差距
      */
-    public static final DiffUtil.ItemCallback<Subjects> DIFF_CALLBACK = new DiffUtil.ItemCallback<Subjects>() {
+    public static final DiffUtil.ItemCallback<Goods> DIFF_CALLBACK = new DiffUtil.ItemCallback<Goods>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Subjects oldItem, @NonNull Subjects newItem) {
-            return oldItem.getTitle().equals(newItem.getTitle());
+        public boolean areItemsTheSame(@NonNull Goods oldItem, @NonNull Goods newItem) {
+            return oldItem.getGoodsName().equals(newItem.getGoodsName());
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Subjects oldItem, @NonNull Subjects newItem) {
+        public boolean areContentsTheSame(@NonNull Goods oldItem, @NonNull Goods newItem) {
             return oldItem.equals(newItem);
         }
     };
