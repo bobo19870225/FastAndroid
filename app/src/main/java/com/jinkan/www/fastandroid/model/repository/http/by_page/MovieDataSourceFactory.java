@@ -1,7 +1,7 @@
 package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
-import com.jinkan.www.fastandroid.model.Subjects;
 import com.jinkan.www.fastandroid.model.repository.Listing;
+import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 
 import javax.inject.Inject;
@@ -16,22 +16,22 @@ import androidx.paging.DataSource;
  * FastAndroid
  */
 @Singleton
-public class MovieDataSourceFactory extends DataSource.Factory<String, Subjects> {
-    public final MutableLiveData<MoviePageKeyedDataSource> sourceLiveData = new MutableLiveData<>();
+public class MovieDataSourceFactory extends DataSource.Factory<Integer, Goods> {
+    public final MutableLiveData<GoodsPageKeyedDataSource> sourceLiveData = new MutableLiveData<>();
     @Inject
     ApiService apiService;
     @Inject
-    Listing<Subjects> listing;
+    Listing<Goods> listing;
     @Inject
     public MovieDataSourceFactory() {
     }
 
     @NonNull
     @Override
-    public DataSource<String, Subjects> create() {
-        MoviePageKeyedDataSource moviePageKeyedDataSource = new MoviePageKeyedDataSource(listing, apiService);
-        sourceLiveData.postValue(moviePageKeyedDataSource);
-        return moviePageKeyedDataSource;
+    public DataSource<Integer, Goods> create() {
+        GoodsPageKeyedDataSource goodsPageKeyedDataSource = new GoodsPageKeyedDataSource(listing, apiService);
+        sourceLiveData.postValue(goodsPageKeyedDataSource);
+        return goodsPageKeyedDataSource;
     }
 
 
