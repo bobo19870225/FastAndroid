@@ -1,58 +1,47 @@
 package com.jinkan.www.fastandroid.view;
 
-import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.databinding.ActivityMainBinding;
-import com.jinkan.www.fastandroid.view.base.MVVMListActivity;
-import com.jinkan.www.fastandroid.view_model.MainViewModel;
-import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TextView;
 
-import javax.inject.Inject;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jinkan.www.fastandroid.R;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import kotlin.jvm.functions.Function0;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends MVVMListActivity<MainViewModel, ActivityMainBinding, GoodsAdapter> {
-    @Inject
-    ViewModelFactory viewModelFactory;
+public class MainActivity extends AppCompatActivity {
 
+    private TextView mTextMessage;
 
-    @Override
-    protected int setLayoutRes() {
-        return R.layout.activity_main;
-    }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-    @Override
-    protected MainViewModel createdViewModel() {
-        return ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
-        //直接new不会调用onCleared()!
-//        return new MainViewModel(getApplication(), byPageKeyRepository);
-    }
-
-    @Override
-    protected void setView() {
-        super.setView();
-        setToolBar("测试");
-        mViewModel.singleLiveEvent.observe(this, aVoid -> mViewModel.listing.reTry.invoke());
-
-    }
-
-    @NonNull
-    @Override
-    protected GoodsAdapter setAdapter(Function0 reTry) {
-        return new GoodsAdapter(reTry);
-    }
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    mTextMessage.setText(R.string.title_home);
+                    return true;
+                case R.id.navigation_dashboard:
+                    mTextMessage.setText(R.string.title_dashboard);
+                    return true;
+                case R.id.navigation_notifications:
+                    mTextMessage.setText(R.string.title_notifications);
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
-    protected SwipeRefreshLayout setSwipeRefreshLayout() {
-        return mViewDataBinding.swipeRefresh;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    @NonNull
-    @Override
-    protected RecyclerView setRecyclerView() {
-        return mViewDataBinding.list;
-    }
 }
