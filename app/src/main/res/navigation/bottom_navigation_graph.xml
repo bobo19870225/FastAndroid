@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/botton_navigation_graph"
+    app:startDestination="@id/oneFragment">
+
+    <fragment
+        android:id="@+id/oneFragment"
+        android:name="com.jinkan.www.fastandroid.OneFragment"
+        android:label="fragment_one"
+        tools:layout="@layout/fragment_one" />
+    <fragment
+        android:id="@+id/towFragment"
+        android:name="com.jinkan.www.fastandroid.TowFragment"
+        android:label="fragment_tow"
+        tools:layout="@layout/fragment_tow" />
+    <fragment
+        android:id="@+id/treeFragment"
+        android:name="com.jinkan.www.fastandroid.TreeFragment"
+        android:label="fragment_tree"
+        tools:layout="@layout/fragment_tree" />
+</navigation>

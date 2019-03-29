@@ -74,4 +74,7 @@ dependencies {
     androidTestImplementation deps.support.design
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.navigation:navigation-fragment:2.1.0-alpha01"
+    // For Kotlin use navigation-fragment-ktx
+    implementation "androidx.navigation:navigation-ui:2.1.0-alpha01" // For Kotlin use
 }
