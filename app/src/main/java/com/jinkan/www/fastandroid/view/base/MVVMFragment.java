@@ -37,11 +37,6 @@ public abstract class MVVMFragment<VM extends BaseViewModel, VDB extends ViewDat
 
 
     @Override
-    protected void initUI() {
-
-    }
-
-    @Override
     protected final void initData(Object transferData) {
         mViewModel.init(transferData);
     }
