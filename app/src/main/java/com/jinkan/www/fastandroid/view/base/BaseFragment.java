@@ -65,8 +65,6 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
         rootView = setRootView(inflater, container, setLayoutRes());
-
-
         return rootView;
     }
 
@@ -88,7 +86,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract String setToolBarTitle();
 
-    private View setRootView(LayoutInflater inflater, ViewGroup container, int setLayoutRes) {
+    protected View setRootView(LayoutInflater inflater, ViewGroup container, int setLayoutRes) {
         return inflater.inflate(setLayoutRes, container, false);
     }
 
