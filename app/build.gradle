@@ -11,6 +11,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                includeCompileClasspath = true
+//            }
+//        }
     }
     dataBinding {
         enabled = true
@@ -62,6 +67,9 @@ dependencies {
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
     implementation deps.okhttp_logging_interceptor
+    //Glide
+    implementation deps.glide.runtime
+    implementation deps.glide.compiler
     // Espresso UI Testing
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.espresso.contrib
@@ -77,4 +85,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:2.1.0-alpha01"
     // For Kotlin use navigation-fragment-ktx
     implementation "androidx.navigation:navigation-ui:2.1.0-alpha01" // For Kotlin use
+
+    implementation 'com.youth.banner:banner:1.4.10'  //最新版本
+
 }

@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
+import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.jinkan.www.fastandroid.R;
 
 import androidx.annotation.LayoutRes;
@@ -19,10 +21,11 @@ import androidx.appcompat.widget.Toolbar;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     protected Object transferData;
-
+    private View mRootView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mRootView = getLayoutInflater().inflate(setLayoutRes(), null, false);
         setContentView(setLayoutRes());
         getTransferData();
         setToolBar();
@@ -116,6 +119,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void toast(String msg) {
+        Snackbar.make(mRootView, msg, Snackbar.LENGTH_LONG).show();
+    }
 
     protected abstract @MenuRes
     int setToolBarMenu();
