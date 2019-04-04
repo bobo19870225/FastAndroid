@@ -19,7 +19,8 @@ package com.jinkan.www.fastandroid.view_model;
 import android.app.Application;
 
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
-import com.jinkan.www.fastandroid.model.repository.http.by_page.ByPageKeyRepository;
+import com.jinkan.www.fastandroid.model.repository.http.by_page.GoodsPageKeyRepository;
+import com.jinkan.www.fastandroid.view.GoodsFragment;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -44,7 +45,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     }
 
     @Inject
-    ByPageKeyRepository byPageKeyRepository;
+    GoodsPageKeyRepository goodsPageKeyRepository;
     @Inject
     ApiService apiService;
     @NonNull
@@ -53,15 +54,15 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
             //noinspection unchecked
-            return (T) new MainViewModel(application, byPageKeyRepository);
+            return (T) new MainViewModel(application, goodsPageKeyRepository);
         } else if (modelClass.isAssignableFrom(LoginViewModel.class)) {
             //noinspection unchecked
             return (T) new LoginViewModel(application, apiService);
+        } else if (modelClass.isAssignableFrom(GoodsFragment.class)) {
+            //noinspection unchecked
+            return (T) new GoodsFragmentVM(application, goodsPageKeyRepository);
         }
-// else if (modelClass.isAssignableFrom(AddEditTaskViewModel.class)) {
-//            //noinspection unchecked
-//            return (T) new AddEditTaskViewModel(mApplication, mTasksRepository);
-//        } else if (modelClass.isAssignableFrom(TasksViewModel.class)) {
+// else if (modelClass.isAssignableFrom(TasksViewModel.class)) {
 //            //noinspection unchecked
 //            return (T) new TasksViewModel(mApplication, mTasksRepository);
 //        }

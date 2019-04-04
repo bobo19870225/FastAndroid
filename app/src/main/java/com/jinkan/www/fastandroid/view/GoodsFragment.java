@@ -5,12 +5,14 @@ import com.jinkan.www.fastandroid.databinding.FragmentGoodsBinding;
 import com.jinkan.www.fastandroid.utils.GlideImageLoader;
 import com.jinkan.www.fastandroid.view.base.MVVMListFragment;
 import com.jinkan.www.fastandroid.view_model.GoodsFragmentVM;
+import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import kotlin.jvm.functions.Function0;
@@ -21,7 +23,8 @@ import kotlin.jvm.functions.Function0;
  *
  */
 public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoodsBinding, GoodsAdapter> {
-
+    @Inject
+    ViewModelFactory viewModelFactory;
     @Inject
     public GoodsFragment() {
         // Required empty public constructor
@@ -80,7 +83,7 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
 
     @Override
     protected GoodsFragmentVM createdViewModel() {
-        return null;
+        return ViewModelProviders.of(this, viewModelFactory).get(GoodsFragmentVM.class);
     }
 
 

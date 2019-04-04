@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
+import com.jinkan.www.fastandroid.model.repository.http.by_page.GoodsPageKeyRepository;
 
 import androidx.annotation.NonNull;
 
@@ -12,12 +13,15 @@ import androidx.annotation.NonNull;
  * FastAndroid
  */
 public class GoodsFragmentVM extends ListViewModel<Goods> {
-    public GoodsFragmentVM(@NonNull Application application) {
+    private GoodsPageKeyRepository goodsPageKeyRepository;
+
+    public GoodsFragmentVM(@NonNull Application application, GoodsPageKeyRepository goodsPageKeyRepository) {
         super(application);
+        this.goodsPageKeyRepository = goodsPageKeyRepository;
     }
 
     @Override
     protected Listing<Goods> getListing(Object data) {
-        return null;
+        return goodsPageKeyRepository.post((String) data, 10);
     }
 }

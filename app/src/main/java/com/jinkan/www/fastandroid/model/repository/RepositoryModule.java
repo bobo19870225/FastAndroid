@@ -2,7 +2,7 @@ package com.jinkan.www.fastandroid.model.repository;
 
 import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
-import com.jinkan.www.fastandroid.model.repository.http.by_page.ByPageKeyRepository;
+import com.jinkan.www.fastandroid.model.repository.http.by_page.GoodsPageKeyRepository;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.LiveDataCallAdapterFactory;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.LiveDataResponseBodyConverterFactory;
 
@@ -36,7 +36,7 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    static ByPageKeyRepository byPageKeyRepository(ApiService apiService, Listing<Goods> listing) {
-        return new ByPageKeyRepository(apiService, listing);
+    static GoodsPageKeyRepository byPageKeyRepository(ApiService apiService, Listing<Goods> listing) {
+        return new GoodsPageKeyRepository(apiService, listing);
     }
 }

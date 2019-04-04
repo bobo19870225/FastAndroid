@@ -5,7 +5,7 @@ import android.app.Application;
 import com.jinkan.www.fastandroid.SingleLiveEvent;
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
-import com.jinkan.www.fastandroid.model.repository.http.by_page.ByPageKeyRepository;
+import com.jinkan.www.fastandroid.model.repository.http.by_page.GoodsPageKeyRepository;
 
 import androidx.annotation.NonNull;
 
@@ -15,11 +15,11 @@ import androidx.annotation.NonNull;
  */
 public class MainViewModel extends ListViewModel<Goods> {
     public final SingleLiveEvent<Void> singleLiveEvent = new SingleLiveEvent<>();
-    private ByPageKeyRepository byPageKeyRepository;
+    private GoodsPageKeyRepository goodsPageKeyRepository;
 
-    public MainViewModel(@NonNull Application application, ByPageKeyRepository byPageKeyRepository) {
+    public MainViewModel(@NonNull Application application, GoodsPageKeyRepository goodsPageKeyRepository) {
         super(application);
-        this.byPageKeyRepository = byPageKeyRepository;
+        this.goodsPageKeyRepository = goodsPageKeyRepository;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class MainViewModel extends ListViewModel<Goods> {
 
     @Override
     protected Listing<Goods> getListing(Object data) {
-        return byPageKeyRepository.post((String) data, 10);
+        return goodsPageKeyRepository.post((String) data, 10);
     }
 
     public void test() {

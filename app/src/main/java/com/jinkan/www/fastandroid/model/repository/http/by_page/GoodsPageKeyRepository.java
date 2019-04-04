@@ -16,12 +16,12 @@ import kotlin.Unit;
  * FastAndroid
  */
 
-public class ByPageKeyRepository implements PostRepository<Goods> {
+public class GoodsPageKeyRepository implements PostRepository<Goods> {
 
     private Listing<Goods> goodsListing;
     private ApiService apiService;
 
-    public ByPageKeyRepository(ApiService apiService, Listing<Goods> goodsListing) {
+    public GoodsPageKeyRepository(ApiService apiService, Listing<Goods> goodsListing) {
         this.apiService = apiService;
         this.goodsListing = goodsListing;
     }
