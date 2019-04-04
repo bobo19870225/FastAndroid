@@ -9,7 +9,9 @@
         android:id="@+id/oneFragment"
         android:name="com.jinkan.www.fastandroid.view.GoodsFragment"
         android:label="fragment_one"
-        tools:layout="@layout/fragment_goods" />
+        tools:layout="@layout/fragment_goods">
+
+    </fragment>
     <fragment
         android:id="@+id/towFragment"
         android:name="com.jinkan.www.fastandroid.TowFragment"

@@ -22,7 +22,7 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
     private SwipeRefreshLayout swipeRefreshLayout;
     private LiveData<PagedList> pagedList;
 
-
+    @SuppressWarnings("unchecked")
     @Override
     protected final void initUI() {
         recyclerView = setRecyclerView();
@@ -46,6 +46,7 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
                 swipeRefreshLayout.setRefreshing(false);
             } else if (status == Status.FAILED) {
                 swipeRefreshLayout.setRefreshing(false);
+                toast(((NetWorkState) o).getMsg());
             }
         });
         setUI();

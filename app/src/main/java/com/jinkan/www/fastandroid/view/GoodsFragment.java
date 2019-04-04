@@ -25,6 +25,7 @@ import kotlin.jvm.functions.Function0;
 public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoodsBinding, GoodsAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
+
     @Inject
     public GoodsFragment() {
         // Required empty public constructor
@@ -44,6 +45,11 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    protected Object getData() {
+        return getActivity() == null ? null : ((MainActivity) getActivity()).transferData;
     }
 
     @Override

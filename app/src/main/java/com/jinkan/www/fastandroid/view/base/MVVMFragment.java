@@ -14,7 +14,7 @@ import androidx.databinding.ViewDataBinding;
  * Created by Sampson on 2019/4/3.
  * FastAndroid
  */
-public abstract class MVVMFragment<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseFragment {
+public abstract class MVVMFragment<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseDaggerFragment {
     protected VM mViewModel;
     protected VDB mViewDataBinding;
 

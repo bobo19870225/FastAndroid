@@ -1,6 +1,7 @@
 package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
 import com.jinkan.www.fastandroid.model.repository.Listing;
+import com.jinkan.www.fastandroid.model.repository.NetWorkState;
 import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 import com.jinkan.www.fastandroid.model.repository.http.Message;
@@ -14,7 +15,7 @@ import retrofit2.Call;
  * FastAndroid
  */
 
-public class GoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer, Goods, Message<Goods>> {
+public class GoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer, Goods> {
 
 
     private String token;
@@ -24,8 +25,6 @@ public class GoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer, G
         super(listing, apiService);
         this.token = token;
     }
-
-    private Integer integer = 10;
 
 
     @NonNull
@@ -46,14 +45,16 @@ public class GoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer, G
     }
 
     @Override
-    protected void setLoadCallback(Message<Goods> body, LoadParams<Integer> params, LoadCallback<Integer, Goods> callback) {
-        PageModel pageModel = body.getPageModel();
-        if (pageModel.getTotalSize() > params.key) {
-            callback.onResult(body.getContentList(), params.key + 1);
+    protected boolean setLoadCallback(Message<Goods> body, LoadParams<Integer> params, LoadCallback<Integer, Goods> callback) {
+        if (body.getCode() == 0) {
+            PageModel pageModel = body.getPageModel();
+            if (pageModel.getTotalSize() > params.key) {
+                callback.onResult(body.getContentList(), params.key + 1);
+            }
+        } else {
+            listing.networkState.postValue(NetWorkState.error(body.getMsg()));
         }
-// else if (pageModel.getTotalSize() == params.key) {
-//            callback.onResult(body.getContentList(), null);
-//        }
+        return body.getCode() == 0;
     }
 
 

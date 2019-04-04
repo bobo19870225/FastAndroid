@@ -22,7 +22,7 @@ import dagger.android.support.DaggerAppCompatActivity;
  * 和{@link BaseActivity}一样的，只不过是使用Dagger注入依赖
  */
 public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
-    protected Object transferData;
+    public Object transferData;
     private Toolbar toolbar;
     private @MenuRes
     int toolBarMenu = 0;
@@ -40,7 +40,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     @NonNull
     protected View setRootView() {
         View inflate = getLayoutInflater().inflate(setLayoutRes(), null, false);
-        setContentView(setLayoutRes());
+        setContentView(inflate);
         return inflate;
     }
 

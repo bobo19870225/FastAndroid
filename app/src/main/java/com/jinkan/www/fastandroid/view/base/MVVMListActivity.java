@@ -50,6 +50,7 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
                 swipeRefreshLayout.setRefreshing(false);
             } else if (status == Status.FAILED) {
                 swipeRefreshLayout.setRefreshing(false);
+                toast(((NetWorkState) o).getMsg());
             }
         });
     }

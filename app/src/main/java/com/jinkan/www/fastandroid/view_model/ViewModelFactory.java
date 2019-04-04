@@ -20,7 +20,6 @@ import android.app.Application;
 
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 import com.jinkan.www.fastandroid.model.repository.http.by_page.GoodsPageKeyRepository;
-import com.jinkan.www.fastandroid.view.GoodsFragment;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -58,7 +57,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(LoginViewModel.class)) {
             //noinspection unchecked
             return (T) new LoginViewModel(application, apiService);
-        } else if (modelClass.isAssignableFrom(GoodsFragment.class)) {
+        } else if (modelClass.isAssignableFrom(GoodsFragmentVM.class)) {
             //noinspection unchecked
             return (T) new GoodsFragmentVM(application, goodsPageKeyRepository);
         }
