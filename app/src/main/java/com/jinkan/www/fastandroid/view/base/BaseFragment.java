@@ -43,7 +43,7 @@ public abstract class BaseFragment extends Fragment {
      * @param savedInstanceState 可通过参数savedInstanceState获取之前保存的值
      */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getTransferData();
     }
@@ -62,7 +62,7 @@ public abstract class BaseFragment extends Fragment {
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
         rootView = setRootView(inflater, container, setLayoutRes());
         return rootView;
@@ -107,7 +107,7 @@ public abstract class BaseFragment extends Fragment {
      * @param savedInstanceState 可通过参数savedInstanceState获取之前保存的值
      */
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public final void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setToolBar();
         initData(transferData);

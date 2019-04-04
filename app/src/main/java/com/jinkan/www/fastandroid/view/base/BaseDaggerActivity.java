@@ -29,7 +29,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     private View mRootView;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRootView = setRootView();
         getTransferData();
@@ -45,7 +45,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public final boolean onCreateOptionsMenu(Menu menu) {
         if (toolBarMenu != 0) {
             getMenuInflater().inflate(toolBarMenu, menu);//加载menu文件到布局
         }
