@@ -115,6 +115,11 @@ public abstract class BaseDaggerFragment extends DaggerFragment {
         initUI();
     }
 
+    /**
+     * 当常规方法传入数据比较困难时，子类重写该方法传入
+     *
+     * @return 传入的数据
+     */
     protected Object getData() {
         return null;
     }
