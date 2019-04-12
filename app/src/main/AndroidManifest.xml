@@ -19,21 +19,25 @@
         <activity
             android:name=".view.MeActivity"
             android:label="@string/title_activity_me"
-            android:theme="@style/AppThemeNoActionBar.NoActionBar"></activity>
+            android:theme="@style/AppThemeNoActionBar.NoActionBar">
+
+        </activity>
         <activity
             android:name=".view.MainActivity"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppThemeNoActionBar.NoActionBar" />
         <activity android:name=".view.GoodsActivity" />
         <activity android:name=".view.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
