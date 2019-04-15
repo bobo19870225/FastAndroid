@@ -11,4 +11,5 @@
     <color name="item_location_color">#C0FFFFFF</color>
     <color name="bg_color">#EEEEEE</color>
     <color name="them_color">#3F51B5</color>
+    <color name="line">#000000</color>
 </resources>
