@@ -4,6 +4,7 @@ import com.jinkan.www.fastandroid.model.repository.NetWorkState;
 import com.jinkan.www.fastandroid.model.repository.Status;
 import com.jinkan.www.fastandroid.view_model.ListViewModel;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LiveData;
 import androidx.paging.PagedList;
@@ -17,9 +18,12 @@ import kotlin.jvm.functions.Function0;
  * FastAndroid
  */
 public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends ViewDataBinding, A extends PagedListAdapter> extends MVVMFragment<VM, VDB> {
-    private RecyclerView recyclerView;
+
+    private
+    RecyclerView recyclerView;
     private A adapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private
+    SwipeRefreshLayout swipeRefreshLayout;
     private LiveData<PagedList> pagedList;
 
     @SuppressWarnings("unchecked")
@@ -54,11 +58,14 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
 
     protected abstract void setUI();
 
-    protected abstract A setAdapter(Function0 reTry);
+    protected abstract @NonNull
+    A setAdapter(Function0 reTry);
 
-    protected abstract SwipeRefreshLayout setSwipeRefreshLayout();
+    protected abstract @NonNull
+    SwipeRefreshLayout setSwipeRefreshLayout();
 
-    protected abstract RecyclerView setRecyclerView();
+    protected abstract @NonNull
+    RecyclerView setRecyclerView();
 
 
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -72,16 +73,20 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
         banner.start();
     }
 
+    @NonNull
     @Override
     protected GoodsAdapter setAdapter(Function0 reTry) {
         return new GoodsAdapter(reTry);
     }
 
+    @NonNull
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {
         return mViewDataBinding.swipeRefresh;
+//        return null;
     }
 
+    @NonNull
     @Override
     protected RecyclerView setRecyclerView() {
         return mViewDataBinding.list;

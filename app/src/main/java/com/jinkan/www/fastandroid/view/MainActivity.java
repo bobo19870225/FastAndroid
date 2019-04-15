@@ -18,6 +18,7 @@ public class MainActivity extends BaseDaggerActivity {
 
     @Override
     protected void initView() {
+
 //        Bundle args = new Bundle();
 //        args.putString("DATA", (String) transferData);
 //        goodsFragment.setArguments(args);

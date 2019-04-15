@@ -31,6 +31,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        StatusBarUtil.setStatusBarLayoutStyle(this, false);
         mRootView = setRootView();
         getTransferData();
         toolbar = findViewById(R.id.tool_bar);
