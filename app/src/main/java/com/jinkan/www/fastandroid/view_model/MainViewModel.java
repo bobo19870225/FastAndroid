@@ -2,10 +2,10 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
-import com.jinkan.www.fastandroid.SingleLiveEvent;
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 import com.jinkan.www.fastandroid.model.repository.http.by_page.GoodsPageKeyRepository;
+import com.jinkan.www.fastandroid.utils.SingleLiveEvent;
 
 import androidx.annotation.NonNull;
 

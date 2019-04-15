@@ -118,4 +118,7 @@
     <string name="login">登录</string>
     <string name="forget_password">忘记密码</string>
     <string name="user_registration">用户注册</string>
+    <string name="prompt_verification_code">输入验证码</string>
+    <string name="get_verification_code">获取验证码</string>
+    <string name="next">下一步</string>
 </resources>

@@ -35,7 +35,8 @@ public abstract class MVVMActivity<VM extends BaseViewModel, VDB extends ViewDat
         return mViewDataBinding.getRoot();
     }
 
-    protected abstract VM createdViewModel();
+    protected abstract @NonNull
+    VM createdViewModel();
 
     @Override
     protected final void initView() {

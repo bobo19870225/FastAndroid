@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jinkan.www.fastandroid.R;
@@ -44,11 +43,21 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
     private static final int REQUEST_READ_CONTACTS = 0;
 
     // UI references.
-    private TextView mEmailView;
+    private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
 
+
+//    @Override
+//    protected int setToolBarMenu() {
+//        return 0;
+//    }
+//
+//    @Override
+//    protected String setToolBarTitle() {
+//        return null;
+//    }
 
     @Override
     protected int setLayoutRes() {
@@ -179,7 +188,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
     }
 
 
-
+    @NonNull
     @Override
     protected LoginViewModel createdViewModel() {
         return ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
@@ -187,7 +196,11 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
 
     @Override
     protected void setView() {
+        mViewModel.actionRegister.observe(this, aVoid -> skipTo(RegisterActivity.class, null));
         mEmailView = mViewDataBinding.phone;
+        mViewModel.ldPhone.observe(this, s -> {
+//            toast(s);
+        });
         populateAutoComplete();
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {

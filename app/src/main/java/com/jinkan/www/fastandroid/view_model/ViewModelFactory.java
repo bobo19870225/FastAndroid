@@ -60,6 +60,12 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(GoodsFragmentVM.class)) {
             //noinspection unchecked
             return (T) new GoodsFragmentVM(application, goodsPageKeyRepository);
+        } else if (modelClass.isAssignableFrom(RegisterViewModel.class)) {
+            //noinspection unchecked
+            return (T) new RegisterViewModel(application, apiService);
+        } else if (modelClass.isAssignableFrom(CertificationVM.class)) {
+            //noinspection unchecked
+            return (T) new CertificationVM(application, apiService);
         }
 // else if (modelClass.isAssignableFrom(TasksViewModel.class)) {
 //            //noinspection unchecked

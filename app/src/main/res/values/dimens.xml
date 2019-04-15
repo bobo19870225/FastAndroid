@@ -5,9 +5,13 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="tool_bar_height">40dp</dimen>
+    <dimen name="layout_padding">16dp</dimen>
+    <dimen name="layout_margin">16dp</dimen>
+    <dimen name="layout_height">40dp</dimen>
     <dimen name="item">48dp</dimen>
     <dimen name="margin_top">16dp</dimen>
+    <dimen name="margin_top2">32dp</dimen>
     <dimen name="divide">8dp</dimen>
+    <dimen name="half_divide">4dp</dimen>
 </resources>

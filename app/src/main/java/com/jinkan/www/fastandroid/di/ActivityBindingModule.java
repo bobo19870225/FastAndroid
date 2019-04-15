@@ -1,8 +1,10 @@
 package com.jinkan.www.fastandroid.di;
 
+import com.jinkan.www.fastandroid.view.CertificationActivity;
 import com.jinkan.www.fastandroid.view.GoodsActivity;
 import com.jinkan.www.fastandroid.view.LoginActivity;
 import com.jinkan.www.fastandroid.view.MainActivity;
+import com.jinkan.www.fastandroid.view.RegisterActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -27,5 +29,15 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector()
     abstract LoginActivity loginActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract RegisterActivity registerActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract CertificationActivity certificationActivity();
+
+
 
 }

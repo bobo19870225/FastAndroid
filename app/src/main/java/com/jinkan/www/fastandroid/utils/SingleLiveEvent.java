@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.jinkan.www.fastandroid;
+package com.jinkan.www.fastandroid.utils;
 
 import android.util.Log;
 

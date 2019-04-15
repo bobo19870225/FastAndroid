@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.jinkan.www.fastandroid.view_model.RegisterViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:background="@android:color/white"
+                    android:paddingStart="@dimen/layout_padding"
+                    android:paddingLeft="@dimen/layout_padding"
+                    android:paddingEnd="@dimen/layout_padding"
+                    android:paddingRight="@dimen/layout_padding">
+
+                    <ImageView
+                        android:id="@+id/icon_phone"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/back" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/layout_margin"
+                        android:layout_marginLeft="@dimen/layout_margin"
+                        android:layout_toEndOf="@+id/icon_phone"
+                        android:layout_toRightOf="@+id/icon_phone"
+                        android:background="@null"
+                        android:hint="@string/prompt_email" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height"
+                    android:layout_marginTop="@dimen/divide"
+                    android:background="@android:color/white"
+                    android:paddingStart="@dimen/layout_padding"
+                    android:paddingLeft="@dimen/layout_padding"
+                    android:paddingEnd="@dimen/layout_padding"
+                    android:paddingRight="@dimen/layout_padding">
+
+                    <ImageView
+                        android:id="@+id/icon_verification_code"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/back" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/layout_margin"
+                        android:layout_marginLeft="@dimen/layout_margin"
+                        android:layout_toEndOf="@+id/icon_verification_code"
+                        android:layout_toRightOf="@+id/icon_verification_code"
+                        android:background="@null"
+                        android:hint="@string/prompt_verification_code" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/half_divide"
+                        android:layout_marginBottom="@dimen/half_divide"
+                        android:layout_toStartOf="@+id/get_verification_code"
+                        android:layout_toLeftOf="@+id/get_verification_code"
+                        android:background="@color/divide_color" />
+
+                    <TextView
+                        android:id="@+id/get_verification_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:text="@string/get_verification_code"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:background="@android:color/white"
+                    android:paddingStart="@dimen/layout_padding"
+                    android:paddingLeft="@dimen/layout_padding"
+                    android:paddingEnd="@dimen/layout_padding"
+                    android:paddingRight="@dimen/layout_padding">
+
+                    <ImageView
+                        android:id="@+id/icon_password"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/back" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/layout_margin"
+                        android:layout_marginLeft="@dimen/layout_margin"
+                        android:layout_toEndOf="@+id/icon_password"
+                        android:layout_toRightOf="@+id/icon_password"
+                        android:background="@null"
+                        android:hint="@string/prompt_password" />
+                </RelativeLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height"
+                    android:layout_marginStart="@dimen/layout_margin"
+                    android:layout_marginLeft="@dimen/layout_margin"
+                    android:layout_marginTop="@dimen/margin_top2"
+                    android:layout_marginEnd="@dimen/layout_margin"
+                    android:layout_marginRight="@dimen/layout_margin"
+                    android:background="@drawable/bg_button_them_color"
+                    android:onClick="@{()->model.next()}"
+                    android:text="@string/next"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

@@ -19,11 +19,22 @@ public class GoodsActivity extends MVVMListActivity<MainViewModel, ActivityGoods
     ViewModelFactory viewModelFactory;
 
 
+//    @Override
+//    protected int setToolBarMenu() {
+//        return 0;
+//    }
+
+//    @Override
+//    protected String setToolBarTitle() {
+//        return "测试";
+//    }
+
     @Override
     protected int setLayoutRes() {
         return R.layout.activity_goods;
     }
 
+    @NonNull
     @Override
     protected MainViewModel createdViewModel() {
         return ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
@@ -34,7 +45,7 @@ public class GoodsActivity extends MVVMListActivity<MainViewModel, ActivityGoods
     @Override
     protected void setView() {
         super.setView();
-        setToolBar("测试");
+
         mViewModel.singleLiveEvent.observe(this, aVoid -> mViewModel.listing.reTry.invoke());
 
     }
