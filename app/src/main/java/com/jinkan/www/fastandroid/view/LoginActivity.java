@@ -8,10 +8,9 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jinkan.www.fastandroid.R;
@@ -22,8 +21,6 @@ import com.jinkan.www.fastandroid.model.repository.http.Message;
 import com.jinkan.www.fastandroid.view.base.MVVMActivity;
 import com.jinkan.www.fastandroid.view_model.LoginViewModel;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -47,7 +44,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
     private static final int REQUEST_READ_CONTACTS = 0;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private TextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -182,14 +179,6 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
     }
 
 
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }
 
     @Override
     protected LoginViewModel createdViewModel() {
@@ -198,7 +187,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
 
     @Override
     protected void setView() {
-        mEmailView = findViewById(R.id.email);
+        mEmailView = mViewDataBinding.phone;
         populateAutoComplete();
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
