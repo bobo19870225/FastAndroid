@@ -88,6 +88,7 @@
                         android:background="@color/divide_color" />
 
                     <TextView
+                        android:layout_marginStart="@dimen/layout_margin"
                         android:id="@+id/get_verification_code"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -95,6 +96,7 @@
                         android:layout_alignParentRight="true"
                         android:gravity="center"
                         android:text="@string/get_verification_code"
+                        android:layout_marginLeft="@dimen/layout_margin"
                         android:textSize="18sp" />
                 </RelativeLayout>
 

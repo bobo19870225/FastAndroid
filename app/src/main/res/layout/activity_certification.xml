@@ -13,5 +13,55 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height"
+                    android:background="@color/bg_color"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/layout_padding"
+                    android:paddingLeft="@dimen/layout_padding"
+                    android:paddingEnd="@dimen/layout_padding"
+                    android:paddingRight="@dimen/layout_padding"
+                    android:text="@string/shop_info" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height"
+                    android:paddingStart="@dimen/layout_padding"
+                    android:paddingLeft="@dimen/layout_padding"
+                    android:paddingEnd="@dimen/layout_padding"
+                    android:paddingRight="@dimen/layout_padding">
+
+                    <TextView
+                        android:id="@+id/tt_shop_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/layout_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/shop_name" />
+
+                    <EditText
+                        android:id="@+id/shop_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_toEndOf="@+id/tt_shop_name"
+                        android:layout_toRightOf="@+id/tt_shop_name"
+                        android:background="@null"
+                        android:hint="@string/tt_shop_name" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </layout>

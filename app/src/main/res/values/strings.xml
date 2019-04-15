@@ -121,4 +121,7 @@
     <string name="prompt_verification_code">输入验证码</string>
     <string name="get_verification_code">获取验证码</string>
     <string name="next">下一步</string>
+    <string name="shop_info">店铺信息</string>
+    <string name="shop_name">店铺名称</string>
+    <string name="tt_shop_name">营业执照上的店铺名称</string>
 </resources>
