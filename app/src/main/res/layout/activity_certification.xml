@@ -84,10 +84,55 @@
                         android:hint="@string/tt_shop_name" />
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/bg_color" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/layout_height"
-                    android:layout_marginTop="@dimen/line"
+                    android:background="@android:color/white"
+                    android:paddingStart="@dimen/layout_padding"
+                    android:paddingLeft="@dimen/layout_padding"
+                    android:paddingEnd="@dimen/layout_padding"
+                    android:paddingRight="@dimen/layout_padding">
+
+                    <TextView
+                        android:id="@+id/tt_shop_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/layout_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/shop_type" />
+
+                    <TextView
+                        android:id="@+id/shop_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_toEndOf="@+id/tt_shop_type"
+                        android:layout_toRightOf="@+id/tt_shop_type"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/chose_type" />
+
+                    <ImageView
+                        android:layout_width="@dimen/image"
+                        android:layout_height="@dimen/image"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/image_padding"
+                        android:src="@mipmap/back" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/bg_color" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -122,10 +167,13 @@
                         android:src="@mipmap/back" />
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/bg_color" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/layout_height"
-                    android:layout_marginTop="@dimen/line"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -152,19 +200,15 @@
                         android:hint="@string/address_hint"
                         android:inputType="text" />
 
-                    <ImageView
-                        android:layout_width="@dimen/image"
-                        android:layout_height="@dimen/image"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:padding="@dimen/image_padding"
-                        android:src="@mipmap/back" />
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/bg_color" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/layout_height"
-                    android:layout_marginTop="@dimen/line"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -192,10 +236,13 @@
 
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/bg_color" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/layout_height"
-                    android:layout_marginTop="@dimen/line"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
