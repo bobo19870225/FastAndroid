@@ -95,8 +95,7 @@
                         android:layout_alignParentRight="true"
                         android:gravity="center"
                         android:text="@string/get_verification_code"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp" />
                 </RelativeLayout>
 
                 <RelativeLayout

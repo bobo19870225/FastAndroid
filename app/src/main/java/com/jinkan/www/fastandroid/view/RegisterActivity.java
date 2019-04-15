@@ -30,15 +30,15 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
         mViewModel.actionNext.observe(this, aVoid -> skipTo(CertificationActivity.class, null));
     }
 
-//    @Override
-//    protected int setToolBarMenu() {
-//        return 0;
-//    }
-//
-//    @Override
-//    protected String setToolBarTitle() {
-//        return "注册";
-//    }
+    @Override
+    protected int setToolBarMenu() {
+        return 0;
+    }
+
+    @Override
+    protected String setToolBarTitle() {
+        return "注册";
+    }
 
     @Override
     protected int setLayoutRes() {

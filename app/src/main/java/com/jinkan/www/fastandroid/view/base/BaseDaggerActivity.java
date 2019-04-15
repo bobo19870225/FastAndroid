@@ -23,7 +23,6 @@ import dagger.android.support.DaggerAppCompatActivity;
  */
 public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     public Object transferData;
-    private Toolbar toolbar;
     private @MenuRes
     int toolBarMenu = 0;
     private View mRootView;
@@ -34,9 +33,20 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
 //        StatusBarUtil.setStatusBarLayoutStyle(this, false);
         mRootView = setRootView();
         getTransferData();
-        toolbar = findViewById(R.id.tool_bar);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
         initView();
+        if (toolbar == null) return;
+        toolbar.setTitle(setToolBarTitle());
+        toolBarMenu = setToolBarMenu();
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
+
     }
+
+    protected abstract @MenuRes
+    int setToolBarMenu();
+
+    protected abstract String setToolBarTitle();
 
     @NonNull
     protected View setRootView() {
@@ -63,20 +73,6 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
             transferData = null;
         }
     }
-
-    protected void setToolBar(@NonNull String toolBarTitle) {
-        if (toolbar == null) return;
-        toolbar.setTitle(toolBarTitle);
-            setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(view -> onBackPressed());
-
-    }
-
-    protected void setToolBar(@NonNull String toolBarTitle, @MenuRes int toolBarMenuRes) {
-        setToolBar(toolBarTitle);
-        toolBarMenu = toolBarMenuRes;
-    }
-
 
     public void toast(String msg) {
         Snackbar.make(mRootView, msg, Snackbar.LENGTH_LONG).show();

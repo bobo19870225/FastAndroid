@@ -27,7 +27,6 @@
             android:name=".view.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppThemeNoActionBar.NoActionBar" />
-        <activity android:name=".view.GoodsActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

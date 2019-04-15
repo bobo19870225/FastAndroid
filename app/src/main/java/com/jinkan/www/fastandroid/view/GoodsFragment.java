@@ -33,10 +33,10 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
     }
 
 
-    @Override
-    protected String setToolBarTitle() {
-        return null;
-    }
+//    @Override
+//    protected String setToolBarTitle() {
+//        return null;
+//    }
 
     @Override
     protected int setLayoutRes() {

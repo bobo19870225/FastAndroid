@@ -7,13 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.jinkan.www.fastandroid.R;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import dagger.android.support.DaggerFragment;
 
 /**
@@ -64,23 +61,23 @@ public abstract class BaseDaggerFragment extends DaggerFragment {
         return rootView;
     }
 
-    private void setToolBar() {
-        Toolbar toolbar = rootView.findViewById(R.id.tool_bar);
-        if (toolbar != null) {
-            if (setToolBarTitle() != null)
-                toolbar.setTitle(setToolBarTitle());
-            AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
-            if (appCompatActivity != null) {
-                (appCompatActivity).setSupportActionBar(toolbar);
-            }
-            toolbar.setNavigationOnClickListener(view -> {
-                //TODO 回退
-//                onBackPressed();
-            });
-        }
-    }
+//    private void setToolBar() {
+//        Toolbar toolbar = rootView.findViewById(R.id.tool_bar);
+//        if (toolbar != null) {
+//            if (setToolBarTitle() != null)
+//                toolbar.setTitle(setToolBarTitle());
+//            AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
+//            if (appCompatActivity != null) {
+//                (appCompatActivity).setSupportActionBar(toolbar);
+//            }
+//            toolbar.setNavigationOnClickListener(view -> {
+//                //TODO 回退
+////                onBackPressed();
+//            });
+//        }
+//    }
 
-    protected abstract String setToolBarTitle();
+//    protected abstract String setToolBarTitle();
 
     protected View setRootView(LayoutInflater inflater, ViewGroup container, int setLayoutRes) {
         return inflater.inflate(setLayoutRes, container, false);
@@ -110,7 +107,7 @@ public abstract class BaseDaggerFragment extends DaggerFragment {
         } else {
             transferData = getArguments().get("DATA");
         }
-        setToolBar();
+//        setToolBar();
         initData(transferData);
         initUI();
     }

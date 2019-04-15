@@ -30,15 +30,15 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
 
     }
 
-//    @Override
-//    protected int setToolBarMenu() {
-//        return 0;
-//    }
-//
-//    @Override
-//    protected String setToolBarTitle() {
-//        return null;
-//    }
+    @Override
+    protected int setToolBarMenu() {
+        return 0;
+    }
+
+    @Override
+    protected String setToolBarTitle() {
+        return null;
+    }
 
     @Override
     protected int setLayoutRes() {

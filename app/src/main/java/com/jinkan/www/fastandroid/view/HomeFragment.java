@@ -62,10 +62,10 @@ public class HomeFragment extends BaseDaggerFragment {
     TangramBuilder.InnerBuilder builder;
     RecyclerView recyclerView;
 
-    @Override
-    protected String setToolBarTitle() {
-        return null;
-    }
+//    @Override
+//    protected String setToolBarTitle() {
+//        return null;
+//    }
 
     @Override
     protected int setLayoutRes() {

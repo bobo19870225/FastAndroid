@@ -49,15 +49,15 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
     private View mLoginFormView;
 
 
-//    @Override
-//    protected int setToolBarMenu() {
-//        return 0;
-//    }
-//
-//    @Override
-//    protected String setToolBarTitle() {
-//        return null;
-//    }
+    @Override
+    protected int setToolBarMenu() {
+        return 0;
+    }
+
+    @Override
+    protected String setToolBarTitle() {
+        return null;
+    }
 
     @Override
     protected int setLayoutRes() {

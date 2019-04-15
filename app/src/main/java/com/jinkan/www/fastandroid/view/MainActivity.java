@@ -12,6 +12,16 @@ public class MainActivity extends BaseDaggerActivity {
 
 
     @Override
+    protected int setToolBarMenu() {
+        return 0;
+    }
+
+    @Override
+    protected String setToolBarTitle() {
+        return null;
+    }
+
+    @Override
     protected int setLayoutRes() {
         return R.layout.activity_main;
     }
