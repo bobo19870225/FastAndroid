@@ -25,7 +25,7 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
 
     public static GoodsViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.movie_item, parent, false);
+                .inflate(R.layout.item_goods, parent, false);
         return new GoodsViewHolder(view);
     }
 

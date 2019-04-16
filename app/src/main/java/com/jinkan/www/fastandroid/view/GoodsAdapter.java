@@ -33,7 +33,7 @@ public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         switch (viewType) {
-            case R.layout.movie_item:
+            case R.layout.item_goods:
                 return GoodsViewHolder.create(parent);
             case R.layout.network_state_item:
                 return NetworkStateItemViewHolder.create(parent, retryCallback);
@@ -45,7 +45,7 @@ public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
-            case R.layout.movie_item:
+            case R.layout.item_goods:
                 ((GoodsViewHolder) holder).bind(getItem(position));
                 break;
             case R.layout.network_state_item:
@@ -56,7 +56,7 @@ public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolde
 
 
     private Boolean hasExtraRow() {
-        return netWorkState != null && !netWorkState.equals(netWorkState.loaded());
+        return netWorkState != null && !netWorkState.equals(NetWorkState.loaded());
     }
 
     @Override
@@ -73,7 +73,7 @@ public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolde
         if (hasExtraRow() && position == getItemCount() - 1) {
             return R.layout.network_state_item;
         } else {
-            return R.layout.movie_item;
+            return R.layout.item_goods;
         }
 
     }
