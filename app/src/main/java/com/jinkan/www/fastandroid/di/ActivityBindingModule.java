@@ -20,7 +20,7 @@ public abstract class ActivityBindingModule {
 
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = {GoodsModule.class})
+    @ContributesAndroidInjector(modules = {MainModule.class})
     abstract MainActivity mainActivity();
 
     @ActivityScoped

@@ -2,6 +2,7 @@ package com.jinkan.www.fastandroid.di;
 
 import com.jinkan.www.fastandroid.view.GoodsFragment;
 import com.jinkan.www.fastandroid.view.HomeFragment;
+import com.jinkan.www.fastandroid.view.MeFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -11,7 +12,7 @@ import dagger.android.ContributesAndroidInjector;
  * FastAndroid
  */
 @Module
-public abstract class GoodsModule {
+public abstract class MainModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract GoodsFragment goodsFragment();
@@ -19,4 +20,7 @@ public abstract class GoodsModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract HomeFragment homeFragment();
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract MeFragment meFragment();
 }

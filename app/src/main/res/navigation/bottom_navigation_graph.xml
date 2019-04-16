@@ -22,4 +22,8 @@
         android:name="com.jinkan.www.fastandroid.TreeFragment"
         android:label="fragment_tree"
         tools:layout="@layout/fragment_tree" />
+    <fragment
+        android:id="@+id/meFragment"
+        android:name="com.jinkan.www.fastandroid.view.MeFragment"
+        android:label="MeFragment" />
 </navigation>
