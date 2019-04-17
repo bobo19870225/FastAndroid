@@ -13,7 +13,6 @@ import q.rorbin.badgeview.QBadgeView;
 
 public class MainActivity extends BaseDaggerActivity {
 
-    private BottomNavigationItemView shoppingCart;
     public Badge badge;
     @Override
     protected int setToolBarMenu() {
@@ -38,7 +37,7 @@ public class MainActivity extends BaseDaggerActivity {
 //        goodsFragment.setArguments(args);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        shoppingCart = navigation.findViewById(R.id.treeFragment);
+        BottomNavigationItemView shoppingCart = navigation.findViewById(R.id.treeFragment);
         badge = new QBadgeView(this).bindTarget(shoppingCart)
                 .setShowShadow(true)
 //                .setBadgeGravity(Gravity.END | Gravity.TOP)
