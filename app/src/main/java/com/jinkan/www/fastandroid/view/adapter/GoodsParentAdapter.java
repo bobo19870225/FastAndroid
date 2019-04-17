@@ -1,4 +1,4 @@
-package com.jinkan.www.fastandroid.view;
+package com.jinkan.www.fastandroid.view.adapter;
 
 import android.view.ViewGroup;
 
@@ -18,6 +18,11 @@ public class GoodsParentAdapter extends RecyclerView.Adapter<GoodsParentViewHold
     private List list;
     private List<Boolean> isClicks;
     private Function0 function0;
+    private OnItemClick onItemClick;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
 
     public GoodsParentAdapter(List<String> list) {
         this.list = list;
@@ -43,6 +48,8 @@ public class GoodsParentAdapter extends RecyclerView.Adapter<GoodsParentViewHold
             }
             isClicks.set(position, true);
             notifyDataSetChanged();
+            if (onItemClick != null)
+                onItemClick.onClick(holder.itemView, position);
             return Unit.INSTANCE;
         };
         holder.bind((String) list.get(position), position, function0, isClicks);

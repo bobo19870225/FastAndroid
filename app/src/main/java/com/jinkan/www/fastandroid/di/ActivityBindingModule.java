@@ -1,6 +1,7 @@
 package com.jinkan.www.fastandroid.di;
 
 import com.jinkan.www.fastandroid.view.CertificationActivity;
+import com.jinkan.www.fastandroid.view.GoodsDetailsActivity;
 import com.jinkan.www.fastandroid.view.LoginActivity;
 import com.jinkan.www.fastandroid.view.MainActivity;
 import com.jinkan.www.fastandroid.view.RegisterActivity;
@@ -35,6 +36,8 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector()
     abstract CertificationActivity certificationActivity();
 
-
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract GoodsDetailsActivity goodsDetails();
 
 }

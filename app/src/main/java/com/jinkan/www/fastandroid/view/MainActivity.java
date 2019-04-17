@@ -43,10 +43,8 @@ public class MainActivity extends BaseDaggerActivity {
                 .setShowShadow(true)
 //                .setBadgeGravity(Gravity.END | Gravity.TOP)
                 .setGravityOffset(8, 8, true)
-                .setOnDragStateChangedListener((dragState, badge, targetView) -> {
-                    badge.setBadgeNumber(2);
-                })
-                .setBadgeNumber(1);
+//                .setOnDragStateChangedListener(null)
+                .setBadgeNumber(0);
 
 
         NavController navController = Navigation.findNavController(this, R.id.nav_fragment);

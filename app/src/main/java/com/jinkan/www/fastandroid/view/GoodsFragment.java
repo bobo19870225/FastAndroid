@@ -3,6 +3,7 @@ package com.jinkan.www.fastandroid.view;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentGoodsBinding;
 import com.jinkan.www.fastandroid.utils.GlideImageLoader;
+import com.jinkan.www.fastandroid.view.adapter.GoodsAdapter;
 import com.jinkan.www.fastandroid.view.base.MVVMListFragment;
 import com.jinkan.www.fastandroid.view_model.GoodsFragmentVM;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
@@ -71,12 +72,22 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
         banner.setImages(list_path);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+
     }
 
     @NonNull
     @Override
     protected GoodsAdapter setAdapter(Function0 reTry) {
-        return new GoodsAdapter(reTry);
+        GoodsAdapter goodsAdapter = new GoodsAdapter(reTry);
+        goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ItemObject));
+        goodsAdapter.setOnAddClick((view, ItemObject) -> {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            if (mainActivity != null) {
+                int badgeNumber = mainActivity.badge.getBadgeNumber();
+                mainActivity.badge.setBadgeNumber(badgeNumber + 1);
+            }
+        });
+        return goodsAdapter;
     }
 
     @NonNull

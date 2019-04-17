@@ -1,4 +1,4 @@
-package com.jinkan.www.fastandroid.view;
+package com.jinkan.www.fastandroid.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

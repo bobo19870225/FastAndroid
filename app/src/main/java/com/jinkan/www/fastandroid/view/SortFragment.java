@@ -2,6 +2,8 @@ package com.jinkan.www.fastandroid.view;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentSortBinding;
+import com.jinkan.www.fastandroid.view.adapter.GoodsAdapter;
+import com.jinkan.www.fastandroid.view.adapter.GoodsParentAdapter;
 import com.jinkan.www.fastandroid.view.base.MVVMListFragment;
 import com.jinkan.www.fastandroid.view_model.SortFragmentVM;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
@@ -45,7 +47,11 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
         list.add("包子");
         list.add("来一份");
         list.add("来四分");
-        mViewDataBinding.list1.setAdapter(new GoodsParentAdapter(list));
+        GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(list);
+        goodsParentAdapter.setOnItemClick((view, position) -> {
+
+        });
+        mViewDataBinding.list1.setAdapter(goodsParentAdapter);
     }
 
     @NonNull

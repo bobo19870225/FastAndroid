@@ -1,4 +1,4 @@
-package com.jinkan.www.fastandroid.view;
+package com.jinkan.www.fastandroid.view.adapter;
 
 import android.view.ViewGroup;
 
@@ -21,6 +21,16 @@ public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolde
     private Function0 retryCallback;
     private NetWorkState netWorkState;
 
+    private OnItemClick onItemClick;
+    private OnItemClick onAddClick;
+
+    public void setOnAddClick(OnItemClick onAddClick) {
+        this.onAddClick = onAddClick;
+    }
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
 
     public GoodsAdapter(Function0 retryCallback) {
         super(DIFF_CALLBACK);
@@ -46,7 +56,7 @@ public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case R.layout.item_goods:
-                ((GoodsViewHolder) holder).bind(getItem(position));
+                ((GoodsViewHolder) holder).bind(getItem(position), onItemClick, onAddClick);
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindTo(netWorkState);

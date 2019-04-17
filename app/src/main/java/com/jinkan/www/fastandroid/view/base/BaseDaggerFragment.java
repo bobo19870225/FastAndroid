@@ -1,12 +1,14 @@
 package com.jinkan.www.fastandroid.view.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import java.util.Objects;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -86,8 +88,32 @@ public abstract class BaseDaggerFragment extends DaggerFragment {
     protected abstract @LayoutRes
     int setLayoutRes();
 
-    public void toast(String msg) {
-        Snackbar.make(rootView, msg, Snackbar.LENGTH_LONG).show();
+    protected void toast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+//        Snackbar.make(rootView, msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
+     * 跳转
+     *
+     * @param data   参数
+     * @param mClass 类名
+     */
+    public void skipTo(Class mClass, Object data) {
+        Intent intent = new Intent();
+        intent.setClass(Objects.requireNonNull(getContext()), mClass);
+        if (data != null) {
+            Bundle bundle = new Bundle();
+            if (data instanceof String) {
+                bundle.putString("DATA", String.valueOf(data));
+            } else if (data instanceof Integer) {
+                bundle.putInt("DATA", (Integer) data);
+            } else if (data instanceof String[]) {
+                bundle.putStringArray("DATA", (String[]) data);
+            }
+            intent.putExtra("BUNDLE", bundle);
+        }
+        startActivity(intent);
     }
 
     /**

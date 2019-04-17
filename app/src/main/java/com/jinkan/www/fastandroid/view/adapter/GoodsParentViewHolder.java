@@ -1,4 +1,4 @@
-package com.jinkan.www.fastandroid.view;
+package com.jinkan.www.fastandroid.view.adapter;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -39,9 +39,7 @@ public class GoodsParentViewHolder extends RecyclerView.ViewHolder {
         } else {
             goodsSort.setTextColor(Color.parseColor("#666666"));
         }
-        goodsSort.setOnClickListener(v -> {
-            function0.invoke();
-        });
+        goodsSort.setOnClickListener(v -> function0.invoke());
     }
 
 }
