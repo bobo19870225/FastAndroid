@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
  * FastAndroid
  */
 public class GoodsViewHolder extends RecyclerView.ViewHolder {
-    private TextView title;
+    private TextView goodsName;
 
     private GoodsViewHolder(@NonNull View itemView) {
         super(itemView);
-        title = itemView.findViewById(R.id.title);
+        goodsName = itemView.findViewById(R.id.goods_name);
     }
 
     public static GoodsViewHolder create(ViewGroup parent) {
@@ -30,7 +30,7 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(Goods goods) {
-        title.setText(goods.getGoodsName());
+        goodsName.setText(goods.getGoodsName());
     }
 
 }

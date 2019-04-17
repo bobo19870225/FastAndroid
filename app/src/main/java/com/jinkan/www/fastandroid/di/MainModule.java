@@ -3,6 +3,7 @@ package com.jinkan.www.fastandroid.di;
 import com.jinkan.www.fastandroid.view.GoodsFragment;
 import com.jinkan.www.fastandroid.view.HomeFragment;
 import com.jinkan.www.fastandroid.view.MeFragment;
+import com.jinkan.www.fastandroid.view.SortFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -23,4 +24,8 @@ public abstract class MainModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract MeFragment meFragment();
+
+    @ContributesAndroidInjector
+    abstract SortFragment sortFragment();
+
 }

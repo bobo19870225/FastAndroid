@@ -18,4 +18,5 @@
     <dimen name="image_padding">8dp</dimen>
     <dimen name="line">1dp</dimen>
     <dimen name="line_margin">4dp</dimen>
+    <dimen name="goods_list_parent">120dp</dimen>
 </resources>

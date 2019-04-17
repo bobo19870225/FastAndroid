@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/botton_navigation_graph"
-    app:startDestination="@id/oneFragment">
+    app:startDestination="@id/goodsFragment">
 
     <fragment
-        android:id="@+id/oneFragment"
+        android:id="@+id/goodsFragment"
         android:name="com.jinkan.www.fastandroid.view.GoodsFragment"
-        android:label="fragment_one"
+        android:label="fragment_goods"
         tools:layout="@layout/fragment_goods">
 
     </fragment>
     <fragment
-        android:id="@+id/towFragment"
-        android:name="com.jinkan.www.fastandroid.TowFragment"
-        android:label="fragment_tow"
-        tools:layout="@layout/fragment_tow" />
+        android:id="@+id/sortFragment"
+        android:name="com.jinkan.www.fastandroid.view.SortFragment"
+        android:label="fragment_sort"
+        tools:layout="@layout/fragment_sort" />
     <fragment
         android:id="@+id/treeFragment"
         android:name="com.jinkan.www.fastandroid.TreeFragment"
@@ -25,5 +25,5 @@
     <fragment
         android:id="@+id/meFragment"
         android:name="com.jinkan.www.fastandroid.view.MeFragment"
-        android:label="MeFragment" />
+        android:label="fragment_me" />
 </navigation>
