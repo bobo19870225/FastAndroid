@@ -40,6 +40,7 @@
         <activity android:name=".view.OrderActivity" />
         <activity android:name=".view.ServiceActivity" />
         <activity android:name=".view.MessageActivity" />
+        <activity android:name=".view.LocationActivity" />
     </application>
 
 </manifest>

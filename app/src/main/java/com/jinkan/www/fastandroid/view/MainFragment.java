@@ -1,5 +1,7 @@
 package com.jinkan.www.fastandroid.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 
 import com.jinkan.www.fastandroid.R;
@@ -26,6 +28,7 @@ import q.rorbin.badgeview.QBadgeView;
  * FastAndroid
  */
 public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBinding> {
+    private static final int LOCATION = 0;
     private PagerSlidingTabStrip pagerSlidingTabStrip;
     private ViewPager viewPager;
     @Inject
@@ -43,7 +46,8 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
 
     @Override
     protected void initUI() {
-        msgBadge = new QBadgeView(getContext()).bindTarget(mViewDataBinding.iconMsg)
+        Context context = getContext();
+        msgBadge = new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg)
                 .setShowShadow(true)
                 .setBadgeGravity(Gravity.END | Gravity.TOP)
 //                .setGravityOffset(-8, -8, true)
@@ -54,6 +58,13 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
                 case "msg":
                     skipTo(MessageActivity.class, null);
                     msgBadge.setBadgeNumber(0);
+                    break;
+                case "location":
+                    Intent intent = new Intent();
+                    if (context != null) {
+                        intent.setClass(context, LocationActivity.class);
+                    }
+                    startActivityForResult(intent, LOCATION);
                     break;
             }
         });

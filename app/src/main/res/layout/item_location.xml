@@ -22,24 +22,16 @@
   ~ SOFTWARE.
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/layout_height"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/location"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="match_parent"
         android:background="@drawable/item_background"
-        android:gravity="center"
-        android:textColor="#999999"
-        android:textSize="10sp"
-        android:textStyle="bold" />
+        android:gravity="center" />
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_centerVertical="true"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@mipmap/back" />
-</merge>
+</LinearLayout>

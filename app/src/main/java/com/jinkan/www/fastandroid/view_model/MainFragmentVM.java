@@ -25,4 +25,8 @@ public class MainFragmentVM extends BaseViewModel {
     public void msg() {
         action.setValue("msg");
     }
+
+    public void location() {
+        action.setValue("location");
+    }
 }
