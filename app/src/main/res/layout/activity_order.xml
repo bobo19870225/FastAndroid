@@ -15,7 +15,7 @@
         app:pstsIndicatorColor="@color/tab_blue"
         app:pstsIndicatorHeight="@dimen/line"
         app:pstsSelectedTabTextColor="@color/them_color"
-        app:pstsTextSize="@dimen/title_text_side"
+        app:pstsTextSize="@dimen/title_text_size"
         app:pstsUnderlineColor="@color/main_gray"
         app:pstsUnselectedTextColor="@android:color/black">
 

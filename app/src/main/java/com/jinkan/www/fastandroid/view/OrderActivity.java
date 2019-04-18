@@ -1,7 +1,6 @@
 package com.jinkan.www.fastandroid.view;
 
 import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.TreeFragment;
 import com.jinkan.www.fastandroid.view.adapter.FragmentAdapter;
 import com.jinkan.www.fastandroid.view.base.BaseDaggerActivity;
 import com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip;
@@ -43,9 +42,9 @@ public class OrderActivity extends BaseDaggerActivity {
         FragmentManager fm = getSupportFragmentManager();
         String[] titles = {"全部订单", "待付款", "待收货"};
         List<Fragment> list = new ArrayList<>();
-        list.add(new TreeFragment());
-        list.add(new TreeFragment());
-        list.add(new TreeFragment());
+        list.add(new CommonlyUsedFragment());
+        list.add(new CommonlyUsedFragment());
+        list.add(new CommonlyUsedFragment());
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fm, list, titles);
         viewPager.setAdapter(fragmentAdapter);
         pagerSlidingTabStrip.setViewPager(viewPager);

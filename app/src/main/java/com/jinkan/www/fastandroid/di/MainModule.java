@@ -1,5 +1,6 @@
 package com.jinkan.www.fastandroid.di;
 
+import com.jinkan.www.fastandroid.view.CommonlyUsedFragment;
 import com.jinkan.www.fastandroid.view.GoodsFragment;
 import com.jinkan.www.fastandroid.view.HomeFragment;
 import com.jinkan.www.fastandroid.view.MeFragment;
@@ -27,5 +28,9 @@ public abstract class MainModule {
 
     @ContributesAndroidInjector
     abstract SortFragment sortFragment();
+
+    @ContributesAndroidInjector
+    abstract CommonlyUsedFragment commonlyUsedFragment();
+
 
 }

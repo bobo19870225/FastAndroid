@@ -1,7 +1,6 @@
 package com.jinkan.www.fastandroid.view;
 
 import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.TreeFragment;
 import com.jinkan.www.fastandroid.view.adapter.FragmentAdapter;
 import com.jinkan.www.fastandroid.view.base.BaseActivity;
 import com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip;
@@ -43,8 +42,8 @@ public class ServiceActivity extends BaseActivity {
         viewPager = findViewById(R.id.view_pager);
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new TreeFragment());
-        fragmentList.add(new TreeFragment());
+        fragmentList.add(new CommonlyUsedFragment());
+        fragmentList.add(new CommonlyUsedFragment());
         String[] titles = {"售后申请", "申请记录"};
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles);
         viewPager.setAdapter(fragmentAdapter);
