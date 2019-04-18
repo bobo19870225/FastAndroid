@@ -6,6 +6,7 @@ import com.jinkan.www.fastandroid.view.LoginActivity;
 import com.jinkan.www.fastandroid.view.MainActivity;
 import com.jinkan.www.fastandroid.view.OrderActivity;
 import com.jinkan.www.fastandroid.view.RegisterActivity;
+import com.jinkan.www.fastandroid.view.ServiceActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -42,8 +43,11 @@ public abstract class ActivityBindingModule {
     abstract GoodsDetailsActivity goodsDetails();
 
     @ActivityScoped
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = {OrderModule.class})
     abstract OrderActivity orderActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = {OrderModule.class})
+    abstract ServiceActivity serviceActivity();
 
 }

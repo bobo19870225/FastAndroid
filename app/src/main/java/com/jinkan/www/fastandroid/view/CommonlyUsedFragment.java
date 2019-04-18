@@ -9,6 +9,7 @@ import com.jinkan.www.fastandroid.view_model.CommonlyUsedFragmentVM;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import kotlin.jvm.functions.Function0;
@@ -52,7 +53,7 @@ public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentV
 
     @Override
     protected CommonlyUsedFragmentVM createdViewModel() {
-        return null;
+        return ViewModelProviders.of(this).get(CommonlyUsedFragmentVM.class);
     }
 
 

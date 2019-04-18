@@ -20,10 +20,11 @@
     <fragment
         android:id="@+id/treeFragment"
         android:name="com.jinkan.www.fastandroid.view.CommonlyUsedFragment"
-        android:label="fragment_tree"
+        android:label="fragment_commonly_used"
         tools:layout="@layout/fragment_commonly_used" />
     <fragment
         android:id="@+id/meFragment"
         android:name="com.jinkan.www.fastandroid.view.MeFragment"
-        android:label="fragment_me" />
+        android:label="fragment_me"
+        tools:layout="@layout/fragment_me" />
 </navigation>

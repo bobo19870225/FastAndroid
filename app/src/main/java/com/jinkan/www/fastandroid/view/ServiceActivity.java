@@ -2,7 +2,7 @@ package com.jinkan.www.fastandroid.view;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.view.adapter.FragmentAdapter;
-import com.jinkan.www.fastandroid.view.base.BaseActivity;
+import com.jinkan.www.fastandroid.view.base.BaseDaggerActivity;
 import com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager;
  * Created by Sampson on 2019/4/18.
  * FastAndroid
  */
-public class ServiceActivity extends BaseActivity {
+public class ServiceActivity extends BaseDaggerActivity {
 
 
     private PagerSlidingTabStrip pagerSlidingTabStrip;
