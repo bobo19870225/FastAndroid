@@ -8,10 +8,94 @@
             type="com.jinkan.www.fastandroid.view_model.GoodsDetailsVM" />
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:background="@color/bg_color">
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:layout_margin="@dimen/layout_margin"
+            android:onClick="@{()->model.back()}"
+            android:src="@mipmap/back" />
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/banner_height"
+            android:background="@android:color/white">
+
+        </com.youth.banner.Banner>
+
+        <LinearLayout
+            android:id="@+id/goods_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/banner"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/layout_padding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="邻家小厨 儿童营养早餐组合 1180g（6包）" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="卡通包子面点小吃 可爱点心早餐食品" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="￥56.49"
+                android:textColor="@android:color/holo_red_light" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom"
+            android:layout_below="@+id/goods_info">
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@+id/collect"
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:onClick="@{()->model.collect()}"
+                android:src="@mipmap/back" />
+
+            <ImageView
+                android:id="@+id/shop_car"
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_toEndOf="@+id/collect"
+                android:layout_toRightOf="@+id/collect"
+                android:onClick="@{()->model.shopCar()}"
+                android:src="@mipmap/back" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/them_color"
+                android:onClick="@{()->model.addToShopCar()}"
+                android:text="@string/add_shop_car"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

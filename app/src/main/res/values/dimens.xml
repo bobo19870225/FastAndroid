@@ -22,4 +22,5 @@
     <dimen name="divide_padding">16dp</dimen>
     <dimen name="tab_padding_left_right">24dp</dimen>
     <dimen name="title_text_size">18sp</dimen>
+    <dimen name="banner_height">160dp</dimen>
 </resources>
