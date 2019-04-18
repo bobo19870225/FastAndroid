@@ -73,8 +73,8 @@
 
         <ImageView
             android:id="@+id/icon_msg"
-            android:layout_width="@dimen/small_image"
-            android:layout_height="@dimen/small_image"
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -90,11 +90,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height"
         app:pstsDividerPadding="@dimen/divide_padding"
-        app:pstsIndicatorColor="@color/tab_blue"
-        app:pstsIndicatorHeight="@dimen/line"
+        app:pstsIndicatorColor="@color/them_color"
+        app:pstsIndicatorHeight="@dimen/indicator_height"
         app:pstsSelectedTabTextColor="@color/them_color"
         app:pstsTextSize="@dimen/title_text_size"
-        app:pstsUnderlineColor="@color/main_gray"
+        app:pstsUnderlineColor="@color/transparent"
         app:pstsUnselectedTextColor="@android:color/black">
 
     </com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip>

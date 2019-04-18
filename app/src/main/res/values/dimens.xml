@@ -18,6 +18,7 @@
     <dimen name="small_image">32dp</dimen>
     <dimen name="image_padding">8dp</dimen>
     <dimen name="line">1dp</dimen>
+    <dimen name="indicator_height">2dp</dimen>
     <dimen name="line_margin">4dp</dimen>
     <dimen name="goods_list_parent">120dp</dimen>
     <dimen name="divide_padding">16dp</dimen>

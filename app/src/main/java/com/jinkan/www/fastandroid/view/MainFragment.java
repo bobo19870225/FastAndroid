@@ -1,5 +1,7 @@
 package com.jinkan.www.fastandroid.view;
 
+import android.view.Gravity;
+
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentMainBinding;
 import com.jinkan.www.fastandroid.view.adapter.FragmentAdapter;
@@ -43,8 +45,8 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     protected void initUI() {
         msgBadge = new QBadgeView(getContext()).bindTarget(mViewDataBinding.iconMsg)
                 .setShowShadow(true)
-//                .setBadgeGravity(Gravity.END | Gravity.TOP)
-                .setGravityOffset(8, 8, true)
+                .setBadgeGravity(Gravity.END | Gravity.TOP)
+//                .setGravityOffset(-8, -8, true)
 //                .setOnDragStateChangedListener(null)
                 .setBadgeNumber(5);
         mViewModel.action.observe(this, s -> {
