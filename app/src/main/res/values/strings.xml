@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FastAndroid</string>
+    <string name="app_name">早盟在线</string>
     <string name="retry">重试</string>
     <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->

@@ -7,14 +7,15 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="tool_bar_height">40dp</dimen>
     <dimen name="layout_padding">16dp</dimen>
-    <dimen name="layout_margin">16dp</dimen>
-    <dimen name="layout_height">40dp</dimen>
+    <dimen name="layout_margin">43dp</dimen>
+    <dimen name="layout_height">36dp</dimen>
     <dimen name="item">48dp</dimen>
     <dimen name="margin_top">16dp</dimen>
     <dimen name="margin_top2">32dp</dimen>
     <dimen name="divide">8dp</dimen>
     <dimen name="half_divide">4dp</dimen>
     <dimen name="image">40dp</dimen>
+    <dimen name="icon">24dp</dimen>
     <dimen name="small_image">32dp</dimen>
     <dimen name="image_padding">8dp</dimen>
     <dimen name="line">1dp</dimen>

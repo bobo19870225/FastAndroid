@@ -13,10 +13,8 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/layout_margin"
+        android:paddingRight="@dimen/layout_margin"
         android:background="@color/bg_color">
 
         <!-- Login progress -->
@@ -42,10 +40,18 @@
                 android:orientation="vertical">
 
                 <com.jinkan.www.fastandroid.view.custom_view.CircleImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="160dp"
+                    android:src="@mipmap/logo" />
+
+                <TextView
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top"
-                    android:src="@mipmap/back" />
+                    android:text="@string/app_name"
+                    android:textColor="@color/text_black"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/title_text_size" />
 
                 <RelativeLayout
                     android:layout_height="@dimen/layout_height"
@@ -59,10 +65,10 @@
                     <ImageView
                         android:scaleType="fitCenter"
                         android:id="@+id/icon_user"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/zhanghao" />
 
                     <EditText
                         android:background="@null"
@@ -93,10 +99,10 @@
                     <ImageView
                         android:scaleType="fitCenter"
                         android:id="@+id/icon_password"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="@dimen/icon"
+                        android:layout_height="@dimen/icon"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/mima" />
 
                     <EditText
                         android:background="@null"
@@ -120,12 +126,11 @@
                     android:background="@drawable/bg_button_them_color"
                     android:id="@+id/email_sign_in_button"
                     android:text="@string/login"
-                    style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/layout_height"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/text_white"
                     android:layout_marginTop="16dp"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/title_text_size" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -136,8 +141,7 @@
                         android:id="@+id/group_divider"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:background="@color/divide_color" />
+                        android:layout_centerInParent="true" />
 
                     <TextView
                         android:onClick="@{()->model.register()}"
