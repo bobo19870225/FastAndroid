@@ -1,5 +1,6 @@
 package com.jinkan.www.fastandroid.view.base;
 
+import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.NetWorkState;
 import com.jinkan.www.fastandroid.model.repository.Status;
 import com.jinkan.www.fastandroid.view_model.ListViewModel;
@@ -31,28 +32,31 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
         recyclerView = setRecyclerView();
 
         swipeRefreshLayout = setSwipeRefreshLayout();
-        pagedList = mViewModel.listing.getPagedList();
-        adapter = setAdapter(mViewModel.listing.reTry);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            mViewModel.listing.refreshState.setValue(swipeRefreshLayout.isRefreshing());
-            mViewModel.listing.refresh.invoke();
+        Listing listing = mViewModel.listing;
+        if (listing != null) {
+            pagedList = listing.getPagedList();
+            adapter = setAdapter(listing.reTry);
+            swipeRefreshLayout.setOnRefreshListener(() -> {
+                listing.refreshState.setValue(swipeRefreshLayout.isRefreshing());
+                listing.refresh.invoke();
 //            swipeRefreshLayout.setRefreshing(false);
-        });
+            });
 
-        recyclerView.setAdapter(adapter);
-        pagedList.observe(this, ts -> adapter.submitList(ts));
-        mViewModel.listing.networkState.observe(this, o -> {
+            recyclerView.setAdapter(adapter);
+            pagedList.observe(this, ts -> adapter.submitList(ts));
+            listing.networkState.observe(this, o -> {
+                Status status = ((NetWorkState) o).getStatus();
+                if (status == Status.RUNNING) {
+                    swipeRefreshLayout.setRefreshing(true);
+                } else if (status == Status.SUCCESS) {
+                    swipeRefreshLayout.setRefreshing(false);
+                } else if (status == Status.FAILED) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    toast(((NetWorkState) o).getMsg());
+                }
+            });
+        }
 
-            Status status = ((NetWorkState) o).getStatus();
-            if (status == Status.RUNNING) {
-                swipeRefreshLayout.setRefreshing(true);
-            } else if (status == Status.SUCCESS) {
-                swipeRefreshLayout.setRefreshing(false);
-            } else if (status == Status.FAILED) {
-                swipeRefreshLayout.setRefreshing(false);
-                toast(((NetWorkState) o).getMsg());
-            }
-        });
     }
 
 

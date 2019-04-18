@@ -4,6 +4,7 @@ import com.jinkan.www.fastandroid.view.CertificationActivity;
 import com.jinkan.www.fastandroid.view.GoodsDetailsActivity;
 import com.jinkan.www.fastandroid.view.LoginActivity;
 import com.jinkan.www.fastandroid.view.MainActivity;
+import com.jinkan.www.fastandroid.view.MessageActivity;
 import com.jinkan.www.fastandroid.view.OrderActivity;
 import com.jinkan.www.fastandroid.view.RegisterActivity;
 import com.jinkan.www.fastandroid.view.ServiceActivity;
@@ -49,5 +50,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = {OrderModule.class})
     abstract ServiceActivity serviceActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = {OrderModule.class})
+    abstract MessageActivity messageActivity();
+
 
 }

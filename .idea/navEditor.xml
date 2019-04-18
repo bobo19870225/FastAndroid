@@ -66,18 +66,6 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="commonlyUsedFragment3">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-85" />
-                            <option name="y" value="369" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="mainFragment">
                     <value>
                       <LayoutPositions>
@@ -108,6 +96,18 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="240" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="treeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
                         </option>

@@ -15,6 +15,7 @@
     <dimen name="divide">8dp</dimen>
     <dimen name="half_divide">4dp</dimen>
     <dimen name="image">40dp</dimen>
+    <dimen name="small_image">32dp</dimen>
     <dimen name="image_padding">8dp</dimen>
     <dimen name="line">1dp</dimen>
     <dimen name="line_margin">4dp</dimen>

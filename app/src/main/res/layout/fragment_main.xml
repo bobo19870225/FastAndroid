@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.jinkan.www.fastandroid.view_model.MainFragmentVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tool_bar_height"
         android:layout_marginTop="@dimen/margin_top"
-        android:gravity="center_vertical"
-        app:layout_collapseMode="pin">
+        android:gravity="center_vertical">
 
         <RelativeLayout
             android:id="@+id/rl_location"
@@ -23,11 +31,6 @@
             android:paddingLeft="16dp"
             android:paddingEnd="16dp">
 
-            <ImageView
-                android:id="@+id/ico_location"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:src="@mipmap/back" />
 
             <TextView
                 android:id="@+id/location"
@@ -35,8 +38,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_toEndOf="@+id/ico_location"
-                android:layout_toRightOf="@+id/ico_location"
                 android:gravity="center"
                 android:text="上海"
                 android:textSize="18sp" />
@@ -54,22 +55,34 @@
         </RelativeLayout>
 
         <TextView
+            android:layout_marginStart="@dimen/layout_margin"
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginEnd="@dimen/layout_margin"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:layout_toStartOf="@+id/icon_msg"
             android:layout_toEndOf="@+id/rl_location"
             android:layout_toRightOf="@+id/rl_location"
             android:background="@drawable/bg_button_corner"
             android:gravity="center"
             android:hint="@string/fast_search_goods"
-            android:paddingStart="16dp"
-            android:paddingLeft="16dp"
-            android:paddingEnd="16dp"
+            android:layout_toLeftOf="@+id/icon_msg"
             android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/icon_msg"
+            android:layout_width="@dimen/small_image"
+            android:layout_height="@dimen/small_image"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/layout_margin"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:onClick="@{()->model.msg()}"
+            android:padding="@dimen/image_padding"
+            android:src="@mipmap/back" />
     </RelativeLayout>
 
     <com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip
@@ -91,3 +104,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
+</layout>

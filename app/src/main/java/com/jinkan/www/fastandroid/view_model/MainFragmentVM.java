@@ -7,12 +7,13 @@ import com.jinkan.www.fastandroid.utils.SingleLiveEvent;
 import androidx.annotation.NonNull;
 
 /**
- * Created by Sampson on 2019/4/17.
+ * Created by Sampson on 2019/4/18.
  * FastAndroid
  */
-public class GoodsDetailsVM extends BaseViewModel {
+public class MainFragmentVM extends BaseViewModel {
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
-    public GoodsDetailsVM(@NonNull Application application) {
+
+    public MainFragmentVM(@NonNull Application application) {
         super(application);
     }
 
@@ -21,18 +22,7 @@ public class GoodsDetailsVM extends BaseViewModel {
 
     }
 
-    public void back() {
-        action.setValue("back");
-    }
-
-    public void collect() {
-
-    }
-
-    public void shopCar() {
-
-    }
-    public void addToShopCar() {
-
+    public void msg() {
+        action.setValue("msg");
     }
 }
