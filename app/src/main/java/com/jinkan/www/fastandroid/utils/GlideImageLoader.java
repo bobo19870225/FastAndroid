@@ -15,7 +15,7 @@ public class GlideImageLoader implements ImageLoaderInterface<ImageView> {
 
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
-        Glide.with(context).load(path).into((ImageView) imageView);
+        Glide.with(context).load(path).into(imageView);
     }
 
     @Override

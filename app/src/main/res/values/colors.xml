@@ -12,4 +12,7 @@
     <color name="bg_color">#EEEEEE</color>
     <color name="them_color">#3F51B5</color>
     <color name="line">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="tab_blue">#FF0084FF</color>
+    <color name="main_gray">#FFDDDDDD</color>
 </resources>

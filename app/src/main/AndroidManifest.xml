@@ -37,6 +37,8 @@
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.CertificationActivity" />
         <activity android:name=".view.GoodsDetailsActivity" />
+        <activity android:name=".view.OrderActivity" />
+        <activity android:name=".view.ServiceActivity" />
     </application>
 
 </manifest>

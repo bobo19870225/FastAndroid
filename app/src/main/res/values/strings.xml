@@ -139,7 +139,7 @@
     <string name="score">积分</string>
     <string name="my_order">我的订单</string>
     <string name="all_order">全部订单</string>
-    <string name="payment">代付款</string>
+    <string name="payment">待付款</string>
     <string name="receiving_goods">待收货</string>
     <string name="cancel">取消/售后</string>
     <string name="address">收货地址</string>
