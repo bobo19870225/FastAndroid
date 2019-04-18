@@ -28,7 +28,7 @@ public class OrderActivity extends BaseDaggerActivity {
 
     @Override
     protected String setToolBarTitle() {
-        return null;
+        return "我的订单";
     }
 
     @Override
@@ -49,19 +49,11 @@ public class OrderActivity extends BaseDaggerActivity {
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fm, list, titles);
         viewPager.setAdapter(fragmentAdapter);
         pagerSlidingTabStrip.setViewPager(viewPager);
-
-        if (transferData.equals("allOrder")) {
-            pagerSlidingTabStrip.setCurrentPosition(0);
-            pagerSlidingTabStrip.setSelectedPosition(0);
-        } else if (transferData.equals("payment")) {
-            pagerSlidingTabStrip.setCurrentPosition(1);
+        if (transferData.equals("payment")) {
             pagerSlidingTabStrip.setSelectedPosition(1);
         } else if (transferData.equals("receivingGoods")) {
-            pagerSlidingTabStrip.setCurrentPosition(2);
             pagerSlidingTabStrip.setSelectedPosition(2);
         }
-
-
         pagerSlidingTabStrip.setShouldExpand(true);
     }
 }

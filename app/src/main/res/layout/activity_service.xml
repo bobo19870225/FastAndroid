@@ -8,6 +8,7 @@
     <include layout="@layout/toolbar" />
 
     <com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip
+        android:id="@+id/table_strip"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height"
         app:pstsDividerPadding="@dimen/divide_padding"

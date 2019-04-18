@@ -23,7 +23,9 @@ import android.widget.TextView;
 import com.jinkan.www.fastandroid.R;
 
 import java.util.Locale;
+import java.util.Objects;
 
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 /**
@@ -101,15 +103,17 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     public void setSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
+        //换页
+        pager.setCurrentItem(selectedPosition);
     }
 
     public int getCurrentPosition() {
         return currentPosition;
     }
 
-    public void setCurrentPosition(int currentPosition) {
-        this.currentPosition = currentPosition;
-    }
+//    public void setCurrentPosition(int currentPosition) {
+//        this.currentPosition = currentPosition;
+//    }
 
     public PagerSlidingTabStrip(Context context) {
         this(context, null);
@@ -196,7 +200,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
 
-        pager.setOnPageChangeListener(pageListener);
+        pager.addOnPageChangeListener(pageListener);
 
         notifyDataSetChanged();
     }
@@ -208,17 +212,18 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     public void notifyDataSetChanged() {
 
         tabsContainer.removeAllViews();
+        PagerAdapter adapter = pager.getAdapter();
+        if (adapter != null) {
+            tabCount = adapter.getCount();
+            for (int i = 0; i < tabCount; i++) {
 
-        tabCount = pager.getAdapter().getCount();
+                if (adapter instanceof IconTabProvider) {
+                    addIconTab(i, ((IconTabProvider) adapter).getPageIconResId(i));
+                } else {
+                    addTextTab(i, Objects.requireNonNull(adapter.getPageTitle(i)).toString());
+                }
 
-        for (int i = 0; i < tabCount; i++) {
-
-            if (pager.getAdapter() instanceof IconTabProvider) {
-                addIconTab(i, ((IconTabProvider) pager.getAdapter()).getPageIconResId(i));
-            } else {
-                addTextTab(i, pager.getAdapter().getPageTitle(i).toString());
             }
-
         }
 
         updateTabStyles();
@@ -227,7 +232,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
             @Override
             public void onGlobalLayout() {
-                getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 currentPosition = pager.getCurrentItem();
                 scrollToChild(currentPosition, 0);
             }
@@ -255,12 +260,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     public void addTab(final int position, View tab) {
         tab.setFocusable(true);
-        tab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pager.setCurrentItem(position);
-            }
-        });
+        tab.setOnClickListener(v -> pager.setCurrentItem(position));
 
         tab.setPadding(tabPadding, 0, tabPadding, 0);
         tabsContainer.addView(tab, position, shouldExpand ? expandedTabLayoutParams : defaultTabLayoutParams);
