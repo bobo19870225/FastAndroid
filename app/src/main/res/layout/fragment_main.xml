@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:layout_marginTop="@dimen/margin_top"
+        android:gravity="center_vertical"
+        app:layout_collapseMode="pin">
+
+        <RelativeLayout
+            android:id="@+id/rl_location"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_button_corner"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="16dp">
+
+            <ImageView
+                android:id="@+id/ico_location"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:src="@mipmap/back" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_toEndOf="@+id/ico_location"
+                android:layout_toRightOf="@+id/ico_location"
+                android:gravity="center"
+                android:text="上海"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_toEndOf="@+id/location"
+                android:layout_toRightOf="@+id/location"
+                android:src="@mipmap/back" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@+id/rl_location"
+            android:layout_toRightOf="@+id/rl_location"
+            android:background="@drawable/bg_button_corner"
+            android:gravity="center"
+            android:hint="@string/fast_search_goods"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip
+        android:id="@+id/table_strip"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height"
+        app:pstsDividerPadding="@dimen/divide_padding"
+        app:pstsIndicatorColor="@color/tab_blue"
+        app:pstsIndicatorHeight="@dimen/line"
+        app:pstsSelectedTabTextColor="@color/them_color"
+        app:pstsTextSize="@dimen/title_text_size"
+        app:pstsUnderlineColor="@color/main_gray"
+        app:pstsUnselectedTextColor="@android:color/black">
+
+    </com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
