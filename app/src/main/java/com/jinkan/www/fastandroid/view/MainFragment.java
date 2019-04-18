@@ -39,7 +39,7 @@ public class MainFragment extends BaseDaggerFragment {
         viewPager = rootView.findViewById(R.id.view_pager);
         FragmentManager fragmentManager = getFragmentManager();
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new CommonlyUsedFragment());
+        fragmentList.add(goodsFragment);
         fragmentList.add(new CommonlyUsedFragment());
         fragmentList.add(new CommonlyUsedFragment());
         fragmentList.add(new CommonlyUsedFragment());
@@ -47,7 +47,7 @@ public class MainFragment extends BaseDaggerFragment {
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles);
         viewPager.setAdapter(fragmentAdapter);
         pagerSlidingTabStrip.setViewPager(viewPager);
-        pagerSlidingTabStrip.setShouldExpand(true);
+        pagerSlidingTabStrip.setShouldExpand(false);
     }
 
     @Override
