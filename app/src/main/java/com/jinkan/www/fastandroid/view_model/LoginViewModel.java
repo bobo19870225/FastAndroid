@@ -2,15 +2,16 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
-import com.jinkan.www.fastandroid.model.repository.dataBase.User;
+import com.jinkan.www.fastandroid.model.repository.http.ApiResponse;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
-import com.jinkan.www.fastandroid.model.repository.http.Message;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 import com.jinkan.www.fastandroid.utils.SingleLiveEvent;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import static com.jinkan.www.fastandroid.utils.SystemParameter.siteID;
 
 /**
  * Created by Sampson on 2019/3/26.
@@ -23,7 +24,7 @@ public class LoginViewModel extends BaseViewModel {
     public final SingleLiveEvent<Void> actionForgetPassword = new SingleLiveEvent<>();
 
     private ApiService apiService;
-    public final MediatorLiveData<Resource<Message<User>>> ldLogin = new MediatorLiveData<>();
+    public final MediatorLiveData<Resource<ApiResponse>> ldLogin = new MediatorLiveData<>();
 
     public LoginViewModel(@NonNull Application application, ApiService apiService) {
         super(application);
@@ -43,6 +44,6 @@ public class LoginViewModel extends BaseViewModel {
         actionForgetPassword.call();
     }
     public void login(String email, String password) {
-        ldLogin.addSource(apiService.login(email, password), ldLogin::setValue);
+        ldLogin.addSource(apiService.appLogin(email, password, siteID, "1"), ldLogin::setValue);
     }
 }

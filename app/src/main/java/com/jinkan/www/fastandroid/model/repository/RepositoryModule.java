@@ -1,7 +1,7 @@
 package com.jinkan.www.fastandroid.model.repository;
 
-import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 import com.jinkan.www.fastandroid.model.repository.http.by_page.GoodsPageKeyRepository;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.LiveDataCallAdapterFactory;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.LiveDataResponseBodyConverterFactory;
@@ -13,7 +13,7 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.jinkan.www.fastandroid.SystemParameter.baseUrl;
+import static com.jinkan.www.fastandroid.utils.SystemParameter.baseUrl;
 
 /**
  * Created by Sampson on 2019/2/25.
@@ -36,7 +36,7 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    static GoodsPageKeyRepository byPageKeyRepository(ApiService apiService, Listing<Goods> listing) {
+    static GoodsPageKeyRepository byPageKeyRepository(ApiService apiService, Listing<GoodsListRowsBean> listing) {
         return new GoodsPageKeyRepository(apiService, listing);
     }
 }

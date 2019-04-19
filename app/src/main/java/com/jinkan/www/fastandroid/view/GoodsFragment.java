@@ -2,6 +2,7 @@ package com.jinkan.www.fastandroid.view;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentGoodsBinding;
+import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRowsBean;
 import com.jinkan.www.fastandroid.utils.GlideImageLoader;
 import com.jinkan.www.fastandroid.view.adapter.GoodsAdapter;
 import com.jinkan.www.fastandroid.view.base.MVVMListFragment;
@@ -10,6 +11,7 @@ import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -54,17 +56,21 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
         return getActivity() == null ? null : ((MainActivity) getActivity()).transferData;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void setUI() {
-//放图片地址的集合
         ArrayList<String> list_path = new ArrayList<>();
-        //放标题的集合
-//        list_title = new ArrayList<>();
-
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
+        mViewModel.getFocusPictureList().observe(this, pageBeanResource -> {
+            if (pageBeanResource.isSuccess()) {
+                if (pageBeanResource.getResource() != null && pageBeanResource.getResource().getHeader().getCode() == 0) {
+                    List<FocusPictureListRowsBean> rows = pageBeanResource.getResource().getBody().getData().getRows();
+                    for (FocusPictureListRowsBean focusPictureListRowsBean : rows
+                    ) {
+                        list_path.add(focusPictureListRowsBean.getPicturePath());
+                    }
+                }
+            }
+        });
         Banner banner = mViewDataBinding.banner;
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());

@@ -51,15 +51,12 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
-        if (modelClass.isAssignableFrom(MainViewModel.class)) {
-            //noinspection unchecked
-            return (T) new MainViewModel(application, goodsPageKeyRepository);
-        } else if (modelClass.isAssignableFrom(LoginViewModel.class)) {
+        if (modelClass.isAssignableFrom(LoginViewModel.class)) {
             //noinspection unchecked
             return (T) new LoginViewModel(application, apiService);
         } else if (modelClass.isAssignableFrom(GoodsFragmentVM.class)) {
             //noinspection unchecked
-            return (T) new GoodsFragmentVM(application, goodsPageKeyRepository);
+            return (T) new GoodsFragmentVM(application, goodsPageKeyRepository, apiService);
         } else if (modelClass.isAssignableFrom(RegisterViewModel.class)) {
             //noinspection unchecked
             return (T) new RegisterViewModel(application, apiService);

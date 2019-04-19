@@ -3,7 +3,7 @@ package com.jinkan.www.fastandroid.model.repository.http.by_page;
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.NetWorkState;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
-import com.jinkan.www.fastandroid.model.repository.http.Message;
+import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 
 import java.io.IOException;
 import java.util.concurrent.Executor;
@@ -50,18 +50,18 @@ public abstract class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataS
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Key> params, @NonNull LoadInitialCallback<Key, Value> callback) {
         listing.networkState.postValue(NetWorkState.loading());
-        Call<Message<Value>> call = setLoadInitialCall(apiService, params);
+        Call<PageBean<Value>> call = setLoadInitialCall(apiService, params);
         try {
-            Response<Message<Value>> response = call.execute();
-            Message<Value> body = response.body();
+            Response<PageBean<Value>> response = call.execute();
+            PageBean<Value> body = response.body();
             if (body != null) {
                 function = null;
 
-                if (body.getCode() == 0) {
+                if (body.getHeader().getCode() == 0) {
                     listing.networkState.postValue(NetWorkState.loaded());
                     setLoadInitialCallback(body, callback);
                 } else {
-                    listing.networkState.postValue(NetWorkState.error(body.getMsg()));
+                    listing.networkState.postValue(NetWorkState.error(body.getHeader().getMsg()));
                 }
 //
 //                callback.onResult(listResponse.body().getSubjects(), "0", "10");
@@ -77,9 +77,9 @@ public abstract class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataS
     }
 
     @NonNull
-    protected abstract Call<Message<Value>> setLoadInitialCall(ApiService apiService, LoadInitialParams<Key> params);
+    protected abstract Call<PageBean<Value>> setLoadInitialCall(ApiService apiService, LoadInitialParams<Key> params);
 
-    protected abstract void setLoadInitialCallback(Message<Value> body, LoadInitialCallback<Key, Value> callback);
+    protected abstract void setLoadInitialCallback(PageBean<Value> body, LoadInitialCallback<Key, Value> callback);
 
     @Override
     public void loadBefore(@NonNull LoadParams<Key> params, @NonNull LoadCallback<Key, Value> callback) {
@@ -88,12 +88,12 @@ public abstract class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataS
 
     @Override
     public void loadAfter(@NonNull LoadParams<Key> params, @NonNull LoadCallback<Key, Value> callback) {
-        Call<Message<Value>> call = setLoadAfterCall(apiService, params);
+        Call<PageBean<Value>> call = setLoadAfterCall(apiService, params);
 //                apiService.getTopMovie(Integer.parseInt(params.key), params.requestedLoadSize);
         try {
-            Response<Message<Value>> response = call.execute();
+            Response<PageBean<Value>> response = call.execute();
             if (response.isSuccessful()) {
-                Message<Value> body = response.body();
+                PageBean<Value> body = response.body();
                 if (body != null) {
                     function = null;
                     if (setLoadCallback(body, params, callback))
@@ -111,7 +111,7 @@ public abstract class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataS
     }
 
     @NonNull
-    protected abstract Call<Message<Value>> setLoadAfterCall(ApiService apiService, LoadParams<Key> params);
+    protected abstract Call<PageBean<Value>> setLoadAfterCall(ApiService apiService, LoadParams<Key> params);
 
     /**
      * @param body     ..
@@ -119,5 +119,5 @@ public abstract class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataS
      * @param callback ..
      * @return 是否成功获取数据
      */
-    protected abstract boolean setLoadCallback(Message<Value> body, LoadParams<Key> params, LoadCallback<Key, Value> callback);
+    protected abstract boolean setLoadCallback(PageBean<Value> body, LoadParams<Key> params, LoadCallback<Key, Value> callback);
 }

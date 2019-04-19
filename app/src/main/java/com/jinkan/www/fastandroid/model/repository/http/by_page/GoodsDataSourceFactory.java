@@ -1,8 +1,8 @@
 package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
 import com.jinkan.www.fastandroid.model.repository.Listing;
-import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 
 import androidx.paging.DataSource;
 
@@ -11,21 +11,26 @@ import androidx.paging.DataSource;
  * FastAndroid
  */
 
-public class GoodsDataSourceFactory extends BaseDataSourceFactory<Integer, Goods> {
+public class GoodsDataSourceFactory extends BaseDataSourceFactory<Integer, GoodsListRowsBean> {
     private ApiService apiService;
-    private Listing<Goods> listing;
-    private String token;
+    private Listing<GoodsListRowsBean> listing;
+    private String goodsCategoryID;
+    private String memberID;
 
-    public GoodsDataSourceFactory(ApiService apiService, Listing<Goods> listing, String token) {
+    public GoodsDataSourceFactory(ApiService apiService,
+                                  Listing<GoodsListRowsBean> listing,
+                                  String goodsCategoryID,
+                                  String memberID) {
         this.apiService = apiService;
         this.listing = listing;
-        this.token = token;
+        this.goodsCategoryID = goodsCategoryID;
+        this.memberID = memberID;
     }
 
 
     @Override
-    protected DataSource<Integer, Goods> setDataSource() {
-        return new GoodsPageKeyedDataSource(listing, apiService, token);
+    protected DataSource<Integer, GoodsListRowsBean> setDataSource() {
+        return new GoodsPageKeyedDataSource(listing, apiService, goodsCategoryID, memberID);
     }
 
 

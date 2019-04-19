@@ -2,8 +2,8 @@ package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.PostRepository;
-import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 
 import androidx.annotation.MainThread;
 import androidx.lifecycle.LiveData;
@@ -16,12 +16,12 @@ import kotlin.Unit;
  * FastAndroid
  */
 
-public class GoodsPageKeyRepository implements PostRepository<Goods> {
+public class GoodsPageKeyRepository implements PostRepository<GoodsListRowsBean> {
 
-    private Listing<Goods> goodsListing;
+    private Listing<GoodsListRowsBean> goodsListing;
     private ApiService apiService;
 
-    public GoodsPageKeyRepository(ApiService apiService, Listing<Goods> goodsListing) {
+    public GoodsPageKeyRepository(ApiService apiService, Listing<GoodsListRowsBean> goodsListing) {
         this.apiService = apiService;
         this.goodsListing = goodsListing;
     }
@@ -29,14 +29,14 @@ public class GoodsPageKeyRepository implements PostRepository<Goods> {
     @Override
     @MainThread
     @SuppressWarnings("unchecked")
-    public Listing<Goods> post(String sub, Integer pageSize) {
+    public Listing<GoodsListRowsBean> post(String[] sub, Integer pageSize) {
         PagedList.Config config = new PagedList.Config.Builder()
                 .setPageSize(10)                         //配置分页加载的数量
                 .setEnablePlaceholders(false)     //配置是否启动PlaceHolders
                 .setInitialLoadSizeHint(10)              //初始化加载的数量
                 .build();
-        GoodsDataSourceFactory goodsDataSourceFactory = new GoodsDataSourceFactory(apiService, goodsListing, sub);
-        LiveData<PagedList<Goods>> pagedListLiveData = new LivePagedListBuilder<>(goodsDataSourceFactory, config).build();
+        GoodsDataSourceFactory goodsDataSourceFactory = new GoodsDataSourceFactory(apiService, goodsListing, sub[0], sub[1]);
+        LiveData<PagedList<GoodsListRowsBean>> pagedListLiveData = new LivePagedListBuilder<>(goodsDataSourceFactory, config).build();
         goodsListing.setPagedList(pagedListLiveData);
 
         goodsListing.refresh = () -> {

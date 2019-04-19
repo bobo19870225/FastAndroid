@@ -5,5 +5,5 @@ package com.jinkan.www.fastandroid.model.repository;
  * FastAndroid
  */
 public interface PostRepository<T> {
-    Listing<T> post(String sub, Integer pageSize);
+    Listing<T> post(String[] sub, Integer pageSize);
 }
