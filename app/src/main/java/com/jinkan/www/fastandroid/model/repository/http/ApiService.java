@@ -48,8 +48,8 @@ public interface ApiService {
      * 获取商品详情
      */
     @GET("getGoodsShopDetail.json")
-    LiveData<Bean<GoodsDetailsBean>> getGoodsShopDetail(@Query("goodsShopID") String goodsShopID,
-                                                        @Query("memberID") String memberID);
+    LiveData<Resource<Bean<GoodsDetailsBean>>> getGoodsShopDetail(@Query("goodsShopID") String goodsShopID,
+                                                                  @Query("memberID") String memberID);
 
 
     /**

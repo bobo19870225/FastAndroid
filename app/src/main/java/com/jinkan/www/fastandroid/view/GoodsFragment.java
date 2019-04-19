@@ -3,6 +3,7 @@ package com.jinkan.www.fastandroid.view;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentGoodsBinding;
 import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRowsBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 import com.jinkan.www.fastandroid.utils.GlideImageLoader;
 import com.jinkan.www.fastandroid.view.adapter.GoodsAdapter;
 import com.jinkan.www.fastandroid.view.base.MVVMListFragment;
@@ -86,7 +87,7 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
     @Override
     protected GoodsAdapter setAdapter(Function0 reTry) {
         GoodsAdapter goodsAdapter = new GoodsAdapter(reTry);
-        goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ItemObject));
+        goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ((GoodsListRowsBean) ItemObject).getId()));
         goodsAdapter.setOnAddClick((view, ItemObject) -> {
             MainActivity mainActivity = (MainActivity) getActivity();
             if (mainActivity != null) {
