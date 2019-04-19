@@ -42,6 +42,7 @@
                         android:src="@mipmap/back" />
 
                     <EditText
+                        android:text="@={model.ldPhone}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/layout_margin"
@@ -69,6 +70,7 @@
                         android:src="@mipmap/back" />
 
                     <EditText
+                        android:text="@={model.ldVCode}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/layout_margin"
@@ -88,6 +90,7 @@
                         android:background="@color/divide_color" />
 
                     <TextView
+                        android:onClick="@{()->model.getVCode()}"
                         android:layout_marginStart="@dimen/layout_margin"
                         android:id="@+id/get_verification_code"
                         android:layout_width="wrap_content"
@@ -95,7 +98,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:text="@string/get_verification_code"
+                        android:text="@{model.ldGetVCode}"
                         android:layout_marginLeft="@dimen/layout_margin"
                         android:textSize="18sp" />
                 </RelativeLayout>
@@ -117,6 +120,7 @@
                         android:src="@mipmap/back" />
 
                     <EditText
+                        android:text="@={model.ldPassword}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/layout_margin"

@@ -1,7 +1,11 @@
 package com.jinkan.www.fastandroid.view;
 
+import android.widget.TextView;
+
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.ActivityRegisterBinding;
+import com.jinkan.www.fastandroid.model.repository.http.bean.SendSmsCommonBean;
+import com.jinkan.www.fastandroid.utils.CountDownTimerUtils;
 import com.jinkan.www.fastandroid.view.base.MVVMActivity;
 import com.jinkan.www.fastandroid.view_model.RegisterViewModel;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
@@ -27,7 +31,34 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
 
     @Override
     protected void setView() {
-        mViewModel.actionNext.observe(this, aVoid -> skipTo(CertificationActivity.class, null));
+        mViewModel.ldSendSmsCommonBean.observe(this, beanResource -> {
+            if (beanResource.isSuccess()) {
+                SendSmsCommonBean commonBean = beanResource.getResource();
+                if (commonBean != null && commonBean.getHeader().getCode() == 0) {
+                    SendSmsCommonBean.BodyBean body = commonBean.getBody();
+                    String vCode = body.getVCode();
+                }
+
+            } else {
+                Throwable error = beanResource.getError();
+                if (error != null) {
+                    toast(error.toString());
+                }
+            }
+        });
+        mViewModel.action.observe(this, s -> {
+            switch (s) {
+                case "getVCode":
+                    TextView getVerificationCode = mViewDataBinding.getVerificationCode;
+                    CountDownTimerUtils countDownTimerUtils = new CountDownTimerUtils(getVerificationCode, 60000, 1000);
+                    countDownTimerUtils.start();
+                    break;
+                case "next":
+                    skipTo(CertificationActivity.class, null);
+                    break;
+            }
+
+        });
     }
 
     @Override

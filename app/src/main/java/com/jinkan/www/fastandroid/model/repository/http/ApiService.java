@@ -6,7 +6,9 @@ import com.jinkan.www.fastandroid.model.repository.http.bean.Bean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRowsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsDetailsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.LoginBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.SendSmsCommonBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 
 import androidx.lifecycle.LiveData;
@@ -20,20 +22,20 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
     @GET("appLogin.json")
-    LiveData<Resource<ApiResponse>> appLogin(@Query("loginName") String account,
-                                             @Query("password") String password,
-                                             @Query("siteID") String siteID,
-                                             @Query("loginType") String loginType);
+    LiveData<Resource<Bean<LoginBean>>> appLogin(@Query("loginName") String account,
+                                                 @Query("password") String password,
+                                                 @Query("siteID") String siteID,
+                                                 @Query("loginType") String loginType);
 
     /**
      * 会员注册
      */
     @GET("phoneRegister.json")
-    LiveData<Resource<ApiResponse>> phoneRegister(@Query("phone") String phone,
-                                                  @Query("password") String password,
-                                                  @Query("vCode") String vCode,
-                                                  @Query("siteID") String siteID,
-                                                  @Query("recommandID") String recommandID);
+    LiveData<Resource<Bean>> phoneRegister(@Query("phone") String phone,
+                                           @Query("password") String password,
+                                           @Query("vCode") String vCode,
+                                           @Query("siteID") String siteID,
+                                           @Query("recommandID") String recommandID);
 
     /**
      * 获取商品列表
@@ -62,12 +64,12 @@ public interface ApiService {
 
     /**
      * 发送验证码
+     * @param sendType 0 注册
      */
     @GET("sendSmsCommon.json")
-    LiveData<Resource<ApiResponse>> sendSmsCommon(@Query("currentPage") Integer currentPage,
-                                                  @Query("pageNumber") Integer pageNumber,
-                                                  @Query("focusID") String goodsCategoryID,
-                                                  @Query("memberID") String memberID);
+    LiveData<Resource<SendSmsCommonBean>> sendSmsCommon(@Query("phone") String phone,
+                                                        @Query("siteID") String siteID,
+                                                        @Query("sendType") Integer sendType);
 
     /**
      * 获取对象附件列表

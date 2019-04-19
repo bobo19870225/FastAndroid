@@ -2,8 +2,9 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
-import com.jinkan.www.fastandroid.model.repository.http.ApiResponse;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.bean.Bean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.LoginBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 import com.jinkan.www.fastandroid.utils.SingleLiveEvent;
 
@@ -24,7 +25,7 @@ public class LoginViewModel extends BaseViewModel {
     public final SingleLiveEvent<Void> actionForgetPassword = new SingleLiveEvent<>();
 
     private ApiService apiService;
-    public final MediatorLiveData<Resource<ApiResponse>> ldLogin = new MediatorLiveData<>();
+    public final MediatorLiveData<Resource<Bean<LoginBean>>> ldLogin = new MediatorLiveData<>();
 
     public LoginViewModel(@NonNull Application application, ApiService apiService) {
         super(application);

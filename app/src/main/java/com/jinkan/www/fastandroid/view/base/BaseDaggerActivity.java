@@ -1,10 +1,12 @@
 package com.jinkan.www.fastandroid.view.base;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jinkan.www.fastandroid.R;
@@ -36,12 +38,16 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
         Toolbar toolbar = findViewById(R.id.tool_bar);
         initView();
         if (toolbar == null) return;
-        toolbar.setTitle(setToolBarTitle());
+        toolbar.setTitle("");
+        TextView title = findViewById(R.id.title);
+        title.setText(setToolBarTitle());
+        title.setTextSize(20);
+        title.setTextColor(Color.parseColor("#000000"));
         toolBarMenu = setToolBarMenu();
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
-
     }
+
 
     protected abstract @MenuRes
     int setToolBarMenu();

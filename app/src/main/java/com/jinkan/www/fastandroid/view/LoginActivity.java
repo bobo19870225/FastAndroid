@@ -14,8 +14,9 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.Snackbar;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.ActivityLoginBinding;
-import com.jinkan.www.fastandroid.model.repository.http.ApiResponse;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.bean.Bean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.LoginBean;
 import com.jinkan.www.fastandroid.view.base.MVVMActivity;
 import com.jinkan.www.fastandroid.view_model.LoginViewModel;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
@@ -218,18 +219,18 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
         mViewModel.ldLogin.observe(this, messageResource -> {
 //            mViewModel.ldLogin.removeObservers(this);
             if (messageResource.isSuccess()) {
-                ApiResponse resource = messageResource.getResource();
-                if (resource != null) {
+                Bean<LoginBean> loginBeanBean = messageResource.getResource();
+                if (loginBeanBean != null) {
                     showProgress(false);
-                    if (resource.getHeader().getCode() == 0) {
-                        ApiResponse.BodyBean.DataBean data = resource.getBody().getData();
-                        if (data != null) {
+                    if (loginBeanBean.getHeader().getCode() == 0) {
+                        LoginBean loginBean = (LoginBean) loginBeanBean.getBody().getData();
+                        if (loginBean != null) {
 //                            skipTo(GoodsActivity.class, user.getToken(), true);
                             skipTo(MainActivity.class, new String[]{"6ba58046-7eb2-4f11-bbb3-b934abeb29a8", null});
                             finish();
                         }
                     } else {
-                        toast(resource.getHeader().getMsg());
+                        toast(loginBeanBean.getHeader().getMsg());
                     }
 
                 }
