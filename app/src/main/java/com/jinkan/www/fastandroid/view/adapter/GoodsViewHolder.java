@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
+import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,8 +31,8 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
         return new GoodsViewHolder(view);
     }
 
-    void bind(Goods goods, OnItemClick onItemClick, OnItemClick onAddClick) {
-        goodsName.setText(goods.getGoodsName());
+    void bind(GoodsListRowsBean goods, OnItemClick onItemClick, OnItemClick onAddClick) {
+        goodsName.setText(goods.getName());
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
                 onItemClick.onClick(v, goods);

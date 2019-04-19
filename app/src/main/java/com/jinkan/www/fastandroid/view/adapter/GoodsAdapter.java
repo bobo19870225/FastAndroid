@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.model.repository.NetWorkState;
-import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
+import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
@@ -16,7 +16,7 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019/3/11.
  * FastAndroid
  */
-public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolder> {
+public class GoodsAdapter extends PagedListAdapter<GoodsListRowsBean, RecyclerView.ViewHolder> {
 
     private Function0 retryCallback;
     private NetWorkState netWorkState;
@@ -106,14 +106,14 @@ public class GoodsAdapter extends PagedListAdapter<Goods, RecyclerView.ViewHolde
     /**
      * 后台线程DiffUtil类回调： 计算新的List和原来的List的差距
      */
-    public static final DiffUtil.ItemCallback<Goods> DIFF_CALLBACK = new DiffUtil.ItemCallback<Goods>() {
+    public static final DiffUtil.ItemCallback<GoodsListRowsBean> DIFF_CALLBACK = new DiffUtil.ItemCallback<GoodsListRowsBean>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Goods oldItem, @NonNull Goods newItem) {
-            return oldItem.getGoodsName().equals(newItem.getGoodsName());
+        public boolean areItemsTheSame(@NonNull GoodsListRowsBean oldItem, @NonNull GoodsListRowsBean newItem) {
+            return oldItem.getId().equals(newItem.getId());
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Goods oldItem, @NonNull Goods newItem) {
+        public boolean areContentsTheSame(@NonNull GoodsListRowsBean oldItem, @NonNull GoodsListRowsBean newItem) {
             return oldItem.equals(newItem);
         }
     };
