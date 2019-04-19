@@ -59,6 +59,9 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
     @SuppressWarnings("unchecked")
     @Override
     protected void setUI() {
+        Banner banner = mViewDataBinding.banner;
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
         ArrayList<String> list_path = new ArrayList<>();
         mViewModel.getFocusPictureList().observe(this, pageBeanResource -> {
             if (pageBeanResource.isSuccess()) {
@@ -68,16 +71,14 @@ public class GoodsFragment extends MVVMListFragment<GoodsFragmentVM, FragmentGoo
                     ) {
                         list_path.add(focusPictureListRowsBean.getPicturePath());
                     }
+                    //设置图片集合
+                    banner.setImages(list_path);
+                    //banner设置方法全部调用完毕时最后调用
+                    banner.start();
                 }
             }
         });
-        Banner banner = mViewDataBinding.banner;
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(list_path);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
+
 
     }
 

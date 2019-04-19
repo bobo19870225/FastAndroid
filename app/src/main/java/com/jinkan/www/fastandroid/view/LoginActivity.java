@@ -225,7 +225,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                         ApiResponse.BodyBean.DataBean data = resource.getBody().getData();
                         if (data != null) {
 //                            skipTo(GoodsActivity.class, user.getToken(), true);
-                            skipTo(MainActivity.class, new String[]{"6ba58046-7eb2-4f11-bbb3-b934abeb29a8"});
+                            skipTo(MainActivity.class, new String[]{"6ba58046-7eb2-4f11-bbb3-b934abeb29a8", null});
                             finish();
                         }
                     } else {

@@ -26,6 +26,7 @@
                 app:titleEnabled="false">
 
                 <com.youth.banner.Banner
+                    app:image_scale_type="fit_center"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/banner_height"

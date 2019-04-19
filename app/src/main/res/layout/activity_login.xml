@@ -76,7 +76,7 @@
                         android:layout_height="match_parent"
                         android:layout_toEndOf="@+id/icon_user"
                         android:layout_toRightOf="@+id/icon_user"
-                        android:inputType="text"
+                        android:inputType="phone"
                         android:layout_width="match_parent"
                         android:text="@={model.ldPhone}"
                         android:hint="@string/prompt_email"
