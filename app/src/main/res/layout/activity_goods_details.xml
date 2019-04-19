@@ -46,13 +46,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="卡通包子面点小吃 可爱点心早餐食品" />
+                android:text="@{model.ldShowName}" />
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="￥56.49"
+                android:text="@{model.ldShowPrice}"
                 android:textColor="@android:color/holo_red_light" />
 
         </LinearLayout>

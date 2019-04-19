@@ -12,7 +12,7 @@ public class PageBean<T> {
      */
 
     private HeaderBean header;
-    private BodyBean<T> body;
+    private PageBodyBean<T> body;
 
     public HeaderBean getHeader() {
         return header;
@@ -22,11 +22,11 @@ public class PageBean<T> {
         this.header = header;
     }
 
-    public BodyBean getBody() {
+    public PageBodyBean getBody() {
         return body;
     }
 
-    public void setBody(BodyBean<T> body) {
+    public void setBody(PageBodyBean<T> body) {
         this.body = body;
     }
 

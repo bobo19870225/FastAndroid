@@ -2,7 +2,9 @@ package com.jinkan.www.fastandroid.model.repository.http;
 
 
 import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
+import com.jinkan.www.fastandroid.model.repository.http.bean.Bean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRowsBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsDetailsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
@@ -46,8 +48,8 @@ public interface ApiService {
      * 获取商品详情
      */
     @GET("getGoodsShopDetail.json")
-    Call<PageBean<GoodsListRowsBean>> getGoodsShopDetail(@Query("goodsShopID") String goodsShopID,
-                                                         @Query("memberID") String memberID);
+    LiveData<Bean<GoodsDetailsBean>> getGoodsShopDetail(@Query("goodsShopID") String goodsShopID,
+                                                        @Query("memberID") String memberID);
 
 
     /**

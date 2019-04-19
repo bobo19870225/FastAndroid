@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Sampson on 2019/4/19.
  * FastAndroid
  */
-public class DataBean<T> {
+public class PageDataBean<T> {
     /**
      * total : 10
      * currentPage : 1

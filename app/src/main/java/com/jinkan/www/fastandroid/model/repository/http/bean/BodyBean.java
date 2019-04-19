@@ -6,16 +6,16 @@ package com.jinkan.www.fastandroid.model.repository.http.bean;
  */
 public class BodyBean<T> {
     /**
-     * data : {"total":10,"currentPage":1,"currentPgeNumber":2,"pageNumber":10,"totalPage":1,"hasNextPage":false,"rows":[{"picturePath":"http://wj.haoju.me/bd33215507a444ca96082ebb594e5c6f.png"},{"picturePath":"http://wj.haoju.me/58ab2a95c1394ac8b36de37f9c5701e8.png"}]}
+     * data : {"id":"dsfsdfdsf","goodsCategoryID":"6ba58046-7eb2-4f11-bbb3-b934abeb29a8","name":"2","shortName":"1","showName":"2","description":"2","largerImage":"http://wj.haoju.me/3883e6c9761a49788368bcd7a369ab0c.png","littleImage":"http://wj.haoju.me/3883e6c9761a49788368bcd7a369ab0c.png","standPrice":0,"realPrice":1,"stockNumber":1,"stockOut":1,"salesUnit":"1","brandName":"test品牌3","showPrice":0}
      */
 
-    private DataBean<T> data;
+    private T data;
 
-    public DataBean getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(DataBean<T> data) {
+    public void setData(T data) {
         this.data = data;
     }
 
