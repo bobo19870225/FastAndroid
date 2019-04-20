@@ -48,30 +48,121 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
+                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/item"
+                    android:background="@color/white"
                     android:layout_marginTop="@dimen/divide"
-                    android:background="@android:color/white">
+                    android:paddingTop="13dp">
 
-                    <include
-                        layout="@layout/item_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                    <RelativeLayout
+                        android:id="@+id/top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <include
-                        layout="@layout/item_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="95dp"
+                            android:layout_marginRight="95dp"
+                            android:layout_toStartOf="@+id/you_hui"
+                            android:layout_toLeftOf="@+id/you_hui"
+                            android:src="@mipmap/yunshu" />
 
-                    <include
-                        layout="@layout/item_title"
+                        <ImageView
+                            android:id="@+id/you_hui"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/youhui" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="95dp"
+                            android:layout_marginLeft="95dp"
+                            android:layout_toEndOf="@+id/you_hui"
+                            android:layout_toRightOf="@+id/you_hui"
+                            android:src="@mipmap/tuihuan" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/fast_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/top"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="13dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:src="@mipmap/used_list" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:src="@mipmap/my_order" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:src="@mipmap/hongbao" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:src="@mipmap/qiandao" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/img_them"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-                </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:src="@mipmap/them" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/img_them"
+                        android:layout_toRightOf="@+id/img_them"
+                        android:text="@string/zmyx"
+                        android:textColor="@color/text_black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="13dp"
+                        android:layout_marginRight="13dp"
+                        android:text="@string/more" />
+                </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list"

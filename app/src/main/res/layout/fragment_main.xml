@@ -83,7 +83,7 @@
             android:layout_marginRight="@dimen/layout_margin"
             android:onClick="@{()->model.msg()}"
             android:padding="@dimen/image_padding"
-            android:src="@mipmap/back" />
+            android:src="@mipmap/xiaoxi" />
     </RelativeLayout>
 
     <com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip
