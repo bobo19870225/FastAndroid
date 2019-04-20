@@ -10,9 +10,9 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:background="@color/bg_color"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg_color">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -26,155 +26,174 @@
                 app:titleEnabled="false">
 
                 <com.youth.banner.Banner
-                    app:image_scale_type="fit_center"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/banner_height"
+                    app:image_scale_type="fit_center"
                     app:layout_collapseMode="parallax" />
-
-
-
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
+
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <RelativeLayout
-                    android:layout_height="wrap_content"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:background="@color/white"
-                    android:layout_marginTop="@dimen/divide"
-                    android:paddingTop="13dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/top"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/divide"
+                        android:background="@color/white"
+                        android:paddingTop="13dp">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="95dp"
-                            android:layout_marginRight="95dp"
-                            android:layout_toStartOf="@+id/you_hui"
-                            android:layout_toLeftOf="@+id/you_hui"
-                            android:src="@mipmap/yunshu" />
 
                         <ImageView
                             android:id="@+id/you_hui"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center_vertical"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="13dp"
                             android:src="@mipmap/youhui" />
 
+
+                        <LinearLayout
+                            android:id="@+id/fast_link"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="13dp"
+                            android:layout_marginBottom="13dp">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/layout_padding"
+                                android:paddingLeft="@dimen/layout_padding">
+
+                                <ImageView
+                                    android:id="@+id/yunshu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/yunshu" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/yunshu"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginTop="15dp"
+                                    android:src="@mipmap/used_list" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="1"
+                                android:src="@mipmap/my_order" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="1"
+                                android:src="@mipmap/hongbao" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingEnd="@dimen/layout_padding"
+                                android:paddingRight="@dimen/layout_padding">
+
+                                <ImageView
+                                    android:id="@+id/tuihuan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:src="@mipmap/tuihuan" />
+
+                                <ImageView
+                                    android:id="@+id/qiandao"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tuihuan"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginTop="15dp"
+                                    android:src="@mipmap/qiandao" />
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="@dimen/margin_top"
+                        android:background="@color/white">
+
                         <ImageView
+                            android:id="@+id/img_them"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="95dp"
-                            android:layout_marginLeft="95dp"
-                            android:layout_toEndOf="@+id/you_hui"
-                            android:layout_toRightOf="@+id/you_hui"
-                            android:src="@mipmap/tuihuan" />
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:src="@mipmap/them" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/img_them"
+                            android:layout_toRightOf="@+id/img_them"
+                            android:text="@string/zmyx"
+                            android:textColor="@color/text_black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="13dp"
+                            android:layout_marginRight="13dp"
+                            android:text="@string/more" />
                     </RelativeLayout>
 
-                    <LinearLayout
-                        android:id="@+id/fast_link"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/top"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginBottom="13dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:src="@mipmap/used_list" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:src="@mipmap/my_order" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:src="@mipmap/hongbao" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:src="@mipmap/qiandao" />
-                    </LinearLayout>
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="@dimen/margin_top"
-                    android:background="@color/white">
-
-                    <ImageView
-                        android:id="@+id/img_them"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:src="@mipmap/them" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/img_them"
-                        android:layout_toRightOf="@+id/img_them"
-                        android:text="@string/zmyx"
-                        android:textColor="@color/text_black" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="13dp"
-                        android:layout_marginRight="13dp"
-                        android:text="@string/more" />
-                </RelativeLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/divide"
-                    android:background="@android:color/white"
-                    android:scrollbars="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </LinearLayout>
-
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/divide"
+                        android:background="@android:color/white"
+                        android:scrollbars="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
