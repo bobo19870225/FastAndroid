@@ -16,7 +16,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tool_bar_height"
+        android:layout_height="21dp"
         android:layout_marginTop="@dimen/margin_top"
         android:gravity="center_vertical">
 
@@ -27,30 +27,25 @@
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:background="@drawable/bg_button_corner"
-            android:paddingStart="16dp"
-            android:paddingLeft="16dp"
-            android:paddingEnd="16dp">
+            android:background="@drawable/bg_button_corner_bc">
 
 
             <TextView
+                android:textSize="12sp"
+                android:layout_toEndOf="@+id/dingwei"
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:gravity="center"
                 android:text="上海"
-                android:textSize="18sp" />
+                android:layout_toRightOf="@+id/dingwei" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_toEndOf="@+id/location"
-                android:layout_toRightOf="@+id/location"
-                android:src="@mipmap/back" />
+                android:id="@+id/dingwei"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/dingwei" />
 
 
         </RelativeLayout>
@@ -69,8 +64,7 @@
             android:background="@drawable/bg_button_corner"
             android:gravity="center"
             android:hint="@string/fast_search_goods"
-            android:layout_toLeftOf="@+id/icon_msg"
-            android:textSize="18sp" />
+            android:layout_toLeftOf="@+id/icon_msg" />
 
         <ImageView
             android:id="@+id/icon_msg"
