@@ -149,7 +149,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginTop="@dimen/margin_top"
+                        android:layout_marginTop="8dp"
                         android:background="@color/white">
 
                         <ImageView
@@ -185,8 +185,7 @@
                         android:id="@+id/list"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/divide"
-                        android:background="@android:color/white"
+                        android:background="@color/white"
                         android:scrollbars="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                 </LinearLayout>
