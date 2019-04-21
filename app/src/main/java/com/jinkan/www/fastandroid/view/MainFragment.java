@@ -6,10 +6,13 @@ import android.view.Gravity;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentMainBinding;
+import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 import com.jinkan.www.fastandroid.view.adapter.FragmentAdapter;
 import com.jinkan.www.fastandroid.view.base.MVVMFragment;
 import com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip;
 import com.jinkan.www.fastandroid.view_model.MainFragmentVM;
+import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,8 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     private static final int LOCATION = 0;
     private PagerSlidingTabStrip pagerSlidingTabStrip;
     private ViewPager viewPager;
+    @Inject
+    ViewModelFactory viewModelFactory;
     @Inject
     GoodsFragment goodsFragment;
     private Badge msgBadge;
@@ -68,27 +73,50 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
                     break;
             }
         });
-
+        List<String> titles = new ArrayList<>();
         pagerSlidingTabStrip = rootView.findViewById(R.id.table_strip);
         viewPager = rootView.findViewById(R.id.view_pager);
-        //注意了！在Fragment中要用getChildFragmentManager().
-        FragmentManager fragmentManager = getChildFragmentManager();
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(goodsFragment);
-        fragmentList.add(new CommonlyUsedFragment());
-        fragmentList.add(new CommonlyUsedFragment());
-        fragmentList.add(new CommonlyUsedFragment());
-        String[] titles = {"推荐", "早盟优选", "品质热卖", "本周上新"};
-        FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles);
-        viewPager.setAdapter(fragmentAdapter);
-        pagerSlidingTabStrip.setViewPager(viewPager);
-        pagerSlidingTabStrip.setSelectedPosition(0);
-        pagerSlidingTabStrip.setShouldExpand(false);
+        mViewModel.getNodeNavigatorList().observe(this, pageBeanResource -> {
+            if (pageBeanResource.isSuccess()) {
+                PageBean<NavigatorBean> resource = pageBeanResource.getResource();
+                if (resource != null && resource.getHeader().getCode() == 0) {
+                    //noinspection unchecked
+                    List<NavigatorBean> rows = resource.getBody().getData().getRows();
+                    for (NavigatorBean n : rows
+                    ) {
+                        titles.add(n.getName());
+                    }
+                    //注意了！在Fragment中要用getChildFragmentManager().
+                    FragmentManager fragmentManager = getChildFragmentManager();
+                    List<Fragment> fragmentList = new ArrayList<>();
+                    fragmentList.add(goodsFragment);
+                    fragmentList.add(new CommonlyUsedFragment());
+                    fragmentList.add(new CommonlyUsedFragment());
+                    fragmentList.add(new CommonlyUsedFragment());
+                    String[] strings = new String[titles.size()];
+                    FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles.toArray(strings));
+                    viewPager.setAdapter(fragmentAdapter);
+                    pagerSlidingTabStrip.setViewPager(viewPager);
+                    pagerSlidingTabStrip.setShouldExpand(false);
+                } else {
+                    if (resource != null) {
+                        toast(resource.getHeader().getMsg());
+                    }
+                }
+            } else {
+                Throwable error = pageBeanResource.getError();
+                if (error != null) {
+                    toast(error.toString());
+                }
+            }
+        });
+
+
     }
 
     @Override
     protected MainFragmentVM createdViewModel() {
-        return ViewModelProviders.of(this).get(MainFragmentVM.class);
+        return ViewModelProviders.of(this, viewModelFactory).get(MainFragmentVM.class);
     }
 
 

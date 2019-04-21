@@ -7,6 +7,7 @@ import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRow
 import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsDetailsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.LoginBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.SendSmsCommonBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
@@ -146,6 +147,13 @@ public interface ApiService {
                                            @Query("contactName") String contactName,
                                            @Query("contactPhone") String contactPhone,
                                            @Query("address") String address);
+
+    /**
+     * 获取子集导航列表（标准结构）
+     * depth=2
+     */
+    @GET("getNodeNavigatorList.json")
+    LiveData<Resource<PageBean<NavigatorBean>>> getNodeNavigatorList(@Query("rootID") String rootID, @Query("depth") Integer depth);
 
 
 

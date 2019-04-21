@@ -16,18 +16,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="21dp"
+        android:layout_height="28dp"
         android:layout_marginTop="@dimen/margin_top"
         android:gravity="center_vertical">
 
         <RelativeLayout
+            android:background="@drawable/bg_button_corner_bc"
+            android:paddingLeft="@dimen/layout_padding"
             android:onClick="@{()->model.location()}"
             android:id="@+id/rl_location"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:background="@drawable/bg_button_corner_bc">
+            android:paddingEnd="@dimen/layout_padding"
+            android:paddingRight="@dimen/layout_padding">
 
 
             <TextView
@@ -61,7 +64,7 @@
             android:layout_toStartOf="@+id/icon_msg"
             android:layout_toEndOf="@+id/rl_location"
             android:layout_toRightOf="@+id/rl_location"
-            android:background="@drawable/bg_button_corner"
+            android:background="@drawable/bg_button_corner_bc"
             android:gravity="center"
             android:hint="@string/fast_search_goods"
             android:layout_toLeftOf="@+id/icon_msg" />
@@ -76,7 +79,6 @@
             android:layout_marginEnd="@dimen/layout_margin"
             android:layout_marginRight="@dimen/layout_margin"
             android:onClick="@{()->model.msg()}"
-            android:padding="@dimen/image_padding"
             android:src="@mipmap/xiaoxi" />
     </RelativeLayout>
 

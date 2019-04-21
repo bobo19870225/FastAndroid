@@ -2,19 +2,27 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
+import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
+import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 import com.jinkan.www.fastandroid.utils.SingleLiveEvent;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
 /**
  * Created by Sampson on 2019/4/18.
  * FastAndroid
  */
 public class MainFragmentVM extends BaseViewModel {
+    private ApiService apiService;
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
 
-    public MainFragmentVM(@NonNull Application application) {
+
+    public MainFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
+        this.apiService = apiService;
     }
 
     @Override
@@ -22,6 +30,9 @@ public class MainFragmentVM extends BaseViewModel {
 
     }
 
+    public LiveData<Resource<PageBean<NavigatorBean>>> getNodeNavigatorList() {
+        return apiService.getNodeNavigatorList("076333d6bd284605ab2293fb698db804", 2);
+    }
     public void msg() {
         action.setValue("msg");
     }
