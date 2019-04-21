@@ -3,21 +3,25 @@
 
     <item
         android:id="@+id/mainFragment"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@mipmap/unhome"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/sortFragment"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@mipmap/unfenlei"
         android:title="@string/title_dashboard" />
 
     <item
         android:id="@+id/treeFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@mipmap/undongtai"
         android:title="@string/title_notifications" />
     <item
+        android:id="@+id/shoppingCartFragment"
+        android:icon="@mipmap/ungouwuche"
+        android:title="@string/shopping_cart" />
+    <item
         android:id="@+id/meFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:icon="@mipmap/unwo"
+        android:title="@string/title_activity_me" />
 
 </menu>

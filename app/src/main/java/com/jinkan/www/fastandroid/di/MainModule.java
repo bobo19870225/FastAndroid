@@ -5,6 +5,7 @@ import com.jinkan.www.fastandroid.view.GoodsFragment;
 import com.jinkan.www.fastandroid.view.HomeFragment;
 import com.jinkan.www.fastandroid.view.MainFragment;
 import com.jinkan.www.fastandroid.view.MeFragment;
+import com.jinkan.www.fastandroid.view.ShoppingCartFragment;
 import com.jinkan.www.fastandroid.view.SortFragment;
 
 import dagger.Module;
@@ -35,6 +36,9 @@ public abstract class MainModule {
 
     @ContributesAndroidInjector
     abstract MainFragment mainFragment();
+
+    @ContributesAndroidInjector
+    abstract ShoppingCartFragment shoppingCartFragment();
 
 
 }
