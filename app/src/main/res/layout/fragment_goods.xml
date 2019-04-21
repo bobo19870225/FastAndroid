@@ -77,11 +77,10 @@
                             android:layout_marginBottom="13dp">
 
                             <RelativeLayout
+                                android:gravity="center"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:paddingStart="@dimen/layout_padding"
-                                android:paddingLeft="@dimen/layout_padding">
+                                android:layout_weight="1">
 
                                 <ImageView
                                     android:id="@+id/yunshu"
@@ -100,25 +99,24 @@
                             </RelativeLayout>
 
                             <ImageView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="1"
                                 android:src="@mipmap/my_order" />
 
                             <ImageView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="1"
                                 android:src="@mipmap/hongbao" />
 
                             <RelativeLayout
+                                android:gravity="center"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:paddingEnd="@dimen/layout_padding"
-                                android:paddingRight="@dimen/layout_padding">
+                                android:layout_weight="1">
 
                                 <ImageView
                                     android:id="@+id/tuihuan"
