@@ -71,7 +71,8 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
 
         pagerSlidingTabStrip = rootView.findViewById(R.id.table_strip);
         viewPager = rootView.findViewById(R.id.view_pager);
-        FragmentManager fragmentManager = getFragmentManager();
+        //注意了！在Fragment中要用getChildFragmentManager().
+        FragmentManager fragmentManager = getChildFragmentManager();
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(goodsFragment);
         fragmentList.add(new CommonlyUsedFragment());
@@ -81,6 +82,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles);
         viewPager.setAdapter(fragmentAdapter);
         pagerSlidingTabStrip.setViewPager(viewPager);
+        pagerSlidingTabStrip.setSelectedPosition(0);
         pagerSlidingTabStrip.setShouldExpand(false);
     }
 

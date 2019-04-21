@@ -105,6 +105,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         this.selectedPosition = selectedPosition;
         //换页
         pager.setCurrentItem(selectedPosition);
+//        notifyDataSetChanged();
     }
 
     public int getCurrentPosition() {
