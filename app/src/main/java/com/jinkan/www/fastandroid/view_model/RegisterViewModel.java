@@ -26,7 +26,7 @@ public class RegisterViewModel extends BaseViewModel {
     public final MutableLiveData<String> ldPassword = new MutableLiveData<>();
     public final MediatorLiveData<Resource<SendSmsCommonBean>> ldSendSmsCommonBean = new MediatorLiveData<>();
     private Boolean vCode = false;
-
+    private String oldPhone;
     public void setVcode(Boolean vCode) {
         this.vCode = vCode;
     }
@@ -45,10 +45,10 @@ public class RegisterViewModel extends BaseViewModel {
     }
 
     public void getVCode() {
-        if (ldPassword.getValue() != null && isPhoneNumber(ldPassword.getValue())) {
+        if (ldPhone.getValue() != null && isPhoneNumber(ldPhone.getValue())) {
             action.setValue("getVCode");
             ldSendSmsCommonBean.addSource(apiService.sendSmsCommon(ldPhone.getValue(), siteID, 0), ldSendSmsCommonBean::setValue);
-
+            oldPhone = ldPhone.getValue();
         } else {
             action.setValue("phoneError");
         }
@@ -67,6 +67,11 @@ public class RegisterViewModel extends BaseViewModel {
             action.setValue("phoneError");
             return;
         }
+        //防止发送验证码后串改号码
+        if (!oldPhone.equals(ldPhone.getValue())) {
+            action.setValue("phoneError");
+            return;
+        }
         if (ldVCode.getValue() == null) {
             action.setValue("inputVCode");
             return;
@@ -75,6 +80,7 @@ public class RegisterViewModel extends BaseViewModel {
             action.setValue("vCodeError");
             return;
         }
+
         if (ldPassword.getValue() == null) {
             action.setValue("inputPassword");
             return;
@@ -82,7 +88,12 @@ public class RegisterViewModel extends BaseViewModel {
         if (ldPassword.getValue().length() < 6) {
             action.setValue("PasswordError");
         }
+
         action.setValue("next");
 
+    }
+
+    public void isVCodeCorrect(String vCode) {
+        this.vCode = vCode.equals(ldVCode.getValue());
     }
 }

@@ -37,6 +37,7 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
                 if (commonBean != null && commonBean.getHeader().getCode() == 0) {
                     SendSmsCommonBean.BodyBean body = commonBean.getBody();
                     String vCode = body.getVCode();
+                    mViewModel.isVCodeCorrect(vCode);
                 }
 
             } else {
@@ -55,6 +56,18 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
                     break;
                 case "phoneError":
                     toast("电话号码不正确");
+                    break;
+                case "inputVCode":
+                    toast("请输入验证码");
+                    break;
+                case "vCodeError":
+                    toast("验证码错误");
+                    break;
+                case "inputPassword":
+                    toast("请输入密码");
+                    break;
+                case "PasswordError":
+                    toast("密码至少为6位");
                     break;
                 case "next":
                     skipTo(CertificationActivity.class, null);
