@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.ActivityRegisterBinding;
+import com.jinkan.www.fastandroid.model.repository.http.bean.Bean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.RegisterBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.SendSmsCommonBean;
 import com.jinkan.www.fastandroid.utils.CountDownTimerUtils;
 import com.jinkan.www.fastandroid.view.base.MVVMActivity;
@@ -47,6 +49,24 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
                 }
             }
         });
+
+        mViewModel.ldRegister.observe(this, beanResource -> {
+            if (beanResource.isSuccess()) {
+                Bean<RegisterBean> resource = beanResource.getResource();
+                if (resource != null && resource.getHeader().getCode() == 0) {
+                    RegisterBean registerBean = (RegisterBean) resource.getBody().getData();
+                    skipTo(CertificationActivity.class, null);
+                } else if (resource != null) {
+                    toast(resource.getHeader().getMsg());
+                }
+            } else {
+                Throwable error = beanResource.getError();
+                if (error != null) {
+                    toast(error.toString());
+                }
+            }
+        });
+
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "getVCode":
@@ -69,9 +89,7 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
                 case "PasswordError":
                     toast("密码至少为6位");
                     break;
-                case "next":
-                    skipTo(CertificationActivity.class, null);
-                    break;
+
             }
 
         });

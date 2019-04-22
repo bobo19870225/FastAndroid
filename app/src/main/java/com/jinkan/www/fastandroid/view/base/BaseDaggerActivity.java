@@ -7,15 +7,15 @@ import android.os.Parcelable;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.jinkan.www.fastandroid.R;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.MenuRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+
+import com.jinkan.www.fastandroid.R;
+
 import dagger.android.support.DaggerAppCompatActivity;
 
 /**
@@ -27,13 +27,12 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     public Object transferData;
     private @MenuRes
     int toolBarMenu = 0;
-    private View mRootView;
 
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        StatusBarUtil.setStatusBarLayoutStyle(this, false);
-        mRootView = setRootView();
+        setRootView();
         getTransferData();
         Toolbar toolbar = findViewById(R.id.tool_bar);
         initView();
@@ -54,11 +53,11 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
 
     protected abstract String setToolBarTitle();
 
-    @NonNull
-    protected View setRootView() {
+
+    protected void setRootView() {
         View inflate = getLayoutInflater().inflate(setLayoutRes(), null, false);
         setContentView(inflate);
-        return inflate;
+//        return inflate;
     }
 
     @Override
@@ -81,7 +80,8 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     }
 
     public void toast(String msg) {
-        Snackbar.make(mRootView, msg, Snackbar.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+//        Snackbar.make(mRootView, msg, Snackbar.LENGTH_LONG).show();
     }
     /**
      * 跳转

@@ -44,6 +44,7 @@
                         android:src="@mipmap/zhanghao" />
 
                     <EditText
+                        android:inputType="phone"
                         android:text="@={model.ldPhone}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -73,6 +74,7 @@
                         android:src="@mipmap/yanzhengma" />
 
                     <EditText
+                        android:inputType="number"
                         android:text="@={model.ldVCode}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -123,6 +125,7 @@
                         android:src="@mipmap/mima" />
 
                     <EditText
+                        android:inputType="textPassword"
                         android:text="@={model.ldPassword}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

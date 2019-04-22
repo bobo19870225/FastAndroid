@@ -7,6 +7,8 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
+import com.jinkan.www.fastandroid.model.repository.http.bean.Bean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.RegisterBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.SendSmsCommonBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 import com.jinkan.www.fastandroid.utils.SingleLiveEvent;
@@ -24,17 +26,17 @@ public class RegisterViewModel extends BaseViewModel {
     public final MutableLiveData<String> ldGetVCode = new MutableLiveData<>();
     public final MutableLiveData<String> ldPhone = new MutableLiveData<>();
     public final MutableLiveData<String> ldPassword = new MutableLiveData<>();
+    public final MediatorLiveData<Resource<Bean<RegisterBean>>> ldRegister = new MediatorLiveData<>();
     public final MediatorLiveData<Resource<SendSmsCommonBean>> ldSendSmsCommonBean = new MediatorLiveData<>();
     private Boolean vCode = false;
+    private String sVCode;
     private String oldPhone;
-    public void setVcode(Boolean vCode) {
-        this.vCode = vCode;
-    }
+
 
     private ApiService apiService;
 
 
-    public RegisterViewModel(@NonNull Application application, ApiService apiService) {
+    RegisterViewModel(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
     }
@@ -76,7 +78,7 @@ public class RegisterViewModel extends BaseViewModel {
             action.setValue("inputVCode");
             return;
         }
-        if (!vCode) {
+        if (!sVCode.equals(ldVCode.getValue())) {
             action.setValue("vCodeError");
             return;
         }
@@ -87,13 +89,14 @@ public class RegisterViewModel extends BaseViewModel {
         }
         if (ldPassword.getValue().length() < 6) {
             action.setValue("PasswordError");
+            return;
         }
 
-        action.setValue("next");
+        ldRegister.addSource(apiService.phoneRegister(ldPhone.getValue(), ldPassword.getValue(), ldVCode.getValue(), siteID, ""), ldRegister::setValue);
 
     }
 
     public void isVCodeCorrect(String vCode) {
-        this.vCode = vCode.equals(ldVCode.getValue());
+        sVCode = vCode;
     }
 }

@@ -1,6 +1,8 @@
 package com.jinkan.www.fastandroid.model.repository.http;
 
 
+import androidx.lifecycle.LiveData;
+
 import com.jinkan.www.fastandroid.model.repository.dataBase.Goods;
 import com.jinkan.www.fastandroid.model.repository.http.bean.Bean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRowsBean;
@@ -9,10 +11,10 @@ import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.LoginBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.RegisterBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.SendSmsCommonBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 
-import androidx.lifecycle.LiveData;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -32,11 +34,11 @@ public interface ApiService {
      * 会员注册
      */
     @GET("phoneRegister.json")
-    LiveData<Resource<Bean>> phoneRegister(@Query("phone") String phone,
-                                           @Query("password") String password,
-                                           @Query("vCode") String vCode,
-                                           @Query("siteID") String siteID,
-                                           @Query("recommandID") String recommandID);
+    LiveData<Resource<Bean<RegisterBean>>> phoneRegister(@Query("phone") String phone,
+                                                         @Query("password") String password,
+                                                         @Query("vCode") String vCode,
+                                                         @Query("siteID") String siteID,
+                                                         @Query("recommandID") String recommandID);
 
     /**
      * 获取商品列表

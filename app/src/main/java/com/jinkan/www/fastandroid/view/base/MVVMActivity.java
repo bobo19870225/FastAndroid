@@ -1,13 +1,11 @@
 package com.jinkan.www.fastandroid.view.base;
 
-import android.view.View;
-
-import com.jinkan.www.fastandroid.BR;
-import com.jinkan.www.fastandroid.view_model.BaseViewModel;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+
+import com.jinkan.www.fastandroid.BR;
+import com.jinkan.www.fastandroid.view_model.BaseViewModel;
 
 /**
  * Created by Sampson on 2019/3/12.
@@ -21,9 +19,8 @@ public abstract class MVVMActivity<VM extends BaseViewModel, VDB extends ViewDat
     /**
      * 绑定布局，获取mViewDataBinding和mViewModel。
      */
-    @NonNull
     @Override
-    protected final View setRootView() {
+    protected final void setRootView() {
         mViewModel = createdViewModel();
         if (mViewModel == null) {
             throw new RuntimeException("ViewModel can't be null!");
@@ -32,7 +29,7 @@ public abstract class MVVMActivity<VM extends BaseViewModel, VDB extends ViewDat
             mViewDataBinding.setLifecycleOwner(this);
             mViewDataBinding.setVariable(BR.model, mViewModel);
         }
-        return mViewDataBinding.getRoot();
+//        return mViewDataBinding.getRoot();
     }
 
     protected abstract @NonNull
