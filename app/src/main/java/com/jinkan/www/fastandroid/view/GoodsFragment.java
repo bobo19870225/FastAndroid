@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentGoodsBinding;
 import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRowsBean;
-import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageDataBean;
@@ -104,7 +103,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
 
     private GoodsWithTitleAdapter getGoodsWithTitleAdapter() {
         GoodsWithTitleAdapter goodsAdapter = new GoodsWithTitleAdapter(mViewModel.function0);
-        goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ((GoodsListRowsBean) ItemObject).getId()));
+        goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ((Item<NavigatorBean.GoodsListBean>) ItemObject).getData()));
         goodsAdapter.setOnAddClick((view, ItemObject) -> {
             MainActivity mainActivity = (MainActivity) getActivity();
             if (mainActivity != null) {
