@@ -31,7 +31,7 @@ public class MainFragmentVM extends BaseViewModel {
     }
 
     public LiveData<Resource<PageBean<NavigatorBean>>> getNodeNavigatorList() {
-        return apiService.getNodeNavigatorList("076333d6bd284605ab2293fb698db804", 2);
+        return apiService.getNodeNavigatorList("076333d6bd284605ab2293fb698db804", 2, "");
     }
     public void msg() {
         action.setValue("msg");

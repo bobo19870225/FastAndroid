@@ -50,6 +50,15 @@ public interface ApiService {
                                                        @Query("memberID") String memberID);
 
     /**
+     * 获取商品列表
+     */
+    @GET("getGoodsShopList.json")
+    LiveData<Resource<PageBean<GoodsListRowsBean>>> getGoodsShopListForLiveData(@Query("currentPage") Integer currentPage,
+                                                                                @Query("pageNumber") Integer pageNumber,
+                                                                                @Query("goodsCategoryID") String goodsCategoryID,
+                                                                                @Query("memberID") String memberID);
+
+    /**
      * 获取商品详情
      */
     @GET("getGoodsShopDetail.json")
@@ -153,9 +162,13 @@ public interface ApiService {
     /**
      * 获取子集导航列表（标准结构）
      * depth=2
+     * http://47.110.250.70:8083/zaomeng-api/api/getNodeNavigatorList.json?
+     * rootID=076333d6bd284605ab2293fb698db804&
+     * depth=2&
+     * objectDefineID=422429993732
      */
     @GET("getNodeNavigatorList.json")
-    LiveData<Resource<PageBean<NavigatorBean>>> getNodeNavigatorList(@Query("rootID") String rootID, @Query("depth") Integer depth);
+    LiveData<Resource<PageBean<NavigatorBean>>> getNodeNavigatorList(@Query("rootID") String rootID, @Query("depth") Integer depth, @Query("objectDefineID") String objectDefineID);
 
 
 
