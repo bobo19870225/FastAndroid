@@ -18,15 +18,15 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 import com.jinkan.www.fastandroid.model.repository.http.by_page.GoodsPageKeyRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 /**
  * A creator is used to inject the product ID into the ViewModel
@@ -56,7 +56,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new LoginViewModel(application, apiService);
         } else if (modelClass.isAssignableFrom(GoodsFragmentVM.class)) {
             //noinspection unchecked
-            return (T) new GoodsFragmentVM(application, goodsPageKeyRepository, apiService);
+            return (T) new GoodsFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(RegisterViewModel.class)) {
             //noinspection unchecked
             return (T) new RegisterViewModel(application, apiService);
