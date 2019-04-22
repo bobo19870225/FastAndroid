@@ -1,12 +1,13 @@
 package com.jinkan.www.fastandroid.model.repository.http.by_page;
 
+import androidx.annotation.NonNull;
+
 import com.jinkan.www.fastandroid.model.repository.Listing;
 import com.jinkan.www.fastandroid.model.repository.NetWorkState;
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 
-import androidx.annotation.NonNull;
 import retrofit2.Call;
 
 /**
@@ -33,7 +34,7 @@ public class GoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer, G
     @NonNull
     @Override
     protected Call<PageBean<GoodsListRowsBean>> setLoadInitialCall(ApiService apiService, LoadInitialParams<Integer> params) {
-        return apiService.getGoodsShopList(0, 10, goodsCategoryID, memberID);
+        return apiService.getGoodsShopList(1, 10, goodsCategoryID, memberID);
     }
 
     @Override
