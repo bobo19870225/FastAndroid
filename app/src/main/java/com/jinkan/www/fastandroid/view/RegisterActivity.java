@@ -2,6 +2,9 @@ package com.jinkan.www.fastandroid.view;
 
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.ActivityRegisterBinding;
 import com.jinkan.www.fastandroid.model.repository.http.bean.SendSmsCommonBean;
@@ -11,9 +14,6 @@ import com.jinkan.www.fastandroid.view_model.RegisterViewModel;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProviders;
 
 /**
  * Created by Sampson on 2019/4/15.
@@ -52,6 +52,9 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
                     TextView getVerificationCode = mViewDataBinding.getVerificationCode;
                     CountDownTimerUtils countDownTimerUtils = new CountDownTimerUtils(getVerificationCode, 60000, 1000);
                     countDownTimerUtils.start();
+                    break;
+                case "phoneError":
+                    toast("电话号码不正确");
                     break;
                 case "next":
                     skipTo(CertificationActivity.class, null);
