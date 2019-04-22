@@ -17,6 +17,7 @@
         <include layout="@layout/toolbar" />
 
         <ScrollView
+            android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -27,8 +28,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
-                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/line"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -36,10 +37,11 @@
                     android:paddingRight="@dimen/layout_padding">
 
                     <ImageView
+                        android:layout_width="20dp"
                         android:id="@+id/icon_phone"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@mipmap/back" />
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/zhanghao" />
 
                     <EditText
                         android:text="@={model.ldPhone}"
@@ -55,8 +57,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
-                    android:layout_marginTop="@dimen/divide"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/line"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -64,10 +66,11 @@
                     android:paddingRight="@dimen/layout_padding">
 
                     <ImageView
+                        android:layout_width="20dp"
                         android:id="@+id/icon_verification_code"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@mipmap/back" />
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/yanzhengma" />
 
                     <EditText
                         android:text="@={model.ldVCode}"
@@ -81,10 +84,9 @@
                         android:hint="@string/prompt_verification_code" />
 
                     <View
+                        android:layout_height="24dp"
                         android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/half_divide"
-                        android:layout_marginBottom="@dimen/half_divide"
+                        android:layout_centerVertical="true"
                         android:layout_toStartOf="@+id/get_verification_code"
                         android:layout_toLeftOf="@+id/get_verification_code"
                         android:background="@color/divide_color" />
@@ -105,8 +107,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
-                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/line"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -114,10 +116,11 @@
                     android:paddingRight="@dimen/layout_padding">
 
                     <ImageView
+                        android:layout_width="20dp"
                         android:id="@+id/icon_password"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@mipmap/back" />
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/mima" />
 
                     <EditText
                         android:text="@={model.ldPassword}"
@@ -133,12 +136,8 @@
 
                 <Button
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
-                    android:layout_marginStart="@dimen/layout_margin"
-                    android:layout_marginLeft="@dimen/layout_margin"
-                    android:layout_marginTop="@dimen/margin_top2"
-                    android:layout_marginEnd="@dimen/layout_margin"
-                    android:layout_marginRight="@dimen/layout_margin"
+                    android:layout_height="40dp"
+                    android:layout_margin="43dp"
                     android:background="@drawable/bg_button_them_color"
                     android:onClick="@{()->model.next()}"
                     android:text="@string/next"
