@@ -2,14 +2,14 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 import com.jinkan.www.fastandroid.utils.SingleLiveEvent;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 /**
  * Created by Sampson on 2019/4/18.
