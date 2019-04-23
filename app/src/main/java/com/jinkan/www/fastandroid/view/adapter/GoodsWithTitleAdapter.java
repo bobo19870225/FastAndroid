@@ -66,8 +66,8 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 return GoodsNavigationViewHolder.create(parent);
             case R.layout.item_goods_banner:
                 return GoodsBannerViewHolder.create(parent);
-//            case R.layout.item_goods_2:
-//                return GoodsViewHolder.create(parent);
+            case R.layout.item_goods_2:
+                return GoodsTitleViewHolder.create(parent);
             default:
                 throw new IllegalArgumentException("unknown view type $viewType");
         }
@@ -88,9 +88,9 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case R.layout.item_goods_banner:
                 ((GoodsBannerViewHolder) holder).bind((Item<String>) getItem(position), onItemClick);
                 break;
-//            case R.layout.item_goods_2:
-//                ((GoodsViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick);
-//                break;
+            case R.layout.item_goods_2:
+                ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick);
+                break;
         }
 
     }

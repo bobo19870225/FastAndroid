@@ -8,6 +8,7 @@
     tools:context=".view.MainActivity">
 
     <fragment
+        android:layout_above="@+id/navigation"
         android:id="@+id/nav_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
