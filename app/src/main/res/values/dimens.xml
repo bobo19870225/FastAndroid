@@ -25,7 +25,7 @@
     <dimen name="divide_padding">16dp</dimen>
     <dimen name="tab_padding_left_right">24dp</dimen>
     <dimen name="title_text_size">18sp</dimen>
-    <dimen name="banner_height">160dp</dimen>
+    <dimen name="banner_height">150dp</dimen>
     <!--去掉底部导航大小变化-->
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">14dp</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">14dp</dimen>

@@ -2,6 +2,7 @@ package com.jinkan.www.fastandroid.view;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentGoodsBinding;
@@ -32,6 +33,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     ViewModelFactory viewModelFactory;
     private List<Item> list;
     private List<NavigatorBean> rows;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Inject
     public GoodsFragment() {
         // Required empty public constructor
@@ -48,10 +50,6 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         return R.layout.fragment_goods;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
 
     @Override
     protected Object getData() {
@@ -61,13 +59,21 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     @SuppressWarnings("unchecked")
     @Override
     protected void initUI() {
+        swipeRefreshLayout = mViewDataBinding.swipeRefresh;
         setBanner();
         GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
         setGoodsData(goodsAdapter);
+        mViewDataBinding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setGoodsData(goodsAdapter);
+            }
+        });
     }
 
     private void setGoodsData(GoodsWithTitleAdapter goodsAdapter) {
         mViewModel.getNodeNavigatorList().observe(this, pageBeanResource -> {
+            swipeRefreshLayout.setRefreshing(false);
             if (pageBeanResource.isSuccess()) {
                 list = new ArrayList<>();
                 PageBean<NavigatorBean> resource = pageBeanResource.getResource();
