@@ -15,21 +15,20 @@
         android:background="@color/bg_color">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:background="@color/bg_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:background="@color/bg_color"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="false">
 
-                <com.jinkan.www.fastandroid.view.custom_view.CircularBanner
-                    android:background="@drawable/bg_button_corner_bc"
+                <com.jinkan.www.fastandroid.view.custom_view.RoundAngleBanner
                     android:layout_margin="13dp"
                     android:id="@+id/banner"
+                    app:radius="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/banner_height"
                     app:image_scale_type="center_crop"

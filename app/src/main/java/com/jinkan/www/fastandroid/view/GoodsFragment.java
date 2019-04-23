@@ -14,7 +14,7 @@ import com.jinkan.www.fastandroid.utils.GlideImageLoader;
 import com.jinkan.www.fastandroid.view.adapter.GoodsWithTitleAdapter;
 import com.jinkan.www.fastandroid.view.adapter.Item;
 import com.jinkan.www.fastandroid.view.base.MVVMFragment;
-import com.jinkan.www.fastandroid.view.custom_view.CircularBanner;
+import com.jinkan.www.fastandroid.view.custom_view.RoundAngleBanner;
 import com.jinkan.www.fastandroid.view_model.GoodsFragmentVM;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 
@@ -63,12 +63,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         setBanner();
         GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
         setGoodsData(goodsAdapter);
-        mViewDataBinding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setGoodsData(goodsAdapter);
-            }
-        });
+        mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsAdapter));
     }
 
     private void setGoodsData(GoodsWithTitleAdapter goodsAdapter) {
@@ -123,7 +118,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     }
 
     private void setBanner() {
-        CircularBanner banner = mViewDataBinding.banner;
+        RoundAngleBanner banner = mViewDataBinding.banner;
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         ArrayList<String> list_path = new ArrayList<>();
