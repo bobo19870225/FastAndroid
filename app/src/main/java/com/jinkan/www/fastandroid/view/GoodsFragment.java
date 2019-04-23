@@ -14,9 +14,9 @@ import com.jinkan.www.fastandroid.utils.GlideImageLoader;
 import com.jinkan.www.fastandroid.view.adapter.GoodsWithTitleAdapter;
 import com.jinkan.www.fastandroid.view.adapter.Item;
 import com.jinkan.www.fastandroid.view.base.MVVMFragment;
+import com.jinkan.www.fastandroid.view.custom_view.CircularBanner;
 import com.jinkan.www.fastandroid.view_model.GoodsFragmentVM;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
-import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +123,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     }
 
     private void setBanner() {
-        Banner banner = mViewDataBinding.banner;
+        CircularBanner banner = mViewDataBinding.banner;
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         ArrayList<String> list_path = new ArrayList<>();

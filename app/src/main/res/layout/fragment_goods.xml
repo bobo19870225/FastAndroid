@@ -26,7 +26,8 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="false">
 
-                <com.youth.banner.Banner
+                <com.jinkan.www.fastandroid.view.custom_view.CircularBanner
+                    android:background="@drawable/bg_button_corner_bc"
                     android:layout_margin="13dp"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
