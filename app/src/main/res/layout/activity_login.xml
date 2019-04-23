@@ -13,8 +13,6 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/layout_margin"
-        android:paddingRight="@dimen/layout_margin"
         android:background="@color/bg_color">
 
         <!-- Login progress -->
@@ -27,6 +25,8 @@
             android:visibility="gone" />
 
         <ScrollView
+            android:paddingLeft="@dimen/layout_margin"
+            android:paddingRight="@dimen/layout_margin"
             android:scrollbars="none"
             android:id="@+id/login_form"
             android:layout_width="match_parent"

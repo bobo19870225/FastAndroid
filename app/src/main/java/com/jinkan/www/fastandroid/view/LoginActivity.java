@@ -11,6 +11,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.ActivityLoginBinding;
@@ -23,9 +26,6 @@ import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProviders;
-
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -37,6 +37,8 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
 
     @Inject
     ViewModelFactory viewModelFactory;
+
+
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -46,7 +48,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
     private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
-    private View mLoginFormView;
+    //    private View mLoginFormView;
 
 
     @Override
@@ -168,14 +170,14 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
         // the progress spinner.
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
+//        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+//        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+//                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationEnd(Animator animation) {
+//                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            }
+//        });
 
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
         mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -196,6 +198,12 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
 
     @Override
     protected void setView() {
+//        mViewDataBinding.password.setOnFocusChangeListener((v, hasFocus) -> {
+//            if (hasFocus) {
+//                mViewDataBinding.scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+//            }
+//        });
+
         mViewModel.actionRegister.observe(this, aVoid -> skipTo(RegisterActivity.class, null));
         mEmailView = mViewDataBinding.phone;
         mViewModel.ldPhone.observe(this, s -> {
@@ -214,7 +222,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
         Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
-        mLoginFormView = findViewById(R.id.login_form);
+//        mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mViewModel.ldLogin.observe(this, messageResource -> {
 //            mViewModel.ldLogin.removeObservers(this);
@@ -241,6 +249,12 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
 
