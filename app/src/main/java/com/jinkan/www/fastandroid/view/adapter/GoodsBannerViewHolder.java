@@ -41,10 +41,10 @@ class GoodsBannerViewHolder extends RecyclerView.ViewHolder {
         //banner设置方法全部调用完毕时最后调用
         bannerView.start();
 
-        itemView.setOnClickListener(v -> {
-            if (onItemClick != null)
-                onItemClick.onClick(v, item);
-        });
+//        itemView.setOnClickListener(v -> {
+//            if (onItemClick != null)
+//                onItemClick.onClick(v, item);
+//        });
 
     }
 }

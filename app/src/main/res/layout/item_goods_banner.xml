@@ -21,10 +21,11 @@
     android:orientation="vertical">
 
     <com.youth.banner.Banner
+        android:layout_height="125dp"
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        app:image_scale_type="fit_center">
+        android:layout_margin="15dp"
+        app:image_scale_type="center_crop">
 
     </com.youth.banner.Banner>
 </RelativeLayout>
