@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.ProgressBar;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -65,10 +65,8 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         return getActivity() == null ? null : ((MainActivity) getActivity()).transferData;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void initUI() {
-        builder = new AlertDialog.Builder(getContext());
         setDialog();
         swipeRefreshLayout = mViewDataBinding.swipeRefresh;
         setBanner();
@@ -78,16 +76,17 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     }
 
     private AlertDialog dialog;
-    private AlertDialog.Builder builder;
-    private LinearLayout progressBar;
-    private RelativeLayout root;
 
+    private LinearLayout root;
+    private ProgressBar loading;
     private void setDialog() {
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.dialog_goods_specification, null, false);
-        dialog = builder.setView(view).create();
-        progressBar = view.findViewById(R.id.loading);
         root = view.findViewById(R.id.root);
+        loading = view.findViewById(R.id.loading);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        dialog = builder.setView(view).create();
+
     }
 
     private void setGoodsData(GoodsWithTitleAdapter goodsAdapter) {
@@ -130,10 +129,9 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         GoodsWithTitleAdapter goodsAdapter = new GoodsWithTitleAdapter(mViewModel.function0);
         goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ((Item<NavigatorBean.GoodsListBean>) ItemObject).getData()));
         goodsAdapter.setOnAddClick((view, ItemObject) -> {
+//            showLoadingDialog();
             showSpecificationDialog(null);
             getSpecification(ItemObject);
-
-
         });
         RecyclerView list = mViewDataBinding.list;
         list.setLayoutManager(new GridLayoutManager(getContext(), 6));
@@ -147,6 +145,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         list.setAdapter(goodsAdapter);
         return goodsAdapter;
     }
+
 
     private void getSpecification(NavigatorBean.GoodsListBean ItemObject) {
         mViewModel.getObjectFeatureItemList(ItemObject.getObjectID()).observe(this, specificationsBeanResource -> {
@@ -185,11 +184,11 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
 
     private void showSpecificationDialog(List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList) {
         if (itemList == null) {
-            progressBar.setVisibility(View.VISIBLE);
-//            root.setVisibility(View.GONE);
+            root.setVisibility(View.GONE);
+            loading.setVisibility(View.VISIBLE);
         } else {
-            progressBar.setVisibility(View.GONE);
-//            root.setVisibility(View.VISIBLE);
+            root.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }
         if (!dialog.isShowing()) {
             dialog.show();
