@@ -9,8 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
+import com.jinkan.www.fastandroid.utils.FormatUtils;
 
 /**
  * Created by Sampson on 2019/3/11.
@@ -18,12 +20,18 @@ import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
  */
 public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
-    private ImageView add;
+    private TextView specifications;
+    private TextView price;
 
+    private ImageView add;
+    private ImageView goodsIcon;
     private GoodsTitleViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
+        specifications = itemView.findViewById(R.id.specifications);
+        price = itemView.findViewById(R.id.price);
         add = itemView.findViewById(R.id.add);
+        goodsIcon = itemView.findViewById(R.id.icon_goods);
     }
 
     public static GoodsTitleViewHolder create(ViewGroup parent) {
@@ -34,6 +42,9 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
 
     void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick onItemClick, OnItemClick onAddClick) {
         goodsName.setText(goods.getData().getObjectName());
+        Glide.with(goodsIcon).load(goods.getData().getListImage()).into(goodsIcon);
+//        specifications.setText(goods.getData().);
+        price.setText(FormatUtils.numberFormatMoney(goods.getData().getShowPrice()));
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
                 onItemClick.onClick(v, goods);

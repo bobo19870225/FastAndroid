@@ -2,6 +2,7 @@ package com.jinkan.www.fastandroid.view;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.jinkan.www.fastandroid.R;
@@ -14,6 +15,7 @@ import com.jinkan.www.fastandroid.utils.GlideImageLoader;
 import com.jinkan.www.fastandroid.view.adapter.GoodsWithTitleAdapter;
 import com.jinkan.www.fastandroid.view.adapter.Item;
 import com.jinkan.www.fastandroid.view.base.MVVMFragment;
+import com.jinkan.www.fastandroid.view.custom_view.GridItemDecoration;
 import com.jinkan.www.fastandroid.view.custom_view.RoundAngleBanner;
 import com.jinkan.www.fastandroid.view_model.GoodsFragmentVM;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
@@ -112,8 +114,16 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
                 mainActivity.badge.setBadgeNumber(badgeNumber + 1);
             }
         });
-        mViewDataBinding.list.setLayoutManager(new GridLayoutManager(getContext(), 6));
-        mViewDataBinding.list.setAdapter(goodsAdapter);
+        RecyclerView list = mViewDataBinding.list;
+        list.setLayoutManager(new GridLayoutManager(getContext(), 6));
+        GridItemDecoration divider = new GridItemDecoration.Builder(getContext())
+                .setHorizontalSpan(R.dimen.line)
+                .setVerticalSpan(R.dimen.line)
+                .setColorResource(R.color.bg_color)
+                .setShowLastLine(true)
+                .build();
+        list.addItemDecoration(divider);
+        list.setAdapter(goodsAdapter);
         return goodsAdapter;
     }
 
