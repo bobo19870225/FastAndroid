@@ -151,4 +151,8 @@
     <string name="zmyx">早盟优选</string>
     <string name="more">更多</string>
     <string name="shopping_cart">购物车</string>
+    <string name="specification">规格</string>
+    <string name="number">数量</string>
+    <string name="OK">确定</string>
+
 </resources>

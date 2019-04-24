@@ -22,7 +22,7 @@ public class PageBean<T> {
         this.header = header;
     }
 
-    public PageBodyBean getBody() {
+    public PageBodyBean<T> getBody() {
         return body;
     }
 

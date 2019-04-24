@@ -22,7 +22,7 @@ public class Bean<T> {
         this.header = header;
     }
 
-    public BodyBean getBody() {
+    public BodyBean<T> getBody() {
         return body;
     }
 

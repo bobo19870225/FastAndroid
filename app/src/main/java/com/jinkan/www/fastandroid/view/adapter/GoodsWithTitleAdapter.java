@@ -27,10 +27,10 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private NetWorkState netWorkState;
 
     private OnItemClick onItemClick;
-    private OnItemClick onAddClick;
+    private OnItemClick<NavigatorBean.GoodsListBean> onAddClick;
     private List<Item> objects;
 
-    public void setOnAddClick(OnItemClick onAddClick) {
+    public void setOnAddClick(OnItemClick<NavigatorBean.GoodsListBean> onAddClick) {
         this.onAddClick = onAddClick;
     }
 

@@ -40,19 +40,19 @@ public class GoodsGridViewHolder extends RecyclerView.ViewHolder {
         return new GoodsGridViewHolder(view);
     }
 
-    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick onItemClick, OnItemClick onAddClick) {
+    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick onItemClick, OnItemClick<NavigatorBean.GoodsListBean> onAddClick) {
         NavigatorBean.GoodsListBean data = goods.getData();
         goodsName.setText(data.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(data.getShowPrice()));
-        specifications.setText(String.valueOf(data.getStockNumber()));
+//        specifications.setText(String.valueOf(data.getStockNumber()));
         Glide.with(icon_goods).load(data.getListImage()).into(icon_goods);
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
-                onItemClick.onClick(v, goods);
+                onItemClick.onClick(v, goods.getData());
         });
         add.setOnClickListener(v -> {
             if (onAddClick != null)
-                onAddClick.onClick(v, goods);
+                onAddClick.onClick(v, goods.getData());
         });
     }
 

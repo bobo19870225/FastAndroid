@@ -13,6 +13,7 @@ import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.RegisterBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.SendSmsCommonBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.SpecificationsBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 
 import retrofit2.Call;
@@ -170,6 +171,12 @@ public interface ApiService {
     @GET("getNodeNavigatorList.json")
     LiveData<Resource<PageBean<NavigatorBean>>> getNodeNavigatorList(@Query("rootID") String rootID, @Query("depth") Integer depth, @Query("objectDefineID") String objectDefineID);
 
+
+    /**
+     * 获取对象特征选项
+     */
+    @GET("getObjectFeatureItemList.json")
+    LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(@Query("objectID") String objectID);
 
 
 }

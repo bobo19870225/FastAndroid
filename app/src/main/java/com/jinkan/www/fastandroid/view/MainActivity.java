@@ -1,13 +1,14 @@
 package com.jinkan.www.fastandroid.view;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
+
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.view.base.BaseDaggerActivity;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
@@ -37,7 +38,7 @@ public class MainActivity extends BaseDaggerActivity {
 //        goodsFragment.setArguments(args);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        BottomNavigationItemView shoppingCart = navigation.findViewById(R.id.treeFragment);
+        BottomNavigationItemView shoppingCart = navigation.findViewById(R.id.shoppingCartFragment);
         badge = new QBadgeView(this).bindTarget(shoppingCart)
                 .setShowShadow(true)
 //                .setBadgeGravity(Gravity.END | Gravity.TOP)

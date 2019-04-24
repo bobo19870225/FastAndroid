@@ -1,5 +1,11 @@
 package com.jinkan.www.fastandroid.view;
 
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +17,7 @@ import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRow
 import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageDataBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.SpecificationsBean;
 import com.jinkan.www.fastandroid.utils.GlideImageLoader;
 import com.jinkan.www.fastandroid.view.adapter.GoodsWithTitleAdapter;
 import com.jinkan.www.fastandroid.view.adapter.Item;
@@ -61,11 +68,26 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     @SuppressWarnings("unchecked")
     @Override
     protected void initUI() {
+        builder = new AlertDialog.Builder(getContext());
+        setDialog();
         swipeRefreshLayout = mViewDataBinding.swipeRefresh;
         setBanner();
         GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
         setGoodsData(goodsAdapter);
         mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsAdapter));
+    }
+
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
+    private LinearLayout progressBar;
+    private RelativeLayout root;
+
+    private void setDialog() {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_goods_specification, null, false);
+        dialog = builder.setView(view).create();
+        progressBar = view.findViewById(R.id.loading);
+        root = view.findViewById(R.id.root);
     }
 
     private void setGoodsData(GoodsWithTitleAdapter goodsAdapter) {
@@ -108,11 +130,10 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         GoodsWithTitleAdapter goodsAdapter = new GoodsWithTitleAdapter(mViewModel.function0);
         goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ((Item<NavigatorBean.GoodsListBean>) ItemObject).getData()));
         goodsAdapter.setOnAddClick((view, ItemObject) -> {
-            MainActivity mainActivity = (MainActivity) getActivity();
-            if (mainActivity != null) {
-                int badgeNumber = mainActivity.badge.getBadgeNumber();
-                mainActivity.badge.setBadgeNumber(badgeNumber + 1);
-            }
+            showSpecificationDialog(null);
+            getSpecification(ItemObject);
+
+
         });
         RecyclerView list = mViewDataBinding.list;
         list.setLayoutManager(new GridLayoutManager(getContext(), 6));
@@ -125,6 +146,54 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         list.addItemDecoration(divider);
         list.setAdapter(goodsAdapter);
         return goodsAdapter;
+    }
+
+    private void getSpecification(NavigatorBean.GoodsListBean ItemObject) {
+        mViewModel.getObjectFeatureItemList(ItemObject.getObjectID()).observe(this, specificationsBeanResource -> {
+            if (specificationsBeanResource.isSuccess()) {
+                SpecificationsBean resource = specificationsBeanResource.getResource();
+                if (resource != null && resource.getHeader().getCode() == 0) {
+                    List<SpecificationsBean.BodyBean.DataBean> data = resource.getBody().getData();
+                    if (data.size() == 0) {
+                        MainActivity mainActivity = (MainActivity) getActivity();
+                        if (mainActivity != null) {
+                            int badgeNumber = mainActivity.badge.getBadgeNumber();
+                            mainActivity.badge.setBadgeNumber(badgeNumber + 1);
+
+                        }
+                    } else {
+                        SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
+                        List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
+                        //弹选择框
+                        showSpecificationDialog(itemList);
+                    }
+
+                } else {
+                    if (resource != null) {
+                        toast(resource.getHeader().getMsg());
+                    }
+                }
+            } else {
+                Throwable error = specificationsBeanResource.getError();
+                if (error != null) {
+                    toast(error.toString());
+                }
+            }
+        });
+    }
+
+
+    private void showSpecificationDialog(List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList) {
+        if (itemList == null) {
+            progressBar.setVisibility(View.VISIBLE);
+//            root.setVisibility(View.GONE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+//            root.setVisibility(View.VISIBLE);
+        }
+        if (!dialog.isShowing()) {
+            dialog.show();
+        }
     }
 
     private void setBanner() {

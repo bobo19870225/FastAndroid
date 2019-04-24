@@ -47,11 +47,11 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
         price.setText(FormatUtils.numberFormatMoney(goods.getData().getShowPrice()));
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
-                onItemClick.onClick(v, goods);
+                onItemClick.onClick(v, goods.getData());
         });
         add.setOnClickListener(v -> {
             if (onAddClick != null)
-                onAddClick.onClick(v, goods);
+                onAddClick.onClick(v, goods.getData());
         });
     }
 

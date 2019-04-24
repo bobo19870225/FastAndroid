@@ -11,7 +11,7 @@ public class PageBodyBean<T> {
 
     private PageDataBean<T> data;
 
-    public PageDataBean getData() {
+    public PageDataBean<T> getData() {
         return data;
     }
 

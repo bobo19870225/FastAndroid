@@ -10,6 +10,7 @@ import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRow
 import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.PageBean;
+import com.jinkan.www.fastandroid.model.repository.http.bean.SpecificationsBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 
 import kotlin.Unit;
@@ -52,4 +53,9 @@ public class GoodsFragmentVM extends BaseViewModel {
     public LiveData<Resource<PageBean<GoodsListRowsBean>>> getGoodsList(String goodsCategoryID) {
         return apiService.getGoodsShopListForLiveData(1, 3, goodsCategoryID, "");
     }
+
+    public LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(String objectID) {
+        return apiService.getObjectFeatureItemList(objectID);
+    }
+
 }

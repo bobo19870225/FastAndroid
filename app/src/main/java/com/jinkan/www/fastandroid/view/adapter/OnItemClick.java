@@ -6,6 +6,6 @@ import android.view.View;
  * Created by Sampson on 2019/4/17.
  * FastAndroid
  */
-public interface OnItemClick {
-    void onClick(View view, Object ItemObject);
+public interface OnItemClick<T> {
+    void onClick(View view, T ItemObject);
 }
