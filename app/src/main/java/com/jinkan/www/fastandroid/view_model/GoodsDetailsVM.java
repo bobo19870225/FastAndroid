@@ -2,15 +2,15 @@ package com.jinkan.www.fastandroid.view_model;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.jinkan.www.fastandroid.model.repository.http.ApiService;
 import com.jinkan.www.fastandroid.model.repository.http.bean.Bean;
 import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsDetailsBean;
 import com.jinkan.www.fastandroid.model.repository.http.live_data_call_adapter.Resource;
 import com.jinkan.www.fastandroid.utils.SingleLiveEvent;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by Sampson on 2019/4/17.
@@ -19,7 +19,7 @@ import androidx.lifecycle.MutableLiveData;
 public class GoodsDetailsVM extends BaseViewModel {
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public final MediatorLiveData<Resource<Bean<GoodsDetailsBean>>> ldGoodsDetails = new MediatorLiveData<>();
-    public final MutableLiveData<String> ldLargerImage = new MutableLiveData<>();
+    public final MutableLiveData<String> ldDescribe = new MutableLiveData<>();
     public final MutableLiveData<String> ldShowPrice = new MutableLiveData<>();
     public final MutableLiveData<String> ldShowName = new MutableLiveData<>();
 

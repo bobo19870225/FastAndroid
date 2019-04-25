@@ -13,20 +13,20 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="@color/bg_color">
-
-        <ImageView
-            android:layout_width="@dimen/image"
-            android:layout_height="@dimen/image"
-            android:layout_margin="@dimen/layout_margin"
-            android:onClick="@{()->model.back()}"
-            android:src="@mipmap/back" />
-
         <com.youth.banner.Banner
-            app:image_scale_type="fit_center"
+            android:background="@color/white"
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/banner_height"
-            android:background="@android:color/white">
+            app:image_scale_type="center_crop">
+
+            <ImageView
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_margin="8dp"
+                android:onClick="@{()->model.back()}"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/back" />
 
         </com.youth.banner.Banner>
 
@@ -36,14 +36,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/banner"
             android:layout_marginTop="@dimen/margin_top"
-            android:background="@android:color/white"
+            android:background="@color/white"
             android:orientation="vertical"
             android:padding="@dimen/layout_padding">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="邻家小厨 儿童营养早餐组合 1180g（6包）" />
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="邻家小厨 儿童营养早餐组合 1180g（6包）" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -60,19 +60,31 @@
         </LinearLayout>
 
         <ScrollView
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@color/white"
+            android:padding="@dimen/layout_padding"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom"
             android:layout_below="@+id/goods_info">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{model.ldDescribe}" />
         </ScrollView>
 
         <RelativeLayout
+            android:layout_height="48dp"
             android:id="@+id/bottom"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layout_height"
+            android:background="@color/white"
             android:layout_alignParentBottom="true">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:background="@color/bg_color" />
             <ImageView
                 android:id="@+id/collect"
                 android:layout_width="@dimen/image"

@@ -140,9 +140,8 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
 
     private GoodsWithTitleAdapter getGoodsWithTitleAdapter() {
         GoodsWithTitleAdapter goodsAdapter = new GoodsWithTitleAdapter(mViewModel.function0);
-        goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ((Item<NavigatorBean.GoodsListBean>) ItemObject).getData()));
+        goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ((NavigatorBean.GoodsListBean) ItemObject).getObjectID()));
         goodsAdapter.setOnAddClick((view, ItemObject) -> {
-//            showLoadingDialog();
             showSpecificationDialog(null);
             getSpecification(ItemObject);
         });
