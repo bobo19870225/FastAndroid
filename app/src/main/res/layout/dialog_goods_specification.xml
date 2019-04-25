@@ -27,15 +27,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/specification" />
+            android:layout_marginTop="@dimen/margin_top">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="@string/specification" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_toEndOf="@+id/textView"
+                android:layout_toRightOf="@+id/textView">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -84,7 +103,7 @@
 
         <Button
             android:layout_marginBottom="@dimen/layout_margin"
-            android:id="@+id/button"
+            android:id="@+id/ok"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"

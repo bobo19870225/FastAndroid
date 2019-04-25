@@ -3,14 +3,21 @@ package com.jinkan.www.fastandroid.view;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentGoodsBinding;
 import com.jinkan.www.fastandroid.model.repository.http.bean.FocusPictureListRowsBean;
@@ -26,6 +33,8 @@ import com.jinkan.www.fastandroid.view.custom_view.GridItemDecoration;
 import com.jinkan.www.fastandroid.view.custom_view.RoundAngleBanner;
 import com.jinkan.www.fastandroid.view_model.GoodsFragmentVM;
 import com.jinkan.www.fastandroid.view_model.ViewModelFactory;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +85,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     }
 
     private AlertDialog dialog;
-
+    private RecyclerView recyclerView;
     private LinearLayout root;
     private ProgressBar loading;
     private void setDialog() {
@@ -84,6 +93,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         View view = layoutInflater.inflate(R.layout.dialog_goods_specification, null, false);
         root = view.findViewById(R.id.root);
         loading = view.findViewById(R.id.loading);
+        recyclerView = view.findViewById(R.id.list);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         dialog = builder.setView(view).create();
 
@@ -183,12 +193,34 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
 
 
     private void showSpecificationDialog(List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList) {
+
         if (itemList == null) {
             root.setVisibility(View.GONE);
             loading.setVisibility(View.VISIBLE);
         } else {
+
+
             root.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
+            FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
+            layoutManager.setFlexWrap(FlexWrap.WRAP);
+            layoutManager.setFlexDirection(FlexDirection.ROW);
+            layoutManager.setAlignItems(AlignItems.STRETCH);
+            layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+            recyclerView.setLayoutManager(layoutManager);
+
+            recyclerView.setAdapter(new CommonAdapter<SpecificationsBean.BodyBean.DataBean.ItemListBean>(getContext(), R.layout.flexbox_item_text, itemList) {
+                @Override
+                protected void convert(ViewHolder holder, SpecificationsBean.BodyBean.DataBean.ItemListBean itemListBean, int position) {
+                    TextView te = holder.getView(R.id.imageview);
+                    te.setText(itemListBean.getObjectFeatureItemName());
+                    ViewGroup.LayoutParams lp = te.getLayoutParams();
+                    if (lp instanceof FlexboxLayoutManager.LayoutParams) {
+                        FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
+                        flexBoxLp.setFlexGrow(1.0f);
+                    }
+                }
+            });
         }
         if (!dialog.isShowing()) {
             dialog.show();
