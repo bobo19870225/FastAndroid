@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
+
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentMainBinding;
 import com.jinkan.www.fastandroid.model.repository.http.bean.NavigatorBean;
@@ -19,10 +24,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
@@ -49,6 +50,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
         return R.layout.fragment_main;
     }
 
+    private List<String> titles = new ArrayList<>();
     @Override
     protected void initUI() {
         Context context = getContext();
@@ -73,14 +75,13 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
                     break;
             }
         });
-        List<String> titles = new ArrayList<>();
+
         pagerSlidingTabStrip = rootView.findViewById(R.id.table_strip);
         viewPager = rootView.findViewById(R.id.view_pager);
         mViewModel.getNodeNavigatorList().observe(this, pageBeanResource -> {
             if (pageBeanResource.isSuccess()) {
                 PageBean<NavigatorBean> resource = pageBeanResource.getResource();
                 if (resource != null && resource.getHeader().getCode() == 0) {
-                    //noinspection unchecked
                     List<NavigatorBean> rows = resource.getBody().getData().getRows();
                     for (NavigatorBean n : rows
                     ) {
@@ -98,6 +99,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
                     viewPager.setAdapter(fragmentAdapter);
                     pagerSlidingTabStrip.setViewPager(viewPager);
                     pagerSlidingTabStrip.setShouldExpand(false);
+
                 } else {
                     if (resource != null) {
                         toast(resource.getHeader().getMsg());
@@ -112,6 +114,14 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
         });
 
 
+    }
+
+    void setSelectedPosition(String title) {
+        for (int i = 0; i < titles.size(); i++) {
+            if (titles.get(i).equals(title)) {
+                pagerSlidingTabStrip.setSelectedPosition(i);
+            }
+        }
     }
 
     @Override

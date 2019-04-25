@@ -7,5 +7,5 @@ import android.view.View;
  * FastAndroid
  */
 public interface OnItemClick<T> {
-    void onClick(View view, T ItemObject);
+    void onClick(View view, T ItemObject, int position);
 }

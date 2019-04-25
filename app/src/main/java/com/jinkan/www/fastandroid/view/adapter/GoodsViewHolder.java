@@ -6,11 +6,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jinkan.www.fastandroid.R;
-import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.jinkan.www.fastandroid.R;
+import com.jinkan.www.fastandroid.model.repository.http.bean.GoodsListRowsBean;
 
 /**
  * Created by Sampson on 2019/3/11.
@@ -35,11 +35,11 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
         goodsName.setText(goods.getName());
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
-                onItemClick.onClick(v, goods);
+                onItemClick.onClick(v, goods, getLayoutPosition());
         });
         add.setOnClickListener(v -> {
             if (onAddClick != null)
-                onAddClick.onClick(v, goods);
+                onAddClick.onClick(v, goods, getLayoutPosition());
         });
     }
 

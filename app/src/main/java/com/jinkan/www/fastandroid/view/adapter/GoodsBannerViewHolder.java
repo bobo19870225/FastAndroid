@@ -32,7 +32,7 @@ class GoodsBannerViewHolder extends RecyclerView.ViewHolder {
         return new GoodsBannerViewHolder(view);
     }
 
-    void bind(Item<String> item, OnItemClick onItemClick) {
+    void bind(Item<String> item, OnItemClick onItemClick, int position) {
         bannerView.setImageLoader(new GlideImageLoader());
         ArrayList<String> list_path = new ArrayList<>();
         list_path.add(item.getData());

@@ -1,13 +1,13 @@
 package com.jinkan.www.fastandroid.view;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.view.adapter.LocationAdapter;
 import com.jinkan.www.fastandroid.view.base.BaseDaggerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by Sampson on 2019/4/18.
@@ -38,9 +38,7 @@ public class LocationActivity extends BaseDaggerActivity {
         listLocation.add("3");
         listLocation.add("4");
         LocationAdapter locationAdapter = new LocationAdapter(listLocation);
-        locationAdapter.setOnItemClick((view, ItemObject) -> {
-            toast((String) ItemObject);
-        });
+        locationAdapter.setOnItemClick((view, ItemObject, position) -> LocationActivity.this.toast((String) ItemObject));
         listView.setAdapter(locationAdapter);
     }
 }

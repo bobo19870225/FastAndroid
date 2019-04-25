@@ -77,19 +77,19 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case R.layout.item_goods:
-                ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick);
+                ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick, position);
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindTo(netWorkState);
                 break;
             case R.layout.item_goods_navigation:
-                ((GoodsNavigationViewHolder) holder).bind((Item<String>) getItem(position), onItemClick);
+                ((GoodsNavigationViewHolder) holder).bind((Item<String>) getItem(position), onItemClick, position);
                 break;
             case R.layout.item_goods_banner:
-                ((GoodsBannerViewHolder) holder).bind((Item<String>) getItem(position), onItemClick);
+                ((GoodsBannerViewHolder) holder).bind((Item<String>) getItem(position), onItemClick, position);
                 break;
             case R.layout.item_goods_2:
-                ((GoodsGridViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick);
+                ((GoodsGridViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick, position);
                 break;
         }
 

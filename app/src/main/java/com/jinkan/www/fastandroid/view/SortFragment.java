@@ -1,5 +1,10 @@
 package com.jinkan.www.fastandroid.view;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.jinkan.www.fastandroid.R;
 import com.jinkan.www.fastandroid.databinding.FragmentSortBinding;
 import com.jinkan.www.fastandroid.view.adapter.GoodsAdapter;
@@ -13,10 +18,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import kotlin.jvm.functions.Function0;
 
 
@@ -48,7 +49,7 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
         list.add("来一份");
         list.add("来四分");
         GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(list);
-        goodsParentAdapter.setOnItemClick((view, position) -> {
+        goodsParentAdapter.setOnItemClick((view, ItemObject, position) -> {
 
         });
         mViewDataBinding.list1.setAdapter(goodsParentAdapter);

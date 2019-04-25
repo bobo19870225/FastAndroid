@@ -5,10 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.jinkan.www.fastandroid.R;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.jinkan.www.fastandroid.R;
 
 /**
  * Created by Sampson on 2019/3/11.
@@ -32,7 +32,7 @@ public class LocationViewHolder extends RecyclerView.ViewHolder {
         location.setText(s);
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
-                onItemClick.onClick(v, s);
+                onItemClick.onClick(v, s, getLayoutPosition());
         });
 
     }

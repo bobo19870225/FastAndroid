@@ -2,11 +2,12 @@ package com.jinkan.www.fastandroid.view.adapter;
 
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 
@@ -49,7 +50,7 @@ public class GoodsParentAdapter extends RecyclerView.Adapter<GoodsParentViewHold
             isClicks.set(position, true);
             notifyDataSetChanged();
             if (onItemClick != null)
-                onItemClick.onClick(holder.itemView, position);
+                onItemClick.onClick(holder.itemView, position, position);
             return Unit.INSTANCE;
         };
         holder.bind((String) list.get(position), position, function0, isClicks);

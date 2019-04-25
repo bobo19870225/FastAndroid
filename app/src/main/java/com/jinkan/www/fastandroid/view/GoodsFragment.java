@@ -58,18 +58,10 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         // Required empty public constructor
     }
 
-
-//    @Override
-//    protected String setToolBarTitle() {
-//        return null;
-//    }
-
     @Override
     protected int setLayoutRes() {
         return R.layout.fragment_goods;
     }
-
-
     @Override
     protected Object getData() {
         return getActivity() == null ? null : ((MainActivity) getActivity()).transferData;
@@ -140,10 +132,20 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
 
     private GoodsWithTitleAdapter getGoodsWithTitleAdapter() {
         GoodsWithTitleAdapter goodsAdapter = new GoodsWithTitleAdapter(mViewModel.function0);
-        goodsAdapter.setOnItemClick((view, ItemObject) -> skipTo(GoodsDetailsActivity.class, ((NavigatorBean.GoodsListBean) ItemObject).getObjectID()));
-        goodsAdapter.setOnAddClick((view, ItemObject) -> {
-            showSpecificationDialog(null);
-            getSpecification(ItemObject);
+        goodsAdapter.setOnItemClick((view, ItemObject, position) -> {
+            if (ItemObject instanceof String) {
+                MainFragment parentFragment = (MainFragment) GoodsFragment.this.getParentFragment();
+                if (parentFragment != null) {
+                    parentFragment.setSelectedPosition((String) ItemObject);
+                }
+            } else {
+                GoodsFragment.this.skipTo(GoodsDetailsActivity.class, ((NavigatorBean.GoodsListBean) ItemObject).getObjectID());
+            }
+        });
+
+        goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
+            GoodsFragment.this.showSpecificationDialog(null);
+            GoodsFragment.this.getSpecification(ItemObject);
         });
         RecyclerView list = mViewDataBinding.list;
         list.setLayoutManager(new GridLayoutManager(getContext(), 6));
