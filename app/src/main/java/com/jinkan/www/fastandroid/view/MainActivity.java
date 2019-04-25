@@ -1,5 +1,7 @@
 package com.jinkan.www.fastandroid.view;
 
+import android.view.KeyEvent;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -52,5 +54,28 @@ public class MainActivity extends BaseDaggerActivity {
 
     }
 
+    private long firstTime;// 记录点击返回时第一次的时间毫秒值
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {// 点击了返回按键
+            exitApp();// 退出应用
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 退出应用
+     */
+    private void exitApp() {
+        if (System.currentTimeMillis() - firstTime >= (long) 2000) {
+            toast("再按一次退出程序");
+            firstTime = System.currentTimeMillis();
+        } else {
+            finish();// 销毁当前activity
+            System.exit(0);// 完全退出应用
+        }
+    }
 
 }

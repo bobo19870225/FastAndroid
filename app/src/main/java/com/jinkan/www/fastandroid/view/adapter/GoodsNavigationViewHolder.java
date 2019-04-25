@@ -33,7 +33,7 @@ class GoodsNavigationViewHolder extends RecyclerView.ViewHolder {
         navigationName.setText(item.getData());
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
-                onItemClick.onClick(v, item, position);
+                onItemClick.onClick(v, item.getData(), position);
         });
 
     }

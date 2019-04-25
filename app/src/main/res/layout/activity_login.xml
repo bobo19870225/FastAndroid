@@ -16,13 +16,30 @@
         android:background="@color/bg_color">
 
         <!-- Login progress -->
-        <ProgressBar
-            android:id="@+id/login_progress"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone" />
+        <RelativeLayout
+            android:id="@+id/rl_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/login_progress"
+
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="160dp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_progress"
+                android:layout_centerHorizontal="true"
+                android:text="@string/logining" />
+        </RelativeLayout>
+
 
         <ScrollView
             android:paddingLeft="@dimen/layout_margin"
@@ -125,6 +142,7 @@
 
 
                 <Button
+                    android:onClick="@{()->model.login()}"
                     android:background="@drawable/bg_button_them_color"
                     android:id="@+id/email_sign_in_button"
                     android:text="@string/login"

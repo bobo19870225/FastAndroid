@@ -154,5 +154,6 @@
     <string name="specification">规格</string>
     <string name="number">数量</string>
     <string name="OK">确定</string>
+    <string name="logining">登录中...</string>
 
 </resources>
