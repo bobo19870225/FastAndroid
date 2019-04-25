@@ -233,6 +233,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
 
             });
             ok.setOnClickListener(v -> {
+                //TODO:选择规格后的逻辑
                 if (dialog.isShowing()) {
                     dialog.dismiss();
                 }
