@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -88,12 +89,14 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     private RecyclerView recyclerView;
     private LinearLayout root;
     private ProgressBar loading;
+    private Button ok;
     private void setDialog() {
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.dialog_goods_specification, null, false);
         root = view.findViewById(R.id.root);
         loading = view.findViewById(R.id.loading);
         recyclerView = view.findViewById(R.id.list);
+        ok = view.findViewById(R.id.ok);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         dialog = builder.setView(view).create();
 
@@ -168,7 +171,6 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
                         if (mainActivity != null) {
                             int badgeNumber = mainActivity.badge.getBadgeNumber();
                             mainActivity.badge.setBadgeNumber(badgeNumber + 1);
-
                         }
                     } else {
                         SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
@@ -191,15 +193,12 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         });
     }
 
-
+    private int oldPosition = -1;
     private void showSpecificationDialog(List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList) {
-
         if (itemList == null) {
             root.setVisibility(View.GONE);
             loading.setVisibility(View.VISIBLE);
         } else {
-
-
             root.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
             FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
@@ -208,20 +207,38 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
             layoutManager.setAlignItems(AlignItems.STRETCH);
             layoutManager.setJustifyContent(JustifyContent.FLEX_START);
             recyclerView.setLayoutManager(layoutManager);
-
             recyclerView.setAdapter(new CommonAdapter<SpecificationsBean.BodyBean.DataBean.ItemListBean>(getContext(), R.layout.flexbox_item_text, itemList) {
                 @Override
                 protected void convert(ViewHolder holder, SpecificationsBean.BodyBean.DataBean.ItemListBean itemListBean, int position) {
+
                     TextView te = holder.getView(R.id.imageview);
                     te.setText(itemListBean.getObjectFeatureItemName());
+                    if (oldPosition == position) {
+                        te.setBackground(getResources().getDrawable(R.drawable.bg_button_them_color));
+                    } else {
+                        te.setBackground(getResources().getDrawable(R.drawable.button_them_color_un_select));
+                    }
+                    te.setOnClickListener(v -> {
+                                oldPosition = position;
+                                notifyDataSetChanged();
+                            }
+                    );
                     ViewGroup.LayoutParams lp = te.getLayoutParams();
                     if (lp instanceof FlexboxLayoutManager.LayoutParams) {
                         FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
                         flexBoxLp.setFlexGrow(1.0f);
                     }
+
+                }
+
+            });
+            ok.setOnClickListener(v -> {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
                 }
             });
         }
+        dialog.setOnDismissListener(dialog -> oldPosition = -1);
         if (!dialog.isShowing()) {
             dialog.show();
         }
