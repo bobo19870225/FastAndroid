@@ -4,7 +4,7 @@ android {
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
     defaultConfig {
-        applicationId "com.jinkan.www.fastandroid"
+        applicationId "com.zaomeng.zaomeng"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
