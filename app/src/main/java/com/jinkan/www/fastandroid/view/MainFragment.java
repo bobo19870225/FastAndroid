@@ -73,6 +73,9 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
                     }
                     startActivityForResult(intent, LOCATION);
                     break;
+                case "search":
+                    skipTo(SearchActivity.class, null);
+                    break;
             }
         });
 

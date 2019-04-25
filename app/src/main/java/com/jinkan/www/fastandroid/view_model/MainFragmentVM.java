@@ -40,4 +40,9 @@ public class MainFragmentVM extends BaseViewModel {
     public void location() {
         action.setValue("location");
     }
+
+    public void search() {
+        action.setValue("search");
+    }
+
 }

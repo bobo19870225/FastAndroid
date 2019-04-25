@@ -8,6 +8,7 @@ import com.jinkan.www.fastandroid.view.MainActivity;
 import com.jinkan.www.fastandroid.view.MessageActivity;
 import com.jinkan.www.fastandroid.view.OrderActivity;
 import com.jinkan.www.fastandroid.view.RegisterActivity;
+import com.jinkan.www.fastandroid.view.SearchActivity;
 import com.jinkan.www.fastandroid.view.ServiceActivity;
 
 import dagger.Module;
@@ -59,5 +60,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = {OrderModule.class})
     abstract LocationActivity locationActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract SearchActivity searchActivity();
+
 
 }

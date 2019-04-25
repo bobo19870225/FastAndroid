@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="28dp"
@@ -54,13 +53,14 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_marginStart="@dimen/layout_margin"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/layout_margin"
-            android:layout_marginEnd="@dimen/layout_margin"
-            android:layout_marginRight="@dimen/layout_margin"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:onClick="@{()->model.search()}"
             android:layout_toStartOf="@+id/icon_msg"
             android:layout_toEndOf="@+id/rl_location"
             android:layout_toRightOf="@+id/rl_location"
@@ -76,12 +76,17 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/layout_margin"
-            android:layout_marginRight="@dimen/layout_margin"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
             android:onClick="@{()->model.msg()}"
             android:src="@mipmap/xiaoxi" />
     </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@color/bg_color" />
     <com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip
         android:id="@+id/table_strip"
         android:layout_width="match_parent"

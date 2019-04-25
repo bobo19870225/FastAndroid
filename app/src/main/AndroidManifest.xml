@@ -44,6 +44,7 @@
         <activity android:name=".view.ServiceActivity" />
         <activity android:name=".view.MessageActivity" />
         <activity android:name=".view.LocationActivity" />
+        <activity android:name=".view.SearchActivity" />
     </application>
 
 </manifest>
