@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.fastandroid.view_model.SortFragmentVM" />
+            type="com.zaomeng.zaomeng.view_model.SortFragmentVM" />
     </data>
 
     <RelativeLayout

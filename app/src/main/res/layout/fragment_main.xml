@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.fastandroid.view_model.MainFragmentVM" />
+            type="com.zaomeng.zaomeng.view_model.MainFragmentVM" />
     </data>
 
     <LinearLayout
@@ -87,7 +87,8 @@
             android:layout_height="@dimen/line"
             android:layout_marginTop="@dimen/margin_top"
             android:background="@color/bg_color" />
-    <com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip
+
+        <com.zaomeng.zaomeng.view.custom_view.PagerSlidingTabStrip
         android:id="@+id/table_strip"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height"
@@ -99,7 +100,7 @@
         app:pstsUnderlineColor="@color/transparent"
         app:pstsUnselectedTextColor="@android:color/black">
 
-    </com.jinkan.www.fastandroid.view.custom_view.PagerSlidingTabStrip>
+        </com.zaomeng.zaomeng.view.custom_view.PagerSlidingTabStrip>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

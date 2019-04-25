@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.fastandroid.view_model.CertificationVM" />
+            type="com.zaomeng.zaomeng.view_model.CertificationVM" />
     </data>
 
     <LinearLayout

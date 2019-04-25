@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.fastandroid.view_model.LoginViewModel" />
+            type="com.zaomeng.zaomeng.view_model.LoginViewModel" />
     </data>
 
     <LinearLayout
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.jinkan.www.fastandroid.view.custom_view.CircleImageView
+                <com.zaomeng.zaomeng.view.custom_view.CircleImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="160dp"

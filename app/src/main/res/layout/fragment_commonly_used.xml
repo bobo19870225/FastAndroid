@@ -5,14 +5,14 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.fastandroid.view_model.CommonlyUsedFragmentVM" />
+            type="com.zaomeng.zaomeng.view_model.CommonlyUsedFragmentVM" />
     </data>
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.CommonlyUsedFragment">
+        tools:context="com.zaomeng.zaomeng.view.CommonlyUsedFragment">
 
         <TextView
             android:layout_width="match_parent"

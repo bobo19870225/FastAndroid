@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jinkan.www.fastandroid">
+    package="com.zaomeng.zaomeng">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".ToDoApplication"
+        android:name="com.zaomeng.zaomeng.ToDoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -19,16 +19,16 @@
 
 
         <activity
-            android:name=".view.MainActivity"
+            android:name="com.zaomeng.zaomeng.view.MainActivity"
             android:label="@string/title_activity_main">
 
         </activity>
         <activity
-            android:name=".view.ScrollingActivity"
+            android:name="com.zaomeng.zaomeng.view.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppThemeNoActionBar.NoActionBar" />
         <activity
-            android:name=".view.LoginActivity"
+            android:name="com.zaomeng.zaomeng.view.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
@@ -37,14 +37,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.RegisterActivity" />
-        <activity android:name=".view.CertificationActivity" />
-        <activity android:name=".view.GoodsDetailsActivity" />
-        <activity android:name=".view.OrderActivity" />
-        <activity android:name=".view.ServiceActivity" />
-        <activity android:name=".view.MessageActivity" />
-        <activity android:name=".view.LocationActivity" />
-        <activity android:name=".view.SearchActivity" />
+        <activity android:name="com.zaomeng.zaomeng.view.RegisterActivity" />
+        <activity android:name="com.zaomeng.zaomeng.view.CertificationActivity" />
+        <activity android:name="com.zaomeng.zaomeng.view.GoodsDetailsActivity" />
+        <activity android:name="com.zaomeng.zaomeng.view.OrderActivity" />
+        <activity android:name="com.zaomeng.zaomeng.view.ServiceActivity" />
+        <activity android:name="com.zaomeng.zaomeng.view.MessageActivity" />
+        <activity android:name="com.zaomeng.zaomeng.view.LocationActivity" />
+        <activity android:name="com.zaomeng.zaomeng.view.SearchActivity" />
     </application>
 
 </manifest>

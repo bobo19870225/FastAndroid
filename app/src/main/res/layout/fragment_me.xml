@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.fastandroid.view_model.MeFragmentVM" />
+            type="com.zaomeng.zaomeng.view_model.MeFragmentVM" />
     </data>
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_height="140dp"
             android:padding="32dp">
 
-            <com.jinkan.www.fastandroid.view.custom_view.CircleImageView
+            <com.zaomeng.zaomeng.view.custom_view.CircleImageView
                 android:id="@+id/icon_user"
                 android:layout_width="80dp"
                 android:layout_height="80dp"

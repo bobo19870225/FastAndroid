@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.jinkan.www.fastandroid.view_model.GoodsFragmentVM" />
+            type="com.zaomeng.zaomeng.view_model.GoodsFragmentVM" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -25,7 +25,7 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="false">
 
-                <com.jinkan.www.fastandroid.view.custom_view.RoundAngleBanner
+                <com.zaomeng.zaomeng.view.custom_view.RoundAngleBanner
                     android:layout_margin="13dp"
                     android:id="@+id/banner"
                     app:radius="8dp"
