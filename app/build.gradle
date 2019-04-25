@@ -55,7 +55,7 @@ dependencies {
     // Android Testing Support Library's runner and rules
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.atsl.rules
-    androidTestImplementation deps.room.testing
+//    androidTestImplementation deps.room.testing
     androidTestImplementation deps.arch_core.testing
     //dagger2
     implementation deps.dagger.runtime
