@@ -40,7 +40,7 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
         return new GoodsTitleViewHolder(view);
     }
 
-    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick onItemClick, OnItemClick onAddClick, int position) {
+    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick<NavigatorBean.GoodsListBean> onItemClick, OnItemClick<NavigatorBean.GoodsListBean> onAddClick, int position) {
         goodsName.setText(goods.getData().getObjectName());
         Glide.with(goodsIcon).load(goods.getData().getListImage()).into(goodsIcon);
 //        specifications.setText(goods.getData().);

@@ -22,14 +22,14 @@ public class GoodsAdapter extends PagedListAdapter<GoodsListRowsBean, RecyclerVi
     private Function0 retryCallback;
     private NetWorkState netWorkState;
 
-    private OnItemClick onItemClick;
-    private OnItemClick onAddClick;
+    private OnItemClick<GoodsListRowsBean> onItemClick;
+    private OnItemClick<GoodsListRowsBean> onAddClick;
 
-    public void setOnAddClick(OnItemClick onAddClick) {
+    public void setOnAddClick(OnItemClick<GoodsListRowsBean> onAddClick) {
         this.onAddClick = onAddClick;
     }
 
-    public void setOnItemClick(OnItemClick onItemClick) {
+    public void setOnItemClick(OnItemClick<GoodsListRowsBean> onItemClick) {
         this.onItemClick = onItemClick;
     }
 

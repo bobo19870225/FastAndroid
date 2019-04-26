@@ -43,7 +43,7 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
     private List<GoodsSuperBean> rows;
     @Override
     protected void setUI() {
-        GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(rows);
+        GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(getContext(), rows);
         goodsParentAdapter.setOnItemClick((view, ItemObject, position) -> setListView(ItemObject.getId()));
         mViewDataBinding.list1.setAdapter(goodsParentAdapter);
         mViewModel.getNodeCategoryList().observe(this, pageBeanResource -> {
@@ -51,6 +51,9 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
             PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = goodsSuperBeanHttpHelper.AnalyticalPageData(pageBeanResource);
             rows = goodsSuperBeanPageDataBean.getRows();
             goodsParentAdapter.setList(rows);
+            //获取第一个分类的商品
+            setListView(rows.get(0).getId());
+            goodsParentAdapter.setSelect(0);
         });
 
     }
@@ -58,7 +61,9 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
     @NonNull
     @Override
     protected GoodsAdapter setAdapter(Function0 reTry) {
-        return new GoodsAdapter(reTry);
+        GoodsAdapter goodsAdapter = new GoodsAdapter(reTry);
+        goodsAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(GoodsDetailsActivity.class, ItemObject.getId()));
+        return goodsAdapter;
     }
 
 

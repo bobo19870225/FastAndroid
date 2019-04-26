@@ -77,4 +77,10 @@
         android:padding="@dimen/image_padding"
         android:src="@mipmap/add" />
 
+    <View
+        android:background="@color/bg_color"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line" />
+
 </RelativeLayout>

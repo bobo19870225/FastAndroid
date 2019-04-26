@@ -1,5 +1,6 @@
 package com.zaomeng.zaomeng.view.adapter;
 
+import android.content.Context;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -22,12 +23,13 @@ public class GoodsParentAdapter extends RecyclerView.Adapter<GoodsParentViewHold
     private List<Boolean> isClicks;
     private Function0 function0;
     private OnItemClick<GoodsSuperBean> onItemClick;
-
+    private Context context;
     public void setOnItemClick(OnItemClick<GoodsSuperBean> onItemClick) {
         this.onItemClick = onItemClick;
     }
 
-    public GoodsParentAdapter(List<GoodsSuperBean> list) {
+    public GoodsParentAdapter(Context context, List<GoodsSuperBean> list) {
+        this.context = context;
         this.list = list;
         isClicks = new ArrayList<>();
         if (list != null) {
@@ -35,6 +37,11 @@ public class GoodsParentAdapter extends RecyclerView.Adapter<GoodsParentViewHold
                 isClicks.add(false);
             }
         }
+    }
+
+    public void setSelect(int position) {
+        isClicks.set(position, true);
+        notifyDataSetChanged();
     }
 
     public void setList(List<GoodsSuperBean> list) {
@@ -64,7 +71,8 @@ public class GoodsParentAdapter extends RecyclerView.Adapter<GoodsParentViewHold
                 onItemClick.onClick(holder.itemView, list.get(position), position);
             return Unit.INSTANCE;
         };
-        holder.bind(list.get(position), position, function0, isClicks);
+        holder.bind(context, list.get(position), position, function0, isClicks);
+
     }
 
 

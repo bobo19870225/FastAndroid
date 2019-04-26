@@ -1,5 +1,6 @@
 package com.zaomeng.zaomeng.view.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,13 @@ import kotlin.jvm.functions.Function0;
  */
 public class GoodsParentViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsSort;
-
+    private View you;
+    private View root;
     private GoodsParentViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsSort = itemView.findViewById(R.id.goods_sort);
+        you = itemView.findViewById(R.id.you);
+        root = itemView;
     }
 
     public static GoodsParentViewHolder create(ViewGroup parent) {
@@ -34,12 +38,16 @@ public class GoodsParentViewHolder extends RecyclerView.ViewHolder {
         return new GoodsParentViewHolder(view);
     }
 
-    void bind(GoodsSuperBean goodsSuperBean, int position, Function0 function0, List<Boolean> isClicks) {
+    void bind(Context context, GoodsSuperBean goodsSuperBean, int position, Function0 function0, List<Boolean> isClicks) {
         goodsSort.setText(goodsSuperBean.getName());
         if (isClicks.get(position)) {
-            goodsSort.setTextColor(Color.parseColor("#FF4081"));
+            goodsSort.setTextColor(Color.parseColor("#FF9933"));
+            root.setBackgroundColor(context.getResources().getColor(R.color.white));
+            you.setVisibility(View.VISIBLE);
         } else {
-            goodsSort.setTextColor(Color.parseColor("#666666"));
+            goodsSort.setTextColor(Color.parseColor("#6E6E6D"));
+            root.setBackgroundColor(context.getResources().getColor(R.color.bg_color));
+            you.setVisibility(View.GONE);
         }
         goodsSort.setOnClickListener(v -> function0.invoke());
     }
