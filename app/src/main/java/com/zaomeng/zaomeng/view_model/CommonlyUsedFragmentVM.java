@@ -5,14 +5,18 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
+import com.zaomeng.zaomeng.model.repository.http.ApiService;
 
 /**
  * Created by Sampson on 2019/4/18.
  * FastAndroid
  */
 public class CommonlyUsedFragmentVM extends ListViewModel {
-    public CommonlyUsedFragmentVM(@NonNull Application application) {
+    private ApiService apiService;
+
+    public CommonlyUsedFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
+        this.apiService = apiService;
     }
 
     @Override
@@ -22,6 +26,6 @@ public class CommonlyUsedFragmentVM extends ListViewModel {
 
     @Override
     public Listing getListing(Object data) {
-        return null;
+        return (Listing) apiService.getCollectList((String) data, "422429993732", 1, 10);
     }
 }

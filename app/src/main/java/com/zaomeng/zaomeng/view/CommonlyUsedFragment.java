@@ -10,6 +10,7 @@ import com.zaomeng.zaomeng.databinding.FragmentCommonlyUsedBinding;
 import com.zaomeng.zaomeng.view.adapter.GoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.CommonlyUsedFragmentVM;
+import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,9 @@ import kotlin.jvm.functions.Function0;
 
 
 public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentVM, FragmentCommonlyUsedBinding, GoodsAdapter> {
+    @Inject
+    ViewModelFactory viewModelFactory;
+
     @Inject
     public CommonlyUsedFragment() {
         // Required empty public constructor
@@ -54,7 +58,7 @@ public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentV
 
     @Override
     protected CommonlyUsedFragmentVM createdViewModel() {
-        return ViewModelProviders.of(this).get(CommonlyUsedFragmentVM.class);
+        return ViewModelProviders.of(this, viewModelFactory).get(CommonlyUsedFragmentVM.class);
     }
 
 
