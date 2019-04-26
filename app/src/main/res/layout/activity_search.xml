@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -12,6 +12,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_button_corner_bc"
+            android:paddingStart="@dimen/layout_padding"
+            android:paddingLeft="@dimen/layout_padding">
+
+        </SearchView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/bg_color">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/delete"
+                android:layout_toLeftOf="@+id/delete"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/layout_padding"
+                android:paddingLeft="@dimen/layout_padding"
+                android:text="@string/search_history" />
+
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="@dimen/image"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/delete" />
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

@@ -155,5 +155,6 @@
     <string name="number">数量</string>
     <string name="OK">确定</string>
     <string name="logining">登录中...</string>
+    <string name="search_history">搜索历史</string>
 
 </resources>

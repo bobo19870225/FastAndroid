@@ -1,5 +1,8 @@
 package com.zaomeng.zaomeng.view;
 
+import android.content.Context;
+import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +27,7 @@ import kotlin.jvm.functions.Function0;
 
 
 public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortBinding, GoodsAdapter> {
+    private static final int SEARCH = 110;
     @Inject
     ViewModelFactory viewModelFactory;
 
@@ -43,11 +47,22 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
     private List<GoodsSuperBean> rows;
     @Override
     protected void setUI() {
-        GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(getContext(), rows);
+        Context context = getContext();
+        mViewModel.action.observe(this, s -> {
+            if (s.equals("search")) {
+                Intent intent = new Intent();
+                if (context != null) {
+                    intent.setClass(context, SearchActivity.class);
+                    startActivityForResult(intent, SEARCH);
+                }
+
+            }
+        });
+        GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(context, rows);
         goodsParentAdapter.setOnItemClick((view, ItemObject, position) -> setListView(ItemObject.getId()));
         mViewDataBinding.list1.setAdapter(goodsParentAdapter);
         mViewModel.getNodeCategoryList().observe(this, pageBeanResource -> {
-            HttpHelper<GoodsSuperBean> goodsSuperBeanHttpHelper = new HttpHelper<>(getContext());
+            HttpHelper<GoodsSuperBean> goodsSuperBeanHttpHelper = new HttpHelper<>(context);
             PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = goodsSuperBeanHttpHelper.AnalyticalPageData(pageBeanResource);
             rows = goodsSuperBeanPageDataBean.getRows();
             goodsParentAdapter.setList(rows);
