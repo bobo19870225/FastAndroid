@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storePassword '123456'
+            keyAlias = 'key0'
+            keyPassword '123456'
+            storeFile file('/Users/lushengbo/Desktop/appkey/zaoMeng.jsk')
+        }
+        debug {
+            storeFile file('/Users/lushengbo/Desktop/appkey/zaoMeng.jsk')
+            storePassword '123456'
+            keyAlias = 'key0'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
     defaultConfig {
@@ -11,6 +25,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        signingConfig signingConfigs.release
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath = true
@@ -26,8 +41,11 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
 }

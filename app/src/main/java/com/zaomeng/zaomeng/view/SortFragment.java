@@ -7,13 +7,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentSortBinding;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
+import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.adapter.GoodsAdapter;
 import com.zaomeng.zaomeng.view.adapter.GoodsParentAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.SortFragmentVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,7 +26,7 @@ import kotlin.jvm.functions.Function0;
 public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortBinding, GoodsAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
-    private List<String> list = new ArrayList<>();
+
 
     @Inject
     public SortFragment() {
@@ -38,21 +40,19 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
     }
 
 
-    @Override
-    protected Object getData() {
-        return getActivity() == null ? null : ((MainActivity) getActivity()).transferData;
-    }
-
+    private List<GoodsSuperBean> rows;
     @Override
     protected void setUI() {
-        list.add("包子");
-        list.add("来一份");
-        list.add("来四分");
-        GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(list);
-        goodsParentAdapter.setOnItemClick((view, ItemObject, position) -> {
-
-        });
+        GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(rows);
+        goodsParentAdapter.setOnItemClick((view, ItemObject, position) -> setListView(ItemObject.getId()));
         mViewDataBinding.list1.setAdapter(goodsParentAdapter);
+        mViewModel.getNodeCategoryList().observe(this, pageBeanResource -> {
+            HttpHelper<GoodsSuperBean> goodsSuperBeanHttpHelper = new HttpHelper<>(getContext());
+            PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = goodsSuperBeanHttpHelper.AnalyticalPageData(pageBeanResource);
+            rows = goodsSuperBeanPageDataBean.getRows();
+            goodsParentAdapter.setList(rows);
+        });
+
     }
 
     @NonNull

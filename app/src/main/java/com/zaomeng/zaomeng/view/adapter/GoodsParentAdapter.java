@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,22 +18,31 @@ import kotlin.jvm.functions.Function0;
  * FastAndroid
  */
 public class GoodsParentAdapter extends RecyclerView.Adapter<GoodsParentViewHolder> {
-    private List list;
+    private List<GoodsSuperBean> list;
     private List<Boolean> isClicks;
     private Function0 function0;
-    private OnItemClick onItemClick;
+    private OnItemClick<GoodsSuperBean> onItemClick;
 
-    public void setOnItemClick(OnItemClick onItemClick) {
+    public void setOnItemClick(OnItemClick<GoodsSuperBean> onItemClick) {
         this.onItemClick = onItemClick;
     }
 
-    public GoodsParentAdapter(List<String> list) {
+    public GoodsParentAdapter(List<GoodsSuperBean> list) {
         this.list = list;
         isClicks = new ArrayList<>();
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                isClicks.add(false);
+            }
+        }
+    }
+
+    public void setList(List<GoodsSuperBean> list) {
+        this.list = list;
         for (int i = 0; i < list.size(); i++) {
             isClicks.add(false);
         }
-
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -50,15 +61,15 @@ public class GoodsParentAdapter extends RecyclerView.Adapter<GoodsParentViewHold
             isClicks.set(position, true);
             notifyDataSetChanged();
             if (onItemClick != null)
-                onItemClick.onClick(holder.itemView, position, position);
+                onItemClick.onClick(holder.itemView, list.get(position), position);
             return Unit.INSTANCE;
         };
-        holder.bind((String) list.get(position), position, function0, isClicks);
+        holder.bind(list.get(position), position, function0, isClicks);
     }
 
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 }

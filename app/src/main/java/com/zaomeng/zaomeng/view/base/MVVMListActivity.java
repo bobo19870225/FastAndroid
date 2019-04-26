@@ -25,17 +25,21 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
     private RecyclerView recyclerView;
     private A adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private LiveData<PagedList> pagedList;
+
     @Override
     @CallSuper
-    @SuppressWarnings("unchecked")
+
     protected void setView() {
         recyclerView = setRecyclerView();
-
         swipeRefreshLayout = setSwipeRefreshLayout();
-        Listing listing = mViewModel.listing;
+        setListView(transferData);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void setListView(Object parameter) {
+        Listing listing = mViewModel.getListingData(parameter);
         if (listing != null) {
-            pagedList = listing.getPagedList();
+            LiveData<PagedList> pagedList = listing.getPagedList();
             adapter = setAdapter(listing.reTry);
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 listing.refreshState.setValue(swipeRefreshLayout.isRefreshing());
@@ -57,7 +61,6 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
                 }
             });
         }
-
     }
 
 

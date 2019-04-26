@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zaomeng.zaomeng.R;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class GoodsParentViewHolder extends RecyclerView.ViewHolder {
         return new GoodsParentViewHolder(view);
     }
 
-    void bind(String goods, int position, Function0 function0, List<Boolean> isClicks) {
-        goodsSort.setText(goods);
+    void bind(GoodsSuperBean goodsSuperBean, int position, Function0 function0, List<Boolean> isClicks) {
+        goodsSort.setText(goodsSuperBean.getName());
         if (isClicks.get(position)) {
             goodsSort.setTextColor(Color.parseColor("#FF4081"));
         } else {

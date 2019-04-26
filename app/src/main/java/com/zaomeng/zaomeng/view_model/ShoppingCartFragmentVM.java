@@ -17,7 +17,12 @@ public class ShoppingCartFragmentVM extends ListViewModel<GoodsListRowsBean> {
     }
 
     @Override
-    protected Listing<GoodsListRowsBean> getListing(Object data) {
+    public void init(Object data) {
+
+    }
+
+    @Override
+    public Listing<GoodsListRowsBean> getListing(Object data) {
         return null;
     }
 }

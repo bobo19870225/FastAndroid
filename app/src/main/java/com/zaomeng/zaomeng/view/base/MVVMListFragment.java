@@ -24,13 +24,19 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
     private A adapter;
     private
     SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView recyclerView;
 
-    @SuppressWarnings("unchecked")
     @Override
     protected final void initUI() {
-        RecyclerView recyclerView = setRecyclerView();
+        recyclerView = setRecyclerView();
         swipeRefreshLayout = setSwipeRefreshLayout();
-        Listing listing = mViewModel.listing;
+        setListView(transferData);
+        setUI();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void setListView(Object parameter) {
+        Listing listing = mViewModel.getListingData(parameter);
         if (listing != null) {
             LiveData<PagedList> pagedList = listing.getPagedList();
             adapter = setAdapter(listing.reTry);
@@ -54,7 +60,6 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
                 }
             });
         }
-        setUI();
     }
 
     protected abstract void setUI();

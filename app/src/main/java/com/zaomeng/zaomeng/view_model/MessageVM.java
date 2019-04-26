@@ -16,7 +16,12 @@ public class MessageVM extends ListViewModel {
     }
 
     @Override
-    protected Listing getListing(Object data) {
+    public void init(Object data) {
+
+    }
+
+    @Override
+    public Listing getListing(Object data) {
         return null;
     }
 }

@@ -8,6 +8,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
@@ -177,6 +178,12 @@ public interface ApiService {
      */
     @GET("getObjectFeatureItemList.json")
     LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(@Query("objectID") String objectID);
+
+    /**
+     * 获取子集分类列表（标准结构）
+     */
+    @GET("getNodeCategoryList.json")
+    LiveData<Resource<PageBean<GoodsSuperBean>>> getNodeCategoryList(@Query("rootID") String rootID, @Query("depth") Integer depth);
 
 
 }

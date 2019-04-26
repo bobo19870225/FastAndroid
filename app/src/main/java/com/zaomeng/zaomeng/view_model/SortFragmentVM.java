@@ -3,11 +3,15 @@ package com.zaomeng.zaomeng.view_model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.by_page.GoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 
 /**
  * Created by Sampson on 2019/4/17.
@@ -26,6 +30,16 @@ public class SortFragmentVM extends ListViewModel<GoodsListRowsBean> {
 
     @Override
     protected Listing<GoodsListRowsBean> getListing(Object data) {
-        return goodsPageKeyRepository.post((String[]) data, 10);
+        return goodsPageKeyRepository.post(new String[]{(String) data, null}, 10);
+    }
+
+    public LiveData<Resource<PageBean<GoodsSuperBean>>> getNodeCategoryList() {
+        return apiService.getNodeCategoryList("c82678b8ea0149c18fe6ac5ac8590d73", 1);
+    }
+
+    @Override
+    public void init(Object data) {
+
     }
 }
+

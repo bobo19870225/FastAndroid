@@ -2,7 +2,6 @@ package com.zaomeng.zaomeng.view_model;
 
 import android.app.Application;
 
-import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
@@ -13,16 +12,15 @@ import com.zaomeng.zaomeng.model.repository.Listing;
  */
 
 public abstract class ListViewModel<T> extends BaseViewModel {
-    public Listing<T> listing;
+//    public Listing<T> listing;
 
     public ListViewModel(@NonNull Application application) {
         super(application);
     }
 
-    @Override
-    @CallSuper
-    public void init(Object data) {
-        listing = getListing(data);
+    public Listing<T> getListingData(Object data) {
+        if (data == null) return null;
+        return getListing(data);
     }
 
     protected abstract Listing<T> getListing(Object data);
