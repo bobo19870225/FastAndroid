@@ -1,10 +1,11 @@
-package com.zaomeng.zaomeng.model.repository.http.by_page;
+package com.zaomeng.zaomeng.model.repository.http.by_page.goods;
 
 import androidx.paging.DataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.by_page.base.BaseDataSourceFactory;
 
 /**
  * Created by Sampson on 2019/3/4.

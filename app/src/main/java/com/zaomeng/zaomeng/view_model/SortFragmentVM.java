@@ -10,7 +10,7 @@ import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
-import com.zaomeng.zaomeng.model.repository.http.by_page.GoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 

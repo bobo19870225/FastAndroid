@@ -1,4 +1,4 @@
-package com.zaomeng.zaomeng.model.repository.http.by_page;
+package com.zaomeng.zaomeng.model.repository.http.by_page.goods;
 
 import androidx.annotation.NonNull;
 
@@ -7,6 +7,7 @@ import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.by_page.base.BasePageKeyedDataSource;
 
 import retrofit2.Call;
 

@@ -2,7 +2,7 @@ package com.zaomeng.zaomeng.model.repository;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
-import com.zaomeng.zaomeng.model.repository.http.by_page.GoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataCallAdapterFactory;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataResponseBodyConverterFactory;
 

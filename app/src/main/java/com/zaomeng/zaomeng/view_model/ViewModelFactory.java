@@ -23,7 +23,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.by_page.GoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

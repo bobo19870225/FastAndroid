@@ -18,7 +18,9 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityLoginBinding;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
+import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.LoginViewModel;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -164,7 +166,10 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                 if (loginBeanBean != null) {
                     showProgress(false);
                     if (loginBeanBean.getHeader().getCode() == 0) {
-                        LoginBean loginBean = loginBeanBean.getBody().getData();
+                        BodyBean<LoginBean> body = loginBeanBean.getBody();
+                        String sessionID = body.getSessionID();
+                        SharedPreerencesUtils.saveSessionID(getApplicationContext(), sessionID);
+                        LoginBean loginBean = body.getData();
                         if (loginBean != null) {
                             skipTo(MainActivity.class, new String[]{"6ba58046-7eb2-4f11-bbb3-b934abeb29a8", null});
                             finish();

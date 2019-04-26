@@ -2,7 +2,6 @@ package com.zaomeng.zaomeng.di;
 
 import com.zaomeng.zaomeng.view.CommonlyUsedFragment;
 import com.zaomeng.zaomeng.view.GoodsFragment;
-import com.zaomeng.zaomeng.view.HomeFragment;
 import com.zaomeng.zaomeng.view.MainFragment;
 import com.zaomeng.zaomeng.view.MeFragment;
 import com.zaomeng.zaomeng.view.ShoppingCartFragment;
@@ -21,9 +20,9 @@ public abstract class MainModule {
     @ContributesAndroidInjector
     abstract GoodsFragment goodsFragment();
 
-    @FragmentScoped
-    @ContributesAndroidInjector
-    abstract HomeFragment homeFragment();
+    //    @FragmentScoped
+//    @ContributesAndroidInjector
+//    abstract HomeFragment homeFragment();
     @FragmentScoped
     @ContributesAndroidInjector
     abstract MeFragment meFragment();

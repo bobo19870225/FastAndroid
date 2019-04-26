@@ -1,4 +1,4 @@
-package com.zaomeng.zaomeng.model.repository.http.by_page;
+package com.zaomeng.zaomeng.model.repository.http.by_page.base;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;

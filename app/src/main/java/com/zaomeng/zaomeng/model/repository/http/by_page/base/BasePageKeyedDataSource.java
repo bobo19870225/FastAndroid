@@ -1,4 +1,4 @@
-package com.zaomeng.zaomeng.model.repository.http.by_page;
+package com.zaomeng.zaomeng.model.repository.http.by_page.base;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
@@ -37,7 +37,7 @@ public abstract class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataS
     }
 
 
-    void reTry() {
+    public void reTry() {
         Function0 function0 = function;
         function = null;
         if (function0 != null) {

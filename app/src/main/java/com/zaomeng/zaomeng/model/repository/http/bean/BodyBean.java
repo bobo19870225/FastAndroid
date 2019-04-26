@@ -10,6 +10,7 @@ public class BodyBean<T> {
      */
 
     private T data;
+    private String sessionID;
 
     public T getData() {
         return data;
@@ -19,4 +20,11 @@ public class BodyBean<T> {
         this.data = data;
     }
 
+    public String getSessionID() {
+        return sessionID;
+    }
+
+    public void setSessionID(String sessionID) {
+        this.sessionID = sessionID;
+    }
 }
