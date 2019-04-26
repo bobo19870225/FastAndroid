@@ -36,7 +36,7 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
 
     @SuppressWarnings("unchecked")
     protected void setListView(Object parameter) {
-        Listing listing = mViewModel.getListingData(parameter);
+        Listing listing = mViewModel.getListing(parameter);
         if (listing != null) {
             LiveData<PagedList> pagedList = listing.getPagedList();
             adapter = setAdapter(listing.reTry);
@@ -57,10 +57,13 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
                 } else if (status == Status.FAILED) {
                     swipeRefreshLayout.setRefreshing(false);
                     toast(((NetWorkState) o).getMsg());
+                    doError((NetWorkState) o);
                 }
             });
         }
     }
+
+    protected abstract void doError(NetWorkState o);
 
     protected abstract void setUI();
 

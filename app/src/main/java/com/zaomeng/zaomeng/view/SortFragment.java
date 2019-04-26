@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentSortBinding;
+import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
@@ -45,6 +46,12 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
 
 
     private List<GoodsSuperBean> rows;
+
+    @Override
+    protected void doError(NetWorkState o) {
+
+    }
+
     @Override
     protected void setUI() {
         Context context = getContext();

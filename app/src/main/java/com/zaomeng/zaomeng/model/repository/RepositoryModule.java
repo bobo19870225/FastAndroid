@@ -2,6 +2,7 @@ package com.zaomeng.zaomeng.model.repository;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods.CUGoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataCallAdapterFactory;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataResponseBodyConverterFactory;
@@ -38,5 +39,11 @@ public class RepositoryModule {
     @Provides
     static GoodsPageKeyRepository byPageKeyRepository(ApiService apiService, Listing<GoodsListRowsBean> listing) {
         return new GoodsPageKeyRepository(apiService, listing);
+    }
+
+    @Singleton
+    @Provides
+    static CUGoodsPageKeyRepository cuGoodsPageKeyRepository(ApiService apiService, Listing<GoodsListRowsBean> listing) {
+        return new CUGoodsPageKeyRepository(apiService, listing);
     }
 }

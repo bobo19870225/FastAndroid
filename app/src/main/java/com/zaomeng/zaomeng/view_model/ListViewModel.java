@@ -5,10 +5,14 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
+import com.zaomeng.zaomeng.view.base.MVVMListActivity;
+import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 
 /**
  * Created by Sampson on 2019/3/14.
  * FastAndroid
+ * {@link MVVMListFragment}
+ * {@link MVVMListActivity}
  */
 
 public abstract class ListViewModel<T> extends BaseViewModel {
@@ -18,10 +22,10 @@ public abstract class ListViewModel<T> extends BaseViewModel {
         super(application);
     }
 
-    public Listing<T> getListingData(Object data) {
-        if (data == null) return null;
-        return getListing(data);
-    }
+//    public Listing<T> getListingData(Object data) {
+//        if (data == null) return null;
+//        return getListing(data);
+//    }
 
-    protected abstract Listing<T> getListing(Object data);
+    public abstract Listing<T> getListing(Object data);
 }

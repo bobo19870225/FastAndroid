@@ -31,7 +31,8 @@ public class SortFragmentVM extends ListViewModel<GoodsListRowsBean> {
     }
 
     @Override
-    protected Listing<GoodsListRowsBean> getListing(Object data) {
+    public Listing<GoodsListRowsBean> getListing(Object data) {
+        if (data == null) return null;
         return goodsPageKeyRepository.post(new String[]{(String) data, null}, 10);
     }
 

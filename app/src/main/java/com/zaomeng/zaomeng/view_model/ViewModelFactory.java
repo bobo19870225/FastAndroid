@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods.CUGoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
 
 import javax.inject.Inject;
@@ -45,6 +46,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     @Inject
     GoodsPageKeyRepository goodsPageKeyRepository;
+    @Inject
+    CUGoodsPageKeyRepository cuGoodsPageKeyRepository;
     @Inject
     ApiService apiService;
     @NonNull
@@ -74,7 +77,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new MainFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(CommonlyUsedFragmentVM.class)) {
             //noinspection unchecked
-            return (T) new CommonlyUsedFragmentVM(application, apiService);
+            return (T) new CommonlyUsedFragmentVM(application, apiService, cuGoodsPageKeyRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

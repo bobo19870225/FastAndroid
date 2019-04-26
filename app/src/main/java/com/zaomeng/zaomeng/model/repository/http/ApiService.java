@@ -189,10 +189,10 @@ public interface ApiService {
      * 获取收藏列表
      */
     @GET("getCollectList.json")
-    Call<Resource<PageBean<GoodsSuperBean>>> getCollectList(@Query("sessionID") String sessionID,
-                                                            @Query("objectDefineID") String objectDefineID,
-                                                            @Query("currentPage") Integer currentPage,
-                                                            @Query("pageNumber") Integer pageNumber);
+    Call<PageBean<GoodsListRowsBean>> getCollectList(@Query("sessionID") String sessionID,
+                                                     @Query("objectDefineID") String objectDefineID,
+                                                     @Query("currentPage") Integer currentPage,
+                                                     @Query("pageNumber") Integer pageNumber);
 
 
 

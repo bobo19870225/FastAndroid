@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
+import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.view.adapter.GoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ShoppingCartFragmentVM;
@@ -22,6 +23,11 @@ import kotlin.jvm.functions.Function0;
 public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentVM, FragmentShoppingCartBinding, GoodsAdapter> {
     @Inject
     public ShoppingCartFragment() {
+    }
+
+    @Override
+    protected void doError(NetWorkState o) {
+
     }
 
     @Override
