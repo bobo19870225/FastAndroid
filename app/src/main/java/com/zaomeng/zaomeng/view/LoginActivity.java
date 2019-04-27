@@ -164,7 +164,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
             if (messageResource.isSuccess()) {
                 Bean<LoginBean> loginBeanBean = messageResource.getResource();
                 if (loginBeanBean != null) {
-                    showProgress(false);
+//                    showProgress(false);
                     if (loginBeanBean.getHeader().getCode() == 0) {
                         BodyBean<LoginBean> body = loginBeanBean.getBody();
                         String sessionID = body.getSessionID();
