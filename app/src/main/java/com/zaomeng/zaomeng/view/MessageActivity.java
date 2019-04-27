@@ -7,7 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityMessageBinding;
-import com.zaomeng.zaomeng.view.adapter.GoodsAdapter;
+import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view_model.MessageVM;
 

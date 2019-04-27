@@ -22,7 +22,7 @@ import static com.zaomeng.zaomeng.model.repository.Status.RUNNING;
  * Created by Sampson on 2019/3/18.
  * FastAndroid
  */
-class NetworkStateItemViewHolder extends RecyclerView.ViewHolder {
+public class NetworkStateItemViewHolder extends RecyclerView.ViewHolder {
     private ProgressBar progressBar;
     private Button retry;
     private TextView errorMsg;
@@ -37,7 +37,7 @@ class NetworkStateItemViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    void bindTo(@NonNull NetWorkState netWorkState) {
+    public void bindTo(@NonNull NetWorkState netWorkState) {
         progressBar.setVisibility(toVisibility(netWorkState.getStatus() == RUNNING));
         retry.setVisibility(toVisibility(netWorkState.getStatus() == FAILED));
         errorMsg.setVisibility(toVisibility(netWorkState.getMsg() != null));

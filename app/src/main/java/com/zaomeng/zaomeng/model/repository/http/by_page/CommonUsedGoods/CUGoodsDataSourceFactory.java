@@ -4,7 +4,7 @@ import androidx.paging.DataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.by_page.base.BaseDataSourceFactory;
 
 /**
@@ -12,14 +12,14 @@ import com.zaomeng.zaomeng.model.repository.http.by_page.base.BaseDataSourceFact
  * FastAndroid
  */
 
-public class CUGoodsDataSourceFactory extends BaseDataSourceFactory<Integer, GoodsListRowsBean> {
+public class CUGoodsDataSourceFactory extends BaseDataSourceFactory<Integer, CollectInfoBean> {
     private ApiService apiService;
-    private Listing<GoodsListRowsBean> listing;
+    private Listing<CollectInfoBean> listing;
     private String sessionID;
     private String objectDefineID;
 
     CUGoodsDataSourceFactory(ApiService apiService,
-                             Listing<GoodsListRowsBean> listing,
+                             Listing<CollectInfoBean> listing,
                              String sessionID,
                              String objectDefineID) {
         this.apiService = apiService;
@@ -30,7 +30,7 @@ public class CUGoodsDataSourceFactory extends BaseDataSourceFactory<Integer, Goo
 
 
     @Override
-    protected DataSource<Integer, GoodsListRowsBean> setDataSource() {
+    protected DataSource<Integer, CollectInfoBean> setDataSource() {
         return new CUGoodsPageKeyedDataSource(listing, apiService, sessionID, objectDefineID);
     }
 

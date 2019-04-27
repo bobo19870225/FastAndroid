@@ -8,7 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentCommonlyUsedBinding;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
-import com.zaomeng.zaomeng.view.adapter.GoodsAdapter;
+import com.zaomeng.zaomeng.view.adapter.collect.CollectAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.CommonlyUsedFragmentVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -18,10 +18,10 @@ import javax.inject.Inject;
 import kotlin.jvm.functions.Function0;
 
 
-public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentVM, FragmentCommonlyUsedBinding, GoodsAdapter> {
+public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentVM, FragmentCommonlyUsedBinding, CollectAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
-    private GoodsAdapter goodsAdapter;
+    private CollectAdapter collectAdapter;
     @Inject
     public CommonlyUsedFragment() {
         // Required empty public constructor
@@ -36,7 +36,7 @@ public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentV
 
     @Override
     protected void doError(NetWorkState o) {
-        goodsAdapter.setNetworkState(o);
+        collectAdapter.setNetworkState(o);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentV
 
     @NonNull
     @Override
-    protected GoodsAdapter setAdapter(Function0 reTry) {
-        return goodsAdapter = new GoodsAdapter(reTry);
+    protected CollectAdapter setAdapter(Function0 reTry) {
+        return collectAdapter = new CollectAdapter(reTry);
     }
 
     @NonNull

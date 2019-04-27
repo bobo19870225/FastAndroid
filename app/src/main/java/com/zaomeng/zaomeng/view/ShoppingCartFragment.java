@@ -8,7 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
-import com.zaomeng.zaomeng.view.adapter.GoodsAdapter;
+import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ShoppingCartFragmentVM;
 

@@ -2,7 +2,7 @@ package com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.by_page.base.BaseDataSourceFactory;
 import com.zaomeng.zaomeng.model.repository.http.by_page.base.BasePageKeyRepository;
 
@@ -11,15 +11,15 @@ import com.zaomeng.zaomeng.model.repository.http.by_page.base.BasePageKeyReposit
  * FastAndroid
  */
 
-public class CUGoodsPageKeyRepository extends BasePageKeyRepository<Integer, GoodsListRowsBean> {
+public class CUGoodsPageKeyRepository extends BasePageKeyRepository<Integer, CollectInfoBean> {
 
-    public CUGoodsPageKeyRepository(ApiService apiService, Listing<GoodsListRowsBean> goodsListing) {
+    public CUGoodsPageKeyRepository(ApiService apiService, Listing<CollectInfoBean> goodsListing) {
         super(apiService, goodsListing);
 
     }
 
     @Override
-    protected BaseDataSourceFactory<Integer, GoodsListRowsBean> setDataSourceFactory(ApiService apiService, Listing<GoodsListRowsBean> listing, String[] sub) {
+    protected BaseDataSourceFactory<Integer, CollectInfoBean> setDataSourceFactory(ApiService apiService, Listing<CollectInfoBean> listing, String[] sub) {
         return new CUGoodsDataSourceFactory(apiService, listing, sub[0], sub[1]);
     }
 

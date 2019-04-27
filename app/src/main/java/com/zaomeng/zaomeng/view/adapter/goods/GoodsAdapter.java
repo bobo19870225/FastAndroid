@@ -1,4 +1,4 @@
-package com.zaomeng.zaomeng.view.adapter;
+package com.zaomeng.zaomeng.view.adapter.goods;
 
 import android.view.ViewGroup;
 
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.view.adapter.NetworkStateItemViewHolder;
+import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
 import kotlin.jvm.functions.Function0;
 
@@ -104,10 +106,11 @@ public class GoodsAdapter extends PagedListAdapter<GoodsListRowsBean, RecyclerVi
             notifyItemChanged(getItemCount() - 1);
         }
     }
+
     /**
      * 后台线程DiffUtil类回调： 计算新的List和原来的List的差距
      */
-    public static final DiffUtil.ItemCallback<GoodsListRowsBean> DIFF_CALLBACK = new DiffUtil.ItemCallback<GoodsListRowsBean>() {
+    private static final DiffUtil.ItemCallback<GoodsListRowsBean> DIFF_CALLBACK = new DiffUtil.ItemCallback<GoodsListRowsBean>() {
         @Override
         public boolean areItemsTheSame(@NonNull GoodsListRowsBean oldItem, @NonNull GoodsListRowsBean newItem) {
             return oldItem.getId().equals(newItem.getId());
@@ -115,7 +118,8 @@ public class GoodsAdapter extends PagedListAdapter<GoodsListRowsBean, RecyclerVi
 
         @Override
         public boolean areContentsTheSame(@NonNull GoodsListRowsBean oldItem, @NonNull GoodsListRowsBean newItem) {
-            return oldItem.equals(newItem);
+            return oldItem.getId().equals(newItem.getId()) &&
+                    oldItem.getName().equals(newItem.getName());
         }
     };
 

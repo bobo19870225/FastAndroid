@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods.CUGoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods.CUGoodsPageKeyedDataSource;
 import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
@@ -17,7 +17,7 @@ import com.zaomeng.zaomeng.view.CommonlyUsedFragment;
  * FastAndroid
  * {@link CommonlyUsedFragment}
  */
-public class CommonlyUsedFragmentVM extends ListViewModel<GoodsListRowsBean> {
+public class CommonlyUsedFragmentVM extends ListViewModel<CollectInfoBean> {
     private ApiService apiService;
     private CUGoodsPageKeyRepository cuGoodsPageKeyRepository;
 
@@ -36,7 +36,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<GoodsListRowsBean> {
      * {@link CUGoodsPageKeyedDataSource}
      */
     @Override
-    public Listing<GoodsListRowsBean> getListing(Object data) {
+    public Listing<CollectInfoBean> getListing(Object data) {
         return cuGoodsPageKeyRepository.post(new String[]{SharedPreerencesUtils.getSessionID(getApplication()),
                 "422429993732"}, 10);
 

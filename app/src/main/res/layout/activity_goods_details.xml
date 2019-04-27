@@ -86,20 +86,22 @@
                 android:layout_height="@dimen/line"
                 android:background="@color/bg_color" />
             <ImageView
+                android:layout_centerVertical="true"
                 android:id="@+id/collect"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
                 android:onClick="@{()->model.collect()}"
-                android:src="@mipmap/back" />
+                android:src="@mipmap/un_collect" />
 
             <ImageView
+                android:layout_centerVertical="true"
                 android:id="@+id/shop_car"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
                 android:layout_toEndOf="@+id/collect"
                 android:layout_toRightOf="@+id/collect"
                 android:onClick="@{()->model.shopCar()}"
-                android:src="@mipmap/back" />
+                android:src="@mipmap/un_shopping_cart" />
 
             <Button
                 android:layout_width="wrap_content"

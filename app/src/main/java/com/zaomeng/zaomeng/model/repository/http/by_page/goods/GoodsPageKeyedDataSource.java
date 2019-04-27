@@ -40,7 +40,7 @@ public class GoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer, G
 
     @Override
     protected void setLoadInitialCallback(PageBean<GoodsListRowsBean> body, LoadInitialCallback<Integer, GoodsListRowsBean> callback) {
-        callback.onResult(body.getBody().getData().getRows(), 0, 1);
+        callback.onResult(body.getBody().getData().getRows(), 0, 2);
     }
 
     @NonNull
@@ -53,7 +53,7 @@ public class GoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer, G
     protected boolean setLoadCallback(PageBean<GoodsListRowsBean> body, LoadParams<Integer> params, LoadCallback<Integer, GoodsListRowsBean> callback) {
         if (body.getHeader().getCode() == 0) {
             int currentPage = body.getBody().getData().getCurrentPage();
-            int total = body.getBody().getData().getTotal();
+            int total = body.getBody().getData().getTotalPage();
             if (total > params.key) {
                 callback.onResult(body.getBody().getData().getRows(), params.key + 1);
             }

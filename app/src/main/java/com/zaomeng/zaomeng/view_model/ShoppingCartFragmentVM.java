@@ -19,6 +19,12 @@ public class ShoppingCartFragmentVM extends ListViewModel<GoodsListRowsBean> {
     }
 
     public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
+    public final MutableLiveData<String> ldFreight = new MediatorLiveData<>();
+    public final MutableLiveData<String> ldTotal = new MediatorLiveData<>();
+
+//    public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
+
+
     @Override
     public void init(Object data) {
 
@@ -35,4 +41,20 @@ public class ShoppingCartFragmentVM extends ListViewModel<GoodsListRowsBean> {
     public void delete() {
 
     }
+
+    /**
+     * 全选商品
+     */
+    public void selectAll() {
+
+    }
+
+    /**
+     * 结算
+     */
+    public void settlement() {
+
+    }
+
+
 }
