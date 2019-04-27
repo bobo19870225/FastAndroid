@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,23 +9,169 @@
             type="com.zaomeng.zaomeng.view_model.ShoppingCartFragmentVM" />
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:background="@color/bg_color">
 
+        <RelativeLayout
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            android:paddingStart="@dimen/layout_padding"
+            android:paddingLeft="@dimen/layout_padding"
+            android:paddingEnd="@dimen/layout_padding"
+            android:paddingRight="@dimen/layout_padding">
+
+            <TextView
+                android:id="@+id/shop_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/shopping_cart"
+                android:textColor="@color/text_3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/shop_cart"
+                android:layout_toRightOf="@+id/shop_cart"
+                android:text="@{model.ldGoodsNumber}" />
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:onClick="@{()->model.delete()}"
+                android:text="@string/delete" />
+        </RelativeLayout>
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_above="@+id/bottom"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+
+            <ImageView
+                android:id="@+id/select"
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/un_select" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:layout_toEndOf="@+id/select"
+                android:layout_toRightOf="@+id/select"
+                android:text="@string/select_all" />
+
+            <TextView
+                android:id="@+id/settlement"
+                android:layout_width="125dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/them_color"
+                android:gravity="center"
+                android:onClick="@{()->model.settlement()}"
+                android:text="@string/settlement"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/settlement"
+                android:layout_toLeftOf="@+id/settlement"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/total" />
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/total"
+                        android:layout_toRightOf="@+id/total"
+                        android:minWidth="72dp"
+                        android:text="@{model.ldTotal}" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/freight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/freight" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/freight"
+                        android:layout_toRightOf="@+id/freight"
+                        android:minWidth="72dp"
+                        android:text="@{model.ldFreight}" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:background="@color/bg_color"
+                android:onClick="@{()->model.selectAll()}" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 </layout>
