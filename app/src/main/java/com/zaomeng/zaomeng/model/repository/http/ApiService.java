@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.model.repository.http;
 
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.dataBase.Goods;
@@ -99,10 +100,10 @@ public interface ApiService {
      * 商品加入购物车
      */
     @GET("addGoodsShopToCart.json")
-    Call<Message<Goods>> addGoodsShopToCart(@Query("sessionID") String sessionID,
-                                            @Query("goodsShopID") String goodsShopID,
-                                            @Query("qty") Integer qty,
-                                            @Query("objectFeatureItemID1") String objectFeatureItemID1);
+    LiveData<Bean<Goods>> addGoodsShopToCart(@NonNull @Query("sessionID") String sessionID,
+                                             @NonNull @Query("goodsShopID") String goodsShopID,
+                                             @NonNull @Query("qty") Integer qty,
+                                             @Query("objectFeatureItemID1") String objectFeatureItemID1);
 
     /**
      * 更改购物车商品数量

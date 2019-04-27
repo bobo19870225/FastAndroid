@@ -7,11 +7,11 @@ import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
+import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
@@ -31,7 +31,7 @@ public class GoodsFragmentVM extends BaseViewModel {
 //        this.goodsPageKeyRepository = goodsPageKeyRepository;
         this.apiService = apiService;
         function0 = () -> {
-            getFocusPictureList();
+            getNodeNavigatorList();
             return Unit.INSTANCE;
         };
     }
@@ -50,12 +50,18 @@ public class GoodsFragmentVM extends BaseViewModel {
 
     }
 
-    public LiveData<Resource<PageBean<GoodsListRowsBean>>> getGoodsList(String goodsCategoryID) {
-        return apiService.getGoodsShopListForLiveData(1, 3, goodsCategoryID, "");
-    }
-
+    /**
+     * 商品规格
+     */
     public LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(String objectID) {
         return apiService.getObjectFeatureItemList(objectID);
     }
 
+    public void addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
+        String sessionID = SharedPreerencesUtils.getSessionID(getApplication());
+        if (sessionID != null) {
+            apiService.addGoodsShopToCart(sessionID,
+                    goodsShopID, qty, objectFeatureItemID1);
+        }
+    }
 }

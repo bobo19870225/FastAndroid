@@ -82,6 +82,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     private LinearLayout root;
     private ProgressBar loading;
     private Button ok;
+    private TextView number;
     private void setDialog() {
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.dialog_goods_specification, null, false);
@@ -89,6 +90,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         loading = view.findViewById(R.id.loading);
         recyclerView = view.findViewById(R.id.list);
         ok = view.findViewById(R.id.ok);
+        number = view.findViewById(R.id.number);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         dialog = builder.setView(view).create();
 
@@ -136,6 +138,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
             if (ItemObject instanceof String) {
                 MainFragment parentFragment = (MainFragment) GoodsFragment.this.getParentFragment();
                 if (parentFragment != null) {
+                    //导航跳转
                     parentFragment.setSelectedPosition((String) ItemObject);
                 }
             } else {
@@ -144,6 +147,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         });
 
         goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
+            //null的时候显示加载状态
             GoodsFragment.this.showSpecificationDialog(null);
             GoodsFragment.this.getSpecification(ItemObject);
         });
@@ -172,6 +176,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
                         if (mainActivity != null) {
                             int badgeNumber = mainActivity.badge.getBadgeNumber();
                             mainActivity.badge.setBadgeNumber(badgeNumber + 1);
+                            mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), 1, null);
                         }
                     } else {
                         SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
@@ -235,6 +240,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
             });
             ok.setOnClickListener(v -> {
                 //TODO:选择规格后的逻辑
+
                 if (dialog.isShowing()) {
                     dialog.dismiss();
                 }
