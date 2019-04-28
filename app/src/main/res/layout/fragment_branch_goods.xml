@@ -13,14 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/bg_color"
         tools:context="com.zaomeng.zaomeng.view.CommonlyUsedFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_marginTop="8dp"
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
+
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

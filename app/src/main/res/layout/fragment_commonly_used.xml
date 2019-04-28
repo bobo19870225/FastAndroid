@@ -13,9 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/bg_color"
         tools:context="com.zaomeng.zaomeng.view.CommonlyUsedFragment">
 
         <TextView
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:gravity="center"
@@ -23,6 +25,8 @@
             android:textSize="@dimen/title_text_size" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
