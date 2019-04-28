@@ -151,8 +151,8 @@
     <string name="zmyx">早盟优选</string>
     <string name="more">更多</string>
     <string name="shopping_cart">购物车</string>
-    <string name="specification">规格</string>
-    <string name="number">数量</string>
+    <string name="specification">选择规格</string>
+    <string name="number">选择数量</string>
     <string name="OK">确定</string>
     <string name="logining">登录中...</string>
     <string name="search_history">搜索历史</string>
@@ -161,5 +161,8 @@
     <string name="settlement">结算</string>
     <string name="total">合计</string>
     <string name="freight">配送费</string>
+    <string name="_0">0</string>
+    <string name="add">➕</string>
+    <string name="reduce">➖</string>
 
 </resources>

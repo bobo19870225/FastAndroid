@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.dataBase.Goods;
+import com.zaomeng.zaomeng.model.repository.http.bean.AddToShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
@@ -17,6 +18,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 
@@ -100,10 +102,10 @@ public interface ApiService {
      * 商品加入购物车
      */
     @GET("addGoodsShopToCart.json")
-    LiveData<Bean<Goods>> addGoodsShopToCart(@NonNull @Query("sessionID") String sessionID,
-                                             @NonNull @Query("goodsShopID") String goodsShopID,
-                                             @NonNull @Query("qty") Integer qty,
-                                             @Query("objectFeatureItemID1") String objectFeatureItemID1);
+    LiveData<Resource<Bean<AddToShopCartBean>>> addGoodsShopToCart(@NonNull @Query("sessionID") String sessionID,
+                                                                   @NonNull @Query("goodsShopID") String goodsShopID,
+                                                                   @NonNull @Query("qty") Integer qty,
+                                                                   @Query("objectFeatureItemID1") String objectFeatureItemID1);
 
     /**
      * 更改购物车商品数量
@@ -125,9 +127,17 @@ public interface ApiService {
      * 获取购物车商品
      */
     @GET("getCartGoodsList.json")
-    Call<Message<Goods>> getCartGoodsList(@Query("sessionID") String sessionID,
-                                          @Query("currentPage") Integer currentPage,
-                                          @Query("pageNumber") Integer pageNumber);
+    Call<PageBean<ShopCartBean>> getCartGoodsList(@Query("sessionID") String sessionID,
+                                                  @Query("currentPage") Integer currentPage,
+                                                  @Query("pageNumber") Integer pageNumber);
+
+    /**
+     * 获取购物车商品
+     */
+    @GET("getCartGoodsList.json")
+    LiveData<Resource<PageBean<ShopCartBean>>> getCartGoodsListLD(@Query("sessionID") String sessionID,
+                                                                  @Query("currentPage") Integer currentPage,
+                                                                  @Query("pageNumber") Integer pageNumber);
 
     /**
      * 删除购物车商品

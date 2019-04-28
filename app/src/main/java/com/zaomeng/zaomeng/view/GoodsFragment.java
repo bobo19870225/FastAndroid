@@ -1,14 +1,16 @@
 package com.zaomeng.zaomeng.view;
 
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,14 +21,19 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentGoodsBinding;
+import com.zaomeng.zaomeng.model.repository.http.bean.AddToShopCartBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
+import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.GlideImageLoader;
+import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.adapter.GoodsWithTitleAdapter;
 import com.zaomeng.zaomeng.view.adapter.Item;
 import com.zaomeng.zaomeng.view.base.MVVMFragment;
@@ -39,6 +46,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -53,6 +61,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     private List<Item> list;
     private List<NavigatorBean> rows;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private BottomSheetDialog bottomSheetDialog;
     @Inject
     public GoodsFragment() {
         // Required empty public constructor
@@ -69,32 +78,15 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
 
     @Override
     protected void initUI() {
-        setDialog();
         swipeRefreshLayout = mViewDataBinding.swipeRefresh;
         setBanner();
         GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
         setGoodsData(goodsAdapter);
         mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsAdapter));
+        bottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getContext()));
+        bottomSheetDialog.setCancelable(false);
     }
 
-    private AlertDialog dialog;
-    private RecyclerView recyclerView;
-    private LinearLayout root;
-    private ProgressBar loading;
-    private Button ok;
-    private TextView number;
-    private void setDialog() {
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_goods_specification, null, false);
-        root = view.findViewById(R.id.root);
-        loading = view.findViewById(R.id.loading);
-        recyclerView = view.findViewById(R.id.list);
-        ok = view.findViewById(R.id.ok);
-        number = view.findViewById(R.id.number);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        dialog = builder.setView(view).create();
-
-    }
 
     private void setGoodsData(GoodsWithTitleAdapter goodsAdapter) {
         mViewModel.getNodeNavigatorList().observe(this, pageBeanResource -> {
@@ -147,13 +139,13 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         });
 
         goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
-            //null的时候显示加载状态
-            GoodsFragment.this.showSpecificationDialog(null);
+//            //null的时候显示加载状态
+            GoodsFragment.this.showSpecificationDialog(null, ItemObject);
             GoodsFragment.this.getSpecification(ItemObject);
         });
         RecyclerView list = mViewDataBinding.list;
         list.setLayoutManager(new GridLayoutManager(getContext(), 6));
-        GridItemDecoration divider = new GridItemDecoration.Builder(getContext())
+        GridItemDecoration divider = new GridItemDecoration.Builder(Objects.requireNonNull(getContext()))
                 .setHorizontalSpan(R.dimen.line)
                 .setVerticalSpan(R.dimen.line)
                 .setColorResource(R.color.bg_color)
@@ -172,17 +164,19 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
                 if (resource != null && resource.getHeader().getCode() == 0) {
                     List<SpecificationsBean.BodyBean.DataBean> data = resource.getBody().getData();
                     if (data.size() == 0) {
-                        MainActivity mainActivity = (MainActivity) getActivity();
-                        if (mainActivity != null) {
-                            int badgeNumber = mainActivity.badge.getBadgeNumber();
-                            mainActivity.badge.setBadgeNumber(badgeNumber + 1);
-                            mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), 1, null);
+                        int qty = 1;
+                        LiveData<Resource<Bean<AddToShopCartBean>>> addGoodsShopToCart = mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), qty, null);
+                        if (addGoodsShopToCart != null) {
+                            addGoodsShopToCart.observe(this, beanResource -> {
+                                AddToShopCartBean addToShopCartBean = new HttpHelper<AddToShopCartBean>(getContext()).AnalyticalData(beanResource);
+                                addBadge(addToShopCartBean.getQty());
+                            });
                         }
+
                     } else {
                         SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
                         List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
-                        //弹选择框
-                        showSpecificationDialog(itemList);
+                        showSpecificationDialog(itemList, ItemObject);
                     }
 
                 } else {
@@ -199,8 +193,57 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         });
     }
 
+    /**
+     * 添加小红点
+     *
+     * @param qty 数量
+     */
+    private void addBadge(int qty) {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null) {
+            int badgeNumber = mainActivity.badge.getBadgeNumber();
+            mainActivity.badge.setBadgeNumber(badgeNumber + qty);
+        }
+    }
+
     private int oldPosition = -1;
-    private void showSpecificationDialog(List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList) {
+    private String objectFeatureItemID;
+    private String specificationName;
+
+    private void showSpecificationDialog(List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList, NavigatorBean.GoodsListBean itemObject) {
+
+        //默认Cancelable和CanceledOnTouchOutside均为true
+        //bsDialog.setCancelable(true);
+        //bsDialog.setCanceledOnTouchOutside(true);
+        //为Dialog设置布局
+        LayoutInflater layoutInflater = getLayoutInflater();
+        @SuppressLint("InflateParams") View view = layoutInflater.inflate(R.layout.dialog_goods_specification, null, false);
+        LinearLayout root = view.findViewById(R.id.root);
+        ProgressBar loading = view.findViewById(R.id.loading);
+        //    private AlertDialog dialog;
+        RecyclerView recyclerView = view.findViewById(R.id.list);
+        Button ok = view.findViewById(R.id.ok);
+        ImageView cancel = view.findViewById(R.id.cancel);
+        cancel.setOnClickListener(v -> {
+            if (bottomSheetDialog.isShowing())
+                bottomSheetDialog.dismiss();
+        });
+        TextView number = view.findViewById(R.id.number);
+        TextView add = view.findViewById(R.id.add);
+        add.setOnClickListener(v -> {
+            int sl = Integer.valueOf(number.getText().toString());
+            sl += 1;
+            number.setText(String.valueOf(sl));
+        });
+        TextView reduce = view.findViewById(R.id.reduce);
+        reduce.setOnClickListener(v -> {
+            int sl = Integer.valueOf(number.getText().toString());
+            if (sl == 0)
+                return;
+            sl -= 1;
+            number.setText(String.valueOf(sl));
+        });
+        bottomSheetDialog.setContentView(view);
         if (itemList == null) {
             root.setVisibility(View.GONE);
             loading.setVisibility(View.VISIBLE);
@@ -225,30 +268,51 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
                         te.setBackground(getResources().getDrawable(R.drawable.button_them_color_un_select));
                     }
                     te.setOnClickListener(v -> {
-                                oldPosition = position;
+                        objectFeatureItemID = itemListBean.getObjectFeatureItemID();
+                        specificationName = itemListBean.getObjectFeatureItemName();
+                        oldPosition = position;
                                 notifyDataSetChanged();
                             }
                     );
                     ViewGroup.LayoutParams lp = te.getLayoutParams();
                     if (lp instanceof FlexboxLayoutManager.LayoutParams) {
                         FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
-                        flexBoxLp.setFlexGrow(1.0f);
+                        flexBoxLp.width = itemListBean.getObjectFeatureItemName().getBytes().length * 32;
+//                        flexBoxLp.setFlexGrow(1.0f);
+//                        flexBoxLp.setFlexGrow(itemListBean.getObjectFeatureItemName().length());
                     }
 
                 }
 
             });
             ok.setOnClickListener(v -> {
-                //TODO:选择规格后的逻辑
+                int qty = Integer.parseInt(number.getText().toString());
+                if (specificationName == null) {
+                    toast("请选择规格");
+                    return;
+                }
+                if (qty == 0) {
+                    toast("请选择数量");
+                    return;
+                }
+                LiveData<Resource<Bean<AddToShopCartBean>>> resourceLiveData = mViewModel.addGoodsShopToCart(itemObject.getObjectID(), qty, objectFeatureItemID);
+                if (resourceLiveData != null) {
+                    resourceLiveData.observe(this, beanResource -> {
+                        AddToShopCartBean addToShopCartBean = new HttpHelper<AddToShopCartBean>(getContext()).AnalyticalData(beanResource);
+                        if (addToShopCartBean != null) {
+                            addBadge(addToShopCartBean.getQty());
+                        }
+                    });
+                }
 
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
+                if (bottomSheetDialog.isShowing()) {
+                    bottomSheetDialog.dismiss();
                 }
             });
         }
-        dialog.setOnDismissListener(dialog -> oldPosition = -1);
-        if (!dialog.isShowing()) {
-            dialog.show();
+        bottomSheetDialog.setOnDismissListener(dialog -> oldPosition = -1);
+        if (!bottomSheetDialog.isShowing()) {
+            bottomSheetDialog.show();
         }
     }
 

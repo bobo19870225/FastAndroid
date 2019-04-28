@@ -9,13 +9,23 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.zaomeng.zaomeng.R;
+import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.utils.HttpHelper;
+import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
 import com.zaomeng.zaomeng.view.base.BaseDaggerActivity;
+
+import javax.inject.Inject;
 
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
 public class MainActivity extends BaseDaggerActivity {
-
+    @Inject
+    ApiService apiService;
+    @Inject
+    HttpHelper<ShopCartBean> httpHelper;
     public Badge badge;
     @Override
     protected int setToolBarMenu() {
@@ -47,7 +57,14 @@ public class MainActivity extends BaseDaggerActivity {
                 .setGravityOffset(8, 8, true)
 //                .setOnDragStateChangedListener(null)
                 .setBadgeNumber(0);
-
+        apiService.getCartGoodsListLD(SharedPreerencesUtils.getSessionID(getApplicationContext()), 1, 1)
+                .observe(this, pageBeanResource -> {
+                    PageDataBean<ShopCartBean> goodsPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource);
+                    if (goodsPageDataBean != null) {
+                        int total = goodsPageDataBean.getTotal();
+                        badge.setBadgeNumber(total);
+                    }
+                });
 
         NavController navController = Navigation.findNavController(this, R.id.nav_fragment);
         NavigationUI.setupWithNavController(navigation, navController);

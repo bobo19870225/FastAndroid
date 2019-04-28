@@ -8,13 +8,18 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Created by Sampson on 2019-04-24.
  * FastAndroid
  */
+@Singleton
 public class HttpHelper<T> {
     private Context context;
 
+    @Inject
     public HttpHelper(Context context) {
         this.context = context;
     }
