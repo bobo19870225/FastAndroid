@@ -48,7 +48,7 @@ public class MainActivity extends BaseDaggerActivity {
 
 //        Bundle args = new Bundle();
 //        args.putString("DATA", (String) transferData);
-//        goodsFragment.setArguments(args);
+//        mainGoodsFragment.setArguments(args);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         BottomNavigationItemView shoppingCart = navigation.findViewById(R.id.shoppingCartFragment);

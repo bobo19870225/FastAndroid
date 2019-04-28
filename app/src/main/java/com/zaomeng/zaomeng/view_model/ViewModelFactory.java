@@ -23,7 +23,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods.CUGoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.branch_goods.BranchGoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.common_used_Goods.CUGoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
 
 import javax.inject.Inject;
@@ -49,6 +50,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @Inject
     CUGoodsPageKeyRepository cuGoodsPageKeyRepository;
     @Inject
+    BranchGoodsPageKeyRepository branchGoodsPageKeyRepository;
+    @Inject
     ApiService apiService;
     @NonNull
     @Override
@@ -57,9 +60,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         if (modelClass.isAssignableFrom(LoginViewModel.class)) {
             //noinspection unchecked
             return (T) new LoginViewModel(application, apiService);
-        } else if (modelClass.isAssignableFrom(GoodsFragmentVM.class)) {
+        } else if (modelClass.isAssignableFrom(MainGoodsFragmentVM.class)) {
             //noinspection unchecked
-            return (T) new GoodsFragmentVM(application, apiService);
+            return (T) new MainGoodsFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(RegisterViewModel.class)) {
             //noinspection unchecked
             return (T) new RegisterViewModel(application, apiService);
@@ -78,6 +81,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(CommonlyUsedFragmentVM.class)) {
             //noinspection unchecked
             return (T) new CommonlyUsedFragmentVM(application, apiService, cuGoodsPageKeyRepository);
+        } else if (modelClass.isAssignableFrom(BranchGoodsFragmentVM.class)) {
+            //noinspection unchecked
+            return (T) new BranchGoodsFragmentVM(application, branchGoodsPageKeyRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

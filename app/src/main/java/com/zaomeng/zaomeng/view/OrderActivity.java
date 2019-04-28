@@ -45,7 +45,7 @@ public class OrderActivity extends BaseDaggerActivity {
         list.add(new CommonlyUsedFragment());
         list.add(new CommonlyUsedFragment());
         list.add(new CommonlyUsedFragment());
-        FragmentAdapter fragmentAdapter = new FragmentAdapter(fm, list, titles);
+        FragmentAdapter fragmentAdapter = new FragmentAdapter(fm, list, titles, null);
         viewPager.setAdapter(fragmentAdapter);
         pagerSlidingTabStrip.setViewPager(viewPager);
         if (transferData.equals("payment")) {

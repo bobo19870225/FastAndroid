@@ -38,7 +38,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     @Inject
     ViewModelFactory viewModelFactory;
     @Inject
-    GoodsFragment goodsFragment;
+    MainGoodsFragment mainGoodsFragment;
     private Badge msgBadge;
 
     @Inject
@@ -51,6 +51,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     }
 
     private List<String> titles = new ArrayList<>();
+    private List<String> IDs = new ArrayList<>();
     @Override
     protected void initUI() {
         Context context = getContext();
@@ -89,16 +90,32 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
                     for (NavigatorBean n : rows
                     ) {
                         titles.add(n.getName());
+                        IDs.add(n.getId());
                     }
                     //注意了！在Fragment中要用getChildFragmentManager().
                     FragmentManager fragmentManager = getChildFragmentManager();
                     List<Fragment> fragmentList = new ArrayList<>();
-                    fragmentList.add(goodsFragment);
-                    fragmentList.add(new CommonlyUsedFragment());
-                    fragmentList.add(new CommonlyUsedFragment());
-                    fragmentList.add(new CommonlyUsedFragment());
+                    fragmentList.add(mainGoodsFragment);
+//                    BranchGoodsFragment branchGoodsFragment = new BranchGoodsFragment();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("DATA", IDs.get(0));
+//                    branchGoodsFragment.setArguments(bundle);
+//                    //第二个
+//                    BranchGoodsFragment branchGoodsFragment1 = new BranchGoodsFragment();
+//                    Bundle bundle1 = new Bundle();
+//                    bundle1.putString("DATA", IDs.get(1));
+//                    branchGoodsFragment.setArguments(bundle1);
+//                    //第三个
+//                    BranchGoodsFragment branchGoodsFragment2 = new BranchGoodsFragment();
+//                    Bundle bundle2 = new Bundle();
+//                    bundle2.putString("DATA", IDs.get(2));
+//                    branchGoodsFragment.setArguments(bundle2);
+                    //------------------------------------------------
+                    fragmentList.add(new BranchGoodsFragment());
+                    fragmentList.add(new BranchGoodsFragment());
+                    fragmentList.add(new BranchGoodsFragment());
                     String[] strings = new String[titles.size()];
-                    FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles.toArray(strings));
+                    FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles.toArray(strings), IDs);
                     viewPager.setAdapter(fragmentAdapter);
                     pagerSlidingTabStrip.setViewPager(viewPager);
                     pagerSlidingTabStrip.setShouldExpand(false);

@@ -23,11 +23,11 @@ import static com.zaomeng.zaomeng.utils.SystemParameter.focusID;
  * Created by Sampson on 2019/4/4.
  * FastAndroid
  */
-public class GoodsFragmentVM extends BaseViewModel {
+public class MainGoodsFragmentVM extends BaseViewModel {
     private ApiService apiService;
     public Function0 function0;
 
-    GoodsFragmentVM(@NonNull Application application, ApiService apiService) {
+    MainGoodsFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
 //        this.goodsPageKeyRepository = goodsPageKeyRepository;
         this.apiService = apiService;

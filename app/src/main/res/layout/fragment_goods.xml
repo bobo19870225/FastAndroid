@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.zaomeng.zaomeng.view_model.GoodsFragmentVM" />
+            type="com.zaomeng.zaomeng.view_model.MainGoodsFragmentVM" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

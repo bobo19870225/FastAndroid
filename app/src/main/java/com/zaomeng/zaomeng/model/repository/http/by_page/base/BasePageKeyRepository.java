@@ -36,7 +36,7 @@ public abstract class BasePageKeyRepository<Key, Value> implements PostRepositor
                 .setInitialLoadSizeHint(pageSize)              //初始化加载的数量
                 .build();
         BaseDataSourceFactory<Key, Value> dataSourceFactory = setDataSourceFactory(apiService, listing, sub);
-//        CUGoodsDataSourceFactory goodsDataSourceFactory = new CUGoodsDataSourceFactory(apiService, listing, sub[0], sub[1]);
+//        BranchGoodsDataSourceFactory goodsDataSourceFactory = new BranchGoodsDataSourceFactory(apiService, listing, sub[0], sub[1]);
         LiveData<PagedList<Value>> pagedListLiveData = new LivePagedListBuilder<>(dataSourceFactory, config).build();
         listing.setPagedList(pagedListLiveData);
 

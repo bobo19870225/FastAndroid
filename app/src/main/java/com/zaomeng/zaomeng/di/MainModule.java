@@ -1,8 +1,9 @@
 package com.zaomeng.zaomeng.di;
 
+import com.zaomeng.zaomeng.view.BranchGoodsFragment;
 import com.zaomeng.zaomeng.view.CommonlyUsedFragment;
-import com.zaomeng.zaomeng.view.GoodsFragment;
 import com.zaomeng.zaomeng.view.MainFragment;
+import com.zaomeng.zaomeng.view.MainGoodsFragment;
 import com.zaomeng.zaomeng.view.MeFragment;
 import com.zaomeng.zaomeng.view.ShoppingCartFragment;
 import com.zaomeng.zaomeng.view.SortFragment;
@@ -18,11 +19,12 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class MainModule {
     @FragmentScoped
     @ContributesAndroidInjector
-    abstract GoodsFragment goodsFragment();
+    abstract MainGoodsFragment goodsFragment();
 
-    //    @FragmentScoped
-//    @ContributesAndroidInjector
-//    abstract HomeFragment homeFragment();
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract BranchGoodsFragment branchGoodsFragment();
+
     @FragmentScoped
     @ContributesAndroidInjector
     abstract MeFragment meFragment();

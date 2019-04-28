@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
-import com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods.CUGoodsPageKeyRepository;
-import com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods.CUGoodsPageKeyedDataSource;
+import com.zaomeng.zaomeng.model.repository.http.by_page.common_used_Goods.CUGoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.common_used_Goods.CUGoodsPageKeyedDataSource;
 import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
 import com.zaomeng.zaomeng.view.CommonlyUsedFragment;
 

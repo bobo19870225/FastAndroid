@@ -45,7 +45,7 @@ public class ServiceActivity extends BaseDaggerActivity {
         fragmentList.add(new CommonlyUsedFragment());
         fragmentList.add(new CommonlyUsedFragment());
         String[] titles = {"售后申请", "申请记录"};
-        FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles);
+        FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles, null);
         viewPager.setAdapter(fragmentAdapter);
         pagerSlidingTabStrip.setViewPager(viewPager);
 //        pagerSlidingTabStrip.setCurrentPosition(0);

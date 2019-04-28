@@ -39,7 +39,7 @@ import com.zaomeng.zaomeng.view.adapter.Item;
 import com.zaomeng.zaomeng.view.base.MVVMFragment;
 import com.zaomeng.zaomeng.view.custom_view.GridItemDecoration;
 import com.zaomeng.zaomeng.view.custom_view.RoundAngleBanner;
-import com.zaomeng.zaomeng.view_model.GoodsFragmentVM;
+import com.zaomeng.zaomeng.view_model.MainGoodsFragmentVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -55,7 +55,7 @@ import javax.inject.Inject;
  *
  *
  */
-public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBinding> {
+public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, FragmentGoodsBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
     private List<Item> list;
@@ -63,7 +63,7 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
     private SwipeRefreshLayout swipeRefreshLayout;
     private BottomSheetDialog bottomSheetDialog;
     @Inject
-    public GoodsFragment() {
+    public MainGoodsFragment() {
         // Required empty public constructor
     }
 
@@ -128,20 +128,20 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
         GoodsWithTitleAdapter goodsAdapter = new GoodsWithTitleAdapter(mViewModel.function0);
         goodsAdapter.setOnItemClick((view, ItemObject, position) -> {
             if (ItemObject instanceof String) {
-                MainFragment parentFragment = (MainFragment) GoodsFragment.this.getParentFragment();
+                MainFragment parentFragment = (MainFragment) MainGoodsFragment.this.getParentFragment();
                 if (parentFragment != null) {
                     //导航跳转
                     parentFragment.setSelectedPosition((String) ItemObject);
                 }
             } else {
-                GoodsFragment.this.skipTo(GoodsDetailsActivity.class, ((NavigatorBean.GoodsListBean) ItemObject).getObjectID());
+                MainGoodsFragment.this.skipTo(GoodsDetailsActivity.class, ((NavigatorBean.GoodsListBean) ItemObject).getObjectID());
             }
         });
 
         goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
 //            //null的时候显示加载状态
-            GoodsFragment.this.showSpecificationDialog(null, ItemObject);
-            GoodsFragment.this.getSpecification(ItemObject);
+            MainGoodsFragment.this.showSpecificationDialog(null, ItemObject);
+            MainGoodsFragment.this.getSpecification(ItemObject);
         });
         RecyclerView list = mViewDataBinding.list;
         list.setLayoutManager(new GridLayoutManager(getContext(), 6));
@@ -340,8 +340,8 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
 
 
     @Override
-    protected GoodsFragmentVM createdViewModel() {
-        return ViewModelProviders.of(this, viewModelFactory).get(GoodsFragmentVM.class);
+    protected MainGoodsFragmentVM createdViewModel() {
+        return ViewModelProviders.of(this, viewModelFactory).get(MainGoodsFragmentVM.class);
     }
 
 

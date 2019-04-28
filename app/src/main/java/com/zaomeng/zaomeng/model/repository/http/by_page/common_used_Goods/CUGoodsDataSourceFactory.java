@@ -1,4 +1,4 @@
-package com.zaomeng.zaomeng.model.repository.http.by_page.CommonUsedGoods;
+package com.zaomeng.zaomeng.model.repository.http.by_page.common_used_Goods;
 
 import androidx.paging.DataSource;
 
