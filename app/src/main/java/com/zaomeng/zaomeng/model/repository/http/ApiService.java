@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.dataBase.Goods;
-import com.zaomeng.zaomeng.model.repository.http.bean.AddToShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
@@ -102,10 +101,10 @@ public interface ApiService {
      * 商品加入购物车
      */
     @GET("addGoodsShopToCart.json")
-    LiveData<Resource<Bean<AddToShopCartBean>>> addGoodsShopToCart(@NonNull @Query("sessionID") String sessionID,
-                                                                   @NonNull @Query("goodsShopID") String goodsShopID,
-                                                                   @NonNull @Query("qty") Integer qty,
-                                                                   @Query("objectFeatureItemID1") String objectFeatureItemID1);
+    LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull @Query("sessionID") String sessionID,
+                                                        @NonNull @Query("goodsShopID") String goodsShopID,
+                                                        @NonNull @Query("qty") Integer qty,
+                                                        @Query("objectFeatureItemID1") String objectFeatureItemID1);
 
     /**
      * 更改购物车商品数量

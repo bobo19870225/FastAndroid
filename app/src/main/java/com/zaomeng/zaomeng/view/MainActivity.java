@@ -1,5 +1,6 @@
 package com.zaomeng.zaomeng.view;
 
+import android.view.Gravity;
 import android.view.KeyEvent;
 
 import androidx.navigation.NavController;
@@ -53,11 +54,11 @@ public class MainActivity extends BaseDaggerActivity {
         BottomNavigationItemView shoppingCart = navigation.findViewById(R.id.shoppingCartFragment);
         badge = new QBadgeView(this).bindTarget(shoppingCart)
                 .setShowShadow(true)
-//                .setBadgeGravity(Gravity.END | Gravity.TOP)
-                .setGravityOffset(8, 8, true)
+                .setBadgeGravity(Gravity.END | Gravity.TOP)
+                .setGravityOffset(10, 0, true)
 //                .setOnDragStateChangedListener(null)
                 .setBadgeNumber(0);
-        apiService.getCartGoodsListLD(SharedPreerencesUtils.getSessionID(getApplicationContext()), 1, 1)
+        apiService.getCartGoodsListLD(SharedPreerencesUtils.getSessionID(getApplicationContext()), 1, 10)
                 .observe(this, pageBeanResource -> {
                     PageDataBean<ShopCartBean> goodsPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource);
                     if (goodsPageDataBean != null) {

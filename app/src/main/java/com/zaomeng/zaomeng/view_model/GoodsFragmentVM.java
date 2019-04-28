@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.bean.AddToShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
@@ -59,7 +58,7 @@ public class GoodsFragmentVM extends BaseViewModel {
         return apiService.getObjectFeatureItemList(objectID);
     }
 
-    public LiveData<Resource<Bean<AddToShopCartBean>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
+    public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
         String sessionID = SharedPreerencesUtils.getSessionID(getApplication());
         if (sessionID != null) {
             return apiService.addGoodsShopToCart(sessionID,

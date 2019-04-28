@@ -11,6 +11,15 @@ public class BodyBean<T> {
 
     private T data;
     private String sessionID;
+    private Integer qty;
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
 
     public T getData() {
         return data;

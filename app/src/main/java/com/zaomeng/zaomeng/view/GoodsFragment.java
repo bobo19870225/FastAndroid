@@ -24,8 +24,8 @@ import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentGoodsBinding;
-import com.zaomeng.zaomeng.model.repository.http.bean.AddToShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
@@ -165,10 +165,10 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
                     List<SpecificationsBean.BodyBean.DataBean> data = resource.getBody().getData();
                     if (data.size() == 0) {
                         int qty = 1;
-                        LiveData<Resource<Bean<AddToShopCartBean>>> addGoodsShopToCart = mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), qty, null);
+                        LiveData<Resource<Bean<String>>> addGoodsShopToCart = mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), qty, null);
                         if (addGoodsShopToCart != null) {
                             addGoodsShopToCart.observe(this, beanResource -> {
-                                AddToShopCartBean addToShopCartBean = new HttpHelper<AddToShopCartBean>(getContext()).AnalyticalData(beanResource);
+                                BodyBean<String> addToShopCartBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
                                 addBadge(addToShopCartBean.getQty());
                             });
                         }
@@ -295,12 +295,12 @@ public class GoodsFragment extends MVVMFragment<GoodsFragmentVM, FragmentGoodsBi
                     toast("请选择数量");
                     return;
                 }
-                LiveData<Resource<Bean<AddToShopCartBean>>> resourceLiveData = mViewModel.addGoodsShopToCart(itemObject.getObjectID(), qty, objectFeatureItemID);
+                LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.addGoodsShopToCart(itemObject.getObjectID(), qty, objectFeatureItemID);
                 if (resourceLiveData != null) {
                     resourceLiveData.observe(this, beanResource -> {
-                        AddToShopCartBean addToShopCartBean = new HttpHelper<AddToShopCartBean>(getContext()).AnalyticalData(beanResource);
-                        if (addToShopCartBean != null) {
-                            addBadge(addToShopCartBean.getQty());
+                        BodyBean<String> stringBodyBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
+                        if (stringBodyBean != null) {
+                            addBadge(stringBodyBean.getQty());
                         }
                     });
                 }

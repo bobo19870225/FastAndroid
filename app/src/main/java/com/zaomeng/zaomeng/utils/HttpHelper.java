@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
@@ -29,6 +30,25 @@ public class HttpHelper<T> {
             Bean<T> resource = data.getResource();
             if (resource != null && resource.getHeader().getCode() == 0) {
                 return resource.getBody().getData();
+            } else {
+                if (resource != null) {
+                    Toast.makeText(context, resource.getHeader().getMsg(), Toast.LENGTH_LONG).show();
+                }
+            }
+        } else {
+            Throwable error = data.getError();
+            if (error != null) {
+                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+            }
+        }
+        return null;
+    }
+
+    public BodyBean<T> AnalyticalDataBody(Resource<? extends Bean<T>> data) {
+        if (data.isSuccess()) {
+            Bean<T> resource = data.getResource();
+            if (resource != null && resource.getHeader().getCode() == 0) {
+                return resource.getBody();
             } else {
                 if (resource != null) {
                     Toast.makeText(context, resource.getHeader().getMsg(), Toast.LENGTH_LONG).show();
