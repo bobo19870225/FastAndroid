@@ -35,7 +35,7 @@ public class GoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer, G
     @NonNull
     @Override
     protected Call<PageBean<GoodsListRowsBean>> setLoadInitialCall(ApiService apiService, LoadInitialParams<Integer> params) {
-        return apiService.getGoodsShopList(1, 10, goodsCategoryID, memberID);
+        return apiService.getGoodsShopList(1, params.requestedLoadSize, goodsCategoryID, memberID);
     }
 
     @Override

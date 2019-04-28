@@ -41,7 +41,7 @@ public class CUGoodsPageKeyedDataSource extends BasePageKeyedDataSource<Integer,
 
     @Override
     protected void setLoadInitialCallback(PageBean<CollectInfoBean> body, LoadInitialCallback<Integer, CollectInfoBean> callback) {
-        callback.onResult(body.getBody().getData().getRows(), 0, 1);
+        callback.onResult(body.getBody().getData().getRows(), 0, 2);
     }
 
     @NonNull
