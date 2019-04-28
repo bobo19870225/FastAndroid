@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
-import com.zaomeng.zaomeng.model.repository.http.bean.CollectBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
@@ -48,7 +47,7 @@ public class GoodsDetailsVM extends BaseViewModel {
         action.setValue("addCollect");
     }
 
-    public LiveData<Resource<Bean<CollectBean>>> addCollect(String goodsId, String goodsName) {
+    public LiveData<Resource<Bean<String>>> addCollect(String goodsId, String goodsName) {
         return apiService.addCollect(SharedPreerencesUtils.getSessionID(getApplication()),
                 goodsId,
                 goodsName,

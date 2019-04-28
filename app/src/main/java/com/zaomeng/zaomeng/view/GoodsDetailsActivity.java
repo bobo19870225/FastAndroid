@@ -7,7 +7,6 @@ import com.youth.banner.Banner;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityGoodsDetailsBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
-import com.zaomeng.zaomeng.model.repository.http.bean.CollectBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.utils.GlideImageLoader;
@@ -46,8 +45,8 @@ public class GoodsDetailsActivity extends MVVMActivity<GoodsDetailsVM, ActivityG
             } else if ("addCollect".equals(s)) {
                 if (goodsId != null && goodsName != null)
                     mViewModel.addCollect(goodsId, goodsName).observe(this, beanResource -> {
-                        HttpHelper<CollectBean> httpHelper = new HttpHelper<>(getApplicationContext());
-                        CollectBean collectBean = httpHelper.AnalyticalData(beanResource);
+                        HttpHelper<String> httpHelper = new HttpHelper<>(getApplicationContext());
+                        String collectBean = httpHelper.AnalyticalData(beanResource);
                         toast("收藏成功");
                     });
             }

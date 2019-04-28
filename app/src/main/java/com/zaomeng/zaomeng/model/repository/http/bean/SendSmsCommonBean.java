@@ -6,9 +6,10 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
  */
 public class SendSmsCommonBean {
 
+
     /**
      * header : {"code":0,"msg":"sendSmsCommon success!"}
-     * body : {"vCode":"2326"}
+     * body : {"data":"5562"}
      */
 
     private HeaderBean header;
@@ -58,17 +59,17 @@ public class SendSmsCommonBean {
 
     public static class BodyBean {
         /**
-         * vCode : 2326
+         * data : 5562
          */
 
-        private String vCode;
+        private String data;
 
-        public String getVCode() {
-            return vCode;
+        public String getData() {
+            return data;
         }
 
-        public void setVCode(String vCode) {
-            this.vCode = vCode;
+        public void setData(String data) {
+            this.data = data;
         }
     }
 }

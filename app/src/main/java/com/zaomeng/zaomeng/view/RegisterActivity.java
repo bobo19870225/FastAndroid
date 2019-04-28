@@ -38,8 +38,10 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
                 SendSmsCommonBean commonBean = beanResource.getResource();
                 if (commonBean != null && commonBean.getHeader().getCode() == 0) {
                     SendSmsCommonBean.BodyBean body = commonBean.getBody();
-                    String vCode = body.getVCode();
+                    String vCode = body.getData();
                     mViewModel.isVCodeCorrect(vCode);
+                } else if (commonBean != null) {
+                    toast(commonBean.getHeader().getMsg());
                 }
 
             } else {

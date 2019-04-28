@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import com.zaomeng.zaomeng.model.repository.dataBase.Goods;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.CollectBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
@@ -211,10 +210,10 @@ public interface ApiService {
      * 获取子集分类列表（标准结构）
      */
     @GET("addCollect.json")
-    LiveData<Resource<Bean<CollectBean>>> addCollect(@Query("sessionID") String sessionID,
-                                                     @Query("objectID") String objectID,
-                                                     @Query("objectName") String objectName,
-                                                     @Query("objectDefineID") String objectDefineID);
+    LiveData<Resource<Bean<String>>> addCollect(@Query("sessionID") String sessionID,
+                                                @Query("objectID") String objectID,
+                                                @Query("objectName") String objectName,
+                                                @Query("objectDefineID") String objectDefineID);
 
     /**
      * 获取子集分类列表（标准结构）
