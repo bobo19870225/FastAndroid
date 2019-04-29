@@ -5,6 +5,8 @@ buildscript {
     addRepos(repositories)
     dependencies {
         classpath deps.android_gradle_plugin
+        // 支付宝 SDK AAR 包所需的配置
+
     }
     repositories {
         google()
@@ -14,7 +16,18 @@ buildscript {
 allprojects {
     addRepos(repositories)
 }
+allprojects {
+    repositories {
 
+        // 支付宝 SDK AAR 包所需的配置
+        flatDir {
+            dirs 'libs'
+        }
+
+        jcenter()
+        google()
+    }
+}
 
 task clean(type: Delete) {
     delete rootProject.buildDir

@@ -10,6 +10,7 @@ import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.by_page.shop_cart.ShopCartPageKeyRepository;
 import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 /**
  * Created by Sampson on 2019/4/21.
@@ -18,7 +19,7 @@ import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
  */
 public class ShoppingCartFragmentVM extends ListViewModel<ShopCartBean> {
     private ShopCartPageKeyRepository shopCartPageKeyRepository;
-
+    public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public ShoppingCartFragmentVM(@NonNull Application application, ShopCartPageKeyRepository shopCartPageKeyRepository) {
         super(application);
         this.shopCartPageKeyRepository = shopCartPageKeyRepository;
@@ -59,7 +60,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<ShopCartBean> {
      * 结算
      */
     public void settlement() {
-
+        action.setValue("settlement");
     }
 
 
