@@ -17,7 +17,7 @@ public abstract class BaseDataSourceFactory<Key, Value> extends DataSource.Facto
     @Override
     public final DataSource<Key, Value> create() {
         DataSource<Key, Value> keyValueDataSource = setDataSource();
-//        BranchGoodsPageKeyedDataSource goodsPageKeyedDataSource = new BranchGoodsPageKeyedDataSource(listing, apiService);
+//        ShopCartPageKeyedDataSource goodsPageKeyedDataSource = new ShopCartPageKeyedDataSource(listing, apiService);
         dataSourceMutableLiveData.postValue(keyValueDataSource);
         return keyValueDataSource;
     }

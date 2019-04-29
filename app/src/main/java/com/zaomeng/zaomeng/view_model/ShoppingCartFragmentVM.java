@@ -7,15 +7,21 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
-import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.model.repository.http.by_page.shop_cart.ShopCartPageKeyRepository;
+import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
 
 /**
  * Created by Sampson on 2019/4/21.
  * FastAndroid
+ * {@link com.zaomeng.zaomeng.view.ShoppingCartFragment}
  */
-public class ShoppingCartFragmentVM extends ListViewModel<GoodsListRowsBean> {
-    public ShoppingCartFragmentVM(@NonNull Application application) {
+public class ShoppingCartFragmentVM extends ListViewModel<ShopCartBean> {
+    private ShopCartPageKeyRepository shopCartPageKeyRepository;
+
+    public ShoppingCartFragmentVM(@NonNull Application application, ShopCartPageKeyRepository shopCartPageKeyRepository) {
         super(application);
+        this.shopCartPageKeyRepository = shopCartPageKeyRepository;
     }
 
     public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
@@ -31,8 +37,8 @@ public class ShoppingCartFragmentVM extends ListViewModel<GoodsListRowsBean> {
     }
 
     @Override
-    public Listing<GoodsListRowsBean> getListing(Object data) {
-        return null;
+    public Listing<ShopCartBean> getListing(Object data) {
+        return shopCartPageKeyRepository.post(new String[]{SharedPreerencesUtils.getSessionID(getApplication())}, 10);
     }
 
     /**

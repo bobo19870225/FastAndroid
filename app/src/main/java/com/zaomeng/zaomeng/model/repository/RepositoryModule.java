@@ -5,9 +5,11 @@ import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.by_page.branch_goods.BranchGoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.by_page.common_used_Goods.CUGoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.shop_cart.ShopCartPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataCallAdapterFactory;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataResponseBodyConverterFactory;
 
@@ -67,6 +69,12 @@ public class RepositoryModule {
     @Provides
     static BranchGoodsPageKeyRepository branchGoodsPageKeyRepository(ApiService apiService, Listing<BranchGoodsBean> listing) {
         return new BranchGoodsPageKeyRepository(apiService, listing);
+    }
+
+    @Singleton
+    @Provides
+    static ShopCartPageKeyRepository shopCartPageKeyRepository(ApiService apiService, Listing<ShopCartBean> listing) {
+        return new ShopCartPageKeyRepository(apiService, listing);
     }
 
 }

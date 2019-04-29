@@ -26,6 +26,7 @@ import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.by_page.branch_goods.BranchGoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.by_page.common_used_Goods.CUGoodsPageKeyRepository;
 import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.shop_cart.ShopCartPageKeyRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -51,6 +52,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     CUGoodsPageKeyRepository cuGoodsPageKeyRepository;
     @Inject
     BranchGoodsPageKeyRepository branchGoodsPageKeyRepository;
+    @Inject
+    ShopCartPageKeyRepository shopCartPageKeyRepository;
     @Inject
     ApiService apiService;
     @NonNull
@@ -84,6 +87,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(BranchGoodsFragmentVM.class)) {
             //noinspection unchecked
             return (T) new BranchGoodsFragmentVM(application, branchGoodsPageKeyRepository);
+        } else if (modelClass.isAssignableFrom(ShoppingCartFragmentVM.class)) {
+            //noinspection unchecked
+            return (T) new ShoppingCartFragmentVM(application, shopCartPageKeyRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

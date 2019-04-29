@@ -8,9 +8,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
-import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
+import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ShoppingCartFragmentVM;
+import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
 
@@ -20,7 +21,9 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019/4/21.
  * FastAndroid
  */
-public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentVM, FragmentShoppingCartBinding, GoodsAdapter> {
+public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentVM, FragmentShoppingCartBinding, ShopCartAdapter> {
+    @Inject
+    ViewModelFactory viewModelFactory;
     @Inject
     public ShoppingCartFragment() {
     }
@@ -37,8 +40,8 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
     @NonNull
     @Override
-    protected GoodsAdapter setAdapter(Function0 reTry) {
-        return new GoodsAdapter(reTry);
+    protected ShopCartAdapter setAdapter(Function0 reTry) {
+        return new ShopCartAdapter(reTry);
     }
 
     @NonNull
@@ -55,7 +58,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
     @Override
     protected ShoppingCartFragmentVM createdViewModel() {
-        return ViewModelProviders.of(this).get(ShoppingCartFragmentVM.class);
+        return ViewModelProviders.of(this, viewModelFactory).get(ShoppingCartFragmentVM.class);
     }
 
     @Override
