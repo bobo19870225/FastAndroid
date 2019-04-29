@@ -47,7 +47,7 @@ public class GoodsDetailsActivity extends MVVMActivity<GoodsDetailsVM, ActivityG
                     mViewModel.addCollect(goodsId, goodsName).observe(this, beanResource -> {
                         HttpHelper<String> httpHelper = new HttpHelper<>(getApplicationContext());
                         String collectBean = httpHelper.AnalyticalData(beanResource);
-                        toast("收藏成功");
+                        if (collectBean != null) toast("收藏成功");
                     });
             }
         });
@@ -62,7 +62,7 @@ public class GoodsDetailsActivity extends MVVMActivity<GoodsDetailsVM, ActivityG
                         mViewModel.ldShowName.setValue(goodsDetailsBean.getShowName());
                         goodsName = goodsDetailsBean.getName();
                         goodsId = goodsDetailsBean.getId();
-                        double showPrice = goodsDetailsBean.getShowPrice();
+                        double showPrice = goodsDetailsBean.getRealPrice();
                         mViewModel.ldShowPrice.setValue(FormatUtils.numberFormatMoney(showPrice));
                         mViewModel.ldDescribe.setValue(goodsDetailsBean.getDescription());
                         List<String> imageURL = new ArrayList<>();
