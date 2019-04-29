@@ -13,6 +13,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
@@ -22,10 +23,12 @@ import static com.zaomeng.zaomeng.utils.SystemParameter.focusID;
 /**
  * Created by Sampson on 2019/4/4.
  * FastAndroid
+ * {@link com.zaomeng.zaomeng.view.MainGoodsFragment}
  */
 public class MainGoodsFragmentVM extends BaseViewModel {
     private ApiService apiService;
     public Function0 function0;
+    public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
 
     MainGoodsFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
@@ -66,5 +69,22 @@ public class MainGoodsFragmentVM extends BaseViewModel {
 
         }
         return null;
+    }
+
+    public void commonlyUsed() {
+        action.setValue("commonlyUsed");
+    }
+
+    public void myOrder() {
+        action.setValue("myOrder");
+    }
+
+    public void myCoupon() {
+        action.setValue("myCoupon");
+    }
+
+    public void myPoints() {
+        action.setValue("myPoints");
+
     }
 }

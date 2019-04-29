@@ -139,11 +139,14 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     void setSelectedPosition(String title) {
         for (int i = 0; i < titles.size(); i++) {
             if (titles.get(i).equals(title)) {
-                pagerSlidingTabStrip.setSelectedPosition(i);
+                setSelectedPosition(i);
             }
         }
     }
 
+    void setSelectedPosition(int position) {
+        pagerSlidingTabStrip.setSelectedPosition(position);
+    }
     @Override
     protected MainFragmentVM createdViewModel() {
         return ViewModelProviders.of(this, viewModelFactory).get(MainFragmentVM.class);

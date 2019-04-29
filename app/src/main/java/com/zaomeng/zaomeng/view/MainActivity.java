@@ -28,6 +28,7 @@ public class MainActivity extends BaseDaggerActivity {
     @Inject
     HttpHelper<ShopCartBean> httpHelper;
     public Badge badge;
+    protected BottomNavigationView navigation;
     @Override
     protected int setToolBarMenu() {
         return 0;
@@ -50,7 +51,7 @@ public class MainActivity extends BaseDaggerActivity {
 //        args.putString("DATA", (String) transferData);
 //        mainGoodsFragment.setArguments(args);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         BottomNavigationItemView shoppingCart = navigation.findViewById(R.id.shoppingCartFragment);
         badge = new QBadgeView(this).bindTarget(shoppingCart)
                 .setShowShadow(true)

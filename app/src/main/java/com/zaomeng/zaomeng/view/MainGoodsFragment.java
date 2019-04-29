@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -85,6 +86,22 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsAdapter));
         bottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getContext()));
         bottomSheetDialog.setCancelable(false);
+        mViewModel.action.observe(this, s -> {
+            switch (s) {
+                case "commonlyUsed":
+                    FragmentActivity activity = getActivity();
+                    if (activity != null) {
+                        ((MainActivity) activity).navigation.setSelectedItemId(R.id.treeFragment);
+                    }
+                    break;
+                case "myOrder":
+                    break;
+                case "myCoupon":
+                    break;
+                case "myPoints":
+                    break;
+            }
+        });
     }
 
 
