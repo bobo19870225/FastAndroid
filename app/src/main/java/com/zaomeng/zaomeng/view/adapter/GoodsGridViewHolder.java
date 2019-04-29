@@ -40,7 +40,7 @@ public class GoodsGridViewHolder extends RecyclerView.ViewHolder {
         return new GoodsGridViewHolder(view);
     }
 
-    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick onItemClick, OnItemClick<NavigatorBean.GoodsListBean> onAddClick, int position) {
+    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick<NavigatorBean.GoodsListBean> onItemClick, OnItemClick<NavigatorBean.GoodsListBean> onAddClick, int position) {
         NavigatorBean.GoodsListBean data = goods.getData();
         goodsName.setText(data.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(data.getShowPrice()));

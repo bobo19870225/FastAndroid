@@ -57,6 +57,7 @@
 
 
     <TextView
+        android:textColor="@color/text_red"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/price"

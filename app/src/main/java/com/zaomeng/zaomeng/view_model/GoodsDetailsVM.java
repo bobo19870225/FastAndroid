@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.view_model;
 
 import android.app.Application;
+import android.text.SpannableString;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -22,7 +23,7 @@ public class GoodsDetailsVM extends BaseViewModel {
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public final MediatorLiveData<Resource<Bean<GoodsDetailsBean>>> ldGoodsDetails = new MediatorLiveData<>();
     public final MutableLiveData<String> ldDescribe = new MutableLiveData<>();
-    public final MutableLiveData<String> ldShowPrice = new MutableLiveData<>();
+    public final MutableLiveData<SpannableString> ldShowPrice = new MutableLiveData<>();
     public final MutableLiveData<String> ldShowName = new MutableLiveData<>();
     //    public String goodsName;
 //    public String goodsId;

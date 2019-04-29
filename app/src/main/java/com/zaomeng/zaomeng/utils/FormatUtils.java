@@ -1,6 +1,9 @@
 package com.zaomeng.zaomeng.utils;
 
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -11,9 +14,10 @@ import java.util.Locale;
  * FastAndroid
  */
 public class FormatUtils {
-    public static String numberFormatMoney(double money) {
+    public static SpannableString numberFormatMoney(double money) {
         NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance(Locale.CHINA); //建立货币格式化引用
-        return CURRENCY_FORMAT.format(new BigDecimal(money));
+        String format = CURRENCY_FORMAT.format(new BigDecimal(money));
+        return changTVSize(format);
     }
 
     public static boolean isMobileNO(String mobileNumber) {
@@ -32,5 +36,14 @@ public class FormatUtils {
         else
             return mobileNumber.matches(telRegex);
     }
+
+    public static SpannableString changTVSize(String value) {
+        SpannableString spannableString = new SpannableString(value);
+        if (value.contains(".")) {
+            spannableString.setSpan(new RelativeSizeSpan(0.6f), value.indexOf("."), value.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return spannableString;
+    }
+
 
 }
