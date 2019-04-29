@@ -32,7 +32,7 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
     @Inject
     ViewModelFactory viewModelFactory;
 
-
+    private int oldPosition = 0;
     @Inject
     public SortFragment() {
         // Required empty public constructor
@@ -66,7 +66,11 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
             }
         });
         GoodsParentAdapter goodsParentAdapter = new GoodsParentAdapter(context, rows);
-        goodsParentAdapter.setOnItemClick((view, ItemObject, position) -> setListView(ItemObject.getId()));
+        goodsParentAdapter.setOnItemClick((view, ItemObject, position) -> {
+            if (oldPosition != position)//防止重复点击
+                setListView(ItemObject.getId());
+            oldPosition = position;
+        });
         mViewDataBinding.list1.setAdapter(goodsParentAdapter);
         mViewModel.getNodeCategoryList().observe(this, pageBeanResource -> {
             HttpHelper<GoodsSuperBean> goodsSuperBeanHttpHelper = new HttpHelper<>(context);
