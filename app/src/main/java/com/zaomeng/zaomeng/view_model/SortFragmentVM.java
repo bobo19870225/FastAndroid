@@ -37,6 +37,7 @@ public class SortFragmentVM extends ListViewModel<Integer, GoodsListRowsBean> {
     }
 
 
+    @NonNull
     @Override
     protected Integer setPageSize() {
         return 10;

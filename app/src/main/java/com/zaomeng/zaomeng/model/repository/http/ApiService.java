@@ -225,6 +225,15 @@ public interface ApiService {
                                                             @Query("objectDefineID") String objectDefineID,
                                                             @Query("navigatorID") String navigatorID);
 
+    /**
+     * 获取我的消息列表
+     */
+    @GET("getMyMessageList.json")
+    Call<PageBean<BranchGoodsBean>> getMyMessageList(@Query("currentPage") Integer currentPage,
+                                                     @Query("pageNumber") Integer pageNumber,
+                                                     @Query("sessionID") String sessionID,
+                                                     @Query("messageType") Integer messageType);
+
 
 
 

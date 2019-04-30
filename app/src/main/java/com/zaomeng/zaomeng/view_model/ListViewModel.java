@@ -30,5 +30,6 @@ public abstract class ListViewModel<Key, Value> extends BaseViewModel implements
         return new BasePageKeyRepository<>(this).post(setPageSize());
     }
 
+    @NonNull
     protected abstract Integer setPageSize();
 }

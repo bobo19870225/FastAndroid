@@ -10,6 +10,9 @@ import com.zaomeng.zaomeng.databinding.ActivityMessageBinding;
 import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view_model.MessageVM;
+import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+
+import javax.inject.Inject;
 
 import kotlin.jvm.functions.Function0;
 
@@ -18,6 +21,8 @@ import kotlin.jvm.functions.Function0;
  * FastAndroid
  */
 public class MessageActivity extends MVVMListActivity<MessageVM, ActivityMessageBinding, GoodsAdapter> {
+    @Inject
+    ViewModelFactory viewModelFactory;
     @NonNull
     @Override
     protected RecyclerView setRecyclerView() {
@@ -38,7 +43,7 @@ public class MessageActivity extends MVVMListActivity<MessageVM, ActivityMessage
     @NonNull
     @Override
     protected MessageVM createdViewModel() {
-        return ViewModelProviders.of(this).get(MessageVM.class);
+        return ViewModelProviders.of(this, viewModelFactory).get(MessageVM.class);
     }
 
     @Override

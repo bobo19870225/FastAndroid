@@ -38,6 +38,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     }
 
 
+    @NonNull
     @Override
     protected Integer setPageSize() {
         return 10;

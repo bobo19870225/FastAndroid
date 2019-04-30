@@ -69,6 +69,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     }
 
 
+    @NonNull
     @Override
     protected Integer setPageSize() {
         return 10;

@@ -34,6 +34,7 @@ public class BranchGoodsFragmentVM extends ListViewModel<Integer, BranchGoodsBea
     }
 
 
+    @NonNull
     @Override
     protected Integer setPageSize() {
         return 10;
