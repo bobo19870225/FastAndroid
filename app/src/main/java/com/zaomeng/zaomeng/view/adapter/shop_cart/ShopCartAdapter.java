@@ -32,8 +32,10 @@ public class ShopCartAdapter extends PagedListAdapter<ShopCartBean, RecyclerView
     private Function0 retryCallback;
     private NetWorkState netWorkState;
     private HashMap<Integer, Boolean> isCheckedHasMap;
-    private OnItemClick<ShopCartBean> onItemClick;
+    //    private OnItemClick<ShopCartBean> onItemClick;
+    private OnItemClick<ShopCartBean> onSelectClick;
     private OnItemClick<ShopCartBean> onAddClick;
+    private OnItemClick<ShopCartBean> onReduceClick;
 
 
     @SuppressLint("UseSparseArrays")
@@ -45,11 +47,27 @@ public class ShopCartAdapter extends PagedListAdapter<ShopCartBean, RecyclerView
         this.onAddClick = onAddClick;
     }
 
-    public void setOnItemClick(OnItemClick<ShopCartBean> onItemClick) {
-        this.onItemClick = onItemClick;
+//    public void setOnItemClick(OnItemClick<ShopCartBean> onItemClick) {
+//        this.onItemClick = onItemClick;
+//    }
+
+    public void setOnSelectClick(OnItemClick<ShopCartBean> onSelectClick) {
+        this.onSelectClick = onSelectClick;
     }
 
+    public void setOnReduceClick(OnItemClick<ShopCartBean> onReduceClick) {
+        this.onReduceClick = onReduceClick;
+    }
 
+    public boolean isShouldSelectedAll() {
+        return shouldSelectedAll;
+    }
+
+    public boolean isSelectedAll() {
+        return isSelectedAll;
+    }
+
+    @SuppressLint("UseSparseArrays")
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -72,23 +90,40 @@ public class ShopCartAdapter extends PagedListAdapter<ShopCartBean, RecyclerView
     /**
      * 先于构造函数调用
      *
-     * @param holder
-     * @param position
      */
+    private boolean isSelectedAll = false;
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case R.layout.item_goods:
-                ((ShopCartViewHolder) holder).bind(getItem(position), onItemClick, () -> {
-                    if (onAddClick != null)
-                        onAddClick.onClick(null, getItem(position), position);
-                    Boolean aBoolean = isCheckedHasMap.get(position);
-                    if (aBoolean != null) {
-                        isCheckedHasMap.put(position, !aBoolean);
-                        notifyDataSetChanged();
-                    }
-                    return Unit.INSTANCE;
-                }, isCheckedHasMap.get(position));
+                ((ShopCartViewHolder) holder).bind(getItem(position),
+                        onSelectClick,
+                        () -> {
+                            if (onAddClick != null)
+                                onAddClick.onClick(null, getItem(position), position);
+                            Boolean aBoolean = isCheckedHasMap.get(position);
+                            if (aBoolean != null) {
+                                isSelectedAll = false;
+                                isCheckedHasMap.put(position, !aBoolean);
+                                for (int i = 0; i < isCheckedHasMap.size(); i++) {
+                                    Boolean aBoolean1 = isCheckedHasMap.get(i);
+                                    if (aBoolean1 != null) {
+                                        if (!aBoolean1) {
+                                            isSelectedAll = false;
+                                            break;
+                                        }
+                                    }
+                                    isSelectedAll = true;
+                                }
+                                notifyDataSetChanged();
+                            }
+                            return Unit.INSTANCE;
+                        },
+                        onAddClick,
+                        null,
+                        onReduceClick,
+                        null,
+                        isCheckedHasMap.get(position));
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindTo(netWorkState);
@@ -96,9 +131,10 @@ public class ShopCartAdapter extends PagedListAdapter<ShopCartBean, RecyclerView
 
     }
 
+    private boolean shouldSelectedAll = false;
     public void selectedAll() {
         Set<Map.Entry<Integer, Boolean>> entries = isCheckedHasMap.entrySet();
-        boolean shouldSelectedAll = false;
+        shouldSelectedAll = false;
         for (Map.Entry<Integer, Boolean> entryset : entries) {
             Boolean aBoolean = entryset.getValue();
             if (!aBoolean) {

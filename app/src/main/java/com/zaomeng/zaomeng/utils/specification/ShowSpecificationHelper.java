@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.utils.specification;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.flexbox.AlignItems;
@@ -19,7 +21,6 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.zaomeng.zaomeng.R;
-import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -35,13 +36,16 @@ public class ShowSpecificationHelper {
     private InterfaceShowSpecification interfaceShowSpecification;
     private String specificationName;
     private String objectFeatureItemID;
+    private BottomSheetDialog bottomSheetDialog;
 
-    public ShowSpecificationHelper(InterfaceShowSpecification interfaceShowSpecification) {
+    public ShowSpecificationHelper(@NonNull Context context, InterfaceShowSpecification interfaceShowSpecification) {
         this.interfaceShowSpecification = interfaceShowSpecification;
+        bottomSheetDialog = new BottomSheetDialog(context);
+        bottomSheetDialog.setCancelable(false);
     }
 
     public void showSpecificationDialog(LayoutInflater layoutInflater, List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList,
-                                        NavigatorBean.GoodsListBean itemObject, BottomSheetDialog bottomSheetDialog) {
+                                        String goodsID) {
 
         //默认Cancelable和CanceledOnTouchOutside均为true
         //bsDialog.setCancelable(true);
@@ -129,7 +133,7 @@ public class ShowSpecificationHelper {
                     return;
                 }
 
-                interfaceShowSpecification.callBack(itemObject.getObjectID(), qty, objectFeatureItemID);
+                interfaceShowSpecification.callBack(goodsID, qty, objectFeatureItemID);
 
                 if (bottomSheetDialog.isShowing()) {
                     bottomSheetDialog.dismiss();

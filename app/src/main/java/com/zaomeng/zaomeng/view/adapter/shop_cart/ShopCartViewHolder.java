@@ -29,7 +29,7 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
     private View reduce;
     private ImageView goodsIcon;
     private ImageView select;
-    private Function0 actionSelect;
+
     private ShopCartViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
@@ -47,7 +47,14 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
         return new ShopCartViewHolder(view);
     }
 
-    void bind(ShopCartBean goods, OnItemClick<ShopCartBean> onItemClick, Function0 actionSelect, Boolean isCheckedHasMap) {
+    void bind(ShopCartBean goods,
+              OnItemClick<ShopCartBean> onSelectClick,
+              Function0 actionSelect,
+              OnItemClick<ShopCartBean> onAddClick,
+              Function0 actionAdd,
+              OnItemClick<ShopCartBean> onReduceClick,
+              Function0 actionReduce,
+              Boolean isCheckedHasMap) {
         goodsName.setText(goods.getObjectFeatureItemName1());
         Glide.with(goodsIcon).load(goods.getLittleImage()).into(goodsIcon);
         price.setText(FormatUtils.numberFormatMoney(goods.getPriceNow()));
@@ -60,13 +67,37 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
         select.setOnClickListener(v -> {
             if (actionSelect != null)
                 actionSelect.invoke();
+            if (onSelectClick != null)
+                onSelectClick.onClick(v, goods, getAdapterPosition());
         });
-        itemView.setOnClickListener(v -> {
-            if (onItemClick != null)
-                onItemClick.onClick(v, goods, getLayoutPosition());
-        });
+//        itemView.setOnClickListener(v -> {
+//            if (onItemClick != null)
+//                onItemClick.onClick(v, goods, getLayoutPosition());
+//        });
         add.setOnClickListener(v -> {
-
+            if (actionAdd != null) {
+                actionAdd.invoke();
+            }
+            if (onAddClick != null) {
+                onAddClick.onClick(v, goods, getLayoutPosition());
+            }
+            int n = Integer.valueOf(number.getText().toString());
+            n += 1;
+            number.setText(String.valueOf(n));
+        });
+        reduce.setOnClickListener(v -> {
+            if (onReduceClick != null) {
+                onReduceClick.onClick(v, goods, getLayoutPosition());
+            }
+            if (actionReduce != null) {
+                actionReduce.invoke();
+            }
+            int n = Integer.parseInt(number.getText().toString());
+            n -= 1;
+            if (n < 0) {
+                n = 0;
+            }
+            number.setText(String.valueOf(n));
         });
     }
 

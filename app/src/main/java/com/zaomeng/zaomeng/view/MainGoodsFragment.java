@@ -1,5 +1,7 @@
 package com.zaomeng.zaomeng.view;
 
+import android.content.Context;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
@@ -7,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentGoodsBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
@@ -47,8 +48,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
     private List<Item> list;
     private List<NavigatorBean> rows;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private BottomSheetDialog bottomSheetDialog;
-    private ShowSpecificationHelper showSpecificationHelper = new ShowSpecificationHelper(this);
+    private ShowSpecificationHelper showSpecificationHelper;
     @Inject
     public MainGoodsFragment() {
         // Required empty public constructor
@@ -70,8 +70,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
         setGoodsData(goodsAdapter);
         mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsAdapter));
-        bottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getContext()));
-        bottomSheetDialog.setCancelable(false);
+
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "commonlyUsed":
@@ -88,7 +87,10 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
                     break;
             }
         });
-
+        Context context = getContext();
+        if (context != null) {
+            showSpecificationHelper = new ShowSpecificationHelper(context, this);
+        }
     }
 
 
@@ -144,7 +146,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
 
         goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
 //            //null的时候显示加载状态
-            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject, bottomSheetDialog);
+            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getObjectID());
 
             MainGoodsFragment.this.getSpecification(ItemObject);
         });
@@ -181,7 +183,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
                     } else {
                         SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
                         List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
-                        showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, ItemObject, bottomSheetDialog);
+                        showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, ItemObject.getObjectID());
                     }
 
                 } else {
@@ -210,116 +212,6 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
             mainActivity.badge.setBadgeNumber(badgeNumber + qty);
         }
     }
-
-//    private int oldPosition = -1;
-//    private String objectFeatureItemID;
-//    private String specificationName;
-
-//    private void showSpecificationDialog(List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList, NavigatorBean.GoodsListBean itemObject) {
-//
-//        //默认Cancelable和CanceledOnTouchOutside均为true
-//        //bsDialog.setCancelable(true);
-//        //bsDialog.setCanceledOnTouchOutside(true);
-//        //为Dialog设置布局
-//        LayoutInflater layoutInflater = getLayoutInflater();
-//        @SuppressLint("InflateParams") View view = layoutInflater.inflate(R.layout.dialog_goods_specification, null, false);
-//        LinearLayout root = view.findViewById(R.id.root);
-//        ProgressBar loading = view.findViewById(R.id.loading);
-//        //    private AlertDialog dialog;
-//        RecyclerView recyclerView = view.findViewById(R.id.list);
-//        Button ok = view.findViewById(R.id.ok);
-//        ImageView cancel = view.findViewById(R.id.cancel);
-//        cancel.setOnClickListener(v -> {
-//            if (bottomSheetDialog.isShowing())
-//                bottomSheetDialog.dismiss();
-//        });
-//        TextView number = view.findViewById(R.id.number);
-//        TextView add = view.findViewById(R.id.add);
-//        add.setOnClickListener(v -> {
-//            int sl = Integer.valueOf(number.getText().toString());
-//            sl += 1;
-//            number.setText(String.valueOf(sl));
-//        });
-//        TextView reduce = view.findViewById(R.id.reduce);
-//        reduce.setOnClickListener(v -> {
-//            int sl = Integer.valueOf(number.getText().toString());
-//            if (sl == 0)
-//                return;
-//            sl -= 1;
-//            number.setText(String.valueOf(sl));
-//        });
-//        bottomSheetDialog.setContentView(view);
-//        if (itemList == null) {
-//            root.setVisibility(View.GONE);
-//            loading.setVisibility(View.VISIBLE);
-//        } else {
-//            root.setVisibility(View.VISIBLE);
-//            loading.setVisibility(View.GONE);
-//            FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
-//            layoutManager.setFlexWrap(FlexWrap.WRAP);
-//            layoutManager.setFlexDirection(FlexDirection.ROW);
-//            layoutManager.setAlignItems(AlignItems.STRETCH);
-//            layoutManager.setJustifyContent(JustifyContent.FLEX_START);
-//            recyclerView.setLayoutManager(layoutManager);
-//            recyclerView.setAdapter(new CommonAdapter<SpecificationsBean.BodyBean.DataBean.ItemListBean>(getContext(), R.layout.flexbox_item_text, itemList) {
-//                @Override
-//                protected void convert(ViewHolder holder, SpecificationsBean.BodyBean.DataBean.ItemListBean itemListBean, int position) {
-//
-//                    TextView te = holder.getView(R.id.imageview);
-//                    te.setText(itemListBean.getObjectFeatureItemName());
-//                    if (oldPosition == position) {
-//                        te.setBackground(getResources().getDrawable(R.drawable.bg_button_them_color));
-//                    } else {
-//                        te.setBackground(getResources().getDrawable(R.drawable.button_them_color_un_select));
-//                    }
-//                    te.setOnClickListener(v -> {
-//                        objectFeatureItemID = itemListBean.getObjectFeatureItemID();
-//                        specificationName = itemListBean.getObjectFeatureItemName();
-//                        oldPosition = position;
-//                                notifyDataSetChanged();
-//                            }
-//                    );
-//                    ViewGroup.LayoutParams lp = te.getLayoutParams();
-//                    if (lp instanceof FlexboxLayoutManager.LayoutParams) {
-//                        FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
-//                        flexBoxLp.width = itemListBean.getObjectFeatureItemName().getBytes().length * 32;
-////                        flexBoxLp.setFlexGrow(1.0f);
-////                        flexBoxLp.setFlexGrow(itemListBean.getObjectFeatureItemName().length());
-//                    }
-//
-//                }
-//
-//            });
-//            ok.setOnClickListener(v -> {
-//                int qty = Integer.parseInt(number.getText().toString());
-//                if (specificationName == null) {
-//                    toast("请选择规格");
-//                    return;
-//                }
-//                if (qty == 0) {
-//                    toast("请选择数量");
-//                    return;
-//                }
-//                LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.addGoodsShopToCart(itemObject.getObjectID(), qty, objectFeatureItemID);
-//                if (resourceLiveData != null) {
-//                    resourceLiveData.observe(this, beanResource -> {
-//                        BodyBean<String> stringBodyBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
-//                        if (stringBodyBean != null) {
-//                            addBadge(stringBodyBean.getQty());
-//                        }
-//                    });
-//                }
-//
-//                if (bottomSheetDialog.isShowing()) {
-//                    bottomSheetDialog.dismiss();
-//                }
-//            });
-//        }
-//        bottomSheetDialog.setOnDismissListener(dialog -> oldPosition = -1);
-//        if (!bottomSheetDialog.isShowing()) {
-//            bottomSheetDialog.show();
-//        }
-//    }
 
     private void setBanner() {
         RoundAngleBanner banner = mViewDataBinding.banner;

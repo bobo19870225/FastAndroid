@@ -56,9 +56,9 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
      */
     public void selectAll() {
         action.setValue("selectAll");
-        Boolean isSelectAllValue = ldIsSelectAll.getValue();
-        if (isSelectAllValue != null)
-            ldIsSelectAll.setValue(!isSelectAllValue);
+//        Boolean isSelectAllValue = ldIsSelectAll.getValue();
+//        if (isSelectAllValue != null)
+//            ldIsSelectAll.setValue(!isSelectAllValue);
     }
 
     /**

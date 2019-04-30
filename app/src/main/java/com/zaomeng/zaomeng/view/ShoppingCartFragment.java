@@ -69,6 +69,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                     break;
                 case "selectAll":
                     shopCartAdapter.selectedAll();
+                    mViewModel.ldIsSelectAll.setValue(shopCartAdapter.isShouldSelectedAll());
                     break;
                 default:
                     break;
@@ -115,7 +116,14 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     @NonNull
     @Override
     protected ShopCartAdapter setAdapter(Function0 reTry) {
-        return shopCartAdapter = new ShopCartAdapter(reTry);
+        shopCartAdapter = new ShopCartAdapter(reTry);
+        shopCartAdapter.setOnSelectClick((view, ItemObject, position) -> {
+            boolean selectedAll = shopCartAdapter.isSelectedAll();
+            mViewModel.ldIsSelectAll.setValue(selectedAll);
+        });
+        shopCartAdapter.setOnAddClick((view, ItemObject, position) -> toast("+"));
+        shopCartAdapter.setOnReduceClick((view, ItemObject, position) -> toast("-"));
+        return shopCartAdapter;
     }
 
     @NonNull
