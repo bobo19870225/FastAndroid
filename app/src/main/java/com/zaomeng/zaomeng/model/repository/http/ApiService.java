@@ -10,6 +10,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
@@ -90,12 +91,12 @@ public interface ApiService {
                                                         @Query("sendType") Integer sendType);
 
     /**
-     * 获取对象附件列表
+     * 获取对象附件列表（商品详情图片）
      */
     @GET("getObjectAttachmentList.json")
-    Call<Message<Goods>> getObjectAttachmentList(@Query("currentPage") Integer currentPage,
-                                                 @Query("pageNumber") Integer pageNumber,
-                                                 @Query("objectID") String objectID);
+    Call<PageBean<GoodsDetailsImageBean>> getObjectAttachmentList(@Query("currentPage") Integer currentPage,
+                                                                  @Query("pageNumber") Integer pageNumber,
+                                                                  @Query("objectID") String objectID);
 
     /**
      * 商品加入购物车
@@ -186,7 +187,7 @@ public interface ApiService {
 
 
     /**
-     * 获取对象特征选项
+     * 获取对象特征选项（商品规格）
      */
     @GET("getObjectFeatureItemList.json")
     LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(@Query("objectID") String objectID);

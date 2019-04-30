@@ -13,66 +13,29 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="@color/bg_color">
-        <com.youth.banner.Banner
-            android:background="@color/white"
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/banner_height"
-            app:image_scale_type="center_crop">
 
-            <ImageView
-                android:layout_width="@dimen/image"
-                android:layout_height="@dimen/image"
-                android:layout_margin="8dp"
-                android:onClick="@{()->model.back()}"
-                android:padding="@dimen/image_padding"
-                android:src="@mipmap/back" />
-
-        </com.youth.banner.Banner>
-
-        <LinearLayout
-            android:id="@+id/goods_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/banner"
-            android:layout_marginTop="@dimen/margin_top"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/layout_padding">
-
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="邻家小厨 儿童营养早餐组合 1180g（6包）" />-->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{model.ldShowName}" />
-
-            <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{model.ldShowPrice}"
-                android:textColor="@android:color/holo_red_light" />
-
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_marginTop="@dimen/margin_top"
-            android:background="@color/white"
-            android:padding="@dimen/layout_padding"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom"
-            android:layout_below="@+id/goods_info">
+            android:layout_above="@+id/bottom">
 
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{model.ldDescribe}" />
-        </ScrollView>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ImageView
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:layout_margin="8dp"
+            android:onClick="@{()->model.back()}"
+            android:padding="@dimen/image_padding"
+            android:src="@mipmap/back" />
 
         <RelativeLayout
             android:layout_height="48dp"

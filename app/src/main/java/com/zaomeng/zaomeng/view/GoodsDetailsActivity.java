@@ -2,29 +2,29 @@ package com.zaomeng.zaomeng.view;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.youth.banner.Banner;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityGoodsDetailsBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
-import com.zaomeng.zaomeng.utils.GlideImageLoader;
 import com.zaomeng.zaomeng.utils.HttpHelper;
-import com.zaomeng.zaomeng.view.base.MVVMActivity;
+import com.zaomeng.zaomeng.view.adapter.goods_details.GoodsDetailsAdapter;
+import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view_model.GoodsDetailsVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
+
+import kotlin.jvm.functions.Function0;
 
 /**
  * Created by Sampson on 2019/4/17.
  * FastAndroid
  */
-public class GoodsDetailsActivity extends MVVMActivity<GoodsDetailsVM, ActivityGoodsDetailsBinding> {
+public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, ActivityGoodsDetailsBinding, GoodsDetailsAdapter> {
 
     @Inject
     ViewModelFactory viewModelFactory;
@@ -38,7 +38,7 @@ public class GoodsDetailsActivity extends MVVMActivity<GoodsDetailsVM, ActivityG
 
     @Override
     protected void setView() {
-
+        super.setView();
         mViewModel.action.observe(this, s -> {
             if ("back".equals(s)) {
                 finish();
@@ -51,24 +51,25 @@ public class GoodsDetailsActivity extends MVVMActivity<GoodsDetailsVM, ActivityG
                     });
             }
         });
-        Banner banner = mViewDataBinding.banner;
-        banner.setImageLoader(new GlideImageLoader());
+//        Banner banner = mViewDataBinding.banner;
+//        banner.setImageLoader(new GlideImageLoader());
         mViewModel.ldGoodsDetails.observe(this, beanResource -> {
             if (beanResource.isSuccess()) {
                 Bean<GoodsDetailsBean> goodsDetailsBeanBean = beanResource.getResource();
                 if (goodsDetailsBeanBean != null) {
                     if (goodsDetailsBeanBean.getHeader().getCode() == 0) {
                         GoodsDetailsBean goodsDetailsBean = goodsDetailsBeanBean.getBody().getData();
+                        setListView(goodsDetailsBean.getId());
                         mViewModel.ldShowName.setValue(goodsDetailsBean.getShowName());
                         goodsName = goodsDetailsBean.getName();
                         goodsId = goodsDetailsBean.getId();
                         double showPrice = goodsDetailsBean.getRealPrice();
                         mViewModel.ldShowPrice.setValue(FormatUtils.numberFormatMoney(showPrice));
                         mViewModel.ldDescribe.setValue(goodsDetailsBean.getDescription());
-                        List<String> imageURL = new ArrayList<>();
-                        imageURL.add(goodsDetailsBean.getLargerImage());
-                        banner.setImages(imageURL);
-                        banner.start();
+//                        List<String> imageURL = new ArrayList<>();
+//                        imageURL.add(goodsDetailsBean.getLargerImage());
+//                        banner.setImages(imageURL);
+//                        banner.start();
                     } else {
                         toast(goodsDetailsBeanBean.getHeader().getMsg());
                     }
@@ -84,6 +85,25 @@ public class GoodsDetailsActivity extends MVVMActivity<GoodsDetailsVM, ActivityG
 
         });
     }
+
+    @NonNull
+    @Override
+    protected RecyclerView setRecyclerView() {
+        return mViewDataBinding.list;
+    }
+
+    @NonNull
+    @Override
+    protected GoodsDetailsAdapter setAdapter(Function0 reTry) {
+        return new GoodsDetailsAdapter(reTry);
+    }
+
+    @Override
+    protected SwipeRefreshLayout setSwipeRefreshLayout() {
+        return mViewDataBinding.swipeRefresh;
+    }
+
+
 
     @Override
     protected int setToolBarMenu() {

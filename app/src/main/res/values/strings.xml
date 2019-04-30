@@ -164,5 +164,8 @@
     <string name="_0">0</string>
     <string name="add">➕</string>
     <string name="reduce">➖</string>
+    <string name="goods_details">商品详情</string>
+    <string name="describe_text">文字描述</string>
+    <string name="image_show">图片展示</string>
 
 </resources>
