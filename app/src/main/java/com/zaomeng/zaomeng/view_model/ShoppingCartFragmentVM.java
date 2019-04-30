@@ -26,7 +26,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     private ApiService apiService;
 
-    public ShoppingCartFragmentVM(@NonNull Application application, ApiService apiService) {
+    ShoppingCartFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
     }
@@ -34,13 +34,13 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
     public final MutableLiveData<String> ldFreight = new MediatorLiveData<>();
     public final MutableLiveData<String> ldTotal = new MediatorLiveData<>();
-
+    public final MutableLiveData<Boolean> ldIsSelectAll = new MediatorLiveData<>();
 //    public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
 
 
     @Override
     public void init(Object data) {
-
+        ldIsSelectAll.setValue(false);
     }
 
 
@@ -55,7 +55,10 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
      * 全选商品
      */
     public void selectAll() {
-
+        action.setValue("selectAll");
+        Boolean isSelectAllValue = ldIsSelectAll.getValue();
+        if (isSelectAllValue != null)
+            ldIsSelectAll.setValue(!isSelectAllValue);
     }
 
     /**

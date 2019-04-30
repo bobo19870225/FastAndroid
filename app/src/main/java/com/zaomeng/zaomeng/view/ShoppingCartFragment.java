@@ -17,12 +17,14 @@ import com.alipay.sdk.app.PayTask;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
+import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ShoppingCartFragmentVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -49,26 +51,24 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     @Override
     protected void setUI() {
         requestPermission();
+        mViewModel.ldIsSelectAll.observe(this, aBoolean -> {
+            if (aBoolean) {
+                mViewDataBinding.select.setImageResource(R.mipmap.selected);
+            } else {
+                mViewDataBinding.select.setImageResource(R.mipmap.un_select);
+            }
+        });
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "settlement":
-                    final Runnable payRunnable = () -> {
-                        PayTask alipay = new PayTask(getActivity());
-                        String orderInfo = null;
-                        Map<String, String> result = alipay.payV2(orderInfo, true);
-                        Log.i("msp", result.toString());
-//                        Message msg = new Message();
-//                        msg.what = SDK_PAY_FLAG;
-//                        msg.obj = result;
-//                        mHandler.sendMessage(msg);
-                        ldResult.postValue(result);
-                    };
-                    // 必须异步调用
-                    Thread payThread = new Thread(payRunnable);
-                    payThread.start();
+                    List<ShopCartBean> listSelectedItem = shopCartAdapter.getListSelectedItem();
+                    if (listSelectedItem.size() == 0) {
+                        toast("请选择商品");
+                    }
+//                    pay();
                     break;
-                case "":
-
+                case "selectAll":
+                    shopCartAdapter.selectedAll();
                     break;
                 default:
                     break;
@@ -94,10 +94,28 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         });
     }
 
+    private void pay() {
+        final Runnable payRunnable = () -> {
+            PayTask alipay = new PayTask(getActivity());
+            String orderInfo = null;
+            Map<String, String> result = alipay.payV2(orderInfo, true);
+            Log.i("msp", result.toString());
+//                        Message msg = new Message();
+//                        msg.what = SDK_PAY_FLAG;
+//                        msg.obj = result;
+//                        mHandler.sendMessage(msg);
+            ldResult.postValue(result);
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    private ShopCartAdapter shopCartAdapter;
     @NonNull
     @Override
     protected ShopCartAdapter setAdapter(Function0 reTry) {
-        return new ShopCartAdapter(reTry);
+        return shopCartAdapter = new ShopCartAdapter(reTry);
     }
 
     @NonNull
