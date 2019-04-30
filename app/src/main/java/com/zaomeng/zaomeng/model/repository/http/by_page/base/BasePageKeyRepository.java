@@ -8,7 +8,6 @@ import androidx.paging.PagedList;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.PostRepository;
-import com.zaomeng.zaomeng.model.repository.http.ApiService;
 
 import kotlin.Unit;
 
@@ -17,39 +16,41 @@ import kotlin.Unit;
  * FastAndroid
  */
 
-public abstract class BasePageKeyRepository<Key, Value> implements PostRepository<Value> {
+public class BasePageKeyRepository<Key, Value> implements PostRepository<Value> {
 
-    private Listing<Value> listing;
-    private ApiService apiService;
+    //    private Listing<Value> listing;
+    //    private ApiService apiService;
+    private InterfacePageRepository<Key, Value> interfacePageRepository;
 
-    public BasePageKeyRepository(ApiService apiService, Listing<Value> listing) {
-        this.apiService = apiService;
-        this.listing = listing;
+    public BasePageKeyRepository(InterfacePageRepository<Key, Value> interfacePageRepository) {
+        this.interfacePageRepository = interfacePageRepository;
     }
 
     @Override
     @MainThread
-    public Listing<Value> post(String[] sub, Integer pageSize) {
+    public Listing<Value> post(Integer pageSize) {
         PagedList.Config config = new PagedList.Config.Builder()
                 .setPageSize(pageSize)                         //配置分页加载的数量
                 .setEnablePlaceholders(false)     //配置是否启动PlaceHolders
                 .setInitialLoadSizeHint(pageSize)              //初始化加载的数量
                 .build();
-        BaseDataSourceFactory<Key, Value> dataSourceFactory = setDataSourceFactory(apiService, listing, sub);
-//        ShopCartDataSourceFactory goodsDataSourceFactory = new ShopCartDataSourceFactory(apiService, listing, sub[0], sub[1]);
-        LiveData<PagedList<Value>> pagedListLiveData = new LivePagedListBuilder<>(dataSourceFactory, config).build();
+//        BaseDataSourceFactory<Key, Value> dataSourceFactory = setDataSourceFactory( listing, sub);
+        Listing<Value> listing = new Listing<>();
+        BaseDataSourceFactory<Key, Value> baseDataSourceFactory = new BaseDataSourceFactory<>(interfacePageRepository, listing);
+
+        LiveData<PagedList<Value>> pagedListLiveData = new LivePagedListBuilder<>(baseDataSourceFactory, config).build();
         listing.setPagedList(pagedListLiveData);
 
 
         listing.refresh = () -> {
-            DataSource<Key, Value> value = dataSourceFactory.dataSourceMutableLiveData.getValue();
+            DataSource<Key, Value> value = baseDataSourceFactory.dataSourceMutableLiveData.getValue();
             if (value != null) {
                 value.invalidate();
             }
             return Unit.INSTANCE;
         };
         listing.reTry = () -> {
-            BasePageKeyedDataSource<Key, Value> value = (BasePageKeyedDataSource<Key, Value>) dataSourceFactory.dataSourceMutableLiveData.getValue();
+            BasePageKeyedDataSource<Key, Value> value = (BasePageKeyedDataSource<Key, Value>) baseDataSourceFactory.dataSourceMutableLiveData.getValue();
             if (value != null) {
                 value.reTry();
             }
@@ -58,7 +59,7 @@ public abstract class BasePageKeyRepository<Key, Value> implements PostRepositor
         return listing;
     }
 
-    protected abstract BaseDataSourceFactory<Key, Value> setDataSourceFactory(ApiService apiService, Listing<Value> listing, String[] sub);
+//    protected abstract BaseDataSourceFactory<Key, Value> setDataSourceFactory(ApiService apiService, Listing<Value> listing, String[] sub);
 
 
 }

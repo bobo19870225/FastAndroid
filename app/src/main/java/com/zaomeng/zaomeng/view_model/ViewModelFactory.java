@@ -23,10 +23,6 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.by_page.branch_goods.BranchGoodsPageKeyRepository;
-import com.zaomeng.zaomeng.model.repository.http.by_page.common_used_Goods.CUGoodsPageKeyRepository;
-import com.zaomeng.zaomeng.model.repository.http.by_page.goods.GoodsPageKeyRepository;
-import com.zaomeng.zaomeng.model.repository.http.by_page.shop_cart.ShopCartPageKeyRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -46,14 +42,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         this.application = application;
     }
 
-    @Inject
-    GoodsPageKeyRepository goodsPageKeyRepository;
-    @Inject
-    CUGoodsPageKeyRepository cuGoodsPageKeyRepository;
-    @Inject
-    BranchGoodsPageKeyRepository branchGoodsPageKeyRepository;
-    @Inject
-    ShopCartPageKeyRepository shopCartPageKeyRepository;
+
     @Inject
     ApiService apiService;
     @NonNull
@@ -74,7 +63,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new CertificationVM(application, apiService);
         } else if (modelClass.isAssignableFrom(SortFragmentVM.class)) {
             //noinspection unchecked
-            return (T) new SortFragmentVM(application, apiService, goodsPageKeyRepository);
+            return (T) new SortFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(GoodsDetailsVM.class)) {
             //noinspection unchecked
             return (T) new GoodsDetailsVM(application, apiService);
@@ -83,13 +72,13 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new MainFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(CommonlyUsedFragmentVM.class)) {
             //noinspection unchecked
-            return (T) new CommonlyUsedFragmentVM(application, apiService, cuGoodsPageKeyRepository);
+            return (T) new CommonlyUsedFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(BranchGoodsFragmentVM.class)) {
             //noinspection unchecked
-            return (T) new BranchGoodsFragmentVM(application, branchGoodsPageKeyRepository);
+            return (T) new BranchGoodsFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(ShoppingCartFragmentVM.class)) {
             //noinspection unchecked
-            return (T) new ShoppingCartFragmentVM(application, shopCartPageKeyRepository);
+            return (T) new ShoppingCartFragmentVM(application, apiService);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

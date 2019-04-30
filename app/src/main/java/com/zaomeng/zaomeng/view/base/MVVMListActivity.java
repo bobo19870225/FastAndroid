@@ -36,8 +36,8 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
     }
 
     @SuppressWarnings("unchecked")
-    protected void setListView(Object parameter) {
-        Listing listing = mViewModel.getListing(parameter);
+    protected void setListView(Object transferData) {
+        Listing listing = mViewModel.getListing(transferData);
         if (listing != null) {
             LiveData<PagedList> pagedList = listing.getPagedList();
             adapter = setAdapter(listing.reTry);

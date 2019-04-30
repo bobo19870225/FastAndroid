@@ -75,11 +75,13 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
         mViewModel.getNodeCategoryList().observe(this, pageBeanResource -> {
             HttpHelper<GoodsSuperBean> goodsSuperBeanHttpHelper = new HttpHelper<>(context);
             PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = goodsSuperBeanHttpHelper.AnalyticalPageData(pageBeanResource);
-            rows = goodsSuperBeanPageDataBean.getRows();
-            goodsParentAdapter.setList(rows);
-            //获取第一个分类的商品
-            setListView(rows.get(0).getId());
-            goodsParentAdapter.setSelect(0);
+            if (goodsSuperBeanPageDataBean != null) {
+                rows = goodsSuperBeanPageDataBean.getRows();
+                goodsParentAdapter.setList(rows);
+                //获取第一个分类的商品
+                setListView(rows.get(0).getId());
+                goodsParentAdapter.setSelect(0);
+            }
         });
 
     }

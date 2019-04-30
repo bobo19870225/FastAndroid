@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
+import com.zaomeng.zaomeng.model.repository.http.by_page.base.BasePageKeyRepository;
+import com.zaomeng.zaomeng.model.repository.http.by_page.base.InterfacePageRepository;
 import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 
@@ -15,17 +17,18 @@ import com.zaomeng.zaomeng.view.base.MVVMListFragment;
  * {@link MVVMListActivity}
  */
 
-public abstract class ListViewModel<T> extends BaseViewModel {
-//    public Listing<T> listing;
+public abstract class ListViewModel<Key, Value> extends BaseViewModel implements InterfacePageRepository<Key, Value> {
 
     public ListViewModel(@NonNull Application application) {
         super(application);
     }
 
-//    public Listing<T> getListingData(Object data) {
-//        if (data == null) return null;
-//        return getListing(data);
-//    }
+    public Object listRequest;
 
-    public abstract Listing<T> getListing(Object data);
+    public Listing<Value> getListing(Object listRequest) {
+        this.listRequest = listRequest;
+        return new BasePageKeyRepository<>(this).post(setPageSize());
+    }
+
+    protected abstract Integer setPageSize();
 }

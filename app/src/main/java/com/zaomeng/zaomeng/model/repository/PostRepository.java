@@ -5,5 +5,5 @@ package com.zaomeng.zaomeng.model.repository;
  * FastAndroid
  */
 public interface PostRepository<T> {
-    Listing<T> post(String[] sub, Integer pageSize);
+    Listing<T> post(Integer pageSize);
 }
