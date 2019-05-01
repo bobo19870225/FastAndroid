@@ -9,12 +9,17 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityGoodsDetailsBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
-import com.zaomeng.zaomeng.utils.FormatUtils;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsHeaderBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.adapter.goods_details.GoodsDetailsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view_model.GoodsDetailsVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,6 +35,8 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     ViewModelFactory viewModelFactory;
     private String goodsName;
     private String goodsId;
+    private GoodsDetailsAdapter goodsDetailsAdapter;
+    private GoodsDetailsHeaderBean goodsDetailsHeaderBean;
     @NonNull
     @Override
     protected GoodsDetailsVM createdViewModel() {
@@ -51,8 +58,6 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     });
             }
         });
-//        Banner banner = mViewDataBinding.banner;
-//        banner.setImageLoader(new GlideImageLoader());
         mViewModel.ldGoodsDetails.observe(this, beanResource -> {
             if (beanResource.isSuccess()) {
                 Bean<GoodsDetailsBean> goodsDetailsBeanBean = beanResource.getResource();
@@ -60,16 +65,18 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     if (goodsDetailsBeanBean.getHeader().getCode() == 0) {
                         GoodsDetailsBean goodsDetailsBean = goodsDetailsBeanBean.getBody().getData();
                         setListView(goodsDetailsBean.getId());
-                        mViewModel.ldShowName.setValue(goodsDetailsBean.getShowName());
+//                        mViewModel.ldShowName.setValue(goodsDetailsBean.getShowName());
                         goodsName = goodsDetailsBean.getName();
                         goodsId = goodsDetailsBean.getId();
-                        double showPrice = goodsDetailsBean.getRealPrice();
-                        mViewModel.ldShowPrice.setValue(FormatUtils.numberFormatMoney(showPrice));
-                        mViewModel.ldDescribe.setValue(goodsDetailsBean.getDescription());
-//                        List<String> imageURL = new ArrayList<>();
-//                        imageURL.add(goodsDetailsBean.getLargerImage());
-//                        banner.setImages(imageURL);
-//                        banner.start();
+                        goodsDetailsHeaderBean = new GoodsDetailsHeaderBean();
+                        goodsDetailsHeaderBean.setGoodsName(goodsDetailsBean.getShowName());
+                        goodsDetailsHeaderBean.setPrice(goodsDetailsBean.getRealPrice());
+                        goodsDetailsHeaderBean.setDescribe(goodsDetailsBean.getDescription());
+                        getBannerImage();
+//                        double showPrice = goodsDetailsBean.getRealPrice();
+//                        mViewModel.ldShowPrice.setValue(FormatUtils.numberFormatMoney(showPrice));
+//                        mViewModel.ldDescribe.setValue(goodsDetailsBean.getDescription());
+
                     } else {
                         toast(goodsDetailsBeanBean.getHeader().getMsg());
                     }
@@ -86,6 +93,23 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
         });
     }
 
+    private void getBannerImage() {
+        mViewModel.getBannerImageList(goodsId).observe(this, pageBeanResource -> {
+            PageDataBean<GoodsDetailsImageBean> goodsDetailsImageBeanPageDataBean = new HttpHelper<GoodsDetailsImageBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            if (goodsDetailsImageBeanPageDataBean != null) {
+                List<GoodsDetailsImageBean> rows = goodsDetailsImageBeanPageDataBean.getRows();
+                List<String> imageURL = new ArrayList<>();
+                for (GoodsDetailsImageBean g : rows
+                ) {
+                    imageURL.add(g.getUrl());
+                }
+                goodsDetailsHeaderBean.setListBannerURL(imageURL);
+                goodsDetailsAdapter.setHeaderData(goodsDetailsHeaderBean);
+                mViewDataBinding.list.scrollToPosition(0);
+            }
+        });
+    }
+
     @NonNull
     @Override
     protected RecyclerView setRecyclerView() {
@@ -95,7 +119,9 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     @NonNull
     @Override
     protected GoodsDetailsAdapter setAdapter(Function0 reTry) {
-        return new GoodsDetailsAdapter(reTry);
+        goodsDetailsAdapter = new GoodsDetailsAdapter(reTry);
+
+        return goodsDetailsAdapter;
     }
 
     @Override

@@ -1,12 +1,10 @@
 package com.zaomeng.zaomeng.view_model;
 
 import android.app.Application;
-import android.text.SpannableString;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
@@ -29,9 +27,9 @@ import retrofit2.Call;
 public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean> {
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public final MediatorLiveData<Resource<Bean<GoodsDetailsBean>>> ldGoodsDetails = new MediatorLiveData<>();
-    public final MutableLiveData<String> ldDescribe = new MutableLiveData<>();
-    public final MutableLiveData<SpannableString> ldShowPrice = new MutableLiveData<>();
-    public final MutableLiveData<String> ldShowName = new MutableLiveData<>();
+    //    public final MutableLiveData<String> ldDescribe = new MutableLiveData<>();
+//    public final MutableLiveData<SpannableString> ldShowPrice = new MutableLiveData<>();
+//    public final MutableLiveData<String> ldShowName = new MutableLiveData<>();
     //    public String goodsName;
 //    public String goodsId;
     private ApiService apiService;
@@ -62,9 +60,9 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
                 "422429993732");
     }
 
-//    public LiveData<Resource<PageBean<GoodsDetailsImageBean>>> getObjectAttachmentList(String id) {
-//        return apiService.getObjectAttachmentList(1, 10, id);
-//    }
+    public LiveData<Resource<PageBean<GoodsDetailsImageBean>>> getBannerImageList(String id) {
+        return apiService.getObjectAttachmentListLD(1, 10, id, "top");
+    }
 
     public void shopCar() {
 
@@ -82,7 +80,7 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
 
     @Override
     public Call<PageBean<GoodsDetailsImageBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getObjectAttachmentList(1, params.requestedLoadSize, (String) listRequest);
+        return apiService.getObjectAttachmentList(1, params.requestedLoadSize, (String) listRequest, "detail");
     }
 
     @Override

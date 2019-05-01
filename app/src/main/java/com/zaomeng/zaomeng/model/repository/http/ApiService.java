@@ -96,7 +96,17 @@ public interface ApiService {
     @GET("getObjectAttachmentList.json")
     Call<PageBean<GoodsDetailsImageBean>> getObjectAttachmentList(@Query("currentPage") Integer currentPage,
                                                                   @Query("pageNumber") Integer pageNumber,
-                                                                  @Query("objectID") String objectID);
+                                                                  @Query("objectID") String objectID,
+                                                                  @Query("name") String name);
+
+    /**
+     * 获取对象附件列表（商品详情图片）
+     */
+    @GET("getObjectAttachmentList.json")
+    LiveData<Resource<PageBean<GoodsDetailsImageBean>>> getObjectAttachmentListLD(@Query("currentPage") Integer currentPage,
+                                                                                  @Query("pageNumber") Integer pageNumber,
+                                                                                  @Query("objectID") String objectID,
+                                                                                  @Query("name") String name);
 
     /**
      * 商品加入购物车

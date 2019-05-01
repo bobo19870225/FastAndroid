@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsHeaderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
 import com.zaomeng.zaomeng.view.adapter.NetworkStateItemViewHolder;
 
@@ -37,6 +38,8 @@ public class GoodsDetailsAdapter extends PagedListAdapter<GoodsDetailsImageBean,
         switch (viewType) {
             case R.layout.item_image:
                 return GoodsDetailsViewHolder.create(parent);
+            case R.layout.item_goods_details_header:
+                return GoodsDetailsHeaderViewHolder.create(parent);
             case R.layout.network_state_item:
                 return NetworkStateItemViewHolder.create(parent, retryCallback);
             default:
@@ -48,10 +51,15 @@ public class GoodsDetailsAdapter extends PagedListAdapter<GoodsDetailsImageBean,
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case R.layout.item_image:
-                ((GoodsDetailsViewHolder) holder).bind(getItem(position));
+                ((GoodsDetailsViewHolder) holder).bind(getItem(position - 1));
+                break;
+            case R.layout.item_goods_details_header:
+                ((GoodsDetailsHeaderViewHolder) holder).bind(goodsDetailsHeaderBean);
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindTo(netWorkState);
+                break;
+
         }
 
     }
@@ -64,16 +72,18 @@ public class GoodsDetailsAdapter extends PagedListAdapter<GoodsDetailsImageBean,
     @Override
     public int getItemCount() {
         if (hasExtraRow()) {
-            return super.getItemCount() + 1;
+            return super.getItemCount() + 2;
         } else {
-            return super.getItemCount();
+            return super.getItemCount() + 1;
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (hasExtraRow() && position == getItemCount() - 1) {
+        if (hasExtraRow() && position == getItemCount()) {
             return R.layout.network_state_item;
+        } else if (position == 0) {
+            return R.layout.item_goods_details_header;
         } else {
             return R.layout.item_image;
         }
@@ -111,5 +121,12 @@ public class GoodsDetailsAdapter extends PagedListAdapter<GoodsDetailsImageBean,
                     oldItem.getName().equals(newItem.getName());
         }
     };
+    private GoodsDetailsHeaderBean goodsDetailsHeaderBean;
+
+    public void setHeaderData(GoodsDetailsHeaderBean goodsDetailsHeaderBean) {
+        this.goodsDetailsHeaderBean = goodsDetailsHeaderBean;
+//        notifyItemChanged(0);
+        notifyDataSetChanged();
+    }
 
 }
