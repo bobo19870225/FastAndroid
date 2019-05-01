@@ -8,7 +8,7 @@ import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 
 import java.io.IOException;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import kotlin.Unit;
@@ -24,7 +24,7 @@ import retrofit2.Response;
 public class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataSource<Key, Value> {
 
     private InterfacePageRepository<Key, Value> interfacePageRepository;
-    private Executor NETWORK_IO = Executors.newFixedThreadPool(5);
+    //    private ExecutorService NETWORK_IO = Executors.newFixedThreadPool(5);
     protected Listing<Value> listing;
     private Function0 function;
 
@@ -35,13 +35,13 @@ public class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataSource<Key
     }
 
     public void reTry() {
+        ExecutorService NETWORK_IO = Executors.newFixedThreadPool(2);
         Function0 function0 = function;
         function = null;
         if (function0 != null) {
             NETWORK_IO.execute(function0::invoke);
-
         }
-
+        NETWORK_IO.shutdown();
     }
 
 

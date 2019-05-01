@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LiveData;
 import androidx.paging.PagedList;
-import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.Status;
+import com.zaomeng.zaomeng.view.adapter.BasePagedListAdapter;
 import com.zaomeng.zaomeng.view_model.ListViewModel;
 
 import kotlin.jvm.functions.Function0;
@@ -19,7 +19,7 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019/4/3.
  * FastAndroid
  */
-public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends ViewDataBinding, A extends PagedListAdapter> extends MVVMFragment<VM, VDB> {
+public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends ViewDataBinding, A extends BasePagedListAdapter> extends MVVMFragment<VM, VDB> {
 
     private A adapter;
     private
@@ -54,16 +54,17 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
                     swipeRefreshLayout.setRefreshing(true);
                 } else if (status == Status.SUCCESS) {
                     swipeRefreshLayout.setRefreshing(false);
+                    adapter.setNetworkState((NetWorkState) o);
+//                    doError((NetWorkState) o);
                 } else if (status == Status.FAILED) {
                     swipeRefreshLayout.setRefreshing(false);
                     toast(((NetWorkState) o).getMsg());
-                    doError((NetWorkState) o);
+                    adapter.setNetworkState((NetWorkState) o);
+//                    doError((NetWorkState) o);
                 }
             });
         }
     }
-
-    protected abstract void doError(NetWorkState o);
 
     protected abstract void setUI();
 

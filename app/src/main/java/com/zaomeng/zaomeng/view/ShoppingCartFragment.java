@@ -16,7 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.alipay.sdk.app.PayTask;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
-import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
@@ -43,10 +42,6 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     }
 
     private final MutableLiveData<Map<String, String>> ldResult = new MutableLiveData<>();
-    @Override
-    protected void doError(NetWorkState o) {
-
-    }
 
     @Override
     protected void setUI() {

@@ -7,7 +7,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentBranchGoodsBinding;
-import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.view.adapter.branch_goods.BranchGoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.BranchGoodsFragmentVM;
@@ -34,11 +33,6 @@ public class BranchGoodsFragment extends MVVMListFragment<BranchGoodsFragmentVM,
         return R.layout.fragment_branch_goods;
     }
 
-
-    @Override
-    protected void doError(NetWorkState o) {
-        branchGoodsAdapter.setNetworkState(o);
-    }
 
     @Override
     protected void setUI() {

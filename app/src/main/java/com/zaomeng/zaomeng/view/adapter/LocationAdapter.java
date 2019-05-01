@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.zaomeng.zaomeng.model.repository.dataBase.Address;
+
 import java.util.List;
 
 /**
@@ -12,14 +14,15 @@ import java.util.List;
  * FastAndroid
  */
 public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
-    private List<String> list;
-    private OnItemClick onItemClick;
+    private List<Address> list;
+    private OnItemClick<Address> onItemClick;
 
-    public LocationAdapter(List<String> listLocation) {
-        list = listLocation;
+    public void setList(List<Address> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
-    public void setOnItemClick(OnItemClick onItemClick) {
+    public void setOnItemClick(OnItemClick<Address> onItemClick) {
         this.onItemClick = onItemClick;
     }
 
@@ -36,6 +39,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 }

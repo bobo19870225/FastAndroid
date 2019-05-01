@@ -13,8 +13,6 @@ import dagger.android.DaggerApplication;
  * We never have to call `component.inject(this)` as {@link DaggerApplication} will do that for us.
  */
 public class ToDoApplication extends DaggerApplication {
-//    @Inject
-//    TasksRepository tasksRepository;
 
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {

@@ -3,14 +3,12 @@ package com.zaomeng.zaomeng.view.adapter.goods;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zaomeng.zaomeng.R;
-import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
-import com.zaomeng.zaomeng.view.adapter.NetworkStateItemViewHolder;
+import com.zaomeng.zaomeng.view.adapter.BasePagedListAdapter;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
 import kotlin.jvm.functions.Function0;
@@ -19,10 +17,8 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019/3/11.
  * FastAndroid
  */
-public class GoodsAdapter extends PagedListAdapter<GoodsListRowsBean, RecyclerView.ViewHolder> {
+public class GoodsAdapter extends BasePagedListAdapter<GoodsListRowsBean> {
 
-    private Function0 retryCallback;
-    private NetWorkState netWorkState;
 
     private OnItemClick<GoodsListRowsBean> onItemClick;
     private OnItemClick<GoodsListRowsBean> onAddClick;
@@ -36,76 +32,29 @@ public class GoodsAdapter extends PagedListAdapter<GoodsListRowsBean, RecyclerVi
     }
 
     public GoodsAdapter(Function0 retryCallback) {
-        super(DIFF_CALLBACK);
-        this.retryCallback = retryCallback;
+        super(DIFF_CALLBACK, retryCallback);
     }
+
 
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        switch (viewType) {
-            case R.layout.item_goods:
-                return GoodsViewHolder.create(parent);
-            case R.layout.network_state_item:
-                return NetworkStateItemViewHolder.create(parent, retryCallback);
-            default:
-                throw new IllegalArgumentException("unknown view type $viewType");
-        }
+    protected RecyclerView.ViewHolder setViewHolder(ViewGroup parent, int viewType) {
+        return GoodsViewHolder.create(parent);
     }
+
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        switch (getItemViewType(position)) {
-            case R.layout.item_goods:
-                ((GoodsViewHolder) holder).bind(getItem(position), onItemClick, onAddClick);
-                break;
-            case R.layout.network_state_item:
-                ((NetworkStateItemViewHolder) holder).bindTo(netWorkState);
-        }
-
+    protected void viewHolderBind(RecyclerView.ViewHolder holder, int position) {
+        ((GoodsViewHolder) holder).bind(getItem(position), onItemClick, onAddClick);
     }
 
-
-    private Boolean hasExtraRow() {
-        return netWorkState != null && !netWorkState.equals(NetWorkState.loaded());
-    }
 
     @Override
-    public int getItemCount() {
-        if (hasExtraRow()) {
-            return super.getItemCount() + 1;
-        } else {
-            return super.getItemCount();
-        }
+    protected int giveItemViewType(int position) {
+        return R.layout.item_goods;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (hasExtraRow() && position == getItemCount() - 1) {
-            return R.layout.network_state_item;
-        } else {
-            return R.layout.item_goods;
-        }
-
-    }
-
-    public void setNetworkState(NetWorkState newNetWorkState) {
-        NetWorkState previousState = this.netWorkState;
-        Boolean hadExtraRow = hasExtraRow();
-        this.netWorkState = newNetWorkState;
-        Boolean hasExtraRow = hasExtraRow();
-        if (hadExtraRow != hasExtraRow) {
-            if (hadExtraRow) {
-                notifyItemRemoved(super.getItemCount());
-            } else {
-                notifyItemInserted(super.getItemCount());
-            }
-        } else if (hasExtraRow && previousState != newNetWorkState) {
-            notifyItemChanged(getItemCount() - 1);
-        }
-    }
 
     /**
      * 后台线程DiffUtil类回调： 计算新的List和原来的List的差距

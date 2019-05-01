@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zaomeng.zaomeng.R;
+import com.zaomeng.zaomeng.model.repository.dataBase.Address;
 
 /**
  * Created by Sampson on 2019/3/11.
@@ -28,11 +29,11 @@ public class LocationViewHolder extends RecyclerView.ViewHolder {
         return new LocationViewHolder(view);
     }
 
-    void bind(String s, OnItemClick onItemClick) {
-        location.setText(s);
+    void bind(Address address, OnItemClick<Address> onItemClick) {
+        location.setText(address.NAME);
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
-                onItemClick.onClick(v, s, getLayoutPosition());
+                onItemClick.onClick(v, address, getLayoutPosition());
         });
 
     }

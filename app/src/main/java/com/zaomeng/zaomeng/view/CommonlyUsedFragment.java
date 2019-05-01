@@ -10,7 +10,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentCommonlyUsedBinding;
-import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
@@ -47,11 +46,6 @@ public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentV
         return R.layout.fragment_commonly_used;
     }
 
-
-    @Override
-    protected void doError(NetWorkState o) {
-        collectAdapter.setNetworkState(o);
-    }
 
     @Override
     protected void setUI() {
