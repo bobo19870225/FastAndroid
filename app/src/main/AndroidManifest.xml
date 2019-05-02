@@ -45,6 +45,7 @@
         <activity android:name="com.zaomeng.zaomeng.view.MessageActivity" />
         <activity android:name="com.zaomeng.zaomeng.view.LocationActivity" />
         <activity android:name="com.zaomeng.zaomeng.view.SearchActivity" />
+        <activity android:name=".view.OrderSettlementActivity" />
     </application>
 
 </manifest>

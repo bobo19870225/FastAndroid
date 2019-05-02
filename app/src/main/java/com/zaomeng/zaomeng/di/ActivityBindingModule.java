@@ -7,6 +7,7 @@ import com.zaomeng.zaomeng.view.LoginActivity;
 import com.zaomeng.zaomeng.view.MainActivity;
 import com.zaomeng.zaomeng.view.MessageActivity;
 import com.zaomeng.zaomeng.view.OrderActivity;
+import com.zaomeng.zaomeng.view.OrderSettlementActivity;
 import com.zaomeng.zaomeng.view.RegisterActivity;
 import com.zaomeng.zaomeng.view.SearchActivity;
 import com.zaomeng.zaomeng.view.ServiceActivity;
@@ -64,6 +65,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector()
     abstract SearchActivity searchActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract OrderSettlementActivity orderSettlementActivity();
 
 
 }

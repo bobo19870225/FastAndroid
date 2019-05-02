@@ -17,6 +17,7 @@ import com.alipay.sdk.app.PayTask;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
@@ -59,7 +60,9 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                     List<ShopCartBean> listSelectedItem = shopCartAdapter.getListSelectedItem();
                     if (listSelectedItem.size() == 0) {
                         toast("请选择商品");
+                        return;
                     }
+                    skipTo(OrderSettlementActivity.class, listSelectedItem);
 //                    pay();
                     break;
                 case "selectAll":
@@ -113,8 +116,14 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     protected ShopCartAdapter setAdapter(Function0 reTry) {
         shopCartAdapter = new ShopCartAdapter(reTry);
         shopCartAdapter.setOnSelectClick((view, ItemObject, position) -> {
-            boolean selectedAll = shopCartAdapter.isSelectedAll();
-            mViewModel.ldIsSelectAll.setValue(selectedAll);
+            int isSelect = ItemObject.getIsSelected() == 1 ? 0 : 1;//取反
+            mViewModel.selectGoods(ItemObject.getId(), isSelect).observe(this, beanResource -> {
+                String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+                if (s == null)
+                    shopCartAdapter.notifyDataSetChanged();
+            });
+//            boolean selectedAll = shopCartAdapter.isSelectedAll();
+//            mViewModel.ldIsSelectAll.setValue(selectedAll);
         });
         shopCartAdapter.setOnAddClick((view, ItemObject, position) -> toast("+"));
         shopCartAdapter.setOnReduceClick((view, ItemObject, position) -> toast("-"));

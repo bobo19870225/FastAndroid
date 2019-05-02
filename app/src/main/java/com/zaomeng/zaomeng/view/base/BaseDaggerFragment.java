@@ -3,6 +3,7 @@ package com.zaomeng.zaomeng.view.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import dagger.android.support.DaggerFragment;
@@ -111,6 +113,11 @@ public abstract class BaseDaggerFragment extends DaggerFragment {
                 bundle.putInt("DATA", (Integer) data);
             } else if (data instanceof String[]) {
                 bundle.putStringArray("DATA", (String[]) data);
+            } else if (data instanceof ArrayList) {
+                if (((ArrayList) data).get(0) instanceof Parcelable) {
+                    bundle.putParcelableArrayList("DATA", (ArrayList<? extends Parcelable>) data);
+                }
+//
             }
             intent.putExtra("BUNDLE", bundle);
         }

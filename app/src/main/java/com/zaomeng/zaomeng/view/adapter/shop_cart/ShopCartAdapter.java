@@ -71,8 +71,15 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
     protected RecyclerView.ViewHolder setViewHolder(ViewGroup parent, int viewType) {
         if (isCheckedHasMap == null) {
             isCheckedHasMap = new HashMap<>();
-            for (int i = 0; i < getItemCount(); i++) {
-                isCheckedHasMap.put(i, false);
+            int itemCount = getItemCount();
+            if (hasExtraRow()) {
+                itemCount -= 1;
+            }
+            for (int i = 0; i < itemCount; i++) {
+                ShopCartBean item = getItem(i);
+                if (item != null) {
+                    isCheckedHasMap.put(i, item.getIsSelected() == 1);
+                }
             }
         }
         return ShopCartViewHolder.create(parent);
@@ -85,8 +92,6 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
             ((ShopCartViewHolder) holder).bind(getItem(position),
                     onSelectClick,
                     () -> {
-                        if (onAddClick != null)
-                            onAddClick.onClick(null, getItem(position), position);
                         Boolean aBoolean = isCheckedHasMap.get(position);
                         if (aBoolean != null) {
                             isSelectedAll = false;

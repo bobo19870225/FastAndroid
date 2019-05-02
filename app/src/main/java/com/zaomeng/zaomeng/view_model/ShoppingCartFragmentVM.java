@@ -3,6 +3,7 @@ package com.zaomeng.zaomeng.view_model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PageKeyedDataSource;
@@ -10,8 +11,10 @@ import androidx.paging.PageKeyedDataSource;
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
@@ -25,10 +28,11 @@ import retrofit2.Call;
 public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean> {
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     private ApiService apiService;
-
+    private String sessionID;
     ShoppingCartFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
+        sessionID = SharedPreerencesUtils.getSessionID(getApplication());
     }
 
     public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
@@ -55,10 +59,8 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
      * 全选商品
      */
     public void selectAll() {
+//        apiService.createMemberOrderFromCart(sessionID,)
         action.setValue("selectAll");
-//        Boolean isSelectAllValue = ldIsSelectAll.getValue();
-//        if (isSelectAllValue != null)
-//            ldIsSelectAll.setValue(!isSelectAllValue);
     }
 
     /**
@@ -78,7 +80,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     @NonNull
     @Override
     public Call<PageBean<ShopCartBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getCartGoodsList(SharedPreerencesUtils.getSessionID(getApplication()), 1, params.requestedLoadSize);
+        return apiService.getCartGoodsList(sessionID, 1, params.requestedLoadSize);
     }
 
     @Override
@@ -89,7 +91,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     @NonNull
     @Override
     public Call<PageBean<ShopCartBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getCartGoodsList(SharedPreerencesUtils.getSessionID(getApplication()), params.key, params.requestedLoadSize);
+        return apiService.getCartGoodsList(sessionID, params.key, params.requestedLoadSize);
     }
 
     @Override
@@ -104,5 +106,9 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
             listing.networkState.postValue(NetWorkState.error(body.getHeader().getMsg()));
         }
         return body.getHeader().getCode() == 0;
+    }
+
+    public LiveData<Resource<Bean<String>>> selectGoods(String cartGoodsID, Integer isSelect) {
+        return apiService.selectCartGoods(sessionID, cartGoodsID, isSelect);
     }
 }

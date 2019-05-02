@@ -121,17 +121,17 @@ public interface ApiService {
      * 更改购物车商品数量
      */
     @GET("updateCartGoodsNumber.json")
-    Call<Message<Goods>> updateCartGoodsNumber(@Query("sessionID") String sessionID,
-                                               @Query("cartGoodsID") String cartGoodsID,
-                                               @Query("qty") Integer qty);
+    LiveData<Resource<Bean<String>>> updateCartGoodsNumber(@Query("sessionID") String sessionID,
+                                                           @Query("cartGoodsID") String cartGoodsID,
+                                                           @Query("qty") Integer qty);
 
     /**
      * 勾选购物车商品
      */
     @GET("selectCartGoods.json")
-    Call<Message<Goods>> selectCartGoods(@Query("sessionID") String sessionID,
-                                         @Query("cartGoodsID") String cartGoodsID,
-                                         @Query("isSelect") Integer isSelect);
+    LiveData<Resource<Bean<String>>> selectCartGoods(@Query("sessionID") String sessionID,
+                                                     @Query("cartGoodsID") String cartGoodsID,
+                                                     @Query("isSelect") Integer isSelect);
 
     /**
      * 获取购物车商品

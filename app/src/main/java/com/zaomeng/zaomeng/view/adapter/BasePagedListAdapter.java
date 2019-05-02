@@ -54,7 +54,7 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
     protected abstract void viewHolderBind(RecyclerView.ViewHolder holder, int position);
 
 
-    private Boolean hasExtraRow() {
+    protected Boolean hasExtraRow() {
         return netWorkState != null && !netWorkState.equals(NetWorkState.loaded());
     }
 

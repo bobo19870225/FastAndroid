@@ -1,10 +1,13 @@
 package com.zaomeng.zaomeng.model.repository.http.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Sampson on 2019-04-28.
  * FastAndroid
  */
-public class ShopCartBean {
+public class ShopCartBean implements Parcelable {
 
 
     /**
@@ -130,4 +133,55 @@ public class ShopCartBean {
     public void setLittleImage(String littleImage) {
         this.littleImage = littleImage;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.cartID);
+        dest.writeString(this.goodsShopID);
+        dest.writeDouble(this.standPrice);
+        dest.writeDouble(this.discountRate);
+        dest.writeDouble(this.priceNow);
+        dest.writeInt(this.qty);
+        dest.writeDouble(this.priceTotal);
+        dest.writeString(this.objectFeatureItemID1);
+        dest.writeString(this.objectFeatureItemName1);
+        dest.writeInt(this.isSelected);
+        dest.writeString(this.littleImage);
+    }
+
+    public ShopCartBean() {
+    }
+
+    protected ShopCartBean(Parcel in) {
+        this.id = in.readString();
+        this.cartID = in.readString();
+        this.goodsShopID = in.readString();
+        this.standPrice = in.readDouble();
+        this.discountRate = in.readDouble();
+        this.priceNow = in.readDouble();
+        this.qty = in.readInt();
+        this.priceTotal = in.readDouble();
+        this.objectFeatureItemID1 = in.readString();
+        this.objectFeatureItemName1 = in.readString();
+        this.isSelected = in.readInt();
+        this.littleImage = in.readString();
+    }
+
+    public static final Parcelable.Creator<ShopCartBean> CREATOR = new Parcelable.Creator<ShopCartBean>() {
+        @Override
+        public ShopCartBean createFromParcel(Parcel source) {
+            return new ShopCartBean(source);
+        }
+
+        @Override
+        public ShopCartBean[] newArray(int size) {
+            return new ShopCartBean[size];
+        }
+    };
 }
