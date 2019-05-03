@@ -8,15 +8,17 @@
             type="com.zaomeng.zaomeng.view_model.MeFragmentVM" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_color"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_height="160dp"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:background="@color/them_color"
             android:padding="32dp">
 
             <com.zaomeng.zaomeng.view.custom_view.CircleImageView
@@ -24,26 +26,27 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/back" />
+                android:src="@mipmap/logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/layout_margin"
-                android:layout_marginLeft="@dimen/layout_margin"
-                android:layout_marginEnd="@dimen/layout_margin"
-                android:layout_marginRight="@dimen/layout_margin"
+                android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/icon_user"
                 android:layout_toRightOf="@+id/icon_user"
+                android:layout_marginLeft="16dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="小明早报有想死" />
 
                 <TextView
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="18964621903" />
@@ -51,27 +54,32 @@
 
             <ImageView
                 android:id="@+id/icon_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:padding="@dimen/image_padding"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/back" />
+                android:src="@mipmap/xiaoxi" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_height="72dp"
+            android:layout_below="@+id/rl_title"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="-28dp"
+            android:layout_marginEnd="16dp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layout_height">
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_button_corner_white">
 
             <RelativeLayout
+                android:layout_margin="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@+id/line"
-                android:layout_toLeftOf="@+id/line"
-                android:background="@android:color/white"
-                android:paddingStart="@dimen/layout_padding"
-                android:paddingLeft="@dimen/layout_padding"
-                android:paddingEnd="@dimen/layout_padding"
-                android:paddingRight="@dimen/layout_padding">
+                android:layout_toLeftOf="@+id/line">
 
                 <ImageView
                     android:id="@+id/icon_coupon"
@@ -89,16 +97,16 @@
                     android:gravity="center"
                     android:text="@string/coupon" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="@dimen/layout_margin"
-                    android:layout_marginRight="@dimen/layout_margin"
-                    android:gravity="center"
-                    android:text="N张"
-                    android:textColor="@android:color/holo_red_light" />
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_marginEnd="@dimen/layout_margin"-->
+                <!--android:layout_marginRight="@dimen/layout_margin"-->
+                <!--android:gravity="center"-->
+                <!--android:text="N张"-->
+                <!--android:textColor="@android:color/holo_red_light" />-->
             </RelativeLayout>
 
             <View
@@ -114,10 +122,7 @@
                 android:layout_toEndOf="@+id/line"
                 android:layout_toRightOf="@+id/line"
                 android:background="@android:color/white"
-                android:paddingStart="@dimen/layout_padding"
-                android:paddingLeft="@dimen/layout_padding"
-                android:paddingEnd="@dimen/layout_padding"
-                android:paddingRight="@dimen/layout_padding">
+                android:layout_margin="8dp">
 
                 <ImageView
                     android:id="@+id/icon_score"
@@ -135,25 +140,34 @@
                     android:gravity="center"
                     android:text="@string/score" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="@dimen/layout_margin"
-                    android:layout_marginRight="@dimen/layout_margin"
-                    android:gravity="center"
-                    android:text="100分"
-                    android:textColor="@android:color/holo_green_light" />
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_marginEnd="@dimen/layout_margin"-->
+                <!--android:layout_marginRight="@dimen/layout_margin"-->
+                <!--android:gravity="center"-->
+                <!--android:text="100分"-->
+                <!--android:textColor="@android:color/holo_green_light" />-->
             </RelativeLayout>
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_2"
+            android:layout_below="@+id/rl_1"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_button_corner_white"
+            android:paddingLeft="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top"
-            android:background="@android:color/white">
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp">
 
             <LinearLayout
                 android:id="@+id/ll_my_order"
@@ -166,9 +180,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/layout_margin"
                     android:layout_marginLeft="@dimen/layout_margin"
-                    android:layout_marginTop="@dimen/line_margin"
-                    android:layout_marginBottom="@dimen/line_margin"
-                    android:background="@color/line" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/them_color" />
 
                 <TextView
                     android:id="@+id/tt_my_order"
@@ -275,10 +289,16 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:layout_below="@+id/rl_2"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top"
-            android:background="@android:color/white">
+            android:background="@drawable/bg_button_corner_white"
+            android:padding="16dp">
 
             <LinearLayout
                 android:id="@+id/ll_common_functions"
@@ -291,9 +311,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/layout_margin"
                     android:layout_marginLeft="@dimen/layout_margin"
-                    android:layout_marginTop="@dimen/line_margin"
-                    android:layout_marginBottom="@dimen/line_margin"
-                    android:background="@color/line" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/them_color" />
 
                 <TextView
                     android:id="@+id/tt_common_functions"
@@ -394,5 +414,5 @@
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
