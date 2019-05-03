@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +35,7 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
     private OnItemClick<ShopCartBean> onSelectClick;
     private OnItemClick<ShopCartBean> onAddClick;
     private OnItemClick<ShopCartBean> onReduceClick;
-    private boolean isSelectedAll = false;
+    public final MutableLiveData<Boolean> isSelectedAll = new MediatorLiveData<>();
 
     @SuppressLint("UseSparseArrays")
     public ShopCartAdapter(Function0 retryCallback) {
@@ -56,14 +58,6 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
         this.onReduceClick = onReduceClick;
     }
 
-    public boolean isShouldSelectedAll() {
-        return shouldSelectedAll;
-    }
-
-    public boolean isSelectedAll() {
-        return isSelectedAll;
-    }
-
 
     @SuppressLint("UseSparseArrays")
     @NonNull
@@ -75,12 +69,18 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
             if (hasExtraRow()) {
                 itemCount -= 1;
             }
+            boolean isSelectAll = true;
             for (int i = 0; i < itemCount; i++) {
                 ShopCartBean item = getItem(i);
                 if (item != null) {
                     isCheckedHasMap.put(i, item.getIsSelected() == 1);
+                    if (isSelectAll) {
+                        isSelectAll = item.getIsSelected() == 1;
+                    }
+
                 }
             }
+            isSelectedAll.setValue(isSelectAll);
         }
         return ShopCartViewHolder.create(parent);
     }
@@ -94,17 +94,17 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
                     () -> {
                         Boolean aBoolean = isCheckedHasMap.get(position);
                         if (aBoolean != null) {
-                            isSelectedAll = false;
+//                            isSelectedAll.setValue(false);
                             isCheckedHasMap.put(position, !aBoolean);
                             for (int i = 0; i < isCheckedHasMap.size(); i++) {
                                 Boolean aBoolean1 = isCheckedHasMap.get(i);
                                 if (aBoolean1 != null) {
                                     if (!aBoolean1) {
-                                        isSelectedAll = false;
+                                        isSelectedAll.setValue(false);
                                         break;
                                     }
                                 }
-                                isSelectedAll = true;
+                                isSelectedAll.setValue(true);
                             }
                             notifyDataSetChanged();
                         }
@@ -118,10 +118,9 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
         }
     }
 
-    private boolean shouldSelectedAll = false;
     public void selectedAll() {
         Set<Map.Entry<Integer, Boolean>> entries = isCheckedHasMap.entrySet();
-        shouldSelectedAll = false;
+        boolean shouldSelectedAll = false;
         for (Map.Entry<Integer, Boolean> entryset : entries) {
             Boolean aBoolean = entryset.getValue();
             if (!aBoolean) {
@@ -129,6 +128,7 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
                 break;
             }
         }
+        isSelectedAll.setValue(shouldSelectedAll);
         for (Map.Entry<Integer, Boolean> entryset : entries) {
             entryset.setValue(shouldSelectedAll);
         }
@@ -136,15 +136,21 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
     }
 
 
-    public List<ShopCartBean> getListSelectedItem() {
+    public List<List<ShopCartBean>> getListSelectedItem() {
+        List<List<ShopCartBean>> listList = new ArrayList<>();
         List<ShopCartBean> list = new ArrayList<>();
+        List<ShopCartBean> unList = new ArrayList<>();
         for (int i = 0; i < isCheckedHasMap.size(); i++) {
             Boolean aBoolean = isCheckedHasMap.get(i);
-            if (aBoolean != null && aBoolean) {
+            if (aBoolean != null && aBoolean) {//选中得
                 list.add(getItem(i));
+            } else {//未选中的
+                unList.add(getItem(i));
             }
         }
-        return list;
+        listList.add(list);
+        listList.add(unList);
+        return listList;
     }
 
 

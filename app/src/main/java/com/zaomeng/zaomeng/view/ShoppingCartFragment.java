@@ -17,7 +17,6 @@ import com.alipay.sdk.app.PayTask;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
@@ -38,6 +37,7 @@ import kotlin.jvm.functions.Function0;
 public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentVM, FragmentShoppingCartBinding, ShopCartAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
+
     @Inject
     public ShoppingCartFragment() {
     }
@@ -47,7 +47,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     @Override
     protected void setUI() {
         requestPermission();
-        mViewModel.ldIsSelectAll.observe(this, aBoolean -> {
+        shopCartAdapter.isSelectedAll.observe(this, aBoolean -> {
             if (aBoolean) {
                 mViewDataBinding.select.setImageResource(R.mipmap.selected);
             } else {
@@ -57,17 +57,18 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "settlement":
-                    List<ShopCartBean> listSelectedItem = shopCartAdapter.getListSelectedItem();
-                    if (listSelectedItem.size() == 0) {
+                    List<List<ShopCartBean>> listList = shopCartAdapter.getListSelectedItem();
+                    List<ShopCartBean> selectItem = listList.get(0);
+                    if (selectItem.size() == 0) {
                         toast("请选择商品");
                         return;
                     }
-                    skipTo(OrderSettlementActivity.class, listSelectedItem);
+                    skipTo(OrderSettlementActivity.class, selectItem);
 //                    pay();
                     break;
                 case "selectAll":
                     shopCartAdapter.selectedAll();
-                    mViewModel.ldIsSelectAll.setValue(shopCartAdapter.isShouldSelectedAll());
+//                    mViewModel.ldIsSelectAll.setValue(shopCartAdapter.isShouldSelectedAll());
                     break;
                 default:
                     break;
@@ -93,6 +94,36 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         });
     }
 
+    private void getShopCartBeans() {
+        List<List<ShopCartBean>> listList = shopCartAdapter.getListSelectedItem();
+        List<ShopCartBean> selectItem = listList.get(0);
+        List<ShopCartBean> unSelectItem = listList.get(1);
+        StringBuilder selectID = new StringBuilder();
+        StringBuilder unSelectID = new StringBuilder();
+        for (int i = 0; i < selectItem.size(); i++) {
+            ShopCartBean shopCartBean = selectItem.get(i);
+            if (i == selectItem.size() - 1) {
+                selectID = selectID.append(shopCartBean.getId());
+            } else {
+                selectID = selectID.append(shopCartBean.getId()).append(",");
+            }
+        }
+        for (int i = 0; i < unSelectItem.size(); i++) {
+            ShopCartBean shopCartBean = unSelectItem.get(i);
+            if (i == unSelectItem.size() - 1) {
+                unSelectID = unSelectID.append(shopCartBean.getId());
+            } else {
+                unSelectID = unSelectID.append(shopCartBean.getId()).append(",");
+            }
+        }
+        if (!selectID.toString().equals("")) {
+            mViewModel.selectGoods(selectID.toString(), 1);
+        }
+        if (!unSelectID.toString().equals("")) {
+            mViewModel.selectGoods(unSelectID.toString(), 0);
+        }
+    }
+
     private void pay() {
         final Runnable payRunnable = () -> {
             PayTask alipay = new PayTask(getActivity());
@@ -116,12 +147,12 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     protected ShopCartAdapter setAdapter(Function0 reTry) {
         shopCartAdapter = new ShopCartAdapter(reTry);
         shopCartAdapter.setOnSelectClick((view, ItemObject, position) -> {
-            int isSelect = ItemObject.getIsSelected() == 1 ? 0 : 1;//取反
-            mViewModel.selectGoods(ItemObject.getId(), isSelect).observe(this, beanResource -> {
-                String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
-                if (s == null)
-                    shopCartAdapter.notifyDataSetChanged();
-            });
+//            int isSelect = ItemObject.getIsSelected() == 1 ? 0 : 1;//取反
+//            mViewModel.selectGoods(ItemObject.getId(), isSelect).observe(this, beanResource -> {
+//                String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+//                if (s == null)
+//                    shopCartAdapter.notifyDataSetChanged();
+//            });
 //            boolean selectedAll = shopCartAdapter.isSelectedAll();
 //            mViewModel.ldIsSelectAll.setValue(selectedAll);
         });
@@ -193,5 +224,11 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
             }
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getShopCartBeans();
     }
 }

@@ -38,13 +38,13 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
     public final MutableLiveData<String> ldFreight = new MediatorLiveData<>();
     public final MutableLiveData<String> ldTotal = new MediatorLiveData<>();
-    public final MutableLiveData<Boolean> ldIsSelectAll = new MediatorLiveData<>();
+//    public final MutableLiveData<Boolean> ldIsSelectAll = new MediatorLiveData<>();
 //    public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
 
 
     @Override
     public void init(Object data) {
-        ldIsSelectAll.setValue(false);
+//        ldIsSelectAll.setValue(false);
     }
 
 
