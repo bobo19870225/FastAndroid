@@ -167,5 +167,6 @@
     <string name="goods_details">商品详情</string>
     <string name="describe_text">文字描述</string>
     <string name="image_show">图片展示</string>
+    <string name="submit">提交审核</string>
 
 </resources>

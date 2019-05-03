@@ -246,6 +246,20 @@ public interface ApiService {
                                                      @Query("messageType") Integer messageType);
 
 
+    /**
+     * 申请会员店铺
+     */
+    @GET("applyMemberShop.json")
+    LiveData<Resource<Bean>> applyMemberShop(@Query("sessionID") String sessionID,
+                                             @Query("name") String name,
+                                             @Query("shopCategoryID") String shopCategoryID,
+                                             @Query("shopFaceImage") String shopFaceImage,
+                                             @Query("businessImage") String businessImage,
+                                             @Query("address") String address,
+                                             @Query("contact") String contact,
+                                             @Query("contactPhone") String contactPhone,
+                                             @Query("contact") String contactIdCardFaceImage,
+                                             @Query("contact") String contactIdCardBackImage);
 
 
 }

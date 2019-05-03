@@ -22,4 +22,34 @@ public class CertificationVM extends BaseViewModel {
     public void init(Object data) {
 
     }
+
+    public void choiceType() {
+
+    }
+
+    public void choiceArea() {
+
+    }
+
+    public void setShopImage() {
+//        apiService.
+    }
+
+    public void setLicenseImage() {
+
+    }
+
+    public void setIcFront() {
+
+    }
+
+    public void setIcBack() {
+
+    }
+
+    public void submit() {
+
+    }
+
+
 }

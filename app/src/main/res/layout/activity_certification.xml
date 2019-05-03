@@ -122,6 +122,9 @@
                         android:layout_height="@dimen/image"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="0dp"
+                        android:onClick="@{()->model.choiceType()}"
                         android:padding="@dimen/image_padding"
                         android:src="@mipmap/back" />
                 </RelativeLayout>
@@ -159,6 +162,7 @@
                         android:hint="@string/location_hint" />
 
                     <ImageView
+                        android:onClick="@{()->model.choiceArea()}"
                         android:layout_width="@dimen/image"
                         android:layout_height="@dimen/image"
                         android:layout_alignParentEnd="true"
@@ -293,6 +297,7 @@
                     android:paddingBottom="@dimen/layout_padding">
 
                     <RelativeLayout
+                        android:onClick="@{()->model.setShopImage()}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/half_divide"
@@ -302,9 +307,15 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_circular_gray">
 
+                        <ImageView
+                            android:id="@+id/img_shop"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:onClick="@{()->model.setLicenseImage()}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/half_divide"
@@ -314,6 +325,11 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_circular_gray">
 
+                        <ImageView
+                            android:id="@+id/img_license"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -353,6 +369,7 @@
                     android:paddingBottom="@dimen/layout_padding">
 
                     <RelativeLayout
+                        android:onClick="@{()->model.setIcFront()}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/half_divide"
@@ -362,9 +379,15 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_circular_gray">
 
+                        <ImageView
+                            android:id="@+id/img_ic_front"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:onClick="@{()->model.setIcBack()}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/half_divide"
@@ -374,8 +397,21 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_circular_gray">
 
+                        <ImageView
+                            android:id="@+id/img_ic_back"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
                     </RelativeLayout>
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:onClick="@{()->model.submit()}"
+                    android:text="@string/submit"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </ScrollView>
