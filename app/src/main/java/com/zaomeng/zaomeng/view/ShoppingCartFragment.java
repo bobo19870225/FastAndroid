@@ -17,6 +17,7 @@ import com.alipay.sdk.app.PayTask;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
@@ -37,6 +38,7 @@ import kotlin.jvm.functions.Function0;
 public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentVM, FragmentShoppingCartBinding, ShopCartAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
+//    private AlertDialog waitDialog;
 
     @Inject
     public ShoppingCartFragment() {
@@ -46,6 +48,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
     @Override
     protected void setUI() {
+//        initDialog();
         requestPermission();
         shopCartAdapter.isSelectedAll.observe(this, aBoolean -> {
             if (aBoolean) {
@@ -57,7 +60,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "settlement":
-                    List<List<ShopCartBean>> listList = shopCartAdapter.getListSelectedItem();
+                    List<List<ShopCartBean>> listList = shopCartAdapter.getListGoodsItem();
                     List<ShopCartBean> selectItem = listList.get(0);
                     if (selectItem.size() == 0) {
                         toast("请选择商品");
@@ -94,8 +97,17 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         });
     }
 
+//    private void initDialog() {
+//        LayoutInflater layoutInflater = getLayoutInflater();
+//        View view = layoutInflater.inflate(R.layout.dialog_wait, null, false);
+//        waitDialog = new AlertDialog.Builder(getContext()).
+//                setCancelable(false).
+//                setView(view).
+//                create();
+//    }
+
     private void getShopCartBeans() {
-        List<List<ShopCartBean>> listList = shopCartAdapter.getListSelectedItem();
+        List<List<ShopCartBean>> listList = shopCartAdapter.getListGoodsItem();
         List<ShopCartBean> selectItem = listList.get(0);
         List<ShopCartBean> unSelectItem = listList.get(1);
         StringBuilder selectID = new StringBuilder();
@@ -146,20 +158,33 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     @Override
     protected ShopCartAdapter setAdapter(Function0 reTry) {
         shopCartAdapter = new ShopCartAdapter(reTry);
-        shopCartAdapter.setOnSelectClick((view, ItemObject, position) -> {
-//            int isSelect = ItemObject.getIsSelected() == 1 ? 0 : 1;//取反
-//            mViewModel.selectGoods(ItemObject.getId(), isSelect).observe(this, beanResource -> {
-//                String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
-//                if (s == null)
-//                    shopCartAdapter.notifyDataSetChanged();
-//            });
-//            boolean selectedAll = shopCartAdapter.isSelectedAll();
-//            mViewModel.ldIsSelectAll.setValue(selectedAll);
-        });
-        shopCartAdapter.setOnAddClick((view, ItemObject, position) -> toast("+"));
-        shopCartAdapter.setOnReduceClick((view, ItemObject, position) -> toast("-"));
+
+        shopCartAdapter.setOnAddClick((view, ItemObject, position) -> upDataGoodsNumber(ItemObject));
+        shopCartAdapter.setOnReduceClick((view, ItemObject, position) -> upDataGoodsNumber(ItemObject));
         return shopCartAdapter;
     }
+
+    private void upDataGoodsNumber(ShopCartBean ItemObject) {
+//        showWaitDialog(true);
+        mViewModel.updateCartGoodsNumber(ItemObject.getId(), ItemObject.getQty()).observe(this, beanResource -> {
+            String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+            if (s == null) {
+                //更改失败,刷新列表
+//                showWaitDialog(false);
+                setListView(transferData);
+            }
+
+        });
+    }
+
+
+//    private void showWaitDialog(boolean isShow) {
+//        if (isShow) {
+//            waitDialog.show();
+//        } else if (waitDialog.isShowing()) {
+//            waitDialog.dismiss();
+//        }
+//    }
 
     @NonNull
     @Override

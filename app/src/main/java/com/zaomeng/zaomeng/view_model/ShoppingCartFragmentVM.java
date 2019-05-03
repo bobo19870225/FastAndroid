@@ -111,4 +111,8 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     public LiveData<Resource<Bean<String>>> selectGoods(String cartGoodsID, Integer isSelect) {
         return apiService.selectCartGoods(sessionID, cartGoodsID, isSelect);
     }
+
+    public LiveData<Resource<Bean<String>>> updateCartGoodsNumber(String cartGoodsID, int qty) {
+        return apiService.updateCartGoodsNumber(sessionID, cartGoodsID, qty);
+    }
 }

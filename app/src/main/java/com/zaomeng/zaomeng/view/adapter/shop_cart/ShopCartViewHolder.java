@@ -70,25 +70,19 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
             if (onSelectClick != null)
                 onSelectClick.onClick(v, goods, getAdapterPosition());
         });
-//        itemView.setOnClickListener(v -> {
-//            if (onItemClick != null)
-//                onItemClick.onClick(v, goods, getLayoutPosition());
-//        });
         add.setOnClickListener(v -> {
             if (actionAdd != null) {
                 actionAdd.invoke();
             }
-            if (onAddClick != null) {
-                onAddClick.onClick(v, goods, getLayoutPosition());
-            }
             int n = Integer.valueOf(number.getText().toString());
             n += 1;
             number.setText(String.valueOf(n));
+            goods.setQty(n);
+            if (onAddClick != null) {
+                onAddClick.onClick(v, goods, getLayoutPosition());
+            }
         });
         reduce.setOnClickListener(v -> {
-            if (onReduceClick != null) {
-                onReduceClick.onClick(v, goods, getLayoutPosition());
-            }
             if (actionReduce != null) {
                 actionReduce.invoke();
             }
@@ -98,6 +92,10 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
                 n = 0;
             }
             number.setText(String.valueOf(n));
+            goods.setQty(n);
+            if (onReduceClick != null) {
+                onReduceClick.onClick(v, goods, getLayoutPosition());
+            }
         });
     }
 
