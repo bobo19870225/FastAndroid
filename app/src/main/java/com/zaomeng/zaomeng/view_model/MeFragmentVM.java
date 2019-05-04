@@ -9,8 +9,10 @@ import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 /**
  * Created by Sampson on 2019/4/16.
  * FastAndroid
+ * {@link com.zaomeng.zaomeng.view.MeFragment}
  */
 public class MeFragmentVM extends BaseViewModel {
+
     public SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public MeFragmentVM(@NonNull Application application) {
         super(application);
@@ -35,5 +37,9 @@ public class MeFragmentVM extends BaseViewModel {
 
     public void cancel() {
         action.setValue("cancel");
+    }
+
+    public void address() {
+        action.setValue("address");
     }
 }

@@ -168,5 +168,6 @@
     <string name="describe_text">文字描述</string>
     <string name="image_show">图片展示</string>
     <string name="submit">提交审核</string>
+    <string name="add_shop">添加新店铺</string>
 
 </resources>

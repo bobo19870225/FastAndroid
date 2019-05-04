@@ -33,26 +33,29 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
     @Override
     protected void initUI() {
         mViewModel.action.observe(this, s -> {
-            if (s.equals("cancel")) {
-                skipTo(ServiceActivity.class, null);
-            } else {
-                skipTo(OrderActivity.class, s);
-            }
-
-//            switch (s) {
-//                case "allOrder":
+//            if (s.equals("cancel")) {
 //
-//                    break;
-//                case "payment":
-//
-//                    break;
-//                case "receivingGoods":
-//
-//                    break;
-//                case "cancel":
-//
-//                    break;
+//            } else {
+//                skipTo(OrderActivity.class, s);
 //            }
+
+            switch (s) {
+                case "allOrder":
+
+                    break;
+                case "payment":
+
+                    break;
+                case "receivingGoods":
+
+                    break;
+                case "cancel":
+                    skipTo(ServiceActivity.class, null);
+                    break;
+                case "address":
+                    skipTo(AddressManageActivity.class, null);
+                    break;
+            }
         });
     }
 }

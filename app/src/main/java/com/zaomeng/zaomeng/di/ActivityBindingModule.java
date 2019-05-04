@@ -1,5 +1,6 @@
 package com.zaomeng.zaomeng.di;
 
+import com.zaomeng.zaomeng.view.AddressManageActivity;
 import com.zaomeng.zaomeng.view.CertificationActivity;
 import com.zaomeng.zaomeng.view.GoodsDetailsActivity;
 import com.zaomeng.zaomeng.view.LocationActivity;
@@ -70,5 +71,8 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector()
     abstract OrderSettlementActivity orderSettlementActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract AddressManageActivity addressManageActivity();
 
 }

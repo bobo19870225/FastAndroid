@@ -334,6 +334,7 @@
                 android:padding="@dimen/layout_padding">
 
                 <RelativeLayout
+                    android:onClick="@{()->model.address()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
