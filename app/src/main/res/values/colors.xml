@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FF9933</color>
     <color name="colorPrimaryDark">#FF9933</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FF9933</color>
     <color name="item_border_color">#666666</color>
     <color name="divide_color">#666666</color>
     <color name="item_default_color">#EEEEEE</color>

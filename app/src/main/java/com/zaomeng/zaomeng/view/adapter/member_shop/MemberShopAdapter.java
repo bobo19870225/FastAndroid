@@ -21,14 +21,19 @@ public class MemberShopAdapter extends BasePagedListAdapter<MemberShopBean> {
 
 
     private OnItemClick<MemberShopBean> onItemClick;
-    private OnItemClick<MemberShopBean> onAddClick;
+    private OnItemClick<MemberShopBean> onEditClick;
+    private OnItemClick<MemberShopBean> onDeleteClick;
 
-    public void setOnAddClick(OnItemClick<MemberShopBean> onAddClick) {
-        this.onAddClick = onAddClick;
+    public void setOnEditClick(OnItemClick<MemberShopBean> onEditClick) {
+        this.onEditClick = onEditClick;
     }
 
     public void setOnItemClick(OnItemClick<MemberShopBean> onItemClick) {
         this.onItemClick = onItemClick;
+    }
+
+    public void setOnDeleteClick(OnItemClick<MemberShopBean> onDeleteClick) {
+        this.onDeleteClick = onDeleteClick;
     }
 
     public MemberShopAdapter(Function0 retryCallback) {
@@ -45,13 +50,13 @@ public class MemberShopAdapter extends BasePagedListAdapter<MemberShopBean> {
 
     @Override
     protected void viewHolderBind(RecyclerView.ViewHolder holder, int position) {
-        ((MemberShopViewHolder) holder).bind(getItem(position), onItemClick, onAddClick);
+        ((MemberShopViewHolder) holder).bind(getItem(position), onItemClick, onEditClick, onDeleteClick);
     }
 
 
     @Override
     protected int giveItemViewType(int position) {
-        return R.layout.item_goods;
+        return R.layout.item_member_shop;
     }
 
 
