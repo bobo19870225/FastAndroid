@@ -1,14 +1,19 @@
 package com.zaomeng.zaomeng.view;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCertificationBinding;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
 import com.zaomeng.zaomeng.utils.http.BitmapUtils;
@@ -29,6 +34,7 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
     @Inject
     ViewModelFactory viewModelFactory;
     private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
+    private AlertDialog alertDialog;
     @NonNull
     @Override
     protected CertificationVM createdViewModel() {
@@ -48,6 +54,19 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
                 );
             }
         });
+        mViewModel.ldUpDataImage.observe(this, s -> {
+            if (s != null) {
+                Gson gson = new Gson();
+                Bean bean = gson.fromJson(s, Bean.class);
+                showUpDataDialog(false);
+                if (bean != null) {
+                    Glide.with(mViewDataBinding.imgShop).load((String) bean.getBody().getData()).into(mViewDataBinding.imgShop);
+                } else {
+                    toast(s);
+                }
+
+            }
+        });
         mViewModel.ldSubmit.observe(this, beanResource -> {
             String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
             if (s != null) {
@@ -57,15 +76,28 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
     }
 
     private void init() {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_wait, null, false);
+        alertDialog = new AlertDialog.Builder(getApplicationContext())
+                .setView(view)
+                .setCancelable(false)
+                .create();
         // 1、创建LQRPhotoSelectUtils（一个Activity对应一个LQRPhotoSelectUtils）
         mLqrPhotoSelectUtils = new LQRPhotoSelectUtils(this, (outputFile, outputUri) -> {
             // 4、当拍照或从图库选取图片成功后回调
             String s = BitmapUtils.compressImageUpload(outputFile.getAbsolutePath());
-//            mViewModel.uploadImg(s);
-            Glide.with(mViewDataBinding.imgShop).load(s).into(mViewDataBinding.imgShop);
-
+            mViewModel.uploadImg(s);
+            showUpDataDialog(true);
         }, false);//true裁剪，false不裁剪
 
+    }
+
+    private void showUpDataDialog(boolean isShow) {
+        if (isShow) {
+            alertDialog.show();
+        } else if (alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
     }
 
     @PermissionSuccess(requestCode = LQRPhotoSelectUtils.REQ_SELECT_PHOTO)

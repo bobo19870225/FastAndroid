@@ -29,22 +29,24 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:background="@color/bg_color">
 
-                    <View
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
                         android:id="@+id/divider"
-                        android:layout_width="@dimen/line"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/layout_margin"
-                        android:layout_marginLeft="@dimen/layout_margin"
-                        android:layout_marginTop="@dimen/line_margin"
-                        android:layout_marginBottom="@dimen/line_margin"
-                        android:background="@color/line" />
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:src="@mipmap/shop_info" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/layout_height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
                         android:layout_toEndOf="@+id/divider"
                         android:layout_toRightOf="@+id/divider"
                         android:gravity="center_vertical"
@@ -59,20 +61,23 @@
                 <RelativeLayout
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
                     android:paddingEnd="@dimen/layout_padding"
                     android:paddingRight="@dimen/layout_padding">
 
                     <TextView
+                        android:layout_height="40dp"
+                        android:textColor="#ff333333"
                         android:id="@+id/tt_shop_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/layout_height"
+                        android:textSize="12sp"
                         android:gravity="center_vertical"
                         android:text="@string/shop_name" />
 
                     <EditText
+                        android:textSize="9sp"
                         android:hint="@string/tt_shop_name"
                         android:id="@+id/shop_name"
                         android:layout_width="match_parent"
@@ -93,7 +98,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -103,11 +108,16 @@
                     <TextView
                         android:id="@+id/tt_shop_type"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/layout_height"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"
                         android:gravity="center_vertical"
-                        android:text="@string/shop_type" />
+                        android:text="@string/shop_type"
+                        android:textColor="#ff333333"
+                        android:textSize="12sp" />
 
                     <TextView
+                        android:textSize="9sp"
                         android:id="@+id/shop_type"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -135,43 +145,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/line"
                     android:background="@color/bg_color" />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
-                    android:background="@android:color/white"
-                    android:paddingStart="@dimen/layout_padding"
-                    android:paddingLeft="@dimen/layout_padding"
-                    android:paddingEnd="@dimen/layout_padding"
-                    android:paddingRight="@dimen/layout_padding">
+                <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:background="@android:color/white"-->
+                <!--android:paddingStart="@dimen/layout_padding"-->
+                <!--android:paddingLeft="@dimen/layout_padding"-->
+                <!--android:paddingEnd="@dimen/layout_padding"-->
+                <!--android:paddingRight="@dimen/layout_padding">-->
 
-                    <TextView
-                        android:id="@+id/tt_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/layout_height"
-                        android:gravity="center_vertical"
-                        android:text="@string/location" />
+                <!--<TextView-->
+                <!--android:id="@+id/tt_location"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="@string/location" />-->
 
-                    <TextView
-                        android:id="@+id/location"
-                        android:layout_toEndOf="@+id/tt_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_toRightOf="@+id/tt_location"
-                        android:gravity="center_vertical"
-                        android:background="@null"
-                        android:hint="@string/location_hint" />
+                <!--<TextView-->
+                <!--android:id="@+id/location"-->
+                <!--android:layout_toEndOf="@+id/tt_location"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginStart="24dp"-->
+                <!--android:layout_marginLeft="24dp"-->
+                <!--android:layout_toRightOf="@+id/tt_location"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:background="@null"-->
+                <!--android:hint="@string/location_hint" />-->
 
-                    <ImageView
-                        android:onClick="@{()->model.choiceArea()}"
-                        android:layout_width="@dimen/image"
-                        android:layout_height="@dimen/image"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:padding="@dimen/image_padding"
-                        android:src="@mipmap/back" />
-                </RelativeLayout>
+                <!--<ImageView-->
+                <!--android:onClick="@{()->model.choiceArea()}"-->
+                <!--android:layout_width="@dimen/image"-->
+                <!--android:layout_height="@dimen/image"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:padding="@dimen/image_padding"-->
+                <!--android:src="@mipmap/back" />-->
+                <!--</RelativeLayout>-->
 
                 <View
                     android:layout_width="match_parent"
@@ -179,7 +189,7 @@
                     android:background="@color/bg_color" />
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -189,11 +199,16 @@
                     <TextView
                         android:id="@+id/tt_detailed_address"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/layout_height"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"
                         android:gravity="center_vertical"
-                        android:text="@string/detailed_address" />
+                        android:text="@string/detailed_address"
+                        android:textColor="#ff333333"
+                        android:textSize="12sp" />
 
                     <EditText
+                        android:textSize="9sp"
                         android:text="@={model.ldAddress}"
                         android:id="@+id/detailed_address"
                         android:layout_width="match_parent"
@@ -215,7 +230,7 @@
                     android:background="@color/bg_color" />
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -225,11 +240,16 @@
                     <TextView
                         android:id="@+id/tt_consignee"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/layout_height"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"
                         android:gravity="center_vertical"
-                        android:text="@string/consignee" />
+                        android:text="@string/consignee"
+                        android:textColor="#ff333333"
+                        android:textSize="12sp" />
 
                     <EditText
+                        android:textSize="9sp"
                         android:text="@={model.ldContact}"
                         android:id="@+id/consignee"
                         android:layout_width="match_parent"
@@ -250,7 +270,7 @@
                     android:background="@color/bg_color" />
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:background="@android:color/white"
                     android:paddingStart="@dimen/layout_padding"
                     android:paddingLeft="@dimen/layout_padding"
@@ -260,11 +280,16 @@
                     <TextView
                         android:id="@+id/tt_consignee_phone"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/layout_height"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"
                         android:gravity="center_vertical"
-                        android:text="@string/consignee_phone" />
+                        android:text="@string/consignee_phone"
+                        android:textColor="#ff333333"
+                        android:textSize="12sp" />
 
                     <EditText
+                        android:textSize="9sp"
                         android:text="@={model.ldContactPhone}"
                         android:id="@+id/consignee_phone"
                         android:layout_width="match_parent"
@@ -280,55 +305,74 @@
 
                 </RelativeLayout>
 
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                <RelativeLayout
+                    android:layout_height="40dp"
                     android:background="@color/bg_color"
-                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
                     android:paddingStart="@dimen/layout_padding"
-                    android:paddingLeft="@dimen/layout_padding"
-                    android:paddingEnd="0dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/shop_photo"
-                    android:textSize="18sp" />
+                    android:paddingLeft="@dimen/layout_padding">
+
+                    <ImageView
+                        android:id="@+id/shop_image"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/shop_image" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_toEndOf="@+id/shop_image"
+                        android:layout_toRightOf="@+id/shop_image"
+                        android:gravity="center_vertical"
+                        android:text="@string/shop_photo"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="128dp"
+                    android:layout_height="100dp"
                     android:background="@android:color/white"
                     android:orientation="horizontal"
-                    android:paddingTop="@dimen/layout_padding"
-                    android:paddingBottom="@dimen/layout_padding">
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
 
                     <RelativeLayout
+
                         android:onClick="@{()->model.setShopImage()}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/half_divide"
-                        android:layout_marginLeft="@dimen/half_divide"
-                        android:layout_marginEnd="@dimen/half_divide"
-                        android:layout_marginRight="@dimen/half_divide"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_circular_gray">
+                        android:background="@drawable/image_bg">
+
 
                         <ImageView
                             android:id="@+id/img_shop"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop" />
+
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:onClick="@{()->model.setLicenseImage()}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/half_divide"
-                        android:layout_marginLeft="@dimen/half_divide"
-                        android:layout_marginEnd="@dimen/half_divide"
-                        android:layout_marginRight="@dimen/half_divide"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_circular_gray">
+                        android:background="@drawable/image_bg">
 
                         <ImageView
                             android:id="@+id/img_license"
@@ -339,50 +383,50 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:layout_height="40dp"
+                    android:paddingStart="@dimen/layout_padding"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                    android:paddingLeft="@dimen/layout_padding"
                     android:background="@color/bg_color">
 
-                    <View
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
                         android:id="@+id/icon_di"
-                        android:layout_width="@dimen/line"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/layout_margin"
-                        android:layout_marginLeft="@dimen/layout_margin"
-                        android:layout_marginTop="@dimen/line_margin"
-                        android:layout_marginBottom="@dimen/line_margin"
-                        android:background="@color/line" />
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/shop_image" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/layout_margin"
-                        android:layout_marginLeft="@dimen/layout_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_toEndOf="@+id/icon_di"
-                        android:layout_toRightOf="@+id/icon_di"
+                        android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="@string/legal_person_photo"
-                        android:textSize="18sp" />
+                        android:layout_toRightOf="@+id/icon_di"
+                        android:text="经营者身份证照片"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="128dp"
-                    android:background="@android:color/white"
+                    android:layout_height="100dp"
                     android:orientation="horizontal"
-                    android:paddingTop="@dimen/layout_padding"
-                    android:paddingBottom="@dimen/layout_padding">
+                    android:layout_width="match_parent"
+                    android:paddingTop="8dp"
+                    android:background="@android:color/white"
+                    android:paddingBottom="8dp">
 
                     <RelativeLayout
                         android:onClick="@{()->model.setIcFront()}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/half_divide"
-                        android:layout_marginLeft="@dimen/half_divide"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
                         android:layout_marginEnd="@dimen/half_divide"
                         android:layout_marginRight="@dimen/half_divide"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_circular_gray">
+                        android:background="@drawable/image_bg">
 
                         <ImageView
                             android:id="@+id/img_ic_front"
@@ -397,10 +441,10 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/half_divide"
                         android:layout_marginLeft="@dimen/half_divide"
-                        android:layout_marginEnd="@dimen/half_divide"
-                        android:layout_marginRight="@dimen/half_divide"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_circular_gray">
+                        android:background="@drawable/image_bg">
 
                         <ImageView
                             android:id="@+id/img_ic_back"
@@ -411,12 +455,20 @@
                 </LinearLayout>
 
                 <Button
+                    android:layout_marginBottom="80dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
                     android:id="@+id/submit"
                     android:layout_width="match_parent"
-                    android:layout_height="72dp"
+                    android:background="@drawable/bg_button_them_color"
                     android:onClick="@{()->model.submit()}"
                     android:text="@string/submit"
-                    android:textSize="18sp" />
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </ScrollView>
