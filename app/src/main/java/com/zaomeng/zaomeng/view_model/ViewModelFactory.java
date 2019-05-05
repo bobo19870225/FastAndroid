@@ -82,7 +82,11 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(MessageVM.class)) {
             //noinspection unchecked
             return (T) new MessageVM(application, apiService);
+        } else if (modelClass.isAssignableFrom(AddressManageVM.class)) {
+            //noinspection unchecked
+            return (T) new AddressManageVM(application, apiService);
         }
+
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }
 

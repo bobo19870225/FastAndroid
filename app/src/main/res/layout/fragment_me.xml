@@ -18,18 +18,19 @@
             android:id="@+id/rl_title"
             android:layout_height="160dp"
             android:layout_width="match_parent"
-            android:background="@color/them_color"
-            android:padding="32dp">
+            android:background="@color/them_color">
 
             <com.zaomeng.zaomeng.view.custom_view.CircleImageView
+                android:layout_width="56dp"
                 android:id="@+id/icon_user"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="30dp"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
                 android:src="@mipmap/logo" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
@@ -39,59 +40,76 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:layout_width="wrap_content"
                     android:textColor="@color/white"
-                    android:layout_width="match_parent"
+                    android:textSize="12sp"
                     android:layout_height="wrap_content"
                     android:text="小明早报有想死" />
 
                 <TextView
-                    android:layout_marginTop="24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="18dp"
                     android:textColor="@color/white"
-                    android:layout_width="match_parent"
+                    android:textSize="12sp"
                     android:layout_height="wrap_content"
                     android:text="18964621903" />
             </LinearLayout>
 
             <ImageView
+                android:layout_marginTop="16dp"
                 android:id="@+id/icon_msg"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
-                android:padding="@dimen/image_padding"
+                android:padding="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/xiaoxi" />
+                android:src="@mipmap/msg" />
+
+            <ImageView
+                android:id="@+id/calendar"
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_marginTop="16dp"
+                android:layout_toStartOf="@+id/icon_msg"
+                android:layout_toLeftOf="@+id/icon_msg"
+                android:padding="10dp"
+                android:src="@mipmap/calendar" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_1"
-            android:layout_height="72dp"
+            android:layout_height="66dp"
             android:layout_below="@+id/rl_title"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="-28dp"
+            android:layout_marginTop="-33dp"
             android:layout_marginEnd="16dp"
             android:layout_width="match_parent"
             android:layout_marginRight="16dp"
             android:background="@drawable/bg_button_corner_white">
 
             <RelativeLayout
-                android:layout_margin="8dp"
+                android:layout_margin="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@+id/line"
                 android:layout_toLeftOf="@+id/line">
 
                 <ImageView
+                    android:layout_width="41dp"
+                    android:layout_height="32dp"
                     android:id="@+id/icon_coupon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/back" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/coupon" />
 
                 <TextView
+                    android:layout_marginStart="35dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/layout_margin"
-                    android:layout_marginLeft="@dimen/layout_margin"
+                    android:layout_marginLeft="35dp"
+                    android:textSize="12sp"
                     android:layout_toEndOf="@+id/icon_coupon"
                     android:layout_toRightOf="@+id/icon_coupon"
                     android:gravity="center"
@@ -122,19 +140,23 @@
                 android:layout_toEndOf="@+id/line"
                 android:layout_toRightOf="@+id/line"
                 android:background="@android:color/white"
-                android:layout_margin="8dp">
+                android:layout_margin="4dp">
 
                 <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:id="@+id/icon_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/back" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@mipmap/points_manage" />
 
                 <TextView
+                    android:layout_marginStart="44dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/layout_margin"
-                    android:layout_marginLeft="@dimen/layout_margin"
+                    android:layout_marginLeft="44dp"
+                    android:textSize="12sp"
                     android:layout_toEndOf="@+id/icon_score"
                     android:layout_toRightOf="@+id/icon_score"
                     android:gravity="center"
@@ -162,12 +184,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/bg_button_corner_white"
-            android:paddingLeft="16dp"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp">
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:id="@+id/ll_my_order"
@@ -175,34 +194,40 @@
                 android:layout_height="@dimen/layout_height">
 
                 <View
+                    android:layout_width="3dp"
+                    android:layout_height="13dp"
                     android:id="@+id/line1"
-                    android:layout_width="@dimen/line"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/layout_margin"
-                    android:layout_marginLeft="@dimen/layout_margin"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@color/them_color" />
 
                 <TextView
+                    android:layout_marginStart="8dp"
                     android:id="@+id/tt_my_order"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/layout_height"
-                    android:layout_marginStart="@dimen/layout_margin"
-                    android:layout_marginLeft="@dimen/layout_margin"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="12sp"
                     android:gravity="center"
                     android:text="@string/my_order" />
 
             </LinearLayout>
 
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_below="@+id/ll_my_order"
+                android:background="@color/bg_color" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_my_order"
-                android:orientation="horizontal"
-                android:padding="@dimen/layout_padding">
+                android:layout_height="68dp"
+                android:layout_below="@+id/divider"
+                android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:layout_gravity="center_vertical"
                     android:onClick="@{()->model.allOrder()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -210,12 +235,14 @@
 
                     <ImageView
                         android:id="@+id/icon_all_order"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/all_order" />
 
                     <TextView
+                        android:layout_marginTop="8dp"
+                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_all_order"
@@ -224,6 +251,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_gravity="center_vertical"
                     android:onClick="@{()->model.payment()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -231,12 +259,14 @@
 
                     <ImageView
                         android:id="@+id/icon_payment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/payment" />
 
                     <TextView
+                        android:layout_marginTop="8dp"
+                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_payment"
@@ -245,6 +275,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_gravity="center_vertical"
                     android:onClick="@{()->model.receivingGoods()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -252,12 +283,14 @@
 
                     <ImageView
                         android:id="@+id/icon_receiving_goods"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/consignment" />
 
                     <TextView
+                        android:layout_marginTop="8dp"
+                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_receiving_goods"
@@ -266,6 +299,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_gravity="center_vertical"
                     android:onClick="@{()->model.cancel()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -273,12 +307,14 @@
 
                     <ImageView
                         android:id="@+id/icon_cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/refund" />
 
                     <TextView
+                        android:layout_marginTop="8dp"
+                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_cancel"
@@ -296,9 +332,8 @@
             android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top"
-            android:background="@drawable/bg_button_corner_white"
-            android:padding="16dp">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_button_corner_white">
 
             <LinearLayout
                 android:id="@+id/ll_common_functions"
@@ -306,34 +341,40 @@
                 android:layout_height="@dimen/layout_height">
 
                 <View
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/line2"
-                    android:layout_width="@dimen/line"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/layout_margin"
-                    android:layout_marginLeft="@dimen/layout_margin"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_width="3dp"
+                    android:layout_height="13dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@color/them_color" />
 
                 <TextView
+                    android:layout_marginStart="8dp"
                     android:id="@+id/tt_common_functions"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/layout_height"
-                    android:layout_marginStart="@dimen/layout_margin"
-                    android:layout_marginLeft="@dimen/layout_margin"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="12sp"
                     android:gravity="center"
                     android:text="常用功能" />
 
             </LinearLayout>
 
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_below="@+id/ll_common_functions"
+                android:background="@color/bg_color" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_common_functions"
-                android:orientation="horizontal"
-                android:padding="@dimen/layout_padding">
+                android:layout_height="68dp"
+                android:layout_below="@+id/divider1"
+                android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:layout_gravity="center_vertical"
                     android:onClick="@{()->model.address()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -341,12 +382,14 @@
 
                     <ImageView
                         android:id="@+id/icon_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/receiving_address" />
 
                     <TextView
+                        android:layout_marginTop="12dp"
+                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_address"
@@ -355,18 +398,21 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/icon_feedback"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/feedback" />
 
                     <TextView
+                        android:layout_marginTop="12dp"
+                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_feedback"
@@ -375,18 +421,21 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/icon_customer_service"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/customer_service" />
 
                     <TextView
+                        android:layout_marginTop="12dp"
+                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_customer_service"
@@ -395,18 +444,21 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/icon_setting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/setting" />
 
                     <TextView
+                        android:layout_marginTop="12dp"
+                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_setting"

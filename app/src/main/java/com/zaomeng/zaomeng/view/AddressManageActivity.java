@@ -9,9 +9,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityAddressManageBinding;
-import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
+import com.zaomeng.zaomeng.view.adapter.member_shop.MemberShopAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view_model.AddressManageVM;
+import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+
+import javax.inject.Inject;
 
 import kotlin.jvm.functions.Function0;
 
@@ -19,7 +22,9 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019-05-04.
  * FastAndroid
  */
-public class AddressManageActivity extends MVVMListActivity<AddressManageVM, ActivityAddressManageBinding, GoodsAdapter> {
+public class AddressManageActivity extends MVVMListActivity<AddressManageVM, ActivityAddressManageBinding, MemberShopAdapter> {
+    @Inject
+    ViewModelFactory viewModelFactory;
     @NonNull
     @Override
     protected RecyclerView setRecyclerView() {
@@ -28,8 +33,8 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
 
     @NonNull
     @Override
-    protected GoodsAdapter setAdapter(Function0 reTry) {
-        return new GoodsAdapter(reTry);
+    protected MemberShopAdapter setAdapter(Function0 reTry) {
+        return new MemberShopAdapter(reTry);
     }
 
 
@@ -66,6 +71,6 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
     @NonNull
     @Override
     protected AddressManageVM createdViewModel() {
-        return ViewModelProviders.of(this).get(AddressManageVM.class);
+        return ViewModelProviders.of(this, viewModelFactory).get(AddressManageVM.class);
     }
 }

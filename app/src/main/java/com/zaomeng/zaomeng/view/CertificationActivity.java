@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCertificationBinding;
+import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
 import com.zaomeng.zaomeng.utils.http.BitmapUtils;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
@@ -47,6 +48,12 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
                 );
             }
         });
+        mViewModel.ldSubmit.observe(this, beanResource -> {
+            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            if (s != null) {
+                toast("提交成功！");
+            }
+        });
     }
 
     private void init() {
@@ -54,7 +61,7 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
         mLqrPhotoSelectUtils = new LQRPhotoSelectUtils(this, (outputFile, outputUri) -> {
             // 4、当拍照或从图库选取图片成功后回调
             String s = BitmapUtils.compressImageUpload(outputFile.getAbsolutePath());
-            mViewModel.uploadImg(s);
+//            mViewModel.uploadImg(s);
             Glide.with(mViewDataBinding.imgShop).load(s).into(mViewDataBinding.imgShop);
 
         }, false);//true裁剪，false不裁剪

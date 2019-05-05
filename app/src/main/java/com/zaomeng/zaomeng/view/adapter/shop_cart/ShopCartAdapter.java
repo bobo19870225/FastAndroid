@@ -141,20 +141,23 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
 //        List<ShopCartBean> allList = new ArrayList<>();
         List<ShopCartBean> selectList = new ArrayList<>();
         List<ShopCartBean> unList = new ArrayList<>();
-        for (int i = 0; i < isCheckedHasMap.size(); i++) {
+        if (isCheckedHasMap != null) {
+            for (int i = 0; i < isCheckedHasMap.size(); i++) {
 
-            Boolean aBoolean = isCheckedHasMap.get(i);
-            if (aBoolean != null) {
-                //全部的
+                Boolean aBoolean = isCheckedHasMap.get(i);
+                if (aBoolean != null) {
+                    //全部的
 //                allList.add(getItem(i));
-                if (aBoolean) {//选中的
-                    selectList.add(getItem(i));
-                } else {//未选中的
-                    unList.add(getItem(i));
+                    if (aBoolean) {//选中的
+                        selectList.add(getItem(i));
+                    } else {//未选中的
+                        unList.add(getItem(i));
+                    }
                 }
-            }
 
+            }
         }
+
 //        listList.add(allList);
         listList.add(selectList);
         listList.add(unList);

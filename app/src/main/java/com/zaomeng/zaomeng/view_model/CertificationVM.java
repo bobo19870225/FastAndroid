@@ -4,8 +4,13 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
+import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 import com.zaomeng.zaomeng.utils.http.OkHttpUtil;
 
@@ -26,6 +31,11 @@ import static com.zaomeng.zaomeng.utils.SystemParameter.baseUrl;
 public class CertificationVM extends BaseViewModel {
     private ApiService apiService;
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
+    public final MutableLiveData<String> ldName = new MediatorLiveData<>();
+    public final MutableLiveData<String> ldAddress = new MediatorLiveData<>();
+    public final MutableLiveData<String> ldContact = new MediatorLiveData<>();
+    public final MutableLiveData<String> ldContactPhone = new MediatorLiveData<>();
+    public final MediatorLiveData<Resource<Bean<String>>> ldSubmit = new MediatorLiveData<>();
     public CertificationVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -61,8 +71,42 @@ public class CertificationVM extends BaseViewModel {
 
     }
 
+    /**
+     * shopCategoryID=a74eeee1-750c-497d-afaa-cd867014f5f8
+     * &shopFaceImage=http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg
+     * &businessImage=http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg
+     * &address=%E4%B8%8A%E6%B5%B7%E8%99%B9%E5%8F%A3&
+     * contact=%E5%B0%8F%E9%93%81&
+     * contactPhone=13162617998&
+     * contactIdCardFaceImage=http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg&
+     * contactIdCardBackImage=http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg
+     */
     public void submit() {
-
+        if (ldName.getValue() == null) {
+            return;
+        }
+        if (ldAddress.getValue() == null) {
+            return;
+        }
+        if (ldContact.getValue() == null) {
+            return;
+        }
+        if (ldContactPhone.getValue() == null) {
+            return;
+        }
+        ldSubmit.addSource(
+                apiService.applyMemberShop(
+                        SharedPreerencesUtils.getSessionID(getApplication()),
+                        ldName.getValue(),
+                        "a74eeee1-750c-497d-afaa-cd867014f5f8",
+                        "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg",
+                        "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg",
+                        ldAddress.getValue(),
+                        ldContact.getValue(),
+                        ldContactPhone.getValue(),
+                        "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg",
+                        "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg"
+                ), ldSubmit::setValue);
     }
 
     public void uploadImg(String fileUrl) {

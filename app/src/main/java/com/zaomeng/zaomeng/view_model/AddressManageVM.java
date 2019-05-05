@@ -6,18 +6,24 @@ import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
+import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
 
 import retrofit2.Call;
 
 /**
  * Created by Sampson on 2019-05-04.
  * FastAndroid
+ * {@link com.zaomeng.zaomeng.view.AddressManageActivity}
  */
 public class AddressManageVM extends ListViewModel<Integer, MemberShopBean> {
-    public AddressManageVM(@NonNull Application application) {
+    private ApiService apiService;
+
+    public AddressManageVM(@NonNull Application application, ApiService apiService) {
         super(application);
+        this.apiService = apiService;
     }
 
     @NonNull
@@ -28,12 +34,12 @@ public class AddressManageVM extends ListViewModel<Integer, MemberShopBean> {
 
     @Override
     public Call<PageBean<MemberShopBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return null;
+        return apiService.getMemberShopList(SharedPreerencesUtils.getSessionID(getApplication()));
     }
 
     @Override
     public void setLoadInitialCallback(PageBean<MemberShopBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, MemberShopBean> callback) {
-
+        callback.onResult(body.getBody().getData().getRows(), 1, 2);
     }
 
     @Override

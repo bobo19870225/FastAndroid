@@ -14,6 +14,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
@@ -256,16 +257,16 @@ public interface ApiService {
      * 申请会员店铺
      */
     @GET("applyMemberShop.json")
-    LiveData<Resource<Bean>> applyMemberShop(@Query("sessionID") String sessionID,
-                                             @Query("name") String name,
-                                             @Query("shopCategoryID") String shopCategoryID,
-                                             @Query("shopFaceImage") String shopFaceImage,
-                                             @Query("businessImage") String businessImage,
-                                             @Query("address") String address,
-                                             @Query("contact") String contact,
-                                             @Query("contactPhone") String contactPhone,
-                                             @Query("contact") String contactIdCardFaceImage,
-                                             @Query("contact") String contactIdCardBackImage);
+    LiveData<Resource<Bean<String>>> applyMemberShop(@Query("sessionID") String sessionID,
+                                                     @Query("name") String name,
+                                                     @Query("shopCategoryID") String shopCategoryID,
+                                                     @Query("shopFaceImage") String shopFaceImage,
+                                                     @Query("businessImage") String businessImage,
+                                                     @Query("address") String address,
+                                                     @Query("contact") String contact,
+                                                     @Query("contactPhone") String contactPhone,
+                                                     @Query("contactIdCardFaceImage") String contactIdCardFaceImage,
+                                                     @Query("contactIdCardBackImage") String contactIdCardBackImage);
 
     @Multipart
     @POST("uploadFile.json")
@@ -273,6 +274,12 @@ public interface ApiService {
 //            @Part("description") RequestBody description,
             @Part MultipartBody.Part file);
 
+    /**
+     * 获取我的消息列表
+     */
+    @GET("getMemberShopList.json")
+    Call<PageBean<MemberShopBean>> getMemberShopList(
+            @Query("sessionID") String sessionID);
 
 
 }

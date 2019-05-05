@@ -73,6 +73,7 @@
                         android:text="@string/shop_name" />
 
                     <EditText
+                        android:hint="@string/tt_shop_name"
                         android:id="@+id/shop_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -81,7 +82,8 @@
                         android:layout_toEndOf="@+id/tt_shop_name"
                         android:layout_toRightOf="@+id/tt_shop_name"
                         android:background="@null"
-                        android:hint="@string/tt_shop_name" />
+                        android:inputType="text"
+                        android:text="@={model.ldName}" />
                 </RelativeLayout>
 
                 <View
@@ -192,6 +194,7 @@
                         android:text="@string/detailed_address" />
 
                     <EditText
+                        android:text="@={model.ldAddress}"
                         android:id="@+id/detailed_address"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -226,7 +229,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/consignee" />
 
-                    <TextView
+                    <EditText
+                        android:text="@={model.ldContact}"
                         android:id="@+id/consignee"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -260,7 +264,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/consignee_phone" />
 
-                    <TextView
+                    <EditText
+                        android:text="@={model.ldContactPhone}"
                         android:id="@+id/consignee_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
