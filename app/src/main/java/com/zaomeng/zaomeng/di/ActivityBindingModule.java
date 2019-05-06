@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.di;
 
 import com.zaomeng.zaomeng.view.AddressManageActivity;
+import com.zaomeng.zaomeng.view.CalendarActivity;
 import com.zaomeng.zaomeng.view.CertificationActivity;
 import com.zaomeng.zaomeng.view.GoodsDetailsActivity;
 import com.zaomeng.zaomeng.view.LocationActivity;
@@ -74,5 +75,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector()
     abstract AddressManageActivity addressManageActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract CalendarActivity calendarActivity();
+
 
 }

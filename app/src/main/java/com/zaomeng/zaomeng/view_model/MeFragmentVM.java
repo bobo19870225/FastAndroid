@@ -42,4 +42,8 @@ public class MeFragmentVM extends BaseViewModel {
     public void address() {
         action.setValue("address");
     }
+
+    public void calendar() {
+        action.setValue("calendar");
+    }
 }

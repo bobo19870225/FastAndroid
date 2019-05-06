@@ -66,6 +66,7 @@
                 android:src="@mipmap/msg" />
 
             <ImageView
+                android:onClick="@{()->model.calendar()}"
                 android:id="@+id/calendar"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"

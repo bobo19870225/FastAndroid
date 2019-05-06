@@ -55,6 +55,9 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
                 case "address":
                     skipTo(AddressManageActivity.class, null);
                     break;
+                case "calendar":
+                    skipTo(CalendarActivity.class, null);
+                    break;
             }
         });
     }
