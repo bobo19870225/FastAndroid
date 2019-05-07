@@ -73,7 +73,7 @@
                     android:textSize="@dimen/title_text_size" />
 
                 <RelativeLayout
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:layout_marginTop="@dimen/margin_top"
                     android:background="@drawable/bg_button_corner"
                     android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:layout_marginTop="@dimen/margin_top"
                     android:background="@drawable/bg_button_corner"
                     android:layout_width="match_parent"
@@ -147,7 +147,7 @@
                     android:id="@+id/email_sign_in_button"
                     android:text="@string/login"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_height"
+                    android:layout_height="40dp"
                     android:textColor="@color/text_white"
                     android:layout_marginTop="16dp"
                     android:textSize="@dimen/title_text_size" />

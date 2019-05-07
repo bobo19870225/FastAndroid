@@ -85,6 +85,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(AddressManageVM.class)) {
             //noinspection unchecked
             return (T) new AddressManageVM(application, apiService);
+        } else if (modelClass.isAssignableFrom(CalendarVM.class)) {
+            //noinspection unchecked
+            return (T) new CalendarVM(application, apiService);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

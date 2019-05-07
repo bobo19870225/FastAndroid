@@ -89,6 +89,7 @@
 
 
                 <ImageView
+                    android:onClick="@{()->model.signIn()}"
                     android:layout_width="167dp"
                     android:layout_height="51dp"
                     android:layout_alignBottom="@+id/tt"

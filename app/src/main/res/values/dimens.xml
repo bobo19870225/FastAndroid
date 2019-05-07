@@ -29,4 +29,5 @@
     <!--去掉底部导航大小变化-->
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">14dp</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">14dp</dimen>
+    <dimen name="text">12sp</dimen>
 </resources>

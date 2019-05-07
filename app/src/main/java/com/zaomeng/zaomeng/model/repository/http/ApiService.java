@@ -20,6 +20,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.SignInBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 
@@ -280,6 +281,21 @@ public interface ApiService {
     @GET("getMemberShopList.json")
     Call<PageBean<MemberShopBean>> getMemberShopList(
             @Query("sessionID") String sessionID);
+
+    /**
+     * 签到
+     */
+    @GET("submitOneSignIn.json")
+    LiveData<Resource<Bean<String>>> submitOneSignIn(@Query("sessionID") String sessionID);
+
+    /**
+     * 签到
+     */
+    @GET("getSignInList.json")
+    LiveData<Resource<PageBean<SignInBean>>> getSignInList(@Query("sessionID") String sessionID,
+                                                           @Query("currentPage") Integer currentPage,
+                                                           @Query("pageNumber") Integer pageNumber);
+
 
 
 }
