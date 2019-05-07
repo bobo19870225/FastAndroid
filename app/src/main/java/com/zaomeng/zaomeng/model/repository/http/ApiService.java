@@ -296,6 +296,17 @@ public interface ApiService {
                                                            @Query("currentPage") Integer currentPage,
                                                            @Query("pageNumber") Integer pageNumber);
 
+    /**
+     * 获取我的积分列表
+     */
+    @GET("getMyPointList.json")
+    Call<PageBean<MemberShopBean>> getMyPointList(
+            @Query("sessionID") String sessionID,
+            @Query("currentPage") Integer currentPage,
+            @Query("pageNumber") Integer pageNumber);
+
+
+
 
 
 }

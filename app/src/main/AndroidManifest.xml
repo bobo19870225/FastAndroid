@@ -48,6 +48,8 @@
         <activity android:name=".view.OrderSettlementActivity" />
         <activity android:name=".view.AddressManageActivity" />
         <activity android:name=".view.CalendarActivity" />
+        <activity android:name=".view.PointActivity" />
+        <activity android:name=".view.BonusActivity" />
     </application>
 
 </manifest>

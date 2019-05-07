@@ -90,6 +90,7 @@
             android:background="@drawable/bg_button_corner_white">
 
             <RelativeLayout
+                android:onClick="@{()->model.bonus()}"
                 android:layout_margin="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -136,6 +137,7 @@
                 android:background="@color/bg_color" />
 
             <RelativeLayout
+                android:onClick="@{()->model.point()}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/line"

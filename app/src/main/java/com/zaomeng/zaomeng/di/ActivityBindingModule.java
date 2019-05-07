@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.di;
 
 import com.zaomeng.zaomeng.view.AddressManageActivity;
+import com.zaomeng.zaomeng.view.BonusActivity;
 import com.zaomeng.zaomeng.view.CalendarActivity;
 import com.zaomeng.zaomeng.view.CertificationActivity;
 import com.zaomeng.zaomeng.view.GoodsDetailsActivity;
@@ -10,6 +11,7 @@ import com.zaomeng.zaomeng.view.MainActivity;
 import com.zaomeng.zaomeng.view.MessageActivity;
 import com.zaomeng.zaomeng.view.OrderActivity;
 import com.zaomeng.zaomeng.view.OrderSettlementActivity;
+import com.zaomeng.zaomeng.view.PointActivity;
 import com.zaomeng.zaomeng.view.RegisterActivity;
 import com.zaomeng.zaomeng.view.SearchActivity;
 import com.zaomeng.zaomeng.view.ServiceActivity;
@@ -79,6 +81,14 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector()
     abstract CalendarActivity calendarActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = {PointModule.class})
+    abstract PointActivity pointActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = {PointModule.class})
+    abstract BonusActivity bonusActivity();
 
 
 }

@@ -134,6 +134,7 @@ dependencies {
 //    implementation 'org.xutils:xutils:3.3.36'
     //动态权限
     implementation 'com.lovedise:permissiongen:0.0.6'
+    //日历
     implementation 'com.prolificinteractive:material-calendarview:1.4.2'
-//    implementation 'com.github.prolificinteractive:material-calendarview:1.4.0'
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
 }
