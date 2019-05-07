@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityOrderSettlementBinding;
-import com.zaomeng.zaomeng.model.repository.dataBase.Address;
-import com.zaomeng.zaomeng.utils.DBUtils;
-import com.zaomeng.zaomeng.view.adapter.LocationAdapter;
+import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
+import com.zaomeng.zaomeng.utils.HttpHelper;
+import com.zaomeng.zaomeng.view.adapter.address.AddressAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
-import com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView;
 import com.zaomeng.zaomeng.view_model.OrderSettlementVM;
+import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
 import java.util.List;
 
@@ -22,26 +23,25 @@ import javax.inject.Inject;
  */
 public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, ActivityOrderSettlementBinding> {
     @Inject
-    DBUtils dbUtils;
-    private List<Address> addressList;
+    ViewModelFactory viewModelFactory;
+    private AddressAdapter addressAdapter;
     @NonNull
     @Override
     protected OrderSettlementVM createdViewModel() {
-        return ViewModelProviders.of(this).get(OrderSettlementVM.class);
+        return ViewModelProviders.of(this, viewModelFactory).get(OrderSettlementVM.class);
     }
 
     @Override
     protected void setView() {
-        LocationAdapter locationAdapter = new LocationAdapter();
-        addressList = dbUtils.getProvincesFromDB();
-        RecyclerViewForScrollView list = mViewDataBinding.list;
-        list.setAdapter(locationAdapter);
-//        list.setLayoutManager(new FullyLinearLayoutManager(getApplicationContext()));
-        locationAdapter.setOnItemClick((view, ItemObject, position) -> {
-            List<Address> provincesFromDBByPID = dbUtils.getProvincesFromDBByPID(ItemObject.ID);
-            locationAdapter.setList(provincesFromDBByPID);
+        addressAdapter = new AddressAdapter();
+        mViewModel.getAddress().observe(this, pageBeanResource -> {
+            PageDataBean<MemberShopBean> memberShopBeanPageDataBean = new HttpHelper<MemberShopBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            if (memberShopBeanPageDataBean != null) {
+                List<MemberShopBean> rows = memberShopBeanPageDataBean.getRows();
+                addressAdapter.setList(rows);
+            }
         });
-        locationAdapter.setList(addressList);
+        mViewDataBinding.list.setAdapter(addressAdapter);
         mViewDataBinding.scrollView.smoothScrollTo(0, 0);
 
     }

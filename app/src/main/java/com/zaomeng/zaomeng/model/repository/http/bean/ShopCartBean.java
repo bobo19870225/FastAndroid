@@ -11,7 +11,8 @@ public class ShopCartBean implements Parcelable {
 
 
     /**
-     * id : 2c9051726a646c47016a67f125fe0016
+     * id : 2c9051726a82a80b016a832517f10000
+     * name : 知味观 小笼包 笋丁猪肉味 250g（包子 早餐 馒头花卷 杭州特产）
      * cartID : 2c9051726a646c47016a6484de6a0007
      * goodsShopID : 2c9051726a3f6378016a482352ff0023
      * standPrice : 7.8
@@ -21,11 +22,12 @@ public class ShopCartBean implements Parcelable {
      * priceTotal : 7.8
      * objectFeatureItemID1 : 2c9051726a3f6378016a48243a2f002b
      * objectFeatureItemName1 : 250g*12包
-     * isSelected : 1
+     * isSelected : 0
      * littleImage : http://wj.haoju.me/14ef7461cc2c42ebb3f10651b63a7826.jpg
      */
 
     private String id;
+    private String name;
     private String cartID;
     private String goodsShopID;
     private double standPrice;
@@ -44,6 +46,14 @@ public class ShopCartBean implements Parcelable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCartID() {
@@ -142,6 +152,7 @@ public class ShopCartBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
+        dest.writeString(this.name);
         dest.writeString(this.cartID);
         dest.writeString(this.goodsShopID);
         dest.writeDouble(this.standPrice);
@@ -160,6 +171,7 @@ public class ShopCartBean implements Parcelable {
 
     protected ShopCartBean(Parcel in) {
         this.id = in.readString();
+        this.name = in.readString();
         this.cartID = in.readString();
         this.goodsShopID = in.readString();
         this.standPrice = in.readDouble();

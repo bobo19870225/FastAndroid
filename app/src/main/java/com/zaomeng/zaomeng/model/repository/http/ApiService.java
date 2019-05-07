@@ -283,6 +283,13 @@ public interface ApiService {
             @Query("sessionID") String sessionID);
 
     /**
+     * 获取我的消息列表
+     */
+    @GET("getMemberShopList.json")
+    LiveData<Resource<PageBean<MemberShopBean>>> getMemberShopListLD(
+            @Query("sessionID") String sessionID);
+
+    /**
      * 签到
      */
     @GET("submitOneSignIn.json")

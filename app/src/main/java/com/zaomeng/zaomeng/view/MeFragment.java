@@ -41,13 +41,9 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
 
             switch (s) {
                 case "allOrder":
-
-                    break;
                 case "payment":
-
-                    break;
                 case "receivingGoods":
-
+                    skipTo(OrderActivity.class, s);
                     break;
                 case "cancel":
                     skipTo(ServiceActivity.class, null);

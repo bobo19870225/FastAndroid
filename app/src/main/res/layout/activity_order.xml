@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
 
-    <com.zaomeng.zaomeng.view.custom_view.PagerSlidingTabStrip
-        android:id="@+id/table_strip"
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_height"
-        app:pstsDividerPadding="@dimen/divide_padding"
-        app:pstsIndicatorColor="@color/tab_blue"
-        app:pstsIndicatorHeight="@dimen/line"
-        app:pstsSelectedTabTextColor="@color/them_color"
-        app:pstsTextSize="@dimen/title_text_size"
-        app:pstsUnderlineColor="@color/main_gray"
-        app:pstsUnselectedTextColor="@android:color/black">
+        android:background="@android:color/white">
 
-    </com.zaomeng.zaomeng.view.custom_view.PagerSlidingTabStrip>
-
+    </net.lucode.hackware.magicindicator.MagicIndicator>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"

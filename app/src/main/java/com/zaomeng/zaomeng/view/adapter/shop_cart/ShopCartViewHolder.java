@@ -23,6 +23,7 @@ import kotlin.jvm.functions.Function0;
  */
 public class ShopCartViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
+    private TextView specifications;
     private TextView price;
     private TextView number;
     private View add;
@@ -33,6 +34,7 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
     private ShopCartViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
+        specifications = itemView.findViewById(R.id.specifications);
         price = itemView.findViewById(R.id.price);
         number = itemView.findViewById(R.id.number);
         add = itemView.findViewById(R.id.add);
@@ -55,7 +57,8 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
               OnItemClick<ShopCartBean> onReduceClick,
               Function0 actionReduce,
               Boolean isCheckedHasMap) {
-        goodsName.setText(goods.getObjectFeatureItemName1());
+        goodsName.setText(goods.getName());
+        specifications.setText(goods.getObjectFeatureItemName1());
         Glide.with(goodsIcon).load(goods.getLittleImage()).into(goodsIcon);
         price.setText(FormatUtils.numberFormatMoney(goods.getPriceNow()));
         number.setText(String.valueOf(goods.getQty()));
