@@ -9,7 +9,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by Sampson on 2019-04-26.
  * FastAndroid
  */
-public class SharedPreerencesUtils {
+public class SharedPreferencesUtils {
     /**
      * 使用SharedPreferences保存用户登录信息
      *
@@ -29,6 +29,17 @@ public class SharedPreerencesUtils {
         editor.apply();
     }
 
+    public static void cleanLoginInfo(Context context) {
+        // 获取SharedPreferences对象
+        SharedPreferences sharedPre = context.getSharedPreferences("config", MODE_PRIVATE);
+        // 获取Editor对象
+        SharedPreferences.Editor editor = sharedPre.edit();
+        // 设置参数
+        editor.putString("username", null);
+        editor.putString("password", null);
+        // 提交
+        editor.apply();
+    }
     /**
      * 使用SharedPreferences保存sessionID
      */
@@ -51,6 +62,17 @@ public class SharedPreerencesUtils {
         SharedPreferences sharedPre = context.getSharedPreferences("sessionID", MODE_PRIVATE);
         if (sharedPre != null)
             return sharedPre.getString("sessionID", null);
+        return null;
+    }
+
+    /**
+     * 使用SharedPreferences保存sessionID
+     */
+    public static String[] getLoginInfo(Context context) {
+
+        SharedPreferences sharedPre = context.getSharedPreferences("config", MODE_PRIVATE);
+        if (sharedPre != null)
+            return new String[]{sharedPre.getString("username", null), sharedPre.getString("password", null)};
         return null;
     }
 }

@@ -14,7 +14,7 @@ import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.base.BaseDaggerActivity;
 
 import javax.inject.Inject;
@@ -54,12 +54,12 @@ public class MainActivity extends BaseDaggerActivity {
         navigation = findViewById(R.id.navigation);
         BottomNavigationItemView shoppingCart = navigation.findViewById(R.id.shoppingCartFragment);
         badge = new QBadgeView(this).bindTarget(shoppingCart)
-                .setShowShadow(true)
+                .setShowShadow(false)
                 .setBadgeGravity(Gravity.END | Gravity.TOP)
                 .setGravityOffset(10, 0, true)
 //                .setOnDragStateChangedListener(null)
                 .setBadgeNumber(0);
-        apiService.getCartGoodsListLD(SharedPreerencesUtils.getSessionID(getApplicationContext()), 1, 10)
+        apiService.getCartGoodsListLD(SharedPreferencesUtils.getSessionID(getApplicationContext()), 1, 10)
                 .observe(this, pageBeanResource -> {
                     PageDataBean<ShopCartBean> goodsPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource);
                     if (goodsPageDataBean != null) {

@@ -14,7 +14,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 import retrofit2.Call;
@@ -54,7 +54,7 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
     }
 
     public LiveData<Resource<Bean<String>>> addCollect(String goodsId, String goodsName) {
-        return apiService.addCollect(SharedPreerencesUtils.getSessionID(getApplication()),
+        return apiService.addCollect(SharedPreferencesUtils.getSessionID(getApplication()),
                 goodsId,
                 goodsName,
                 "422429993732");

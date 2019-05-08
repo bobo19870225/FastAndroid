@@ -10,7 +10,7 @@ import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 
 import retrofit2.Call;
 
@@ -42,7 +42,7 @@ public class MessageVM extends ListViewModel<Integer, BranchGoodsBean> {
     @Override
     public Call<PageBean<BranchGoodsBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
         return apiService.getMyMessageList(1, params.requestedLoadSize,
-                SharedPreerencesUtils.getSessionID(getApplication()),
+                SharedPreferencesUtils.getSessionID(getApplication()),
                 1);
     }
 
@@ -55,7 +55,7 @@ public class MessageVM extends ListViewModel<Integer, BranchGoodsBean> {
 
     @Override
     public Call<PageBean<BranchGoodsBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getMyMessageList(params.key, params.requestedLoadSize, SharedPreerencesUtils.getSessionID(getApplication()), 1);
+        return apiService.getMyMessageList(params.key, params.requestedLoadSize, SharedPreferencesUtils.getSessionID(getApplication()), 1);
 
     }
 

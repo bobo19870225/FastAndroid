@@ -12,7 +12,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SignInBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 
 /**
  * Created by Sampson on 2019-05-05.
@@ -32,7 +32,7 @@ public class CalendarVM extends BaseViewModel {
 
     @Override
     public void init(Object data) {
-        sessionID = SharedPreerencesUtils.getSessionID(getApplication());
+        sessionID = SharedPreferencesUtils.getSessionID(getApplication());
     }
 
     public void signIn() {

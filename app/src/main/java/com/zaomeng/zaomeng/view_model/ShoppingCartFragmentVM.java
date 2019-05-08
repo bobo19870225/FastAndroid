@@ -15,7 +15,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 import retrofit2.Call;
@@ -32,7 +32,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     ShoppingCartFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
-        sessionID = SharedPreerencesUtils.getSessionID(getApplication());
+        sessionID = SharedPreferencesUtils.getSessionID(getApplication());
     }
 
     public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();

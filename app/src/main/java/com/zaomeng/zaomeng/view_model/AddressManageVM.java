@@ -9,7 +9,7 @@ import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 
 import retrofit2.Call;
 
@@ -34,7 +34,7 @@ public class AddressManageVM extends ListViewModel<Integer, MemberShopBean> {
 
     @Override
     public Call<PageBean<MemberShopBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getMemberShopList(SharedPreerencesUtils.getSessionID(getApplication()));
+        return apiService.getMemberShopList(SharedPreferencesUtils.getSessionID(getApplication()));
     }
 
     @Override

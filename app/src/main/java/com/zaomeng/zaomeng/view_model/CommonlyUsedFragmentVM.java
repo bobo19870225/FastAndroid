@@ -14,7 +14,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.CommonlyUsedFragment;
 
 import retrofit2.Call;
@@ -47,7 +47,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     @NonNull
     @Override
     public Call<PageBean<CollectInfoBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getCollectList(SharedPreerencesUtils.getSessionID(getApplication()), "422429993732", 1, params.requestedLoadSize);
+        return apiService.getCollectList(SharedPreferencesUtils.getSessionID(getApplication()), "422429993732", 1, params.requestedLoadSize);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     @NonNull
     @Override
     public Call<PageBean<CollectInfoBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getCollectList(SharedPreerencesUtils.getSessionID(getApplication()), "422429993732", params.key, params.requestedLoadSize);
+        return apiService.getCollectList(SharedPreferencesUtils.getSessionID(getApplication()), "422429993732", params.key, params.requestedLoadSize);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     }
 
     public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
-        String sessionID = SharedPreerencesUtils.getSessionID(getApplication());
+        String sessionID = SharedPreferencesUtils.getSessionID(getApplication());
         if (sessionID != null) {
             return apiService.addGoodsShopToCart(sessionID,
                     goodsShopID, qty, objectFeatureItemID1);

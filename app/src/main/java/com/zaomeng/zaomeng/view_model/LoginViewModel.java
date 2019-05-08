@@ -11,6 +11,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.FormatUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 import static com.zaomeng.zaomeng.utils.SystemParameter.siteID;
@@ -36,7 +37,11 @@ public class LoginViewModel extends BaseViewModel {
 
     @Override
     public void init(Object data) {
-
+        String[] loginInfo = SharedPreferencesUtils.getLoginInfo(getApplication());
+        if (loginInfo != null && loginInfo[0] != null && loginInfo[1] != null) {
+            ldShow.setValue(true);
+            ldLogin.addSource(apiService.appLogin(loginInfo[0], loginInfo[1], siteID, "1"), ldLogin::setValue);
+        }
     }
 
     public void register() {

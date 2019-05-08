@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 import com.zaomeng.zaomeng.utils.http.OkHttpUtil;
 
@@ -98,7 +98,7 @@ public class CertificationVM extends BaseViewModel {
         }
         ldSubmit.addSource(
                 apiService.applyMemberShop(
-                        SharedPreerencesUtils.getSessionID(getApplication()),
+                        SharedPreferencesUtils.getSessionID(getApplication()),
                         ldName.getValue(),
                         "a74eeee1-750c-497d-afaa-cd867014f5f8",
                         "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg",

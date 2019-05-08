@@ -42,8 +42,8 @@
 
 
         <ScrollView
-            android:paddingLeft="@dimen/layout_margin"
-            android:paddingRight="@dimen/layout_margin"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:scrollbars="none"
             android:id="@+id/login_form"
             android:layout_width="match_parent"

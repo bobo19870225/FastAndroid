@@ -15,7 +15,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 import retrofit2.Call;
@@ -99,7 +99,7 @@ public class SortFragmentVM extends ListViewModel<Integer, GoodsListRowsBean> {
     }
 
     public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
-        String sessionID = SharedPreerencesUtils.getSessionID(getApplication());
+        String sessionID = SharedPreferencesUtils.getSessionID(getApplication());
         if (sessionID != null) {
             return apiService.addGoodsShopToCart(sessionID,
                     goodsShopID, qty, objectFeatureItemID1);

@@ -100,7 +100,7 @@ public class ShowSpecificationHelper {
                     TextView te = holder.getView(R.id.imageview);
                     te.setText(itemListBean.getObjectFeatureItemName());
                     if (oldPosition == position) {
-                        te.setBackground(view.getContext().getResources().getDrawable(R.drawable.bg_button_them_color));
+                        te.setBackground(view.getContext().getResources().getDrawable(R.drawable.button_them_color_select));
                     } else {
                         te.setBackground(view.getContext().getResources().getDrawable(R.drawable.button_them_color_un_select));
                     }

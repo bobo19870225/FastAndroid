@@ -21,7 +21,7 @@ import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.LoginViewModel;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -159,6 +159,11 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                 }
         );
         mEmailView = mViewDataBinding.phone;
+        mViewModel.ldPhone.observe(this, s -> {
+            if (s.length() == 11) {
+                mViewDataBinding.password.requestFocus();
+            }
+        });
         mayRequestContacts();
         EditText mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
@@ -178,11 +183,12 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
 //                    showProgress(false);
                     if (loginBeanBean.getHeader().getCode() == 0) {
                         BodyBean<LoginBean> body = loginBeanBean.getBody();
-                        String sessionID = body.getSessionID();
-                        SharedPreerencesUtils.saveSessionID(getApplicationContext(), sessionID);
                         LoginBean loginBean = body.getData();
                         if (loginBean != null) {
                             skipTo(MainActivity.class, new String[]{"6ba58046-7eb2-4f11-bbb3-b934abeb29a8", null});
+                            String sessionID = body.getSessionID();
+                            SharedPreferencesUtils.saveSessionID(getApplicationContext(), sessionID);
+                            SharedPreferencesUtils.saveLoginInfo(getApplicationContext(), mViewModel.ldPhone.getValue(), mViewModel.ldPassword.getValue());
                             finish();
                         }
                     } else {

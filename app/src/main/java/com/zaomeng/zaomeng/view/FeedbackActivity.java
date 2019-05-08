@@ -2,12 +2,19 @@ package com.zaomeng.zaomeng.view;
 
 import android.Manifest;
 import android.content.Intent;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityFeedbackBinding;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
@@ -16,6 +23,8 @@ import com.zaomeng.zaomeng.view.adapter.feedback.FeedbackImageAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.FeedbackVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +43,7 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
     ViewModelFactory viewModelFactory;
     private List<String> list = new ArrayList<>();
     private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
+    private int oldPosition = -1;
     @NonNull
     @Override
     protected FeedbackVM createdViewModel() {
@@ -42,13 +52,51 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
 
     @Override
     protected void setView() {
-        mViewDataBinding.contant.setHorizontallyScrolling(false);
-        mViewDataBinding.contant.setSingleLine(false);
-        mViewModel.ldContent.observe(this, s -> {
-            int length = s.length();
-            String s1 = length + "/" + "200";
-            mViewModel.ldTextNumber.setValue(s1);
+        setEditText();
+        setImageList();
+        RecyclerView recyclerView = mViewDataBinding.list;
+
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
+        layoutManager.setFlexWrap(FlexWrap.WRAP);
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setAlignItems(AlignItems.STRETCH);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        recyclerView.setLayoutManager(layoutManager);
+        List<String> itemList = new ArrayList<>();
+        itemList.add("页面信息有误");
+        itemList.add("APP不稳定");
+        itemList.add("支付遇到问题");
+        itemList.add("账号相关问题");
+        itemList.add("其他");
+        recyclerView.setAdapter(new CommonAdapter<String>(getApplication(), R.layout.flexbox_item_text, itemList) {
+            @Override
+            protected void convert(ViewHolder holder, String itemListBean, int position) {
+
+                TextView te = holder.getView(R.id.imageview);
+                te.setText(itemListBean);
+                if (oldPosition == position) {
+                    te.setBackground(getApplication().getResources().getDrawable(R.drawable.button_them_color_select));
+                } else {
+                    te.setBackground(getApplication().getResources().getDrawable(R.drawable.button_them_color_un_select));
+                }
+                te.setOnClickListener(v -> {
+                            oldPosition = position;
+                            notifyDataSetChanged();
+                        }
+                );
+                ViewGroup.LayoutParams lp = te.getLayoutParams();
+                if (lp instanceof FlexboxLayoutManager.LayoutParams) {
+                    FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
+//                    flexBoxLp.setFlexGrow(1.0f);
+                    flexBoxLp.width = itemListBean.getBytes().length * 20;
+                }
+
+            }
+
         });
+    }
+
+    private void setImageList() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mViewDataBinding.listImage.setLayoutManager(linearLayoutManager);
@@ -71,6 +119,16 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
             feedbackImageAdapter.setList(list);
 //            mViewModel.uploadImg(s);
         }, false);//true裁剪，false不裁剪
+    }
+
+    private void setEditText() {
+        mViewDataBinding.contant.setHorizontallyScrolling(false);
+        mViewDataBinding.contant.setSingleLine(false);
+        mViewModel.ldContent.observe(this, s -> {
+            int length = s.length();
+            String s1 = length + "/" + "200";
+            mViewModel.ldTextNumber.setValue(s1);
+        });
     }
 
     @PermissionSuccess(requestCode = LQRPhotoSelectUtils.REQ_SELECT_PHOTO)

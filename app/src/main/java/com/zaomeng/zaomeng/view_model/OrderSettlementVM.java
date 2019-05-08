@@ -9,7 +9,7 @@ import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.SharedPreerencesUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 
 /**
  * Created by Sampson on 2019-05-02.
@@ -28,7 +28,7 @@ public class OrderSettlementVM extends BaseViewModel {
 
     @Override
     public void init(Object data) {
-        sessionID = SharedPreerencesUtils.getSessionID(getApplication());
+        sessionID = SharedPreferencesUtils.getSessionID(getApplication());
     }
 
     public LiveData<Resource<PageBean<MemberShopBean>>> getAddress() {
