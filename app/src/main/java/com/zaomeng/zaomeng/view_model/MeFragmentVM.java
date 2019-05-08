@@ -52,6 +52,11 @@ public class MeFragmentVM extends BaseViewModel {
     }
 
     public void bonus() {
-        action.setValue(" bonus");
+        action.setValue("bonus");
     }
+
+    public void feedback() {
+        action.setValue("feedback");
+    }
+
 }

@@ -57,8 +57,11 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
                 case "point":
                     skipTo(PointActivity.class, null);
                     break;
-                case " bonus":
+                case "bonus":
                     skipTo(BonusActivity.class, null);
+                    break;
+                case "feedback":
+                    skipTo(FeedbackActivity.class, null);
                     break;
             }
         });
