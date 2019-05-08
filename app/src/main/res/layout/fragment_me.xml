@@ -448,6 +448,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:onClick="@{()->model.setting()}"
                     android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
