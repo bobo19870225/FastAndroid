@@ -143,7 +143,6 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
         List<ShopCartBean> unList = new ArrayList<>();
         if (isCheckedHasMap != null) {
             for (int i = 0; i < isCheckedHasMap.size(); i++) {
-
                 Boolean aBoolean = isCheckedHasMap.get(i);
                 if (aBoolean != null) {
                     //全部的

@@ -67,7 +67,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                         return;
                     }
                     skipTo(OrderSettlementActivity.class, selectItem);
-//                    pay();
+
                     break;
                 case "selectAll":
                     shopCartAdapter.selectedAll();
@@ -136,10 +136,9 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         }
     }
 
-    private void pay() {
+    private void pay(String orderInfo) {
         final Runnable payRunnable = () -> {
             PayTask alipay = new PayTask(getActivity());
-            String orderInfo = null;
             Map<String, String> result = alipay.payV2(orderInfo, true);
             Log.i("msp", result.toString());
 //                        Message msg = new Message();

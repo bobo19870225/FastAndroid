@@ -22,10 +22,9 @@ import kotlin.jvm.functions.Function0;
 public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends ViewDataBinding, A extends BasePagedListAdapter> extends MVVMFragment<VM, VDB> {
 
     private A adapter;
-    private
-    SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-
+    private Listing listing;
     @Override
     protected final void initUI() {
         recyclerView = setRecyclerView();
@@ -36,7 +35,7 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
 
     @SuppressWarnings("unchecked")
     protected void setListView(Object transferData) {
-        Listing listing = mViewModel.getListing(transferData);
+        listing = mViewModel.getListing(transferData);
         if (listing != null) {
             LiveData<PagedList> pagedList = listing.getPagedList();
             adapter = setAdapter(listing.reTry);
@@ -63,6 +62,12 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
 //                    doError((NetWorkState) o);
                 }
             });
+        }
+    }
+
+    protected void refresh() {
+        if (listing != null) {
+            listing.refresh.invoke();
         }
     }
 

@@ -16,7 +16,9 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
@@ -175,10 +177,10 @@ public interface ApiService {
      * 购物车生成订单
      */
     @GET("createMemberOrderFromCart.json")
-    Call<Message<Goods>> createMemberOrderFromCart(@Query("sessionID") String sessionID,
-                                                   @Query("contactName") String contactName,
-                                                   @Query("contactPhone") String contactPhone,
-                                                   @Query("address") String address);
+    LiveData<Resource<Bean<String>>> createMemberOrderFromCart(@Query("sessionID") String sessionID,
+                                                               @Query("contactName") String contactName,
+                                                               @Query("contactPhone") String contactPhone,
+                                                               @Query("address") String address);
 
     /**
      * 店铺商品生成订单
@@ -312,6 +314,25 @@ public interface ApiService {
             @Query("currentPage") Integer currentPage,
             @Query("pageNumber") Integer pageNumber);
 
+    /**
+     * 获取我的订单列表
+     */
+    @GET("getMemberOrderList.json")
+    Call<PageBean<OrderBean>> getMemberOrderList(
+            @Query("sessionID") String sessionID,
+            @Query("status") String status,
+            @Query("currentPage") Integer currentPage,
+            @Query("pageNumber") Integer pageNumber);
+
+    /**
+     * 签到
+     */
+    @GET("appApplyMemberOrderPay.json")
+    LiveData<Resource<PayBean>> appApplyMemberOrderPay(@Query("sessionID") String sessionID,
+                                                       @Query("payWayID") String payWayID,
+                                                       @Query("appType") String appType,
+                                                       @Query("memberOrderID") String memberOrderID,
+                                                       @Query("memberPaymentID") String memberPaymentID);
 
 
 

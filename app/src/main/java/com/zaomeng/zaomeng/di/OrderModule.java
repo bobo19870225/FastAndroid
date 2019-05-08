@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.di;
 
 import com.zaomeng.zaomeng.view.CommonlyUsedFragment;
+import com.zaomeng.zaomeng.view.OrderFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -13,6 +14,9 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class OrderModule {
     @ContributesAndroidInjector
     abstract CommonlyUsedFragment commonlyUsedFragment();
+
+    @ContributesAndroidInjector
+    abstract OrderFragment orderFragment();
 
 
 }

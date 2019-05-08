@@ -21,6 +21,7 @@ public class OrderSettlementVM extends BaseViewModel {
     private ApiService apiService;
     private String sessionID;
 
+    //public final MediatorLiveData<>
     public OrderSettlementVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -33,5 +34,12 @@ public class OrderSettlementVM extends BaseViewModel {
 
     public LiveData<Resource<PageBean<MemberShopBean>>> getAddress() {
         return apiService.getMemberShopListLD(sessionID);
+    }
+
+    public void submitOrder() {
+        apiService.createMemberOrderFromCart(sessionID,
+                "卢声波",
+                "18101603953",
+                "上海市，天目中路538弄1号6B");
     }
 }

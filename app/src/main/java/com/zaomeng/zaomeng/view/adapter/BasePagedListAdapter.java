@@ -3,6 +3,8 @@ package com.zaomeng.zaomeng.view.adapter;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +28,11 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
         this.retryCallback = retryCallback;
     }
 
+    @Override
+    public void submitList(@Nullable PagedList<T> pagedList, @Nullable Runnable commitCallback) {
+        super.submitList(pagedList, commitCallback);
+
+    }
 
     @NonNull
     @Override
