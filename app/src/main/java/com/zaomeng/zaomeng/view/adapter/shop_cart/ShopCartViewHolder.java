@@ -15,8 +15,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
-import kotlin.jvm.functions.Function0;
-
 /**
  * Created by Sampson on 2019/3/11.
  * FastAndroid
@@ -49,55 +47,48 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
         return new ShopCartViewHolder(view);
     }
 
-    void bind(ShopCartBean goods,
+    void bind(ShopCartBean shopCartBean,
               OnItemClick<ShopCartBean> onSelectClick,
-              Function0 actionSelect,
               OnItemClick<ShopCartBean> onAddClick,
-              Function0 actionAdd,
-              OnItemClick<ShopCartBean> onReduceClick,
-              Function0 actionReduce,
-              Boolean isCheckedHasMap) {
-        goodsName.setText(goods.getName());
-        specifications.setText(goods.getObjectFeatureItemName1());
-        Glide.with(goodsIcon).load(goods.getLittleImage()).into(goodsIcon);
-        price.setText(FormatUtils.numberFormatMoney(goods.getPriceNow()));
-        number.setText(String.valueOf(goods.getQty()));
-        if (isCheckedHasMap != null && isCheckedHasMap) {
+              OnItemClick<ShopCartBean> onReduceClick) {
+        goodsName.setText(shopCartBean.getName());
+        specifications.setText(shopCartBean.getObjectFeatureItemName1());
+        Glide.with(goodsIcon).load(shopCartBean.getLittleImage()).into(goodsIcon);
+        price.setText(FormatUtils.numberFormatMoney(shopCartBean.getPriceNow()));
+        number.setText(String.valueOf(shopCartBean.getQty()));
+        if (shopCartBean.getIsSelected() == 1) {
             select.setImageResource(R.mipmap.selected);
         } else {
             select.setImageResource(R.mipmap.un_select);
         }
         select.setOnClickListener(v -> {
-            if (actionSelect != null)
-                actionSelect.invoke();
+//            if (actionSelect != null) {
+//                actionSelect.invoke();
+//            }
             if (onSelectClick != null)
-                onSelectClick.onClick(v, goods, getAdapterPosition());
+                onSelectClick.onClick(v, shopCartBean, getAdapterPosition());
         });
         add.setOnClickListener(v -> {
-            if (actionAdd != null) {
-                actionAdd.invoke();
-            }
+
             int n = Integer.valueOf(number.getText().toString());
             n += 1;
             number.setText(String.valueOf(n));
-            goods.setQty(n);
+            shopCartBean.setQty(n);
             if (onAddClick != null) {
-                onAddClick.onClick(v, goods, getLayoutPosition());
+                onAddClick.onClick(v, shopCartBean, getLayoutPosition());
             }
         });
         reduce.setOnClickListener(v -> {
-            if (actionReduce != null) {
-                actionReduce.invoke();
-            }
+
             int n = Integer.parseInt(number.getText().toString());
             n -= 1;
             if (n < 0) {
                 n = 0;
             }
             number.setText(String.valueOf(n));
-            goods.setQty(n);
+            shopCartBean.setQty(n);
             if (onReduceClick != null) {
-                onReduceClick.onClick(v, goods, getLayoutPosition());
+                onReduceClick.onClick(v, shopCartBean, getLayoutPosition());
             }
         });
     }

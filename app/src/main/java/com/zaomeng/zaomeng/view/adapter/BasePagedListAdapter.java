@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
+import com.zaomeng.zaomeng.model.repository.Status;
 
 import kotlin.jvm.functions.Function0;
 
@@ -62,7 +63,7 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
 
 
     protected Boolean hasExtraRow() {
-        return netWorkState != null && !netWorkState.equals(NetWorkState.loaded());
+        return netWorkState != null && netWorkState.getStatus() == Status.FAILED;
     }
 
     @Override

@@ -27,6 +27,7 @@ import retrofit2.Call;
  */
 public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean> {
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
+    public final MutableLiveData<Integer> ldGoodsTotal = new MutableLiveData<>();
     private ApiService apiService;
     private String sessionID;
     ShoppingCartFragmentVM(@NonNull Application application, ApiService apiService) {
@@ -85,6 +86,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
 
     @Override
     public void setLoadInitialCallback(PageBean<ShopCartBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, ShopCartBean> callback) {
+        ldGoodsTotal.postValue(body.getBody().getData().getTotal());
         callback.onResult(body.getBody().getData().getRows(), 1, 2);
     }
 
