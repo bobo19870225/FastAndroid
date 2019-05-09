@@ -14,20 +14,20 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PayBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
-import com.zaomeng.zaomeng.view.AllOrderFragment;
+import com.zaomeng.zaomeng.view.NewOrderFragment;
 
 import retrofit2.Call;
 
 /**
  * Created by Sampson on 2019-05-08.
  * FastAndroid
- * {@link AllOrderFragment}
+ * {@link NewOrderFragment}
  */
-public class OrderFragmentVM extends ListViewModel<Integer, OrderBean> {
+public class NewOrderFragmentVM extends ListViewModel<Integer, OrderBean> {
     private ApiService apiService;
     private String sessionID;
 
-    public OrderFragmentVM(@NonNull Application application, ApiService apiService) {
+    public NewOrderFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
     }
@@ -40,7 +40,7 @@ public class OrderFragmentVM extends ListViewModel<Integer, OrderBean> {
 
     @Override
     public Call<PageBean<OrderBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getMemberOrderList(sessionID, null, 1, params.requestedLoadSize);
+        return apiService.getMemberOrderList(sessionID, 1, 1, params.requestedLoadSize);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class OrderFragmentVM extends ListViewModel<Integer, OrderBean> {
 
     @Override
     public Call<PageBean<OrderBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getMemberOrderList(sessionID, null, params.key, params.requestedLoadSize);
+        return apiService.getMemberOrderList(sessionID, 1, params.key, params.requestedLoadSize);
 
     }
 
@@ -77,7 +77,6 @@ public class OrderFragmentVM extends ListViewModel<Integer, OrderBean> {
     /**
      * 微信：402892e96a4ed7a4016a4eda9107000c
      * 支付宝：402892e96a4ed7a4016a4eda5984000a
-     *
      */
     public LiveData<Resource<PayBean>> appApplyMemberOrderPay(String memberOrderID) {
         return apiService.appApplyMemberOrderPay(sessionID,

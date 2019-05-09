@@ -320,7 +320,7 @@ public interface ApiService {
     @GET("getMemberOrderList.json")
     Call<PageBean<OrderBean>> getMemberOrderList(
             @Query("sessionID") String sessionID,
-            @Query("status") String status,
+            @Query("status") Integer status,
             @Query("currentPage") Integer currentPage,
             @Query("pageNumber") Integer pageNumber);
 

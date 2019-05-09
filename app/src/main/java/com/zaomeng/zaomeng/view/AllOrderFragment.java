@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -14,6 +13,7 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentOrderBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.PayBean;
 import com.zaomeng.zaomeng.utils.PayResult;
+import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 import com.zaomeng.zaomeng.view.adapter.order.OrderAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.OrderFragmentVM;
@@ -29,11 +29,11 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019-05-08.
  * FastAndroid
  */
-public class OrderFragment extends MVVMListFragment<OrderFragmentVM, FragmentOrderBinding, OrderAdapter> {
-    private final MutableLiveData<Map<String, String>> ldResult = new MutableLiveData<>();
+public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, FragmentOrderBinding, OrderAdapter> {
+    private final SingleLiveEvent<Map<String, String>> ldResult = new SingleLiveEvent<>();
 
     @Inject
-    public OrderFragment() {
+    public AllOrderFragment() {
     }
 
     @Inject
@@ -46,15 +46,14 @@ public class OrderFragment extends MVVMListFragment<OrderFragmentVM, FragmentOrd
             /*
              * 对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
              */
-            String resultInfo = payResult.getResult();// 同步返回需要验证的信息
             String resultStatus = payResult.getResultStatus();
             // 判断resultStatus 为9000则代表支付成功
             if (TextUtils.equals(resultStatus, "9000")) {
                 // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
 //                showAlert(PayDemoActivity.this, getString(R.string.pay_success) + payResult);
-                toast("支付成功" + payResult.toString());
+                toast("支付成功");
             } else {
-                toast("支付失败" + payResult.toString());
+                toast("支付失败");
                 // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
 //                showAlert(PayDemoActivity.this, getString(R.string.pay_failed) + payResult);
             }

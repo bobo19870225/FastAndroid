@@ -54,9 +54,9 @@ public class OrderActivity extends BaseDaggerActivity {
         viewPager = findViewById(R.id.view_pager);
         FragmentManager fm = getSupportFragmentManager();
         List<Fragment> list = new ArrayList<>();
-        list.add(new OrderFragment());
-        list.add(new CommonlyUsedFragment());
-        list.add(new CommonlyUsedFragment());
+        list.add(new AllOrderFragment());
+        list.add(new NewOrderFragment());
+        list.add(new ReceivedOrderFragment());
         ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(fm, list, mDataList);
         viewPager.setAdapter(listFragmentAdapter);
         initMagicIndicator();
