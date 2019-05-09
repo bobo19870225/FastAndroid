@@ -50,12 +50,12 @@ public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, Fragment
             // 判断resultStatus 为9000则代表支付成功
             if (TextUtils.equals(resultStatus, "9000")) {
                 // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-//                showAlert(PayDemoActivity.this, getString(R.string.pay_success) + payResult);
-                toast("支付成功");
+                refresh();
+//                toast("支付成功");
             } else {
-                toast("支付失败");
                 // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-//                showAlert(PayDemoActivity.this, getString(R.string.pay_failed) + payResult);
+                toast("支付失败");
+
             }
         });
     }

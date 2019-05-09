@@ -60,18 +60,19 @@ public class OrderActivity extends BaseDaggerActivity {
         ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(fm, list, mDataList);
         viewPager.setAdapter(listFragmentAdapter);
         initMagicIndicator();
-        switch ((String) transferData) {
-            case "allOrder":
-                viewPager.setCurrentItem(0);
-                break;
-            case "payment":
-                viewPager.setCurrentItem(1);
-                break;
-            case "receivingGoods":
-                viewPager.setCurrentItem(2);
-                break;
+        if (transferData != null) {
+            switch ((String) transferData) {
+                case "allOrder":
+                    viewPager.setCurrentItem(0);
+                    break;
+                case "payment":
+                    viewPager.setCurrentItem(1);
+                    break;
+                case "receivingGoods":
+                    viewPager.setCurrentItem(2);
+                    break;
+            }
         }
-
     }
 
     private void initMagicIndicator() {

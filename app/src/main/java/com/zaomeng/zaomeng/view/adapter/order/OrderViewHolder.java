@@ -28,6 +28,8 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
     private TextView totalPrice;
     private TextView qty;
     private TextView pay;
+    private TextView orderState;
+    private TextView orderNo;
 
     private ImageView goodsIcon;
 
@@ -40,6 +42,8 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
         qty = itemView.findViewById(R.id.qty);
         pay = itemView.findViewById(R.id.pay);
         goodsIcon = itemView.findViewById(R.id.image);
+        orderState = itemView.findViewById(R.id.order_state);
+        orderNo = itemView.findViewById(R.id.order_no);
     }
 
     public static OrderViewHolder create(ViewGroup parent) {
@@ -57,6 +61,27 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
             price.setText(FormatUtils.numberFormatMoney(goodsListBean.getPriceNow()));
             totalPrice.setText(FormatUtils.numberFormatMoney(goodsListBean.getPriceTotal()));
             time.setText(String.valueOf(orderBean.getApplyTime()));
+            String strStatus = "";
+            int status = orderBean.getStatus();
+            switch (status) {
+                case 1:
+                    strStatus = "待支付";
+                    break;
+                case 2:
+                    strStatus = "已取消";
+                    break;
+                case 4:
+                    strStatus = "已付款";
+                    break;
+                case 6:
+                    strStatus = "已发货";
+                    break;
+                case 8:
+                    strStatus = "已签收";
+                    break;
+            }
+            orderState.setText(strStatus);
+            orderNo.setText(orderBean.getOrderCode());
             pay.setOnClickListener(v -> {
                 if (onItemClick != null)
                     onItemClick.onClick(v, orderBean, getLayoutPosition());

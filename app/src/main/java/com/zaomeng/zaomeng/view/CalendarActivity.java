@@ -60,7 +60,7 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
         mViewModel.ldSignIn.observe(this, beanResource -> {
             if (beanResource.isSuccess()) {
                 Bean<String> resource = beanResource.getResource();
-                showSignInDialog();//for test
+//                showSignInDialog();//for test
                 if (resource != null && resource.getHeader().getCode() == 0) {
                     showSignInDialog();
                 } else {
@@ -111,6 +111,8 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
         ok.setOnClickListener(v -> {
             if (alertDialog.isShowing())
                 alertDialog.dismiss();
+            materialCalendarView.setDateSelected(CalendarDay.today(), true);
+            noticeCalendar();
         });
     }
 

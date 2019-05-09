@@ -80,10 +80,13 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
                     }
                     break;
                 case "myOrder":
+                    skipTo(OrderActivity.class, null);
                     break;
                 case "myCoupon":
+                    skipTo(BonusActivity.class, null);
                     break;
                 case "myPoints":
+                    skipTo(CalendarActivity.class, null);
                     break;
             }
         });

@@ -3,7 +3,6 @@ package com.zaomeng.zaomeng.view_model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
@@ -11,8 +10,6 @@ import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.PayBean;
-import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 
 import retrofit2.Call;
@@ -39,7 +36,7 @@ public class ReceivedOrderFragmentVM extends ListViewModel<Integer, OrderBean> {
 
     @Override
     public Call<PageBean<OrderBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getMemberOrderList(sessionID, 6, 1, params.requestedLoadSize);
+        return apiService.getMemberOrderList(sessionID, 4, 1, params.requestedLoadSize);
     }
 
     @Override
@@ -50,7 +47,7 @@ public class ReceivedOrderFragmentVM extends ListViewModel<Integer, OrderBean> {
 
     @Override
     public Call<PageBean<OrderBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getMemberOrderList(sessionID, 6, params.key, params.requestedLoadSize);
+        return apiService.getMemberOrderList(sessionID, 4, params.key, params.requestedLoadSize);
 
     }
 
@@ -73,13 +70,5 @@ public class ReceivedOrderFragmentVM extends ListViewModel<Integer, OrderBean> {
         sessionID = SharedPreferencesUtils.getSessionID(getApplication());
     }
 
-    /**
-     * 微信：402892e96a4ed7a4016a4eda9107000c
-     * 支付宝：402892e96a4ed7a4016a4eda5984000a
-     */
-    public LiveData<Resource<PayBean>> appApplyMemberOrderPay(String memberOrderID) {
-        return apiService.appApplyMemberOrderPay(sessionID,
-                "402892e96a4ed7a4016a4eda5984000a",
-                "1", memberOrderID, null);
-    }
+
 }

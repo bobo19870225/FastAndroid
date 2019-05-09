@@ -25,14 +25,14 @@
             android:layout_toRightOf="@+id/tt_order_no" />
 
         <TextView
+            android:layout_below="@+id/order_no"
             android:id="@+id/tt_order_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/order_no"
-            android:layout_toRightOf="@+id/order_no"
             android:text="下单时间：" />
 
         <TextView
+            android:layout_below="@+id/order_no"
             android:id="@+id/order_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="已完成"
             android:textColor="@color/them_color" />
 
     </RelativeLayout>
