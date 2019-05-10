@@ -70,26 +70,6 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
         setGoodsData(goodsAdapter);
         mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsAdapter));
-
-        mViewModel.action.observe(this, s -> {
-            switch (s) {
-                case "commonlyUsed":
-                    FragmentActivity activity = getActivity();
-                    if (activity != null) {
-                        ((MainActivity) activity).navigation.setSelectedItemId(R.id.treeFragment);
-                    }
-                    break;
-                case "myOrder":
-                    skipTo(OrderActivity.class, null);
-                    break;
-                case "myCoupon":
-                    skipTo(BonusActivity.class, null);
-                    break;
-                case "myPoints":
-                    skipTo(CalendarActivity.class, null);
-                    break;
-            }
-        });
         Context context = getContext();
         if (context != null) {
             showSpecificationHelper = new ShowSpecificationHelper(context, this);
@@ -152,6 +132,25 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
             showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getObjectID());
 
             MainGoodsFragment.this.getSpecification(ItemObject);
+        });
+        goodsAdapter.setOnHeaderItemClick((view, ItemObject, position) -> {
+            switch (ItemObject) {
+                case "commonlyUsed":
+                    FragmentActivity activity = getActivity();
+                    if (activity != null) {
+                        ((MainActivity) activity).navigation.setSelectedItemId(R.id.treeFragment);
+                    }
+                    break;
+                case "myOrder":
+                    skipTo(OrderActivity.class, null);
+                    break;
+                case "myCoupon":
+                    skipTo(BonusActivity.class, null);
+                    break;
+                case "myPoints":
+                    skipTo(CalendarActivity.class, null);
+                    break;
+            }
         });
         RecyclerView list = mViewDataBinding.list;
         list.setLayoutManager(new GridLayoutManager(getContext(), 6));

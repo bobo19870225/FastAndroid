@@ -22,10 +22,14 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private Function0 retryCallback;
     private NetWorkState netWorkState;
-
+    private OnItemClick<String> onHeaderItemClick;
     private OnItemClick onItemClick;
     private OnItemClick<NavigatorBean.GoodsListBean> onAddClick;
     private List<Item> objects;
+
+    public void setOnHeaderItemClick(OnItemClick<String> onHeaderItemClick) {
+        this.onHeaderItemClick = onHeaderItemClick;
+    }
 
     public void setOnAddClick(OnItemClick<NavigatorBean.GoodsListBean> onAddClick) {
         this.onAddClick = onAddClick;
@@ -55,6 +59,8 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         switch (viewType) {
+            case R.layout.item_header:
+                return GoodsHeaderViewHolder.create(parent);
             case R.layout.item_goods:
                 return GoodsTitleViewHolder.create(parent);
             case R.layout.network_state_item:
@@ -73,27 +79,31 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
+            case R.layout.item_header:
+                ((GoodsHeaderViewHolder) holder).bind(onHeaderItemClick);
+                break;
             case R.layout.item_goods:
-                ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick, position);
+                ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick);
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindTo(netWorkState);
                 break;
             case R.layout.item_goods_navigation:
-                ((GoodsNavigationViewHolder) holder).bind((Item<String>) getItem(position), onItemClick, position);
+                ((GoodsNavigationViewHolder) holder).bind((Item<String>) getItem(position), onItemClick);
                 break;
             case R.layout.item_goods_banner:
-                ((GoodsBannerViewHolder) holder).bind((Item<String>) getItem(position), onItemClick, position);
+                ((GoodsBannerViewHolder) holder).bind((Item<String>) getItem(position), onItemClick);
                 break;
             case R.layout.item_goods_2:
-                ((GoodsGridViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick, position);
+                ((GoodsGridViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick);
                 break;
         }
 
     }
 
     private Object getItem(int position) {
-        return objects.get(position);
+        //+1头部
+        return objects.get(position - 1);
     }
 
 
@@ -103,15 +113,19 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemCount() {
-        return objects == null ? 0 : hasExtraRow() ? objects.size() + 1 : objects.size();
+        //+1头部
+        return objects == null ? 0 : hasExtraRow() ? objects.size() + 2 : objects.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
+        if (position == 0) {//头部
+            return R.layout.item_header;
+        }
         if (hasExtraRow() && position == getItemCount() - 1) {
             return R.layout.network_state_item;
         } else {
-            switch (objects.get(position).getType()) {
+            switch (objects.get(position - 1).getType()) {
                 case 0:
                     return R.layout.item_goods_navigation;
                 case 1:
@@ -140,8 +154,9 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 public int getSpanSize(int position) {
                     int type = getItemViewType(position);
                     switch (type) {
+                        case R.layout.item_header:
                         case R.layout.item_goods_navigation:
-                        case R.layout.item_goods: //这两种方式都是一列的，所以返回6
+                        case R.layout.item_goods: //这三种方式都是一列的，所以返回6
                             return 6;
                         case R.layout.item_goods_2: //两列，返回3
                             return 3;
