@@ -16,6 +16,7 @@ import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 import com.zaomeng.zaomeng.view.adapter.order.OrderAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
+import com.zaomeng.zaomeng.view.weixin.PayActivity;
 import com.zaomeng.zaomeng.view_model.NewOrderFragmentVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
@@ -65,7 +66,9 @@ public class NewOrderFragment extends MVVMListFragment<NewOrderFragmentVM, Fragm
     protected OrderAdapter setAdapter(Function0 reTry) {
         OrderAdapter orderAdapter = new OrderAdapter(reTry);
         orderAdapter.setOnItemClick((view, ItemObject, position) -> {
-            mViewModel.appApplyMemberOrderPay(ItemObject.getGoodsList().get(0).getMemberOrderID())
+            String memberOrderID = ItemObject.getGoodsList().get(0).getMemberOrderID();
+            skipTo(PayActivity.class, memberOrderID);
+            mViewModel.appApplyMemberOrderPay(memberOrderID)
                     .observe(this, beanResource -> {
                         if (beanResource.isSuccess()) {
                             PayBean resource = beanResource.getResource();

@@ -131,6 +131,9 @@ dependencies {
 
     // 支付宝 SDK AAR 包所需的配置
     implementation(name: 'alipaySdk-15.6.2-20190416165036', ext: 'aar')
+//微信支付
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
 //    implementation 'org.xutils:xutils:3.3.36'
     //动态权限
     implementation 'com.lovedise:permissiongen:0.0.6'

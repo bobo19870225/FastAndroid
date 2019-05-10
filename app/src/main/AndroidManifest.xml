@@ -52,6 +52,13 @@
         <activity android:name=".view.BonusActivity" />
         <activity android:name=".view.FeedbackActivity" />
         <activity android:name=".view.SettingActivity" />
+        <activity android:name=".view.weixin.PayActivity" />
+
+        <receiver android:name=".AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

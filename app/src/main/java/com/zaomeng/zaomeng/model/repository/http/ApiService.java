@@ -325,8 +325,11 @@ public interface ApiService {
             @Query("pageNumber") Integer pageNumber);
 
     /**
-     * 签到
+     *
+     *  微信：402892e96a4ed7a4016a4eda9107000c
+     *  支付宝：402892e96a4ed7a4016a4eda5984000a
      */
+
     @GET("appApplyMemberOrderPay.json")
     LiveData<Resource<PayBean>> appApplyMemberOrderPay(@Query("sessionID") String sessionID,
                                                        @Query("payWayID") String payWayID,
