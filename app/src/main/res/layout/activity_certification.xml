@@ -117,7 +117,6 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:textSize="9sp"
                         android:id="@+id/shop_type"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -127,9 +126,12 @@
                         android:layout_toRightOf="@+id/tt_shop_type"
                         android:background="@null"
                         android:gravity="center_vertical"
-                        android:hint="@string/chose_type" />
+                        android:hint="@string/chose_type"
+                        android:text="@{model.ldShopType}"
+                        android:textSize="9sp" />
 
                     <ImageView
+                        android:id="@+id/image_type"
                         android:layout_width="@dimen/image"
                         android:layout_height="@dimen/image"
                         android:layout_alignParentEnd="true"

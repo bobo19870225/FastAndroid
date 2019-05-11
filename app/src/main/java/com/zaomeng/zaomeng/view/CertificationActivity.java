@@ -8,18 +8,26 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCertificationBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
 import com.zaomeng.zaomeng.utils.http.BitmapUtils;
+import com.zaomeng.zaomeng.view.adapter.shop_type.ShopTypeAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
+import com.zaomeng.zaomeng.view.custom_view.CommonPopupWindow;
 import com.zaomeng.zaomeng.view_model.CertificationVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,6 +43,9 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
     ViewModelFactory viewModelFactory;
     private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
     private AlertDialog alertDialog;
+    private List<String> listShopType = new ArrayList<>();
+    private CommonPopupWindow commonPopupWindow;
+    private ShopTypeAdapter shopTypeAdapter;
     @NonNull
     @Override
     protected CertificationVM createdViewModel() {
@@ -44,15 +55,32 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
     @Override
     protected void setView() {
         init();
-        mViewModel.action.observe(this, s -> {
-            if (s.equals("setShopImage")) {
-                // 3、调用从图库选取图片方法
-                PermissionGen.needPermission(CertificationActivity.this,
-                        LQRPhotoSelectUtils.REQ_SELECT_PHOTO,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                );
+        mViewModel.getShopType().observe(this, pageBeanResource -> {
+            PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = new HttpHelper<GoodsSuperBean>(getApplication()).AnalyticalPageData(pageBeanResource);
+            if (goodsSuperBeanPageDataBean != null) {
+                List<GoodsSuperBean> rows = goodsSuperBeanPageDataBean.getRows();
+                for (GoodsSuperBean goodsSuperBean : rows
+                ) {
+                    listShopType.add(goodsSuperBean.getName());
+                }
+                shopTypeAdapter.setList(listShopType);
             }
+
+        });
+        mViewModel.action.observe(this, s -> {
+            switch (s) {
+                case "setShopImage":
+                    // 3、调用从图库选取图片方法
+                    PermissionGen.needPermission(CertificationActivity.this,
+                            LQRPhotoSelectUtils.REQ_SELECT_PHOTO,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                    break;
+                case "choiceType":
+                    commonPopupWindow.showAsDropDown(mViewDataBinding.imageType, 0, 0);
+                    break;
+            }
+
         });
         mViewModel.ldUpDataImage.observe(this, s -> {
             if (s != null) {
@@ -73,7 +101,10 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
                 toast("提交成功！");
             }
         });
+
+
     }
+
 
     private void init() {
         LayoutInflater layoutInflater = getLayoutInflater();
@@ -90,6 +121,24 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
             showUpDataDialog(true);
         }, false);//true裁剪，false不裁剪
 
+        commonPopupWindow = new CommonPopupWindow(getApplication(), R.layout.window_shop_type, 500, 300) {
+            @Override
+            protected void initView(View contentView) {
+                shopTypeAdapter = new ShopTypeAdapter();
+                shopTypeAdapter.setOnItemClick((view1, ItemObject, position) -> {
+                    mViewModel.ldShopType.setValue(ItemObject);
+                    commonPopupWindow.dismiss();
+                });
+                RecyclerView recyclerView = contentView.findViewById(R.id.list);
+                recyclerView.setAdapter(shopTypeAdapter);
+
+            }
+
+            @Override
+            protected void initEvent() {
+
+            }
+        };
     }
 
     private void showUpDataDialog(boolean isShow) {

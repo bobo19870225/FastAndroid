@@ -4,11 +4,14 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
@@ -35,6 +38,7 @@ public class CertificationVM extends BaseViewModel {
     public final MutableLiveData<String> ldAddress = new MediatorLiveData<>();
     public final MutableLiveData<String> ldContact = new MediatorLiveData<>();
     public final MutableLiveData<String> ldContactPhone = new MediatorLiveData<>();
+    public final MutableLiveData<String> ldShopType = new MediatorLiveData<>();
     public final MediatorLiveData<Resource<Bean<String>>> ldSubmit = new MediatorLiveData<>();
     //    public final MutableLiveData<Integer> ldProgress = new MediatorLiveData<>();
     public final MutableLiveData<String> ldUpDataImage = new MediatorLiveData<>();
@@ -49,7 +53,7 @@ public class CertificationVM extends BaseViewModel {
     }
 
     public void choiceType() {
-
+        action.setValue("choiceType");
     }
 
     public void choiceArea() {
@@ -136,4 +140,7 @@ public class CertificationVM extends BaseViewModel {
     }
 
 
+    public LiveData<Resource<PageBean<GoodsSuperBean>>> getShopType() {
+        return apiService.getNodeCategoryList("2a89882dffa242158a5e170215f351ad", 1);
+    }
 }
