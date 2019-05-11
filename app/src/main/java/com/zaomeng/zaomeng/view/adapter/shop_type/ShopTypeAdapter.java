@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
 import java.util.List;
@@ -14,15 +15,15 @@ import java.util.List;
  * FastAndroid
  */
 public class ShopTypeAdapter extends RecyclerView.Adapter {
-    private List<String> list;
-    private OnItemClick<String> onItemClick;
+    private List<GoodsSuperBean> list;
+    private OnItemClick<GoodsSuperBean> onItemClick;
 
-    public void setList(List<String> list) {
+    public void setList(List<GoodsSuperBean> list) {
         this.list = list;
         notifyDataSetChanged();
     }
 
-    public void setOnItemClick(OnItemClick<String> onItemClick) {
+    public void setOnItemClick(OnItemClick<GoodsSuperBean> onItemClick) {
         this.onItemClick = onItemClick;
     }
 

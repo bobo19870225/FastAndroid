@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
@@ -43,9 +44,10 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
     ViewModelFactory viewModelFactory;
     private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
     private AlertDialog alertDialog;
-    private List<String> listShopType = new ArrayList<>();
+    private List<GoodsSuperBean> listShopType = new ArrayList<>();
     private CommonPopupWindow commonPopupWindow;
     private ShopTypeAdapter shopTypeAdapter;
+    private int which = -1;
     @NonNull
     @Override
     protected CertificationVM createdViewModel() {
@@ -58,11 +60,7 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
         mViewModel.getShopType().observe(this, pageBeanResource -> {
             PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = new HttpHelper<GoodsSuperBean>(getApplication()).AnalyticalPageData(pageBeanResource);
             if (goodsSuperBeanPageDataBean != null) {
-                List<GoodsSuperBean> rows = goodsSuperBeanPageDataBean.getRows();
-                for (GoodsSuperBean goodsSuperBean : rows
-                ) {
-                    listShopType.add(goodsSuperBean.getName());
-                }
+                listShopType = goodsSuperBeanPageDataBean.getRows();
                 shopTypeAdapter.setList(listShopType);
             }
 
@@ -70,30 +68,49 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "setShopImage":
-                    // 3、调用从图库选取图片方法
-                    PermissionGen.needPermission(CertificationActivity.this,
-                            LQRPhotoSelectUtils.REQ_SELECT_PHOTO,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                    which = 0;
+                    choseImage();
                     break;
+                case "setLicenseImage":
+                    which = 1;
+                    choseImage();
+                    break;
+                case "setIcFront":
+                    which = 2;
+                    // 3、调用从图库选取图片方法
+                    choseImage();
+                    break;
+                case "setIcBack":
+                    which = 3;
+                    // 3、调用从图库选取图片方法
+                    choseImage();
+                    break;
+
                 case "choiceType":
                     commonPopupWindow.showAsDropDown(mViewDataBinding.imageType, 0, 0);
                     break;
             }
 
         });
-        mViewModel.ldUpDataImage.observe(this, s -> {
-            if (s != null) {
-                Gson gson = new Gson();
-                Bean bean = gson.fromJson(s, Bean.class);
-                showUpDataDialog(false);
-                if (bean != null) {
-                    Glide.with(mViewDataBinding.imgShop).load((String) bean.getBody().getData()).into(mViewDataBinding.imgShop);
-                } else {
-                    toast(s);
-                }
-
+        mViewModel.ldToast.observe(this, this::toast);
+        mViewModel.ldUpDataImage.observe(this, strings -> {
+            String s = strings[1];
+            switch (strings[0]) {
+                case "0":
+                    setImage(s, mViewDataBinding.imgShop);
+                    break;
+                case "1":
+                    setImage(s, mViewDataBinding.imgLicense);
+                    break;
+                case "2":
+                    setImage(s, mViewDataBinding.imgIcFront);
+                    break;
+                case "3":
+                    setImage(s, mViewDataBinding.imgIcBack);
+                    break;
             }
+
+
         });
         mViewModel.ldSubmit.observe(this, beanResource -> {
             String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
@@ -103,6 +120,28 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
         });
 
 
+    }
+
+    private void choseImage() {
+        // 3、调用从图库选取图片方法
+        PermissionGen.needPermission(CertificationActivity.this,
+                LQRPhotoSelectUtils.REQ_SELECT_PHOTO,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE});
+    }
+
+    private void setImage(String s, ImageView image) {
+        if (s != null) {
+            Gson gson = new Gson();
+            Bean bean = gson.fromJson(s, Bean.class);
+            showUpDataDialog(false);
+            if (bean != null) {
+                Glide.with(image).load((String) bean.getBody().getData()).into(mViewDataBinding.imgShop);
+            } else {
+                toast(s);
+            }
+
+        }
     }
 
 
@@ -117,7 +156,7 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
         mLqrPhotoSelectUtils = new LQRPhotoSelectUtils(this, (outputFile, outputUri) -> {
             // 4、当拍照或从图库选取图片成功后回调
             String s = BitmapUtils.compressImageUpload(outputFile.getAbsolutePath());
-            mViewModel.uploadImg(s);
+            mViewModel.uploadImg(s, which);
             showUpDataDialog(true);
         }, false);//true裁剪，false不裁剪
 
@@ -126,7 +165,8 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
             protected void initView(View contentView) {
                 shopTypeAdapter = new ShopTypeAdapter();
                 shopTypeAdapter.setOnItemClick((view1, ItemObject, position) -> {
-                    mViewModel.ldShopType.setValue(ItemObject);
+                    mViewModel.ldShopType.setValue(ItemObject.getName());
+                    mViewModel.ldShopTypeID.setValue(ItemObject.getId());
                     commonPopupWindow.dismiss();
                 });
                 RecyclerView recyclerView = contentView.findViewById(R.id.list);

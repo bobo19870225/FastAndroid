@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zaomeng.zaomeng.R;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
 /**
@@ -30,11 +31,11 @@ public class ShopTypeViewHolder extends RecyclerView.ViewHolder {
         return new ShopTypeViewHolder(view);
     }
 
-    void bind(String string, OnItemClick<String> onSelectClick) {
-        name.setText(string);
+    void bind(GoodsSuperBean goodsSuperBean, OnItemClick<GoodsSuperBean> onSelectClick) {
+        name.setText(goodsSuperBean.getName());
         itemView.setOnClickListener(v -> {
             if (onSelectClick != null) {
-                onSelectClick.onClick(v, string, getLayoutPosition());
+                onSelectClick.onClick(v, goodsSuperBean, getLayoutPosition());
             }
         });
     }

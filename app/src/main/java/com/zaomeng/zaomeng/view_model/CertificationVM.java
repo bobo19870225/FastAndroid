@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.Gson;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
@@ -39,9 +40,15 @@ public class CertificationVM extends BaseViewModel {
     public final MutableLiveData<String> ldContact = new MediatorLiveData<>();
     public final MutableLiveData<String> ldContactPhone = new MediatorLiveData<>();
     public final MutableLiveData<String> ldShopType = new MediatorLiveData<>();
+    public final MutableLiveData<String> ldShopTypeID = new MediatorLiveData<>();
     public final MediatorLiveData<Resource<Bean<String>>> ldSubmit = new MediatorLiveData<>();
+    public final SingleLiveEvent<String> ldToast = new SingleLiveEvent<>();
     //    public final MutableLiveData<Integer> ldProgress = new MediatorLiveData<>();
-    public final MutableLiveData<String> ldUpDataImage = new MediatorLiveData<>();
+    private String shopFaceImage;
+    private String businessImage;
+    private String contactIdCardFaceImage;
+    private String contactIdCardBackImage;
+    public final MutableLiveData<String[]> ldUpDataImage = new MediatorLiveData<>();
     public CertificationVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -62,19 +69,18 @@ public class CertificationVM extends BaseViewModel {
 
     public void setShopImage() {
         action.setValue("setShopImage");
-//        uploadImg(imageUri);
     }
 
     public void setLicenseImage() {
-
+        action.setValue("setLicenseImage");
     }
 
     public void setIcFront() {
-
+        action.setValue("setIcFront");
     }
 
     public void setIcBack() {
-
+        action.setValue("setIcBack");
     }
 
     /**
@@ -89,33 +95,57 @@ public class CertificationVM extends BaseViewModel {
      */
     public void submit() {
         if (ldName.getValue() == null) {
+            ldToast.setValue("请填写店铺名称");
             return;
         }
         if (ldAddress.getValue() == null) {
+            ldToast.setValue("请填写店铺名称");
             return;
         }
         if (ldContact.getValue() == null) {
+            ldToast.setValue("请填写店铺名称");
+            return;
+        }
+        if (ldShopTypeID.getValue() == null || ldShopType.getValue() == null) {
+            ldToast.setValue("请选择店铺类型");
             return;
         }
         if (ldContactPhone.getValue() == null) {
+            ldToast.setValue("请填写店铺地址");
+            return;
+        }
+        if (shopFaceImage == null) {
+            ldToast.setValue("请上传店铺照片");
+            return;
+        }
+        if (businessImage == null) {
+            ldToast.setValue("请上传营业执照");
+            return;
+        }
+        if (contactIdCardFaceImage == null) {
+            ldToast.setValue("请上传身份证正面照");
+            return;
+        }
+        if (contactIdCardBackImage == null) {
+            ldToast.setValue("请上传身份证背面照");
             return;
         }
         ldSubmit.addSource(
                 apiService.applyMemberShop(
                         SharedPreferencesUtils.getSessionID(getApplication()),
                         ldName.getValue(),
-                        "a74eeee1-750c-497d-afaa-cd867014f5f8",
-                        "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg",
-                        "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg",
+                        ldShopTypeID.getValue(),
+                        shopFaceImage,
+                        businessImage,
                         ldAddress.getValue(),
                         ldContact.getValue(),
                         ldContactPhone.getValue(),
-                        "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg",
-                        "http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg"
+                        contactIdCardFaceImage,
+                        contactIdCardBackImage
                 ), ldSubmit::setValue);
     }
 
-    public void uploadImg(String fileUrl) {
+    public void uploadImg(String fileUrl, int which) {
 
         File file = new File(fileUrl);
         String postUrl = baseUrl + "uploadFile.json";
@@ -125,18 +155,42 @@ public class CertificationVM extends BaseViewModel {
         }, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                ldUpDataImage.postValue(e.toString());
+                ldUpDataImage.postValue(new String[]{String.valueOf(which), e.toString()});
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.body() != null) {
                     String result = response.body().string();
-                    ldUpDataImage.postValue(result);
+                    ldUpDataImage.postValue(new String[]{String.valueOf(which), result});
+                    Gson gson = new Gson();
+                    switch (which) {
+                        case 0:
+                            shopFaceImage = setImageUrl(result, gson);
+                            break;
+                        case 1:
+                            businessImage = setImageUrl(result, gson);
+                            break;
+                        case 2:
+                            contactIdCardFaceImage = setImageUrl(result, gson);
+                            break;
+                        case 3:
+                            contactIdCardBackImage = setImageUrl(result, gson);
+                            break;
+                    }
                 }
             }
         }, file);
 
+    }
+
+    private String setImageUrl(String result, Gson gson) {
+        Bean bean = gson.fromJson(result, Bean.class);
+        if (bean != null) {
+            return (String) bean.getBody().getData();
+        } else {
+            return null;
+        }
     }
 
 
