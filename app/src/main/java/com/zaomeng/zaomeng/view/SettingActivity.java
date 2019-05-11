@@ -1,16 +1,21 @@
 package com.zaomeng.zaomeng.view;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.zaomeng.zaomeng.R;
-import com.zaomeng.zaomeng.view.base.BaseActivity;
+import com.zaomeng.zaomeng.databinding.ActivitySettingBinding;
+import com.zaomeng.zaomeng.view.base.MVVMActivity;
+import com.zaomeng.zaomeng.view_model.SettingVM;
 
 /**
  * Created by Sampson on 2019-05-08.
  * FastAndroid
  */
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends MVVMActivity<SettingVM, ActivitySettingBinding> {
     @Override
     protected String setToolBarTitle() {
-        return null;
+        return "设置";
     }
 
     @Override
@@ -23,8 +28,15 @@ public class SettingActivity extends BaseActivity {
         return R.layout.activity_setting;
     }
 
+    @NonNull
     @Override
-    protected void initView() {
+    protected SettingVM createdViewModel() {
+        return ViewModelProviders.of(this).get(SettingVM.class);
+    }
 
+
+    @Override
+    protected void setView() {
+        mViewModel.action.observe(this, s -> skipTo(LoginActivity.class, null, true));
     }
 }

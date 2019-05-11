@@ -1,35 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/toolbar" />
+    <data>
 
-    <RelativeLayout
+        <variable
+            name="model"
+            type="com.zaomeng.zaomeng.view_model.SettingVM" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/white"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:layout_height="match_parent"
+        android:background="@color/bg_color"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:onClick="@{()->m"
+                android:text="清除缓存"
+                android:textColor="#ff333333"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/back" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="2dp"
+            android:background="@android:color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="检测更新"
+                android:textColor="#ff333333"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/back" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="2dp"
+            android:background="@android:color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="关于我们"
+                android:textColor="#ff333333"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/back" />
+        </RelativeLayout>
+
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="清除缓存"
+            android:onClick="@{()->model.exit()}"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:text="退出登录"
             android:textColor="#ff333333"
             android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="@dimen/image"
-            android:layout_height="@dimen/image"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/image_padding"
-            android:src="@mipmap/back" />
-    </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>
+</layout>

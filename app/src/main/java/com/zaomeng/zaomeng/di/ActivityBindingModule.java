@@ -16,6 +16,7 @@ import com.zaomeng.zaomeng.view.PointActivity;
 import com.zaomeng.zaomeng.view.RegisterActivity;
 import com.zaomeng.zaomeng.view.SearchActivity;
 import com.zaomeng.zaomeng.view.ServiceActivity;
+import com.zaomeng.zaomeng.view.SettingActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -94,5 +95,9 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector()
     abstract FeedbackActivity feedbackActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract SettingActivity settingActivity();
 
 }

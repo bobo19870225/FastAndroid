@@ -107,8 +107,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
         Intent intent = new Intent();
         intent.setClass(this, mClass);
         if (isTop) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         skipTo(mClass, data, intent);
     }
