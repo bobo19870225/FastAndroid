@@ -19,6 +19,7 @@ import static com.zaomeng.zaomeng.utils.SystemParameter.siteID;
 /**
  * Created by Sampson on 2019/3/26.
  * FastAndroid
+ * {@link com.zaomeng.zaomeng.view.LoginActivity}
  */
 public class LoginViewModel extends BaseViewModel {
     public final MutableLiveData<String> ldPhone = new MutableLiveData<>();

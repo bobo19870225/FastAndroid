@@ -188,6 +188,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                             skipTo(MainActivity.class, new String[]{"6ba58046-7eb2-4f11-bbb3-b934abeb29a8", null});
                             String sessionID = body.getSessionID();
                             SharedPreferencesUtils.saveSessionID(getApplicationContext(), sessionID);
+                            SharedPreferencesUtils.saveMemberID(getApplicationContext(), loginBean.getId());
                             String ldPhoneValue = mViewModel.ldPhone.getValue();
                             String ldPasswordValue = mViewModel.ldPassword.getValue();
                             if (ldPhoneValue != null && ldPasswordValue != null) {

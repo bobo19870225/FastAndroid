@@ -5,28 +5,37 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
  * FastAndroid
  */
 public class GoodsDetailsBean {
+
     /**
-     * id : dsfsdfdsf
-     * goodsCategoryID : 6ba58046-7eb2-4f11-bbb3-b934abeb29a8
-     * name : 2
-     * shortName : 1
-     * showName : 2
-     * description : 2
-     * largerImage : http://wj.haoju.me/3883e6c9761a49788368bcd7a369ab0c.png
-     * littleImage : http://wj.haoju.me/3883e6c9761a49788368bcd7a369ab0c.png
+     * id : 2c9051726a3f6378016a483b2ce8005c
+     * goodsCategoryID : fa7c2854-8b56-492b-b542-58a4ab2a7358
+     * name : 安井 杂粮包 800g（早餐 粗粮养胃 馒头花卷 早餐包子 早茶点心）
+     * shortName : null
+     * showName : 安井 杂粮包 800g（早餐 粗粮养胃 馒头花卷 早餐包子 早茶点心）
+     * description : 品牌： 安井
+     商品名称：安井冷冻面点 杂粮包
+     商品编号：3891852
+     商品毛重：0.83kg
+     商品产地：江苏无锡；福建厦门
+     国产/进口：国产
+     分类：馒头
+     风味：中式
+     * largerImage : http://wj.haoju.me/d67e1dfa40c84fb9914756fe7f9dff10.jpg
+     * littleImage : http://wj.haoju.me/d67e1dfa40c84fb9914756fe7f9dff10.jpg
      * standPrice : 0.0
-     * realPrice : 1.0
-     * stockNumber : 1.0
-     * stockOut : 1.0
-     * salesUnit : 1
-     * brandName : test品牌3
+     * realPrice : 22.0
+     * stockNumber : 0.0
+     * stockOut : 0.0
+     * salesUnit : null
+     * brandName : 安井
      * showPrice : 0.0
+     * isCollect : 0
      */
 
     private String id;
     private String goodsCategoryID;
     private String name;
-    private String shortName;
+    private Object shortName;
     private String showName;
     private String description;
     private String largerImage;
@@ -35,9 +44,10 @@ public class GoodsDetailsBean {
     private double realPrice;
     private double stockNumber;
     private double stockOut;
-    private String salesUnit;
+    private Object salesUnit;
     private String brandName;
     private double showPrice;
+    private int isCollect;
 
     public String getId() {
         return id;
@@ -63,11 +73,11 @@ public class GoodsDetailsBean {
         this.name = name;
     }
 
-    public String getShortName() {
+    public Object getShortName() {
         return shortName;
     }
 
-    public void setShortName(String shortName) {
+    public void setShortName(Object shortName) {
         this.shortName = shortName;
     }
 
@@ -135,11 +145,11 @@ public class GoodsDetailsBean {
         this.stockOut = stockOut;
     }
 
-    public String getSalesUnit() {
+    public Object getSalesUnit() {
         return salesUnit;
     }
 
-    public void setSalesUnit(String salesUnit) {
+    public void setSalesUnit(Object salesUnit) {
         this.salesUnit = salesUnit;
     }
 
@@ -157,6 +167,14 @@ public class GoodsDetailsBean {
 
     public void setShowPrice(double showPrice) {
         this.showPrice = showPrice;
+    }
+
+    public int getIsCollect() {
+        return isCollect;
+    }
+
+    public void setIsCollect(int isCollect) {
+        this.isCollect = isCollect;
     }
 }
 

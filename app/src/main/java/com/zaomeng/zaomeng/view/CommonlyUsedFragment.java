@@ -33,7 +33,6 @@ import kotlin.jvm.functions.Function0;
 public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentVM, FragmentCommonlyUsedBinding, CollectAdapter> implements InterfaceShowSpecification {
     @Inject
     ViewModelFactory viewModelFactory;
-    private CollectAdapter collectAdapter;
     private ShowSpecificationHelper showSpecificationHelper;
     @Inject
     public CommonlyUsedFragment() {
@@ -58,11 +57,19 @@ public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentV
     @NonNull
     @Override
     protected CollectAdapter setAdapter(Function0 reTry) {
-        collectAdapter = new CollectAdapter(reTry);
+        CollectAdapter collectAdapter = new CollectAdapter(reTry);
         collectAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(GoodsDetailsActivity.class, ItemObject.getObjectID()));
         collectAdapter.setOnAddClick((view, ItemObject, position) -> {
             showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getObjectID());
             getSpecification(ItemObject);
+        });
+        collectAdapter.setOnDeleteClick((view, ItemObject, position) -> {
+            mViewModel.removeCollect(ItemObject.getCollectID()).observe(this, beanResource -> {
+                String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+                if (s != null) {
+                    refresh();
+                }
+            });
         });
         return collectAdapter;
     }

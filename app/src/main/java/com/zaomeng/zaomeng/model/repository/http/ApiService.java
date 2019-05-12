@@ -337,9 +337,8 @@ public interface ApiService {
                                                        @Query("memberOrderID") String memberOrderID,
                                                        @Query("memberPaymentID") String memberPaymentID);
 
-
-
-
+    @GET("removeCollect.json")
+    LiveData<Resource<Bean<String>>> removeCollect(@Query("sessionID") String sessionID, @Query("collectID") String collectID);
 }
 
 

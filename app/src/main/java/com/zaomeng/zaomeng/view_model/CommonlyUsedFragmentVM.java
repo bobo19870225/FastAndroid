@@ -26,7 +26,7 @@ import retrofit2.Call;
  */
 public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBean> {
     private ApiService apiService;
-
+    private String sessionID;
     public CommonlyUsedFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -34,7 +34,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
 
     @Override
     public void init(Object data) {
-
+        sessionID = SharedPreferencesUtils.getSessionID(getApplication());
     }
 
 
@@ -47,7 +47,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     @NonNull
     @Override
     public Call<PageBean<CollectInfoBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getCollectList(SharedPreferencesUtils.getSessionID(getApplication()), "422429993732", 1, params.requestedLoadSize);
+        return apiService.getCollectList(sessionID, "422429993732", 1, params.requestedLoadSize);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     @NonNull
     @Override
     public Call<PageBean<CollectInfoBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getCollectList(SharedPreferencesUtils.getSessionID(getApplication()), "422429993732", params.key, params.requestedLoadSize);
+        return apiService.getCollectList(sessionID, "422429993732", params.key, params.requestedLoadSize);
     }
 
     @Override
@@ -83,12 +83,16 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     }
 
     public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
-        String sessionID = SharedPreferencesUtils.getSessionID(getApplication());
+
         if (sessionID != null) {
             return apiService.addGoodsShopToCart(sessionID,
                     goodsShopID, qty, objectFeatureItemID1);
 
         }
         return null;
+    }
+
+    public LiveData<Resource<Bean<String>>> removeCollect(String collectID) {
+        return apiService.removeCollect(sessionID, collectID);
     }
 }

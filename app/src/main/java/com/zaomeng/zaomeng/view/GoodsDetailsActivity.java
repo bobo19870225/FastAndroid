@@ -73,9 +73,11 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                         goodsDetailsHeaderBean.setPrice(goodsDetailsBean.getRealPrice());
                         goodsDetailsHeaderBean.setDescribe(goodsDetailsBean.getDescription());
                         getBannerImage();
-//                        double showPrice = goodsDetailsBean.getRealPrice();
-//                        mViewModel.ldShowPrice.setValue(FormatUtils.numberFormatMoney(showPrice));
-//                        mViewModel.ldDescribe.setValue(goodsDetailsBean.getDescription());
+                        if (goodsDetailsBean.getIsCollect() == 1) {
+                            mViewDataBinding.collect.setImageResource(R.mipmap.collect);
+                        } else {
+                            mViewDataBinding.collect.setImageResource(R.mipmap.un_collect);
+                        }
 
                     } else {
                         toast(goodsDetailsBeanBean.getHeader().getMsg());

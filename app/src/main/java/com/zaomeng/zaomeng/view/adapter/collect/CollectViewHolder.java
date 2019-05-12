@@ -23,6 +23,7 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
     private TextView price;
     private ImageView add;
+    private ImageView delete;
     private ImageView goodsIcon;
 
     private CollectViewHolder(@NonNull View itemView) {
@@ -30,16 +31,17 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
         goodsName = itemView.findViewById(R.id.goods_name);
         price = itemView.findViewById(R.id.price);
         add = itemView.findViewById(R.id.add);
+        delete = itemView.findViewById(R.id.delete);
         goodsIcon = itemView.findViewById(R.id.icon_goods);
     }
 
     public static CollectViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_goods, parent, false);
+                .inflate(R.layout.item_used_goods, parent, false);
         return new CollectViewHolder(view);
     }
 
-    void bind(CollectInfoBean collectInfoBean, OnItemClick<CollectInfoBean> onItemClick, OnItemClick<CollectInfoBean> onAddClick) {
+    void bind(CollectInfoBean collectInfoBean, OnItemClick<CollectInfoBean> onItemClick, OnItemClick<CollectInfoBean> onAddClick, OnItemClick<CollectInfoBean> onDeleteClick) {
         goodsName.setText(collectInfoBean.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(collectInfoBean.getShowPrice()));
         Glide.with(goodsIcon).load(collectInfoBean.getListImage()).into(goodsIcon);
@@ -50,6 +52,11 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
         add.setOnClickListener(v -> {
             if (onAddClick != null)
                 onAddClick.onClick(v, collectInfoBean, getLayoutPosition());
+        });
+        delete.setOnClickListener(v -> {
+            if (onDeleteClick != null) {
+                onDeleteClick.onClick(v, collectInfoBean, getLayoutPosition());
+            }
         });
     }
 

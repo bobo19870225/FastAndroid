@@ -42,7 +42,7 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
 
     @Override
     public void init(Object data) {
-        ldGoodsDetails.addSource(apiService.getGoodsShopDetail((String) data, null), ldGoodsDetails::setValue);
+        ldGoodsDetails.addSource(apiService.getGoodsShopDetail((String) data, SharedPreferencesUtils.getMemberID(getApplication())), ldGoodsDetails::setValue);
     }
 
     public void back() {

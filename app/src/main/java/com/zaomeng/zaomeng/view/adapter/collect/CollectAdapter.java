@@ -23,13 +23,17 @@ public class CollectAdapter extends BasePagedListAdapter<CollectInfoBean> {
 
     private OnItemClick<CollectInfoBean> onItemClick;
     private OnItemClick<CollectInfoBean> onAddClick;
-
+    private OnItemClick<CollectInfoBean> onDeleteClick;
     public void setOnAddClick(OnItemClick<CollectInfoBean> onAddClick) {
         this.onAddClick = onAddClick;
     }
 
     public void setOnItemClick(OnItemClick<CollectInfoBean> onItemClick) {
         this.onItemClick = onItemClick;
+    }
+
+    public void setOnDeleteClick(OnItemClick<CollectInfoBean> onDeleteClick) {
+        this.onDeleteClick = onDeleteClick;
     }
 
     public CollectAdapter(Function0 retryCallback) {
@@ -46,15 +50,15 @@ public class CollectAdapter extends BasePagedListAdapter<CollectInfoBean> {
 
     @Override
     protected void viewHolderBind(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == R.layout.item_goods) {
-            ((CollectViewHolder) holder).bind(getItem(position), onItemClick, onAddClick);
+        if (getItemViewType(position) == R.layout.item_used_goods) {
+            ((CollectViewHolder) holder).bind(getItem(position), onItemClick, onAddClick, onDeleteClick);
         }
     }
 
 
     @Override
     protected int giveItemViewType(int position) {
-        return R.layout.item_goods;
+        return R.layout.item_used_goods;
 
     }
 
