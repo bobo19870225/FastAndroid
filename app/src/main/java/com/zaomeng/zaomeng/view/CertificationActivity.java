@@ -148,7 +148,7 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
     private void init() {
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.dialog_wait, null, false);
-        alertDialog = new AlertDialog.Builder(getApplicationContext())
+        alertDialog = new AlertDialog.Builder(this)
                 .setView(view)
                 .setCancelable(false)
                 .create();

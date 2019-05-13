@@ -53,6 +53,7 @@
         <activity android:name=".view.FeedbackActivity" />
         <activity android:name=".view.SettingActivity" />
         <activity android:name=".view.weixin.PayActivity" />
+        <activity android:name=".view.UserInfoActivity" />
 
         <receiver android:name=".AppRegister">
             <intent-filter>

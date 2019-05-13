@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.zaomeng.zaomeng.view.ScrollingActivity">
+    <item
+        android:icon="@mipmap/ok"
+        android:id="@+id/action_ok"
+        android:orderInCategory="100"
+        android:title="@string/OK"
+        app:showAsAction="always" />
+</menu>

@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 
 import javax.inject.Inject;
@@ -45,6 +46,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     @Inject
     ApiService apiService;
+    @Inject
+    UserDao userDao;
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
@@ -106,6 +109,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(ReceivedOrderFragmentVM.class)) {
             //noinspection unchecked
             return (T) new ReceivedOrderFragmentVM(application, apiService);
+        } else if (modelClass.isAssignableFrom(UserInfoVM.class)) {
+            //noinspection unchecked
+            return (T) new UserInfoVM(application, apiService, userDao);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

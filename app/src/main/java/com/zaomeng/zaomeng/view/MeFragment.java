@@ -3,11 +3,13 @@ package com.zaomeng.zaomeng.view;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentMeBinding;
 import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.view.base.MVVMFragment;
+import com.zaomeng.zaomeng.view.custom_view.CircleImageView;
 import com.zaomeng.zaomeng.view_model.MeFragmentVM;
 
 import javax.inject.Inject;
@@ -36,20 +38,6 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
 
     @Override
     protected void initUI() {
-        userDao.getAllUser().observe(this, loginBeans -> {
-            if (loginBeans != null && loginBeans.size() != 0) {
-                LoginBean loginBean = loginBeans.get(0);
-                if (loginBean != null) {
-                    Glide.with(mViewDataBinding.iconUser).
-                            load(loginBean.getAvatarURL()).
-                            into(mViewDataBinding.iconUser);
-                    mViewDataBinding.userName.setText(loginBean.getShortName());
-                    mViewDataBinding.userPhone.setText(loginBean.getPhone());
-                }
-            }
-        });
-
-
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "allOrder":
@@ -78,6 +66,31 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
                 case "setting":
                     skipTo(SettingActivity.class, null);
                     break;
+                case "userInfo":
+                    skipTo(UserInfoActivity.class, null);
+                    break;
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        CircleImageView iconUser = mViewDataBinding.iconUser;
+        userDao.getAllUser().observe(this, loginBeans -> {
+            if (loginBeans != null && loginBeans.size() != 0) {
+                LoginBean loginBean = loginBeans.get(0);
+                if (loginBean != null) {
+                    RequestOptions options = new RequestOptions()
+                            .placeholder(R.mipmap.touxiang)//加载成功之前占位图
+                            .error(R.mipmap.touxiang);//加载错误之后的错误图
+                    Glide.with(iconUser).
+                            load(loginBean.getAvatarURL()).
+                            apply(options).
+                            into(iconUser);
+                    mViewDataBinding.userName.setText(loginBean.getShortName());
+                    mViewDataBinding.userPhone.setText(loginBean.getPhone());
+                }
             }
         });
     }

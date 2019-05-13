@@ -31,8 +31,7 @@ public class BitmapUtils {
             options -= 10;
         }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
-        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
-        return bitmap;
+        return BitmapFactory.decodeStream(isBm, null, null);
     }
 
     /**
@@ -44,14 +43,15 @@ public class BitmapUtils {
     private static Bitmap getImage(String srcPath) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = true;
-        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);// 此时返回bm为空
+        BitmapFactory.decodeFile(srcPath, newOpts);
+        Bitmap bitmap;// 此时返回bm为空
 
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
         // 现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-        float hh = 800f;// 这里设置高度为800f
-        float ww = 480f;// 这里设置宽度为480f
+        float hh = 400f;// 这里设置高度为800f
+        float ww = 240f;// 这里设置宽度为480f
         // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 1;// be=1表示不缩放
         if (w > h && w > ww) {// 如果宽度大的话根据宽度固定大小缩放

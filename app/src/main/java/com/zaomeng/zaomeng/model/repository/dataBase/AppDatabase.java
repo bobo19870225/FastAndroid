@@ -17,7 +17,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
  * Created by Sampson on 2018/12/10.
  * LastCPT 2
  */
-@Database(entities = {Address.class, LoginBean.class}, version = 1)
+@Database(entities = {Address.class, LoginBean.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;

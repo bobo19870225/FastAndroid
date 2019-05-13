@@ -272,9 +272,7 @@ public interface ApiService {
 
     @Multipart
     @POST("uploadFile.json")
-    Call<Bean<List<String>>> uploadFile(
-//            @Part("description") RequestBody description,
-            @Part MultipartBody.Part file);
+    LiveData<Resource<Bean<List<String>>>> uploadFile(@Part MultipartBody.Part file);
 
     /**
      * 获取我的消息列表
@@ -338,6 +336,14 @@ public interface ApiService {
 
     @GET("removeCollect.json")
     LiveData<Resource<Bean<String>>> removeCollect(@Query("sessionID") String sessionID, @Query("collectID") String collectID);
+
+    @GET("updateMemberInfo.json")
+    LiveData<Resource<Bean<String>>> updateMemberInfo(@Query("sessionID") String sessionID,
+                                                      @Query("name") String name,
+                                                      @Query("avatarURL") String avatarURL);
+
+
+
 }
 
 

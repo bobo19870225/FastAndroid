@@ -63,4 +63,8 @@ public class MeFragmentVM extends BaseViewModel {
         action.setValue("setting");
     }
 
+    public void userInfo() {
+        action.setValue("userInfo");
+    }
+
 }
