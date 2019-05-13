@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.snackbar.Snackbar;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityLoginBinding;
+import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
@@ -25,6 +26,9 @@ import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.LoginViewModel;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -40,7 +44,8 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
     @Inject
     ViewModelFactory viewModelFactory;
 
-
+    @Inject
+    UserDao userDao;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -189,6 +194,12 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                             String sessionID = body.getSessionID();
                             SharedPreferencesUtils.saveSessionID(getApplicationContext(), sessionID);
                             SharedPreferencesUtils.saveMemberID(getApplicationContext(), loginBean.getId());
+                            ExecutorService DB_IO = Executors.newFixedThreadPool(2);
+                            DB_IO.execute(() -> {
+                                userDao.InsertDateUser(loginBean);
+                                DB_IO.shutdown();//关闭线程
+                            });
+
                             String ldPhoneValue = mViewModel.ldPhone.getValue();
                             String ldPasswordValue = mViewModel.ldPassword.getValue();
                             if (ldPhoneValue != null && ldPasswordValue != null) {

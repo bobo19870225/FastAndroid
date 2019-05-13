@@ -2,8 +2,11 @@ package com.zaomeng.zaomeng.view;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentMeBinding;
+import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
+import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.view.base.MVVMFragment;
 import com.zaomeng.zaomeng.view_model.MeFragmentVM;
 
@@ -19,7 +22,8 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
     public MeFragment() {
     }
 
-
+    @Inject
+    UserDao userDao;
     @Override
     protected MeFragmentVM createdViewModel() {
         return ViewModelProviders.of(this).get(MeFragmentVM.class);
@@ -32,13 +36,21 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
 
     @Override
     protected void initUI() {
-        mViewModel.action.observe(this, s -> {
-//            if (s.equals("cancel")) {
-//
-//            } else {
-//                skipTo(OrderActivity.class, s);
-//            }
+        userDao.getAllUser().observe(this, loginBeans -> {
+            if (loginBeans != null && loginBeans.size() != 0) {
+                LoginBean loginBean = loginBeans.get(0);
+                if (loginBean != null) {
+                    Glide.with(mViewDataBinding.iconUser).
+                            load(loginBean.getAvatarURL()).
+                            into(mViewDataBinding.iconUser);
+                    mViewDataBinding.userName.setText(loginBean.getShortName());
+                    mViewDataBinding.userPhone.setText(loginBean.getPhone());
+                }
+            }
+        });
 
+
+        mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "allOrder":
                 case "payment":

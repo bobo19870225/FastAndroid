@@ -40,19 +40,19 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    android:layout_height="wrap_content"
-                    android:text="小明早报有想死" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/user_phone"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    android:layout_height="wrap_content"
-                    android:text="18964621903" />
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
 
             <ImageView

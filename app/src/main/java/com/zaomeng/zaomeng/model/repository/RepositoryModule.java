@@ -5,6 +5,7 @@ import android.content.Context;
 import com.zaomeng.zaomeng.BuildConfig;
 import com.zaomeng.zaomeng.model.repository.dataBase.AddressDao;
 import com.zaomeng.zaomeng.model.repository.dataBase.AppDatabase;
+import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataCallAdapterFactory;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataResponseBodyConverterFactory;
@@ -59,5 +60,11 @@ public class RepositoryModule {
     @Provides
     static AddressDao addressDao(AppDatabase appDatabase) {
         return appDatabase.addressDao();
+    }
+
+    @Singleton
+    @Provides
+    static UserDao userDao(AppDatabase appDatabase) {
+        return appDatabase.userDao();
     }
 }

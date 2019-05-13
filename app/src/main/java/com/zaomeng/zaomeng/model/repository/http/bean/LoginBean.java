@@ -1,9 +1,14 @@
 package com.zaomeng.zaomeng.model.repository.http.bean;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 /**
  * Created by Sampson on 2019/4/19.
  * FastAndroid
  */
+@Entity(tableName = "user")
 public class LoginBean {
     /**
      * id : 21432141wsfwerq123
@@ -21,16 +26,17 @@ public class LoginBean {
      * siteID : 8a2f462a6763d1d7016763e2c07f0049
      * avatarURL : http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg?w=23&h=23
      */
-
-    private String id;
+    @PrimaryKey
+    @NonNull
+    private String id = "";
     private String applicationID;
     private String companyID;
     private String name;
     private String shortName;
     private String loginName;
     private String phone;
-    private Object weixinToken;
-    private Object weixinUnionID;
+    private String weixinToken;
+    private String weixinUnionID;
     private String recommandID;
     private String recommandCode;
     private String recommandChain;
@@ -93,19 +99,19 @@ public class LoginBean {
         this.phone = phone;
     }
 
-    public Object getWeixinToken() {
+    public String getWeixinToken() {
         return weixinToken;
     }
 
-    public void setWeixinToken(Object weixinToken) {
+    public void setWeixinToken(String weixinToken) {
         this.weixinToken = weixinToken;
     }
 
-    public Object getWeixinUnionID() {
+    public String getWeixinUnionID() {
         return weixinUnionID;
     }
 
-    public void setWeixinUnionID(Object weixinUnionID) {
+    public void setWeixinUnionID(String weixinUnionID) {
         this.weixinUnionID = weixinUnionID;
     }
 

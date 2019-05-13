@@ -4,7 +4,6 @@ package com.zaomeng.zaomeng.model.repository.http;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.zaomeng.zaomeng.model.repository.dataBase.Goods;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
@@ -163,15 +162,15 @@ public interface ApiService {
      * 删除购物车商品
      */
     @GET("removeCartGoods.json")
-    Call<Message<Goods>> removeCartGoods(@Query("sessionID") String sessionID,
-                                         @Query("cartGoodsID") String cartGoodsID);
+    Call<Message<Bean<String>>> removeCartGoods(@Query("sessionID") String sessionID,
+                                                @Query("cartGoodsID") String cartGoodsID);
 
     /**
      * 获取分类列表
      */
     @GET("getCategoryList.json")
-    Call<Message<Goods>> getCategoryList(@Query("rootID") String rootID,
-                                         @Query("depth") Integer depth);
+    Call<Message<Bean<String>>> getCategoryList(@Query("rootID") String rootID,
+                                                @Query("depth") Integer depth);
 
     /**
      * 购物车生成订单
@@ -186,13 +185,13 @@ public interface ApiService {
      * 店铺商品生成订单
      */
     @GET("createMemberOrder.json")
-    Call<Message<Goods>> createMemberOrder(@Query("sessionID") String sessionID,
-                                           @Query("goodsShopID") String goodsShopID,
-                                           @Query("qty") Integer qty,
-                                           @Query("objectFeatureItemID1") String objectFeatureItemID1,
-                                           @Query("contactName") String contactName,
-                                           @Query("contactPhone") String contactPhone,
-                                           @Query("address") String address);
+    Call<Message<Bean<String>>> createMemberOrder(@Query("sessionID") String sessionID,
+                                                  @Query("goodsShopID") String goodsShopID,
+                                                  @Query("qty") Integer qty,
+                                                  @Query("objectFeatureItemID1") String objectFeatureItemID1,
+                                                  @Query("contactName") String contactName,
+                                                  @Query("contactPhone") String contactPhone,
+                                                  @Query("address") String address);
 
     /**
      * 获取子集导航列表（标准结构）
