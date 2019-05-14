@@ -16,6 +16,7 @@ import com.zaomeng.zaomeng.view.OrderSettlementActivity;
 import com.zaomeng.zaomeng.view.PointActivity;
 import com.zaomeng.zaomeng.view.RegisterActivity;
 import com.zaomeng.zaomeng.view.SearchActivity;
+import com.zaomeng.zaomeng.view.SearchGoodsListActivity;
 import com.zaomeng.zaomeng.view.ServiceActivity;
 import com.zaomeng.zaomeng.view.SettingActivity;
 import com.zaomeng.zaomeng.view.UserInfoActivity;
@@ -109,6 +110,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector()
     abstract FindPasswordActivity findPasswordActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract SearchGoodsListActivity searchGoodsListActivity();
 
 
 }

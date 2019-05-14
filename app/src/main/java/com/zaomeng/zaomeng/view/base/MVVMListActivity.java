@@ -28,7 +28,6 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
 
     @Override
     @CallSuper
-
     protected void setView() {
         recyclerView = setRecyclerView();
         swipeRefreshLayout = setSwipeRefreshLayout();

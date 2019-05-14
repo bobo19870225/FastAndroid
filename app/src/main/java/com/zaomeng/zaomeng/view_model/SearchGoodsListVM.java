@@ -3,39 +3,30 @@ package com.zaomeng.zaomeng.view_model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
-import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
-import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 import retrofit2.Call;
 
 /**
- * Created by Sampson on 2019/4/17.
+ * Created by Sampson on 2019-05-14.
  * FastAndroid
- * {@link com.zaomeng.zaomeng.view.SortFragment}
+ * {@link com.zaomeng.zaomeng.view.SearchGoodsListActivity}
  */
-public class SortFragmentVM extends ListViewModel<Integer, GoodsListRowsBean> {
-    public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
+public class SearchGoodsListVM extends ListViewModel<Integer, GoodsListRowsBean> {
     private ApiService apiService;
+    public final MutableLiveData<String> ldSearch = new MutableLiveData<>();
 
-
-    public SortFragmentVM(@NonNull Application application, ApiService apiService) {
+    public SearchGoodsListVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
-
     }
-
 
     @NonNull
     @Override
@@ -43,24 +34,12 @@ public class SortFragmentVM extends ListViewModel<Integer, GoodsListRowsBean> {
         return 10;
     }
 
-    public LiveData<Resource<PageBean<GoodsSuperBean>>> getNodeCategoryList() {
-        return apiService.getNodeCategoryList("c82678b8ea0149c18fe6ac5ac8590d73", 1);
-    }
-
-    public void search() {
-        action.setValue("search");
-    }
-    @Override
-    public void init(Object data) {
-
-    }
-
-
     @Override
     public Call<PageBean<GoodsListRowsBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
         if (listRequest == null)
             return null;
-        return apiService.getGoodsShopList(1, params.requestedLoadSize, (String) listRequest, null, null);
+        return apiService.getGoodsShopList(1, params.requestedLoadSize, null, null, (String) listRequest);
+
     }
 
     @Override
@@ -68,12 +47,12 @@ public class SortFragmentVM extends ListViewModel<Integer, GoodsListRowsBean> {
         callback.onResult(body.getBody().getData().getRows(), 1, 2);
     }
 
-
     @Override
     public Call<PageBean<GoodsListRowsBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
         if (listRequest == null)
             return null;
-        return apiService.getGoodsShopList(params.key, params.requestedLoadSize, (String) listRequest, null, null);
+        return apiService.getGoodsShopList(params.key, params.requestedLoadSize, null, null, (String) listRequest);
+
     }
 
     @Override
@@ -90,22 +69,8 @@ public class SortFragmentVM extends ListViewModel<Integer, GoodsListRowsBean> {
         return body.getHeader().getCode() == 0;
     }
 
-
-    /**
-     * 商品规格
-     */
-    public LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(String objectID) {
-        return apiService.getObjectFeatureItemList(objectID);
-    }
-
-    public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
-        String sessionID = SharedPreferencesUtils.getSessionID(getApplication());
-        if (sessionID != null) {
-            return apiService.addGoodsShopToCart(sessionID,
-                    goodsShopID, qty, objectFeatureItemID1);
-
-        }
-        return null;
+    @Override
+    public void init(Object data) {
+        ldSearch.setValue((String) data);
     }
 }
-

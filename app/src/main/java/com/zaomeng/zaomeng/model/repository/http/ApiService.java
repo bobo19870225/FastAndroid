@@ -58,7 +58,8 @@ public interface ApiService {
     Call<PageBean<GoodsListRowsBean>> getGoodsShopList(@Query("currentPage") Integer currentPage,
                                                        @Query("pageNumber") Integer pageNumber,
                                                        @Query("goodsCategoryID") String goodsCategoryID,
-                                                       @Query("memberID") String memberID);
+                                                       @Query("memberID") String memberID,
+                                                       @Query("keyWords") String keyWords);
 
 //    /**
 //     * 获取商品列表

@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.view;
 
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,10 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
         mViewModel.action.observe(this, s -> {
             if (s.equals("cancel")) {
                 finish();
+            } else if (s.contains("toast:")) {
+                toast(s.replaceAll("toast:", ""));
+            } else if (s.equals("search")) {
+                skipTo(SearchGoodsListActivity.class, mViewModel.ldSearchWord.getValue());
             }
         });
         mViewModel.getHotWordList().observe(this, pageBeanResource -> {
@@ -58,9 +63,14 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
                         }
                     }
 
-                }
-
-        );
+        });
+        mViewDataBinding.search.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_SEARCH || id == EditorInfo.IME_NULL) {
+                mViewModel.search();
+                return true;
+            }
+            return false;
+        });
     }
 
     private void initListView(List<HotWordBean> rows) {
