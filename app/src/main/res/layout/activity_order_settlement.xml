@@ -32,7 +32,7 @@
                     android:id="@+id/tt_address"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@color/white">
+                    android:background="@color/bg_color">
 
                     <View
                         android:id="@+id/line"
@@ -63,17 +63,259 @@
                 </com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView>
 
                 <RelativeLayout
+                    android:id="@+id/tt_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/list"
+                    android:background="@color/bg_color">
+
+                    <View
+                        android:id="@+id/line1"
+                        android:layout_width="@dimen/line"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:background="@color/line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/line1"
+                        android:layout_toRightOf="@+id/line1"
+                        android:text="送达时间" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/chose_time"
+                        android:layout_toLeftOf="@+id/chose_time"
+                        android:text="今天 13：00-16：00"
+                        android:textColor="@color/them_color" />
+
+                    <ImageView
+                        android:id="@+id/chose_time"
+                        android:layout_width="@dimen/image"
+                        android:layout_height="@dimen/image"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/image_padding"
+                        android:src="@mipmap/more" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/tt_time">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/total_number"
+                        android:layout_toLeftOf="@+id/total_number">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/total_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/more_detail"
+                        android:layout_toLeftOf="@+id/more_detail"
+                        android:text="共12件" />
+
+                    <ImageView
+                        android:id="@+id/more_detail"
+                        android:layout_width="@dimen/image"
+                        android:layout_height="@dimen/image"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/image_padding"
+                        android:src="@mipmap/more" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/tt_pay_way"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/goods"
+                    android:background="@color/bg_color">
+
+                    <View
+                        android:id="@+id/line3"
+                        android:layout_width="@dimen/line"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:background="@color/line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/line3"
+                        android:layout_toRightOf="@+id/line3"
+                        android:text="支付方式" />
+                </RelativeLayout>
+
+
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tt_pay_way">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp">
+
+                        <RadioButton
+                            android:id="@+id/radio_weixin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true" />
+
+                        <ImageView
+                            android:id="@+id/icon_weixin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_toEndOf="@+id/radio_weixin"
+                            android:layout_toRightOf="@+id/radio_weixin"
+                            android:src="@mipmap/weixinzhifu" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_toEndOf="@+id/icon_weixin"
+                            android:layout_toRightOf="@+id/icon_weixin"
+                            android:text="微信" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp">
+
+                        <RadioButton
+                            android:id="@+id/radio_zfb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true" />
+
+                        <ImageView
+                            android:id="@+id/icon_zfb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_toEndOf="@+id/radio_zfb"
+                            android:layout_toRightOf="@+id/radio_zfb"
+                            android:src="@mipmap/alipay" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_toEndOf="@+id/icon_zfb"
+                            android:layout_toRightOf="@+id/icon_zfb"
+                            android:text="支付宝" />
+
+                    </RelativeLayout>
+
+                </RadioGroup>
+
+
+                <RelativeLayout
+                    android:id="@+id/tt_uhq"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/radio_group"
+                    android:background="@color/bg_color"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="优惠券" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/tt_bz"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/tt_uhq"
+                    android:background="@color/bg_color"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="备注" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_toEndOf="@+id/text"
+                        android:layout_toRightOf="@+id/text"
+                        android:background="@color/bg_color"
+                        android:hint="选填"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_alignParentBottom="true">
 
                     <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
                         android:id="@+id/total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true" />
+                        android:layout_toStartOf="@+id/submit"
+                        android:layout_toLeftOf="@+id/submit"
+                        android:textColor="@color/text_red" />
 
                     <TextView
+                        android:id="@+id/submit"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
@@ -86,7 +328,9 @@
                         android:text="提交订单"
                         android:textColor="@android:color/white" />
                 </RelativeLayout>
+
             </RelativeLayout>
+
         </ScrollView>
 
     </LinearLayout>
