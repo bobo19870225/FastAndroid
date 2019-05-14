@@ -24,6 +24,15 @@ public class SearchGoodsListActivity extends MVVMListActivity<SearchGoodsListVM,
     @Inject
     ViewModelFactory viewModelFactory;
 
+    @Override
+    protected void setView() {
+        super.setView();
+        mViewModel.action.observe(this, s -> {
+            if (s.equals("cancel")) {
+                finish();
+            }
+        });
+    }
 
     @NonNull
     @Override

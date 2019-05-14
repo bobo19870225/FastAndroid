@@ -45,6 +45,7 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
 
     @Override
     protected void setView() {
+        mViewDataBinding.search.clearFocus();
         mViewModel.action.observe(this, s -> {
             if (s.equals("cancel")) {
                 finish();

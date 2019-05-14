@@ -11,6 +11,7 @@ import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 import retrofit2.Call;
 
@@ -22,7 +23,7 @@ import retrofit2.Call;
 public class SearchGoodsListVM extends ListViewModel<Integer, GoodsListRowsBean> {
     private ApiService apiService;
     public final MutableLiveData<String> ldSearch = new MutableLiveData<>();
-
+    public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public SearchGoodsListVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -72,5 +73,9 @@ public class SearchGoodsListVM extends ListViewModel<Integer, GoodsListRowsBean>
     @Override
     public void init(Object data) {
         ldSearch.setValue((String) data);
+    }
+
+    public void cancel() {
+        action.setValue("cancel");
     }
 }

@@ -57,6 +57,7 @@
                 android:imeOptions="actionDone"  //右下角按键内容为'完成'
                 -->
                 <EditText
+                    android:gravity="center_vertical"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:imeOptions="actionSearch"
@@ -68,7 +69,7 @@
                     android:layout_toEndOf="@+id/icon_search"
                     android:layout_toRightOf="@+id/icon_search"
                     android:background="@color/bg_color"
-                    android:gravity="center"
+                    android:inputType="text"
                     android:text="@={model.ldSearchWord}">
 
                 </EditText>
@@ -77,58 +78,75 @@
             </RelativeLayout>
         </RelativeLayout>
 
-
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/bg_color">
+            android:layout_height="match_parent">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toStartOf="@+id/delete"
-                android:layout_toLeftOf="@+id/delete"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/layout_padding"
-                android:paddingLeft="@dimen/layout_padding"
-                android:text="@string/search_history" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <ImageView
-                android:layout_height="@dimen/image"
-                android:layout_centerVertical="true"
-                android:id="@+id/delete"
-                android:layout_width="@dimen/image"
-                android:layout_marginEnd="8dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:padding="@dimen/image_padding"
-                android:layout_marginRight="8dp"
-                android:src="@mipmap/delete" />
-        </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="200dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/bg_color">
 
-        </androidx.recyclerview.widget.RecyclerView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toStartOf="@+id/delete"
+                        android:layout_toLeftOf="@+id/delete"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/layout_padding"
+                        android:paddingLeft="@dimen/layout_padding"
+                        android:text="@string/search_history" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_color"
-            android:paddingLeft="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="热门搜索" />
+                    <ImageView
+                        android:id="@+id/delete"
+                        android:layout_width="@dimen/image"
+                        android:layout_height="@dimen/image"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="@dimen/image_padding"
+                        android:src="@mipmap/delete" />
+                </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_hot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="200dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    android:minHeight="200dp">
 
-        </androidx.recyclerview.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_color"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="热门搜索" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_hot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    android:minHeight="200dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </layout>
