@@ -12,6 +12,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.HotWordBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
@@ -25,14 +26,8 @@ import com.zaomeng.zaomeng.model.repository.http.bean.SignInBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 
-import java.util.List;
-
-import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -65,14 +60,14 @@ public interface ApiService {
                                                        @Query("goodsCategoryID") String goodsCategoryID,
                                                        @Query("memberID") String memberID);
 
-    /**
-     * 获取商品列表
-     */
-    @GET("getGoodsShopList.json")
-    LiveData<Resource<PageBean<GoodsListRowsBean>>> getGoodsShopListForLiveData(@Query("currentPage") Integer currentPage,
-                                                                                @Query("pageNumber") Integer pageNumber,
-                                                                                @Query("goodsCategoryID") String goodsCategoryID,
-                                                                                @Query("memberID") String memberID);
+//    /**
+//     * 获取商品列表
+//     */
+//    @GET("getGoodsShopList.json")
+//    LiveData<Resource<PageBean<GoodsListRowsBean>>> getGoodsShopListForLiveData(@Query("currentPage") Integer currentPage,
+//                                                                                @Query("pageNumber") Integer pageNumber,
+//                                                                                @Query("goodsCategoryID") String goodsCategoryID,
+//                                                                                @Query("memberID") String memberID);
 
     /**
      * 获取商品详情
@@ -165,12 +160,12 @@ public interface ApiService {
     Call<Message<Bean<String>>> removeCartGoods(@Query("sessionID") String sessionID,
                                                 @Query("cartGoodsID") String cartGoodsID);
 
-    /**
-     * 获取分类列表
-     */
-    @GET("getCategoryList.json")
-    Call<Message<Bean<String>>> getCategoryList(@Query("rootID") String rootID,
-                                                @Query("depth") Integer depth);
+//    /**
+//     * 获取分类列表
+//     */
+//    @GET("getCategoryList.json")
+//    Call<Message<Bean<String>>> getCategoryList(@Query("rootID") String rootID,
+//                                                @Query("depth") Integer depth);
 
     /**
      * 购物车生成订单
@@ -181,17 +176,17 @@ public interface ApiService {
                                                                @Query("contactPhone") String contactPhone,
                                                                @Query("address") String address);
 
-    /**
-     * 店铺商品生成订单
-     */
-    @GET("createMemberOrder.json")
-    Call<Message<Bean<String>>> createMemberOrder(@Query("sessionID") String sessionID,
-                                                  @Query("goodsShopID") String goodsShopID,
-                                                  @Query("qty") Integer qty,
-                                                  @Query("objectFeatureItemID1") String objectFeatureItemID1,
-                                                  @Query("contactName") String contactName,
-                                                  @Query("contactPhone") String contactPhone,
-                                                  @Query("address") String address);
+//    /**
+//     * 店铺商品生成订单
+//     */
+//    @GET("createMemberOrder.json")
+//    Call<Message<Bean<String>>> createMemberOrder(@Query("sessionID") String sessionID,
+//                                                  @Query("goodsShopID") String goodsShopID,
+//                                                  @Query("qty") Integer qty,
+//                                                  @Query("objectFeatureItemID1") String objectFeatureItemID1,
+//                                                  @Query("contactName") String contactName,
+//                                                  @Query("contactPhone") String contactPhone,
+//                                                  @Query("address") String address);
 
     /**
      * 获取子集导航列表（标准结构）
@@ -270,9 +265,9 @@ public interface ApiService {
                                                      @Query("contactIdCardFaceImage") String contactIdCardFaceImage,
                                                      @Query("contactIdCardBackImage") String contactIdCardBackImage);
 
-    @Multipart
-    @POST("uploadFile.json")
-    LiveData<Resource<Bean<List<String>>>> uploadFile(@Part MultipartBody.Part file);
+//    @Multipart
+//    @POST("uploadFile.json")
+//    LiveData<Resource<Bean<List<String>>>> uploadFile(@Part MultipartBody.Part file);
 
     /**
      * 获取我的消息列表
@@ -341,6 +336,18 @@ public interface ApiService {
     LiveData<Resource<Bean<String>>> updateMemberInfo(@Query("sessionID") String sessionID,
                                                       @Query("name") String name,
                                                       @Query("avatarURL") String avatarURL);
+
+    @GET("getHotWordList.json")
+    LiveData<Resource<PageBean<HotWordBean>>> getHotWordList(@Query("currentPage") Integer currentPage,
+                                                             @Query("pageNumber") Integer pageNumber,
+                                                             @Query("siteID") String siteID);
+
+    @GET("findLoginPassword.json")
+    LiveData<Resource<Bean<String>>> findLoginPassword(@Query("phone") String phone,
+                                                       @Query("password") String password,
+                                                       @Query("vCode") String vCode,
+                                                       @Query("siteID") String siteID);
+
 
 
 

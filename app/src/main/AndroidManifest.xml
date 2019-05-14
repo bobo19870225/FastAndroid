@@ -54,6 +54,7 @@
         <activity android:name=".view.SettingActivity" />
         <activity android:name=".view.weixin.PayActivity" />
         <activity android:name=".view.UserInfoActivity" />
+        <activity android:name=".view.FindPasswordActivity" />
 
         <receiver android:name=".AppRegister">
             <intent-filter>

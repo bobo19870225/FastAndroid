@@ -6,29 +6,28 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.zaomeng.zaomeng.R;
-import com.zaomeng.zaomeng.databinding.ActivityRegisterBinding;
-import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
-import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
+import com.zaomeng.zaomeng.databinding.ActivityFindPasswordBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.utils.CountDownTimerUtils;
+import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
-import com.zaomeng.zaomeng.view_model.RegisterViewModel;
+import com.zaomeng.zaomeng.view_model.FindPasswordVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
 
 /**
- * Created by Sampson on 2019/4/15.
+ * Created by Sampson on 2019-05-14.
  * FastAndroid
  */
-public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRegisterBinding> {
+public class FindPasswordActivity extends MVVMActivity<FindPasswordVM, ActivityFindPasswordBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
 
     @NonNull
     @Override
-    protected RegisterViewModel createdViewModel() {
-        return ViewModelProviders.of(this, viewModelFactory).get(RegisterViewModel.class);
+    protected FindPasswordVM createdViewModel() {
+        return ViewModelProviders.of(this, viewModelFactory).get(FindPasswordVM.class);
     }
 
     @Override
@@ -51,23 +50,12 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
                 }
             }
         });
-
-        mViewModel.ldRegister.observe(this, beanResource -> {
-            if (beanResource.isSuccess()) {
-                Bean<RegisterBean> resource = beanResource.getResource();
-                if (resource != null && resource.getHeader().getCode() == 0) {
-                    skipTo(CertificationActivity.class, null);
-                } else if (resource != null) {
-                    toast(resource.getHeader().getMsg());
-                }
-            } else {
-                Throwable error = beanResource.getError();
-                if (error != null) {
-                    toast(error.toString());
-                }
+        mViewModel.ldFindPassword.observe(this, beanResource -> {
+            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            if (s != null) {
+                finish();
             }
         });
-
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "getVCode":
@@ -103,11 +91,11 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
 
     @Override
     protected String setToolBarTitle() {
-        return "注册";
+        return "忘记密码";
     }
 
     @Override
     protected int setLayoutRes() {
-        return R.layout.activity_register;
+        return R.layout.activity_find_password;
     }
 }

@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
-import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
@@ -17,26 +16,24 @@ import static com.zaomeng.zaomeng.utils.FormatUtils.isMobileNO;
 import static com.zaomeng.zaomeng.utils.SystemParameter.siteID;
 
 /**
- * Created by Sampson on 2019/4/15.
+ * Created by Sampson on 2019-05-14.
  * FastAndroid
- * {@link com.zaomeng.zaomeng.view.RegisterActivity}
+ * {@link com.zaomeng.zaomeng.view.FindPasswordActivity}
  */
-public class RegisterViewModel extends BaseViewModel {
-    public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
-    public final MutableLiveData<String> ldVCode = new MutableLiveData<>();
-    public final MutableLiveData<String> ldGetVCode = new MutableLiveData<>();
+public class FindPasswordVM extends BaseViewModel {
+    private ApiService apiService;
     public final MutableLiveData<String> ldPhone = new MutableLiveData<>();
     public final MutableLiveData<String> ldPassword = new MutableLiveData<>();
-    public final MediatorLiveData<Resource<Bean<RegisterBean>>> ldRegister = new MediatorLiveData<>();
+    public final MutableLiveData<String> ldVCode = new MutableLiveData<>();
+    public final MutableLiveData<String> ldGetVCode = new MutableLiveData<>();
+    public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
+    public final MediatorLiveData<Resource<Bean<String>>> ldFindPassword = new MediatorLiveData<>();
     public final MediatorLiveData<Resource<SendSmsCommonBean>> ldSendSmsCommonBean = new MediatorLiveData<>();
+
     private String sVCode;
     private String oldPhone;
 
-
-    private ApiService apiService;
-
-
-    RegisterViewModel(@NonNull Application application, ApiService apiService) {
+    public FindPasswordVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
     }
@@ -49,7 +46,7 @@ public class RegisterViewModel extends BaseViewModel {
     public void getVCode() {
         if (ldPhone.getValue() != null && isPhoneNumber(ldPhone.getValue())) {
             action.setValue("getVCode");
-            ldSendSmsCommonBean.addSource(apiService.sendSmsCommon(ldPhone.getValue(), siteID, 0), ldSendSmsCommonBean::setValue);
+            ldSendSmsCommonBean.addSource(apiService.sendSmsCommon(ldPhone.getValue(), siteID, 1), ldSendSmsCommonBean::setValue);
             oldPhone = ldPhone.getValue();
         } else {
             action.setValue("phoneError");
@@ -60,7 +57,7 @@ public class RegisterViewModel extends BaseViewModel {
         return isMobileNO(value);
     }
 
-    public void next() {
+    public void submit() {
         if (ldPhone.getValue() == null) {
             action.setValue("phoneError");
             return;
@@ -91,9 +88,10 @@ public class RegisterViewModel extends BaseViewModel {
             action.setValue("PasswordError");
             return;
         }
-
-        ldRegister.addSource(apiService.phoneRegister(ldPhone.getValue(), ldPassword.getValue(), ldVCode.getValue(), siteID, ""), ldRegister::setValue);
-
+        ldFindPassword.addSource(apiService.findLoginPassword(ldPhone.getValue(),
+                ldPassword.getValue(),
+                ldVCode.getValue(),
+                siteID), ldFindPassword::setValue);
     }
 
     public void isVCodeCorrect(String vCode) {

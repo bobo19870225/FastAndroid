@@ -13,16 +13,58 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <SearchView
-            android:id="@+id/search"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_button_corner_bc"
-            android:paddingStart="@dimen/layout_padding"
-            android:paddingLeft="@dimen/layout_padding">
+            android:layout_height="wrap_content">
 
-        </SearchView>
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:onClick="@{()->model.cancel()}"
+                android:text="取消"
+                android:textColor="@color/text_main"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_toStartOf="@+id/cancel"
+                android:layout_toLeftOf="@+id/cancel"
+                android:background="@drawable/bg_button_corner_bc"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <ImageView
+                    android:id="@+id/icon_search"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/search" />
+
+                <EditText
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toEndOf="@+id/icon_search"
+                    android:layout_toRightOf="@+id/icon_search"
+                    android:background="@color/bg_color"
+                    android:gravity="center"
+                    android:text="@={model.ldSearchWord}">
+
+                </EditText>
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -49,5 +91,29 @@
                 android:src="@mipmap/delete" />
         </RelativeLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_color"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="热门搜索" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_hot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </layout>

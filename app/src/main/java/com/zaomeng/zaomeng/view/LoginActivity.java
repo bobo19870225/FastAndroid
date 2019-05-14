@@ -154,6 +154,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                             skipTo(RegisterActivity.class, null);
                             break;
                         case "forgetPassword":
+                            skipTo(FindPasswordActivity.class, null);
                             break;
                         case "密码不少于6位":
                         case "电话号码错误":

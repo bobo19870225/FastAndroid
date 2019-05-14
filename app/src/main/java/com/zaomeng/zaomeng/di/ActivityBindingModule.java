@@ -5,6 +5,7 @@ import com.zaomeng.zaomeng.view.BonusActivity;
 import com.zaomeng.zaomeng.view.CalendarActivity;
 import com.zaomeng.zaomeng.view.CertificationActivity;
 import com.zaomeng.zaomeng.view.FeedbackActivity;
+import com.zaomeng.zaomeng.view.FindPasswordActivity;
 import com.zaomeng.zaomeng.view.GoodsDetailsActivity;
 import com.zaomeng.zaomeng.view.LocationActivity;
 import com.zaomeng.zaomeng.view.LoginActivity;
@@ -102,8 +103,12 @@ public abstract class ActivityBindingModule {
     abstract SettingActivity settingActivity();
 
     @ActivityScoped
-
     @ContributesAndroidInjector()
     abstract UserInfoActivity userInfoActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract FindPasswordActivity findPasswordActivity();
+
 
 }

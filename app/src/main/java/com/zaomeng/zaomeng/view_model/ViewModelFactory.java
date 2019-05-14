@@ -48,70 +48,78 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     ApiService apiService;
     @Inject
     UserDao userDao;
+
+    @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
         if (modelClass.isAssignableFrom(LoginViewModel.class)) {
-            //noinspection unchecked
+
             return (T) new LoginViewModel(application, apiService);
         } else if (modelClass.isAssignableFrom(MainGoodsFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new MainGoodsFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(RegisterViewModel.class)) {
-            //noinspection unchecked
+
             return (T) new RegisterViewModel(application, apiService);
         } else if (modelClass.isAssignableFrom(CertificationVM.class)) {
-            //noinspection unchecked
+
             return (T) new CertificationVM(application, apiService);
         } else if (modelClass.isAssignableFrom(SortFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new SortFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(GoodsDetailsVM.class)) {
-            //noinspection unchecked
+
             return (T) new GoodsDetailsVM(application, apiService);
         } else if (modelClass.isAssignableFrom(MainFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new MainFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(CommonlyUsedFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new CommonlyUsedFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(BranchGoodsFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new BranchGoodsFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(ShoppingCartFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new ShoppingCartFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(MessageVM.class)) {
-            //noinspection unchecked
+
             return (T) new MessageVM(application, apiService);
         } else if (modelClass.isAssignableFrom(AddressManageVM.class)) {
-            //noinspection unchecked
+
             return (T) new AddressManageVM(application, apiService);
         } else if (modelClass.isAssignableFrom(CalendarVM.class)) {
-            //noinspection unchecked
+
             return (T) new CalendarVM(application, apiService);
         } else if (modelClass.isAssignableFrom(PointFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new PointFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(OrderSettlementVM.class)) {
-            //noinspection unchecked
+
             return (T) new OrderSettlementVM(application, apiService);
         } else if (modelClass.isAssignableFrom(FeedbackVM.class)) {
-            //noinspection unchecked
+
             return (T) new FeedbackVM(application, apiService);
         } else if (modelClass.isAssignableFrom(OrderFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new OrderFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(NewOrderFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new NewOrderFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(ReceivedOrderFragmentVM.class)) {
-            //noinspection unchecked
+
             return (T) new ReceivedOrderFragmentVM(application, apiService);
         } else if (modelClass.isAssignableFrom(UserInfoVM.class)) {
-            //noinspection unchecked
+
             return (T) new UserInfoVM(application, apiService, userDao);
+        } else if (modelClass.isAssignableFrom(SearchViewModel.class)) {
+
+            return (T) new SearchViewModel(application, apiService);
+        } else if (modelClass.isAssignableFrom(FindPasswordVM.class)) {
+
+            return (T) new FindPasswordVM(application, apiService);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
