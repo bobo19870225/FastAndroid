@@ -15,6 +15,9 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivitySearchBinding;
+import com.zaomeng.zaomeng.model.repository.dataBase.HistorySearchKey;
+import com.zaomeng.zaomeng.model.repository.dataBase.SearchDao;
+import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
 import com.zaomeng.zaomeng.model.repository.http.bean.HotWordBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
@@ -25,6 +28,8 @@ import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -35,8 +40,17 @@ import javax.inject.Inject;
 public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearchBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    SearchDao searchDao;
+    @Inject
+    UserDao userDao;
+    private String memberID;
     private int oldPosition = -1;
+    private int historyOldPosition = -1;
     private String searchWord;
+    private List<HistorySearchKey> list;
+    private CommonAdapter<HotWordBean> hotWordBeanCommonAdapter;
+    private CommonAdapter<HistorySearchKey> historySearchKeyCommonAdapter;
     @NonNull
     @Override
     protected SearchViewModel createdViewModel() {
@@ -45,26 +59,52 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
 
     @Override
     protected void setView() {
-        mViewDataBinding.search.clearFocus();
+
+        userDao.getAllUser().observe(this, loginBeans -> {
+            memberID = loginBeans.get(0).getId();
+            searchDao.getSearchKeyByMemberID(memberID).observe(this, historySearchKeys -> {
+                list = historySearchKeys;
+                initHistoryListView(list);
+            });
+        });
+        mViewModel.getHotWordList().observe(this, pageBeanResource -> {
+            PageDataBean<HotWordBean> hotWordBeanPageDataBean = new HttpHelper<HotWordBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            if (hotWordBeanPageDataBean != null) {
+                List<HotWordBean> rows = hotWordBeanPageDataBean.getRows();
+                if (rows != null) {
+                    initListView(rows);
+                }
+            }
+
+        });
         mViewModel.action.observe(this, s -> {
             if (s.equals("cancel")) {
                 finish();
             } else if (s.contains("toast:")) {
                 toast(s.replaceAll("toast:", ""));
             } else if (s.equals("search")) {
-                skipTo(SearchGoodsListActivity.class, mViewModel.ldSearchWord.getValue());
+                HistorySearchKey historySearchKey = new HistorySearchKey();
+                String value = mViewModel.ldSearchWord.getValue();
+                if (value != null) {
+                    historySearchKey.key = value;
+                    historySearchKey.memberID = memberID;
+                    ExecutorService DB_IO = Executors.newFixedThreadPool(2);
+                    DB_IO.execute(() -> {
+                        searchDao.insertDate(historySearchKey);
+                        DB_IO.shutdown();//关闭线程
+                    });
+                    skipTo(SearchGoodsListActivity.class, value);
+                }
+            } else if (s.equals("clean")) {
+                ExecutorService DB_IO = Executors.newFixedThreadPool(2);
+                DB_IO.execute(() -> {
+                    searchDao.clean();
+                    DB_IO.shutdown();//关闭线程
+                });
+
             }
         });
-        mViewModel.getHotWordList().observe(this, pageBeanResource -> {
-                    PageDataBean<HotWordBean> hotWordBeanPageDataBean = new HttpHelper<HotWordBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
-                    if (hotWordBeanPageDataBean != null) {
-                        List<HotWordBean> rows = hotWordBeanPageDataBean.getRows();
-                        if (rows != null) {
-                            initListView(rows);
-                        }
-                    }
-
-        });
+        mViewDataBinding.search.clearFocus();
         mViewDataBinding.search.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == EditorInfo.IME_ACTION_SEARCH || id == EditorInfo.IME_NULL) {
                 mViewModel.search();
@@ -75,16 +115,7 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
     }
 
     private void initListView(List<HotWordBean> rows) {
-        RecyclerView listHot = mViewDataBinding.listHot;
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
-        layoutManager.setFlexWrap(FlexWrap.WRAP);
-        layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setAlignItems(AlignItems.STRETCH);
-        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
-        listHot.setLayoutManager(layoutManager);
-        listHot.setAdapter(new CommonAdapter<HotWordBean>(getApplicationContext(), R.layout.flexbox_item_text, rows) {
-
-
+        hotWordBeanCommonAdapter = new CommonAdapter<HotWordBean>(getApplicationContext(), R.layout.flexbox_item_text, rows) {
             @Override
             protected void convert(ViewHolder holder, HotWordBean hotWordBean, int position) {
 
@@ -92,28 +123,94 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
                 te.setText(hotWordBean.getName());
                 if (oldPosition == position) {
                     te.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.button_them_color_select));
+                    te.setTextColor(getApplicationContext().getResources().getColor(R.color.text_white));
                 } else {
                     te.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.button_them_color_un_select));
+                    te.setTextColor(getApplicationContext().getResources().getColor(R.color.text_main));
                 }
                 te.setOnClickListener(v -> {
                             searchWord = hotWordBean.getName();
                             mViewModel.ldSearchWord.setValue(searchWord);
                             oldPosition = position;
-                            notifyDataSetChanged();
+                            historyOldPosition = -1;
+                            notifyList();
                         }
                 );
                 ViewGroup.LayoutParams lp = te.getLayoutParams();
                 if (lp instanceof FlexboxLayoutManager.LayoutParams) {
                     FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
-                    flexBoxLp.width = hotWordBean.getName().getBytes().length * 32;
+                    int w = hotWordBean.getName().getBytes().length * 32;
+                    if (w < 128) {
+                        w = 128;
+                    }
+                    flexBoxLp.width = w;
 //                        flexBoxLp.setFlexGrow(1.0f);
 //                        flexBoxLp.setFlexGrow(itemListBean.getObjectFeatureItemName().length());
                 }
 
             }
+        };
+        RecyclerView listHot = mViewDataBinding.listHot;
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
+        layoutManager.setFlexWrap(FlexWrap.WRAP);
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setAlignItems(AlignItems.STRETCH);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        listHot.setLayoutManager(layoutManager);
+        listHot.setAdapter(hotWordBeanCommonAdapter);
+    }
 
+    private void notifyList() {
+        if (historySearchKeyCommonAdapter != null)
+            historySearchKeyCommonAdapter.notifyDataSetChanged();
+        if (hotWordBeanCommonAdapter != null)
+            hotWordBeanCommonAdapter.notifyDataSetChanged();
+    }
 
-        });
+    private void initHistoryListView(List<HistorySearchKey> rows) {
+        historySearchKeyCommonAdapter = new CommonAdapter<HistorySearchKey>(getApplicationContext(), R.layout.flexbox_item_text, rows) {
+            @Override
+            protected void convert(ViewHolder holder, HistorySearchKey historySearchKey, int position) {
+                TextView te = holder.getView(R.id.imageview);
+                te.setText(historySearchKey.key);
+                if (historyOldPosition == position) {
+                    te.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.button_them_color_select));
+                    te.setTextColor(getApplicationContext().getResources().getColor(R.color.text_white));
+                } else {
+                    te.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.button_them_color_un_select));
+                    te.setTextColor(getApplicationContext().getResources().getColor(R.color.text_main));
+                }
+                te.setOnClickListener(v -> {
+                            searchWord = historySearchKey.key;
+                            mViewModel.ldSearchWord.setValue(searchWord);
+                            historyOldPosition = position;
+                            oldPosition = -1;
+                            notifyList();
+
+                        }
+                );
+                ViewGroup.LayoutParams lp = te.getLayoutParams();
+                if (lp instanceof FlexboxLayoutManager.LayoutParams) {
+                    FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
+                    int w = historySearchKey.key.getBytes().length * 32;
+                    if (w < 128) {
+                        w = 128;
+                    }
+                    flexBoxLp.width = w;
+//                        flexBoxLp.setFlexGrow(1.0f);
+//                        flexBoxLp.setFlexGrow(itemListBean.getObjectFeatureItemName().length());
+                }
+
+            }
+        };
+        RecyclerView listHistory = mViewDataBinding.list;
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
+        layoutManager.setFlexWrap(FlexWrap.WRAP);
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setAlignItems(AlignItems.STRETCH);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        listHistory.setLayoutManager(layoutManager);
+        listHistory.setAdapter(historySearchKeyCommonAdapter);
     }
 
     @Override

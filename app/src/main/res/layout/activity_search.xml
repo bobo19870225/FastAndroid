@@ -104,6 +104,7 @@
                         android:text="@string/search_history" />
 
                     <ImageView
+                        android:onClick="@{()->model.clean()}"
                         android:id="@+id/delete"
                         android:layout_width="@dimen/image"
                         android:layout_height="@dimen/image"

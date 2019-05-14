@@ -50,4 +50,8 @@ public class SearchViewModel extends BaseViewModel {
         }
 
     }
+
+    public void clean() {
+        action.setValue("clean");
+    }
 }

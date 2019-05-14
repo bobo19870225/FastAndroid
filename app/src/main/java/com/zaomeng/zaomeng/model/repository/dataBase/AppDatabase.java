@@ -17,7 +17,8 @@ import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
  * Created by Sampson on 2018/12/10.
  * LastCPT 2
  */
-@Database(entities = {Address.class, LoginBean.class}, version = 2)
+@Database(entities = {Address.class, LoginBean.class, HistorySearchKey.class},
+        version = 4)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;
@@ -27,6 +28,9 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract AddressDao addressDao();
 
     public abstract UserDao userDao();
+
+    public abstract SearchDao searchDao();
+
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
     public static AppDatabase getInstance(final Context context) {
