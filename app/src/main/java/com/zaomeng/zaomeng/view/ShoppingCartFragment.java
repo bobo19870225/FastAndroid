@@ -86,6 +86,25 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                         refresh();
                     }
                     break;
+                case "delete":
+                    List<ShopCartBean> selectGoods = listGoodsItem.get(1);
+                    if (selectGoods.size() != 0) {
+                        StringBuilder selectID = new StringBuilder();
+                        for (int i = 0; i < selectGoods.size(); i++) {
+                            if (i == selectGoods.size() - 1) {
+                                selectID.append(selectGoods.get(i).getId());
+                            } else {
+                                selectID.append(selectGoods.get(i).getId()).append(",");
+                            }
+                        }
+                        mViewModel.removeCartGoods(selectID.toString()).observe(this, beanResource -> {
+                            String s1 = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+                            if (s1 != null) refresh();
+                        });
+                    } else {
+                        toast("请先选择商品");
+                    }
+                    break;
                 default:
                     break;
             }

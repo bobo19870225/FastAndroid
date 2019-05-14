@@ -158,8 +158,8 @@ public interface ApiService {
      * 删除购物车商品
      */
     @GET("removeCartGoods.json")
-    Call<Message<Bean<String>>> removeCartGoods(@Query("sessionID") String sessionID,
-                                                @Query("cartGoodsID") String cartGoodsID);
+    LiveData<Resource<Bean<String>>> removeCartGoods(@Query("sessionID") String sessionID,
+                                                     @Query("cartGoodsID") String cartGoodsID);
 
 //    /**
 //     * 获取分类列表

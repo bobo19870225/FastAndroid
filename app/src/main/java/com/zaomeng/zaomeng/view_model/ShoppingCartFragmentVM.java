@@ -53,7 +53,11 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
      * 删除商品
      */
     public void delete() {
+        action.setValue("delete");
+    }
 
+    public LiveData<Resource<Bean<String>>> removeCartGoods(String cartGoodsID) {
+        return apiService.removeCartGoods(sessionID, cartGoodsID);
     }
 
     /**
