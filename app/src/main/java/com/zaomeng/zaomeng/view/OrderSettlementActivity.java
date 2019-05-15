@@ -2,23 +2,39 @@ package com.zaomeng.zaomeng.view;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alipay.sdk.app.PayTask;
+import com.bumptech.glide.Glide;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityOrderSettlementBinding;
+import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.PayBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.adapter.address.AddressAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.OrderSettlementVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +50,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
     ViewModelFactory viewModelFactory;
     private AddressAdapter addressAdapter;
     private final MutableLiveData<Map<String, String>> ldResult = new MutableLiveData<>();
-
+    private int ldPayType;
     @NonNull
     @Override
     protected OrderSettlementVM createdViewModel() {
@@ -43,38 +59,56 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
 
     @Override
     protected void setView() {
-        addressAdapter = new AddressAdapter();
-        mViewModel.getAddress().observe(this, pageBeanResource -> {
-            PageDataBean<MemberShopBean> memberShopBeanPageDataBean = new HttpHelper<MemberShopBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
-            if (memberShopBeanPageDataBean != null) {
-                List<MemberShopBean> rows = memberShopBeanPageDataBean.getRows();
-                addressAdapter.setList(rows);
-            }
-        });
-        mViewDataBinding.list.setAdapter(addressAdapter);
-        mViewDataBinding.scrollView.smoothScrollTo(0, 0);
+        EventBus.getDefault().register(this);
+        setOrderList();
+        setAddressList();
+        RadioGroup radioGroup = mViewDataBinding.radioGroup;
+        ldPayType = radioGroup.getCheckedRadioButtonId();
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> ldPayType = checkedId);
+
         mViewModel.ldSubmitOrder.observe(this, beanResource -> {
             String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
             if (s != null) {
-                mViewModel.appApplyMemberOrderPay(s).observe(this, payBeanResource -> {
-                    if (payBeanResource.isSuccess()) {
-                        PayBean resource = payBeanResource.getResource();
-                        if (resource != null && resource.getHeader().getCode() == 0) {
-                            pay(resource.getBody().getDataString());
+                if (ldPayType == R.id.radio_weixin) {
+                    mViewModel.appApplyMemberOrderPayForWeChat(s).observe(this, payBeanResource -> {
+                        if (payBeanResource.isSuccess()) {
+                            WeChatPayBean weChatPayBean = payBeanResource.getResource();
+                            if (weChatPayBean != null && weChatPayBean.getHeader().getCode() == 0) {
+                                weChatPay(weChatPayBean.getBody());
+                            } else {
+                                if (weChatPayBean != null) {
+                                    toast(weChatPayBean.getHeader().getMsg());
+                                }
+                            }
                         } else {
-                            if (resource != null) {
-                                toast(resource.getHeader().getMsg());
+                            Throwable error = beanResource.getError();
+                            if (error != null) {
+                                toast(error.toString());
                             }
                         }
-                    } else {
-                        Throwable error = beanResource.getError();
-                        if (error != null) {
-                            toast(error.toString());
+
+                    });
+                } else if (ldPayType == R.id.radio_zfb) {
+                    mViewModel.appApplyMemberOrderPay(s).observe(this, payBeanResource -> {
+                        if (payBeanResource.isSuccess()) {
+                            AliPayBean resource = payBeanResource.getResource();
+                            if (resource != null && resource.getHeader().getCode() == 0) {
+                                pay(resource.getBody().getDataString());
+                            } else {
+                                if (resource != null) {
+                                    toast(resource.getHeader().getMsg());
+                                }
+                            }
+                        } else {
+                            Throwable error = beanResource.getError();
+                            if (error != null) {
+                                toast(error.toString());
+                            }
                         }
-                    }
 
-                });
-
+                    });
+                }
             }
         });
         ldResult.observe(this, stringStringMap -> {
@@ -88,6 +122,8 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                 // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
 //                showAlert(PayDemoActivity.this, getString(R.string.pay_success) + payResult);
                 toast("支付成功" + payResult.toString());
+                skipTo(OrderActivity.class, null);
+                finish();
             } else {
                 toast("支付失败" + payResult.toString());
                 // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
@@ -96,21 +132,77 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
         });
     }
 
+    /**
+     * "package": "Sign=WXPay",
+     * "appid": "wx2fc887560c55de68",
+     * "sign": "6BE4AFC4B41983AF247A7DC0B96744E4",
+     * "partnerid": "1534247421",
+     * "prepayid": "wx151038117152786d11bb22a03593819073",
+     * "noncestr": "1175103810",
+     * "timestamp": "1557887891"
+     */
+    private void weChatPay(WeChatPayBean.BodyBean body) {
+        IWXAPI api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1");
+        if (body != null && body.getAppid() != null) {
+            PayReq req = new PayReq();
+            //req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
+            req.appId = body.getAppid();
+            req.partnerId = body.getPartnerid();
+            req.prepayId = body.getPrepayid();
+            req.nonceStr = body.getNoncestr();
+            req.timeStamp = body.getTimestamp();
+            req.packageValue = body.getPackageX();
+            req.sign = body.getSign();
+            // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+            api.sendReq(req);
+        }
+
+
+    }
+
+    private void setAddressList() {
+        addressAdapter = new AddressAdapter();
+        mViewModel.getAddress().observe(this, pageBeanResource -> {
+            PageDataBean<MemberShopBean> memberShopBeanPageDataBean = new HttpHelper<MemberShopBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            if (memberShopBeanPageDataBean != null) {
+                List<MemberShopBean> rows = memberShopBeanPageDataBean.getRows();
+                addressAdapter.setList(rows);
+            }
+        });
+        mViewDataBinding.list.setAdapter(addressAdapter);
+        mViewDataBinding.scrollView.smoothScrollTo(0, 0);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setOrderList() {
+        RecyclerView listOrder = mViewDataBinding.listOrder;
+        List<ShopCartBean> shopCartBeans = (List<ShopCartBean>) transferData;
+        mViewModel.ldOrderNumber.setValue("共" + shopCartBeans.size() + "件");
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        listOrder.setLayoutManager(linearLayoutManager);
+        listOrder.setAdapter(new CommonAdapter<ShopCartBean>(getApplicationContext(), R.layout.item_image_small, shopCartBeans) {
+            @Override
+            protected void convert(ViewHolder holder, ShopCartBean shopCartBean, int position) {
+                ImageView image = holder.itemView.findViewById(R.id.image);
+                Glide.with(image).load(shopCartBean.getLittleImage()).into(image);
+            }
+        });
+    }
+
+
     private void pay(String orderInfo) {
         final Runnable payRunnable = () -> {
             PayTask alipay = new PayTask(this);
             Map<String, String> result = alipay.payV2(orderInfo, true);
             Log.i("msp", result.toString());
-//                        Message msg = new Message();
-//                        msg.what = SDK_PAY_FLAG;
-//                        msg.obj = result;
-//                        mHandler.sendMessage(msg);
             ldResult.postValue(result);
         };
         // 必须异步调用
         Thread payThread = new Thread(payRunnable);
         payThread.start();
     }
+
     @Override
     protected int setToolBarMenu() {
         return 0;
@@ -124,5 +216,19 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
     @Override
     protected int setLayoutRes() {
         return R.layout.activity_order_settlement;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 微信支付回调处理
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(String event) {
+        finish();
     }
 }

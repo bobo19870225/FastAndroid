@@ -4,7 +4,7 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
  * Created by Sampson on 2019-05-08.
  * FastAndroid
  */
-public class PayBean {
+public class AliPayBean {
 
     /**
      * header : {"code":0,"msg":"appApplyMemberOrderPay success!"}

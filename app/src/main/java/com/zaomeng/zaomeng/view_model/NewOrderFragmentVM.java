@@ -9,9 +9,9 @@ import androidx.paging.PageKeyedDataSource;
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.PayBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.NewOrderFragment;
@@ -78,7 +78,7 @@ public class NewOrderFragmentVM extends ListViewModel<Integer, OrderBean> {
      * 微信：402892e96a4ed7a4016a4eda9107000c
      * 支付宝：402892e96a4ed7a4016a4eda5984000a
      */
-    public LiveData<Resource<PayBean>> appApplyMemberOrderPay(String memberOrderID) {
+    public LiveData<Resource<AliPayBean>> appApplyMemberOrderPay(String memberOrderID) {
         return apiService.appApplyMemberOrderPay(sessionID,
                 "402892e96a4ed7a4016a4eda5984000a",
                 "1", memberOrderID, null);

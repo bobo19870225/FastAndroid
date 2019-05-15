@@ -41,7 +41,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
         TextView title = findViewById(R.id.title);
         title.setText(setToolBarTitle());
         title.setTextSize(20);
-        title.setTextColor(Color.parseColor("#000000"));
+        title.setTextColor(Color.parseColor("#333333"));
         toolBarMenu = setToolBarMenu();
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());

@@ -4,6 +4,7 @@ package com.zaomeng.zaomeng.model.repository.http;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
@@ -18,12 +19,12 @@ import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.PayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SignInBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 
 import retrofit2.Call;
@@ -324,11 +325,18 @@ public interface ApiService {
      */
 
     @GET("appApplyMemberOrderPay.json")
-    LiveData<Resource<PayBean>> appApplyMemberOrderPay(@Query("sessionID") String sessionID,
-                                                       @Query("payWayID") String payWayID,
-                                                       @Query("appType") String appType,
-                                                       @Query("memberOrderID") String memberOrderID,
-                                                       @Query("memberPaymentID") String memberPaymentID);
+    LiveData<Resource<AliPayBean>> appApplyMemberOrderPay(@Query("sessionID") String sessionID,
+                                                          @Query("payWayID") String payWayID,
+                                                          @Query("appType") String appType,
+                                                          @Query("memberOrderID") String memberOrderID,
+                                                          @Query("memberPaymentID") String memberPaymentID);
+
+    @GET("appApplyMemberOrderPay.json")
+    LiveData<Resource<WeChatPayBean>> appApplyMemberOrderPayForWeChat(@Query("sessionID") String sessionID,
+                                                                      @Query("payWayID") String payWayID,
+                                                                      @Query("appType") String appType,
+                                                                      @Query("memberOrderID") String memberOrderID,
+                                                                      @Query("memberPaymentID") String memberPaymentID);
 
     @GET("removeCollect.json")
     LiveData<Resource<Bean<String>>> removeCollect(@Query("sessionID") String sessionID, @Query("collectID") String collectID);
@@ -348,8 +356,6 @@ public interface ApiService {
                                                        @Query("password") String password,
                                                        @Query("vCode") String vCode,
                                                        @Query("siteID") String siteID);
-
-
 
 
 }

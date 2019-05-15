@@ -11,7 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.alipay.sdk.app.PayTask;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentNewOrderBinding;
-import com.zaomeng.zaomeng.model.repository.http.bean.PayBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 import com.zaomeng.zaomeng.view.adapter.order.OrderAdapter;
@@ -71,7 +71,7 @@ public class NewOrderFragment extends MVVMListFragment<NewOrderFragmentVM, Fragm
             mViewModel.appApplyMemberOrderPay(memberOrderID)
                     .observe(this, beanResource -> {
                         if (beanResource.isSuccess()) {
-                            PayBean resource = beanResource.getResource();
+                            AliPayBean resource = beanResource.getResource();
                             if (resource != null && resource.getHeader().getCode() == 0) {
                                 pay(resource.getBody().getDataString());
                             } else {

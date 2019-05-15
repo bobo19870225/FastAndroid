@@ -34,14 +34,16 @@
                     android:layout_height="40dp"
                     android:background="@color/bg_color">
 
-                    <View
+                    <ImageView
                         android:id="@+id/line"
-                        android:layout_width="@dimen/line"
+                        android:layout_width="8dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
-                        android:background="@color/line" />
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@mipmap/them" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -53,10 +55,12 @@
                 </RelativeLayout>
 
                 <com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView
-                    android:layout_below="@+id/tt_address"
                     android:id="@+id/list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/tt_address"
+                    android:paddingStart="16dp"
+                    android:paddingLeft="16dp"
                     android:scrollbars="none"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
@@ -69,14 +73,16 @@
                     android:layout_below="@+id/list"
                     android:background="@color/bg_color">
 
-                    <View
+                    <ImageView
                         android:id="@+id/line1"
-                        android:layout_width="@dimen/line"
+                        android:layout_width="8dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
-                        android:background="@color/line" />
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@mipmap/them" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -109,7 +115,9 @@
                     android:id="@+id/goods"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_below="@+id/tt_time">
+                    android:layout_below="@+id/tt_time"
+                    android:paddingStart="16dp"
+                    android:paddingLeft="16dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_order"
@@ -127,7 +135,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@+id/more_detail"
                         android:layout_toLeftOf="@+id/more_detail"
-                        android:text="共12件" />
+                        android:text="@{model.ldOrderNumber}" />
 
                     <ImageView
                         android:id="@+id/more_detail"
@@ -148,21 +156,23 @@
                     android:layout_below="@+id/goods"
                     android:background="@color/bg_color">
 
-                    <View
-                        android:id="@+id/line3"
-                        android:layout_width="@dimen/line"
+                    <ImageView
+                        android:id="@+id/line2"
+                        android:layout_width="8dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
-                        android:background="@color/line" />
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@mipmap/them" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/line3"
-                        android:layout_toRightOf="@+id/line3"
+                        android:layout_toEndOf="@+id/line2"
+                        android:layout_toRightOf="@+id/line2"
                         android:text="支付方式" />
                 </RelativeLayout>
 
@@ -171,73 +181,31 @@
                     android:id="@+id/radio_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tt_pay_way">
+                    android:layout_below="@+id/tt_pay_way"
+                    android:paddingStart="16dp"
+                    android:paddingLeft="16dp">
 
-                    <RelativeLayout
+
+                    <RadioButton
+                        android:id="@+id/radio_weixin"
                         android:layout_width="match_parent"
-                        android:layout_height="32dp">
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:drawableStart="@mipmap/weixinzhifu"
+                        android:drawableLeft="@mipmap/weixinzhifu"
+                        android:drawablePadding="8dp"
+                        android:text="微信支付" />
 
-                        <RadioButton
-                            android:id="@+id/radio_weixin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true" />
 
-                        <ImageView
-                            android:id="@+id/icon_weixin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_toEndOf="@+id/radio_weixin"
-                            android:layout_toRightOf="@+id/radio_weixin"
-                            android:src="@mipmap/weixinzhifu" />
+                    <RadioButton
+                        android:id="@+id/radio_zfb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@mipmap/alipay"
+                        android:drawableLeft="@mipmap/alipay"
+                        android:drawablePadding="8dp"
+                        android:text="支付宝支付" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_toEndOf="@+id/icon_weixin"
-                            android:layout_toRightOf="@+id/icon_weixin"
-                            android:text="微信" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp">
-
-                        <RadioButton
-                            android:id="@+id/radio_zfb"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true" />
-
-                        <ImageView
-                            android:id="@+id/icon_zfb"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_toEndOf="@+id/radio_zfb"
-                            android:layout_toRightOf="@+id/radio_zfb"
-                            android:src="@mipmap/alipay" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_toEndOf="@+id/icon_zfb"
-                            android:layout_toRightOf="@+id/icon_zfb"
-                            android:text="支付宝" />
-
-                    </RelativeLayout>
 
                 </RadioGroup>
 
@@ -267,11 +235,11 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop="8dp"
                     android:id="@+id/tt_bz"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/tt_uhq"
+                    android:layout_marginTop="8dp"
                     android:background="@color/bg_color"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
@@ -298,18 +266,19 @@
                         android:hint="选填"
                         android:textSize="12sp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_alignParentBottom="true">
 
                     <TextView
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
                         android:id="@+id/total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
                         android:layout_toStartOf="@+id/submit"
                         android:layout_toLeftOf="@+id/submit"
                         android:textColor="@color/text_red" />
