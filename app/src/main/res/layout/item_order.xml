@@ -110,6 +110,21 @@
         android:layout_marginTop="8dp">
 
         <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toStartOf="@+id/pay"
+            android:layout_toLeftOf="@+id/pay"
+            android:background="@drawable/button_them_color_un_select"
+            android:paddingLeft="16dp"
+            android:paddingTop="4dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="4dp"
+            android:text="取消订单"
+            android:textColor="@color/them_color" />
+        <TextView
             android:id="@+id/pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -19,6 +19,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PointBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
@@ -303,7 +304,7 @@ public interface ApiService {
      * 获取我的积分列表
      */
     @GET("getMyPointList.json")
-    Call<PageBean<MemberShopBean>> getMyPointList(
+    Call<PageBean<PointBean>> getMyPointList(
             @Query("sessionID") String sessionID,
             @Query("currentPage") Integer currentPage,
             @Query("pageNumber") Integer pageNumber);
@@ -356,6 +357,10 @@ public interface ApiService {
                                                        @Query("password") String password,
                                                        @Query("vCode") String vCode,
                                                        @Query("siteID") String siteID);
+
+    @GET("cancelMemberOrder.json")
+    LiveData<Resource<Bean<String>>> cancelMemberOrder(@Query("sessionID") String sessionID,
+                                                       @Query("memberOrderID") String memberOrderID);
 
 
 }

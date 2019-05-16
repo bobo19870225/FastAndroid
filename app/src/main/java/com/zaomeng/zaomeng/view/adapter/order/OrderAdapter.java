@@ -24,9 +24,13 @@ public class OrderAdapter extends BasePagedListAdapter<OrderBean> {
     }
 
     private OnItemClick<OrderBean> onItemClick;
-
+    private OnItemClick<OrderBean> onItemCancelClick;
     public void setOnItemClick(OnItemClick<OrderBean> onItemClick) {
         this.onItemClick = onItemClick;
+    }
+
+    public void setOnItemCancelClick(OnItemClick<OrderBean> onItemCancelClick) {
+        this.onItemCancelClick = onItemCancelClick;
     }
 
     @NonNull
@@ -37,7 +41,7 @@ public class OrderAdapter extends BasePagedListAdapter<OrderBean> {
 
     @Override
     protected void viewHolderBind(RecyclerView.ViewHolder holder, int position) {
-        ((OrderViewHolder) holder).bind(getItem(position), onItemClick);
+        ((OrderViewHolder) holder).bind(getItem(position), onItemClick, onItemCancelClick);
     }
 
     @Override
@@ -52,13 +56,13 @@ public class OrderAdapter extends BasePagedListAdapter<OrderBean> {
         @Override
         public boolean areItemsTheSame(@NonNull OrderBean oldItem, @NonNull OrderBean newItem) {
             return oldItem.getId().equals(newItem.getId());
-
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull OrderBean oldItem, @NonNull OrderBean newItem) {
-            return oldItem.getId().equals(newItem.getId()) &&
-                    oldItem.getApplyTime() == newItem.getApplyTime();
+            return oldItem.getId().equals(newItem.getId())
+                    && oldItem.getApplyTime() == newItem.getApplyTime()
+                    && oldItem.getStatus() == newItem.getStatus();
 
         }
     };

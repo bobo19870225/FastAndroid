@@ -7,7 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentListBinding;
-import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
+import com.zaomeng.zaomeng.view.adapter.point.PointAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.PointFragmentVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -20,7 +20,7 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019-05-07.
  * FastAndroid
  */
-public class PointFragment extends MVVMListFragment<PointFragmentVM, FragmentListBinding, GoodsAdapter> {
+public class PointFragment extends MVVMListFragment<PointFragmentVM, FragmentListBinding, PointAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
 
@@ -35,8 +35,8 @@ public class PointFragment extends MVVMListFragment<PointFragmentVM, FragmentLis
 
     @NonNull
     @Override
-    protected GoodsAdapter setAdapter(Function0 reTry) {
-        return new GoodsAdapter(reTry);
+    protected PointAdapter setAdapter(Function0 reTry) {
+        return new PointAdapter(reTry);
     }
 
     @NonNull

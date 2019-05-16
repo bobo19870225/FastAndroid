@@ -173,10 +173,10 @@
             android:id="@+id/magic_indicator3"
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
-            android:layout_height="40dp"
+            android:layout_height="32dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"

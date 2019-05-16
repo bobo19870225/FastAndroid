@@ -59,7 +59,8 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
 
     @Override
     protected void setView() {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
         setOrderList();
         setAddressList();
         RadioGroup radioGroup = mViewDataBinding.radioGroup;

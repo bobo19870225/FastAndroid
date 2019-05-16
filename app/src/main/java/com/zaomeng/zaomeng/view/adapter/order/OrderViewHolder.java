@@ -28,6 +28,8 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
     private TextView totalPrice;
     private TextView qty;
     private TextView pay;
+    private TextView cancel;
+
     private TextView orderState;
     private TextView orderNo;
 
@@ -41,6 +43,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
         totalPrice = itemView.findViewById(R.id.total_price);
         qty = itemView.findViewById(R.id.qty);
         pay = itemView.findViewById(R.id.pay);
+        cancel = itemView.findViewById(R.id.cancel);
         goodsIcon = itemView.findViewById(R.id.image);
         orderState = itemView.findViewById(R.id.order_state);
         orderNo = itemView.findViewById(R.id.order_no);
@@ -52,7 +55,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
         return new OrderViewHolder(view);
     }
 
-    void bind(OrderBean orderBean, OnItemClick<OrderBean> onItemClick) {
+    void bind(OrderBean orderBean, OnItemClick<OrderBean> onItemClick, OnItemClick<OrderBean> onItemCancelClick) {
         List<OrderBean.GoodsListBean> goodsList = orderBean.getGoodsList();
         if (goodsList != null) {
             OrderBean.GoodsListBean goodsListBean = goodsList.get(0);
@@ -66,18 +69,28 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
             switch (status) {
                 case 1:
                     strStatus = "待支付";
+                    pay.setText("去支付");
+                    cancel.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     strStatus = "已取消";
+                    pay.setText("再次购买");
+                    cancel.setVisibility(View.GONE);
                     break;
                 case 4:
                     strStatus = "已付款";
+                    pay.setText("再次购买");
+                    cancel.setVisibility(View.GONE);
                     break;
                 case 6:
                     strStatus = "已发货";
+                    pay.setText("再次购买");
+                    cancel.setVisibility(View.GONE);
                     break;
                 case 8:
                     strStatus = "已签收";
+                    pay.setText("再次购买");
+                    cancel.setVisibility(View.GONE);
                     break;
             }
             orderState.setText(strStatus);
@@ -85,6 +98,10 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
             pay.setOnClickListener(v -> {
                 if (onItemClick != null)
                     onItemClick.onClick(v, orderBean, getLayoutPosition());
+            });
+            cancel.setOnClickListener(v -> {
+                if (onItemCancelClick != null)
+                    onItemCancelClick.onClick(v, orderBean, getLayoutPosition());
             });
             qty.setText(String.valueOf(goodsListBean.getQty()));
         }

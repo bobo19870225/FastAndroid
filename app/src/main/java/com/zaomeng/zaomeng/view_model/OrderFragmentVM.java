@@ -10,8 +10,10 @@ import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.AllOrderFragment;
@@ -83,5 +85,15 @@ public class OrderFragmentVM extends ListViewModel<Integer, OrderBean> {
         return apiService.appApplyMemberOrderPay(sessionID,
                 "402892e96a4ed7a4016a4eda5984000a",
                 "1", memberOrderID, null);
+    }
+
+    public LiveData<Resource<WeChatPayBean>> appApplyMemberOrderPayForWeCat(String memberOrderID) {
+        return apiService.appApplyMemberOrderPayForWeChat(sessionID,
+                "402892e96a4ed7a4016a4eda9107000c",
+                "1", memberOrderID, null);
+    }
+
+    public LiveData<Resource<Bean<String>>> cancelMemberOrder(String memberOrderID) {
+        return apiService.cancelMemberOrder(sessionID, memberOrderID);
     }
 }

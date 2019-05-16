@@ -8,8 +8,8 @@ import androidx.paging.PageKeyedDataSource;
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PointBean;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 
 import retrofit2.Call;
@@ -19,7 +19,7 @@ import retrofit2.Call;
  * FastAndroid
  * {@link com.zaomeng.zaomeng.view.PointFragment}
  */
-public class PointFragmentVM extends ListViewModel<Integer, MemberShopBean> {
+public class PointFragmentVM extends ListViewModel<Integer, PointBean> {
     private ApiService apiService;
     private String sessionID;
 
@@ -35,25 +35,25 @@ public class PointFragmentVM extends ListViewModel<Integer, MemberShopBean> {
     }
 
     @Override
-    public Call<PageBean<MemberShopBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
+    public Call<PageBean<PointBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
         return apiService.getMyPointList(sessionID, 1, params.requestedLoadSize);
     }
 
     @Override
-    public void setLoadInitialCallback(PageBean<MemberShopBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, MemberShopBean> callback) {
+    public void setLoadInitialCallback(PageBean<PointBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, PointBean> callback) {
         callback.onResult(body.getBody().getData().getRows(), 1, 2);
 
     }
 
     @Override
-    public Call<PageBean<MemberShopBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
+    public Call<PageBean<PointBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
         return apiService.getMyPointList(sessionID, params.key, params.requestedLoadSize);
 
 
     }
 
     @Override
-    public boolean setLoadCallback(PageBean<MemberShopBean> body, PageKeyedDataSource.LoadParams<Integer> params, PageKeyedDataSource.LoadCallback<Integer, MemberShopBean> callback, Listing<MemberShopBean> listing) {
+    public boolean setLoadCallback(PageBean<PointBean> body, PageKeyedDataSource.LoadParams<Integer> params, PageKeyedDataSource.LoadCallback<Integer, PointBean> callback, Listing<PointBean> listing) {
         if (body.getHeader().getCode() == 0) {
 //            int currentPage = body.getBody().getData().getCurrentPage();
             int total = body.getBody().getData().getTotalPage();

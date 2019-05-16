@@ -32,6 +32,7 @@
             android:name="com.zaomeng.zaomeng.view.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -55,7 +56,6 @@
         <activity android:name=".view.BonusActivity" />
         <activity android:name=".view.FeedbackActivity" />
         <activity android:name=".view.SettingActivity" />
-        <activity android:name=".view.weixin.PayActivity" />
         <activity android:name=".view.UserInfoActivity" />
         <activity android:name=".view.FindPasswordActivity" />
         <activity android:name=".view.SearchGoodsListActivity" />
