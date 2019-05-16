@@ -92,7 +92,7 @@ public abstract class ActivityBindingModule {
     abstract PointActivity pointActivity();
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = {PointModule.class})
+    @ContributesAndroidInjector(modules = {BonusModule.class})
     abstract BonusActivity bonusActivity();
 
     @ActivityScoped

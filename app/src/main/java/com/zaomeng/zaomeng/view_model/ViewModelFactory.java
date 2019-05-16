@@ -122,6 +122,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new FindPasswordVM(application, apiService);
         } else if (modelClass.isAssignableFrom(SearchGoodsListVM.class)) {
             return (T) new SearchGoodsListVM(application, apiService);
+        } else if (modelClass.isAssignableFrom(BonusFragmentVM.class)) {
+            return (T) new BonusFragmentVM(application, apiService);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

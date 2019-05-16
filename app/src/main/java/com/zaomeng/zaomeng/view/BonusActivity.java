@@ -54,10 +54,17 @@ public class BonusActivity extends BaseDaggerActivity {
     protected void initView() {
         mViewPager = findViewById(R.id.view_pager);
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new PointFragment());
-        fragmentList.add(new PointFragment());
-        fragmentList.add(new PointFragment());
-        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(getSupportFragmentManager(), fragmentList, mDataList);
+        fragmentList.add(new BonusFragment());
+        fragmentList.add(new BonusFragment());
+        fragmentList.add(new BonusFragment());
+        List<Integer> listSortType = new ArrayList<>();
+        listSortType.add(1);
+        listSortType.add(2);
+        listSortType.add(3);
+        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(
+                getSupportFragmentManager(),
+                fragmentList,
+                mDataList, listSortType);
         mViewPager.setAdapter(listFragmentAdapter);
         initMagicIndicator();
     }

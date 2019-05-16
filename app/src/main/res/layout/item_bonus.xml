@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_color"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bonus"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="11sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/price"
+                android:layout_centerHorizontal="true"
+                android:text="端午红包"
+                android:textColor="#ffffffff"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/price"
+                android:layout_marginStart="-4dp"
+                android:layout_marginLeft="-4dp"
+                android:layout_toEndOf="@+id/price"
+                android:layout_toRightOf="@+id/price"
+                android:shadowColor="#21000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="3.0"
+                android:text="元"
+                android:textColor="#ffffffff"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:shadowColor="#21000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="3.0"
+                android:textColor="#ffffffff"
+                android:textSize="40sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/price"
+                android:layout_toStartOf="@+id/price"
+                android:layout_toLeftOf="@+id/price"
+                android:shadowColor="#21000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="3.0"
+                android:text="￥"
+                android:textColor="#ffffffff"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/price"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffffff"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/use"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/button_item_bonus"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="立
+即
+使
+用"
+                android:textColor="#ffffffff"
+                android:textSize="11sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

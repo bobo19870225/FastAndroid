@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
@@ -361,6 +362,16 @@ public interface ApiService {
     @GET("cancelMemberOrder.json")
     LiveData<Resource<Bean<String>>> cancelMemberOrder(@Query("sessionID") String sessionID,
                                                        @Query("memberOrderID") String memberOrderID);
+
+    /**
+     * 获取我的订单列表
+     */
+    @GET("getMyMemberBonusList.json")
+    Call<PageBean<BonusBean>> getMyMemberBonusList(
+            @Query("sessionID") String sessionID,
+            @Query("status") Integer status);
+
+
 
 
 }

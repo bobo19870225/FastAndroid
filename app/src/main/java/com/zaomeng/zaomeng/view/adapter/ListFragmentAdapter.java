@@ -1,5 +1,7 @@
 package com.zaomeng.zaomeng.view.adapter;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,23 +15,29 @@ import java.util.List;
 public class ListFragmentAdapter extends FragmentPagerAdapter {
     private List<Fragment> list;
     private List<String> titles;
-
+    private List<Integer> listSortType;
 
     public ListFragmentAdapter(FragmentManager fm, List<Fragment> list, List<String> titles) {
         super(fm);
         this.list = list;
         this.titles = titles;
+    }
 
+    public ListFragmentAdapter(FragmentManager fm, List<Fragment> list, List<String> titles, List<Integer> listSortType) {
+        super(fm);
+        this.list = list;
+        this.titles = titles;
+        this.listSortType = listSortType;
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-//        if (IDs != null) {
-//            Bundle bundle = new Bundle();
-//            bundle.putString("DATA", IDs.get(position));
-//            list.get(position).setArguments(bundle);
-//        }
+        if (listSortType != null) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("DATA", listSortType.get(position));
+            list.get(position).setArguments(bundle);
+        }
         return list.get(position);
     }
 
