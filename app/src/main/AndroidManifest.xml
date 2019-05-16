@@ -64,6 +64,7 @@
             android:exported="true"
             android:launchMode="singleTop" />
         <activity android:name=".view.ShopDetailActivity" />
+        <activity android:name=".view.ChoseBonusActivity" />
 
         <receiver android:name=".AppRegister">
             <intent-filter>

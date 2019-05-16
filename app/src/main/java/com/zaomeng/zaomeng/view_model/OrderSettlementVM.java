@@ -29,17 +29,22 @@ public class OrderSettlementVM extends BaseViewModel {
     public String phone;
     private ApiService apiService;
     private String sessionID;
+    public String bonusID;
     public final MutableLiveData<String> ldOrderNumber = new MutableLiveData<>();
+    public final MutableLiveData<String> ldBonus = new MutableLiveData<>();
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public final MediatorLiveData<Resource<Bean<String>>> ldSubmitOrder = new MediatorLiveData<>();
+
     public OrderSettlementVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
     }
 
+
     @Override
     public void init(Object data) {
         sessionID = SharedPreferencesUtils.getSessionID(getApplication());
+        ldBonus.setValue("点击查看可用的优惠券");
     }
 
     /**
@@ -53,10 +58,8 @@ public class OrderSettlementVM extends BaseViewModel {
         if (address == null) {
             action.setValue("toast:请选择收货地址");
         }
-        ldSubmitOrder.addSource(apiService.createMemberOrderFromCart(sessionID,
-                "卢声波",
-                "18101603953",
-                address), ldSubmitOrder::setValue);
+        ldSubmitOrder.addSource(apiService.createMemberOrderFromCart
+                (sessionID, user, phone, address, bonusID), ldSubmitOrder::setValue);
     }
 
     public LiveData<Resource<AliPayBean>> appApplyMemberOrderPay(String memberPaymentID) {
@@ -69,5 +72,9 @@ public class OrderSettlementVM extends BaseViewModel {
         return apiService.appApplyMemberOrderPayForWeChat(sessionID,
                 "402892e96a4ed7a4016a4eda9107000c",
                 "1", null, memberPaymentID);
+    }
+
+    public void bonus() {
+        action.setValue("bonus");
     }
 }

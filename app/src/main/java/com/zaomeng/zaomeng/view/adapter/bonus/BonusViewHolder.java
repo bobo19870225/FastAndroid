@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
+import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
 /**
  * Created by Sampson on 2019/3/11.
@@ -37,7 +38,7 @@ public class BonusViewHolder extends RecyclerView.ViewHolder {
         return new BonusViewHolder(view);
     }
 
-    void bind(BonusBean bonusBean) {
+    void bind(BonusBean bonusBean, OnItemClick<BonusBean> onItemClick) {
         title.setText(bonusBean.getPrintCode());
         name.setText(bonusBean.getName());
         price.setText(String.valueOf(bonusBean.getAmount()));
@@ -48,6 +49,9 @@ public class BonusViewHolder extends RecyclerView.ViewHolder {
             use.setVisibility(View.GONE);
         }
         use.setOnClickListener(v -> {
+            if (onItemClick != null) {
+                onItemClick.onClick(v, bonusBean, getLayoutPosition());
+            }
 
         });
     }

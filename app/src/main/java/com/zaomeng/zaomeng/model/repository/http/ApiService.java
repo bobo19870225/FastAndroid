@@ -178,7 +178,8 @@ public interface ApiService {
     LiveData<Resource<Bean<String>>> createMemberOrderFromCart(@Query("sessionID") String sessionID,
                                                                @Query("contactName") String contactName,
                                                                @Query("contactPhone") String contactPhone,
-                                                               @Query("address") String address);
+                                                               @Query("address") String address,
+                                                               @Query("memberBonusID") String memberBonusID);
 
 //    /**
 //     * 店铺商品生成订单

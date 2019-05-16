@@ -212,6 +212,7 @@
 
 
                 <RelativeLayout
+                    android:onClick="@{()->model.bonus()}"
                     android:id="@+id/tt_uhq"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -228,6 +229,8 @@
                         android:text="优惠券" />
 
                     <TextView
+                        android:id="@+id/bonus"
+                        android:text="@{model.ldBonus}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"

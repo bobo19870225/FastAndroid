@@ -124,9 +124,10 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new SearchGoodsListVM(application, apiService);
         } else if (modelClass.isAssignableFrom(BonusFragmentVM.class)) {
             return (T) new BonusFragmentVM(application, apiService);
-        }
-        if (modelClass.isAssignableFrom(ShopDetailVM.class)) {
+        } else if (modelClass.isAssignableFrom(ShopDetailVM.class)) {
             return (T) new ShopDetailVM(application, apiService);
+        } else if (modelClass.isAssignableFrom(ChoseBonusVM.class)) {
+            return (T) new ChoseBonusVM(application, apiService);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

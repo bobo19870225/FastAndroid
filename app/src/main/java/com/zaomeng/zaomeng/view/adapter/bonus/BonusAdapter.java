@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
 import com.zaomeng.zaomeng.view.adapter.BasePagedListAdapter;
+import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
 import kotlin.jvm.functions.Function0;
 
@@ -17,8 +18,14 @@ import kotlin.jvm.functions.Function0;
  * FastAndroid
  */
 public class BonusAdapter extends BasePagedListAdapter<BonusBean> {
+    private OnItemClick<BonusBean> onItemClick;
+
     public BonusAdapter(Function0 retryCallback) {
         super(DIFF_CALLBACK, retryCallback);
+    }
+
+    public void setOnItemClick(OnItemClick<BonusBean> onItemClick) {
+        this.onItemClick = onItemClick;
     }
 
     @NonNull
@@ -29,7 +36,7 @@ public class BonusAdapter extends BasePagedListAdapter<BonusBean> {
 
     @Override
     protected void viewHolderBind(RecyclerView.ViewHolder holder, int position) {
-        ((BonusViewHolder) holder).bind(getItem(position));
+        ((BonusViewHolder) holder).bind(getItem(position), onItemClick);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.zaomeng.zaomeng.view;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,10 +21,12 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityOrderSettlementBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
+import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.adapter.address.AddressAdapter;
@@ -51,6 +55,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
     private AddressAdapter addressAdapter;
     private final MutableLiveData<Map<String, String>> ldResult = new MutableLiveData<>();
     private int ldPayType;
+
     @NonNull
     @Override
     protected OrderSettlementVM createdViewModel() {
@@ -131,6 +136,27 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
 //                showAlert(PayDemoActivity.this, getString(R.string.pay_failed) + payResult);
             }
         });
+        mViewModel.action.observe(this, s -> {
+            if (s.equals("bonus")) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), ChoseBonusActivity.class);
+                startActivityForResult(intent, 110);
+//                skipTo(ChoseBonusActivity.class,null);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 110 && resultCode == 0) {
+            if (data != null) {
+                BonusBean bonusBean = data.getParcelableExtra("DATA");
+                mViewModel.bonusID = bonusBean.getId();
+                mViewModel.ldBonus.setValue("-" + FormatUtils.numberFormatMoney(bonusBean.getAmount()));
+                mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_red));
+            }
+        }
     }
 
     /**

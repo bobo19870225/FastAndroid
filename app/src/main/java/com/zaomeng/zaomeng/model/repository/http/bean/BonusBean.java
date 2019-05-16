@@ -1,10 +1,13 @@
 package com.zaomeng.zaomeng.model.repository.http.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Sampson on 2019-05-16.
  * FastAndroid
  */
-public class BonusBean {
+public class BonusBean implements Parcelable {
 
     /**
      * id : 0012216e3ca04c3088d3b3353a87adc4
@@ -119,4 +122,53 @@ public class BonusBean {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeDouble(this.amount);
+        dest.writeLong(this.startDate);
+        dest.writeString(this.startDateStr);
+        dest.writeLong(this.endDate);
+        dest.writeString(this.endDateStr);
+        dest.writeLong(this.useTime);
+        dest.writeString(this.useTimeStr);
+        dest.writeString(this.printCode);
+        dest.writeInt(this.status);
+    }
+
+    public BonusBean() {
+    }
+
+    protected BonusBean(Parcel in) {
+        this.id = in.readString();
+        this.name = in.readString();
+        this.amount = in.readDouble();
+        this.startDate = in.readLong();
+        this.startDateStr = in.readString();
+        this.endDate = in.readLong();
+        this.endDateStr = in.readString();
+        this.useTime = in.readLong();
+        this.useTimeStr = in.readString();
+        this.printCode = in.readString();
+        this.status = in.readInt();
+    }
+
+    public static final Parcelable.Creator<BonusBean> CREATOR = new Parcelable.Creator<BonusBean>() {
+        @Override
+        public BonusBean createFromParcel(Parcel source) {
+            return new BonusBean(source);
+        }
+
+        @Override
+        public BonusBean[] newArray(int size) {
+            return new BonusBean[size];
+        }
+    };
 }
