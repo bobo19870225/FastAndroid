@@ -163,6 +163,11 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
 
     private void setAddressList() {
         addressAdapter = new AddressAdapter();
+        addressAdapter.setOnItemClick((view, ItemObject, position) -> {
+            mViewModel.address = ItemObject.getAddress();
+            mViewModel.user = ItemObject.getContact();
+            mViewModel.phone = ItemObject.getContactPhone();
+        });
         mViewModel.getAddress().observe(this, pageBeanResource -> {
             PageDataBean<MemberShopBean> memberShopBeanPageDataBean = new HttpHelper<MemberShopBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
             if (memberShopBeanPageDataBean != null) {

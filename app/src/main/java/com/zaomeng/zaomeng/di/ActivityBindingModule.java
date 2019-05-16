@@ -19,6 +19,7 @@ import com.zaomeng.zaomeng.view.SearchActivity;
 import com.zaomeng.zaomeng.view.SearchGoodsListActivity;
 import com.zaomeng.zaomeng.view.ServiceActivity;
 import com.zaomeng.zaomeng.view.SettingActivity;
+import com.zaomeng.zaomeng.view.ShopDetailActivity;
 import com.zaomeng.zaomeng.view.UserInfoActivity;
 
 import dagger.Module;
@@ -114,6 +115,11 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector()
     abstract SearchGoodsListActivity searchGoodsListActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract ShopDetailActivity shopDetailActivity();
+
 
 
 }

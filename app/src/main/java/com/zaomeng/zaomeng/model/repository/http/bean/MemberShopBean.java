@@ -6,24 +6,26 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
  */
 public class MemberShopBean {
 
+
     /**
-     * id : 2c9051726a82a80b016a832d33470001
+     * id : 2c9051726abeb50a016abf66fd4d0006
      * memberID : 2c9051726a646c47016a647e046e0006
      * shopCategoryID : a74eeee1-750c-497d-afaa-cd867014f5f8
      * applicationID : 8a2f462a66cac9130166ccd9c99304f4
-     * name : test
+     * name : 上海金勘岩土勘察设备有限公司
      * shopType : 0
      * bizStatus : 0
      * logoURL : null
-     * shopFaceImage : http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg
-     * businessImage : http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg
-     * address : shanghai
-     * contact : lushengbo
+     * shopFaceImage : http://wj.haoju.me/FjCpe5CRe3TpR_KRImWu1q2Nmfkz
+     * businessImage : http://wj.haoju.me/Fu_GVxBYOnwllnBeC9qIzj7dZs4y
+     * address : 上海市静安区天目中路538弄1号6B
+     * contact : 卢声波
      * contactPhone : 18101603953
-     * contactIdCardFaceImage : http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg
-     * contactIdCardBackImage : http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg
+     * contactIdCardFaceImage : http://wj.haoju.me/FihfA1LCw0tistCwlqm9XXdBpd2v
+     * contactIdCardBackImage : http://wj.haoju.me/FooBz2f-LGd8f1r0Xlh1iPwt4N3a
      * verifyStatus : 0
      * verifyDate : null
+     * verifyDateStr : null
      */
 
     private String id;
@@ -33,7 +35,7 @@ public class MemberShopBean {
     private String name;
     private int shopType;
     private int bizStatus;
-    private Object logoURL;
+    private String logoURL;
     private String shopFaceImage;
     private String businessImage;
     private String address;
@@ -42,7 +44,9 @@ public class MemberShopBean {
     private String contactIdCardFaceImage;
     private String contactIdCardBackImage;
     private int verifyStatus;
-    private Object verifyDate;
+    private long verifyDate;
+    private String verifyDateStr;
+    private boolean select;
 
     public String getId() {
         return id;
@@ -100,11 +104,11 @@ public class MemberShopBean {
         this.bizStatus = bizStatus;
     }
 
-    public Object getLogoURL() {
+    public String getLogoURL() {
         return logoURL;
     }
 
-    public void setLogoURL(Object logoURL) {
+    public void setLogoURL(String logoURL) {
         this.logoURL = logoURL;
     }
 
@@ -172,11 +176,27 @@ public class MemberShopBean {
         this.verifyStatus = verifyStatus;
     }
 
-    public Object getVerifyDate() {
+    public long getVerifyDate() {
         return verifyDate;
     }
 
-    public void setVerifyDate(Object verifyDate) {
+    public void setVerifyDate(long verifyDate) {
         this.verifyDate = verifyDate;
+    }
+
+    public String getVerifyDateStr() {
+        return verifyDateStr;
+    }
+
+    public void setVerifyDateStr(String verifyDateStr) {
+        this.verifyDateStr = verifyDateStr;
+    }
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 }

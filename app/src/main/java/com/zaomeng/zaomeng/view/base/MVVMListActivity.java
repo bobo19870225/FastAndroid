@@ -25,7 +25,7 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
     private RecyclerView recyclerView;
     private A adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-
+    private Listing listing;
     @Override
     @CallSuper
     protected void setView() {
@@ -36,7 +36,7 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
 
     @SuppressWarnings("unchecked")
     protected void setListView(Object transferData) {
-        Listing listing = mViewModel.getListing(transferData);
+        listing = mViewModel.getListing(transferData);
         if (listing != null) {
             LiveData<PagedList> pagedList = listing.getPagedList();
             adapter = setAdapter(listing.reTry);
@@ -62,7 +62,11 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
         }
     }
 
-
+    protected void refresh() {
+        if (listing != null) {
+            listing.refresh.invoke();
+        }
+    }
     @NonNull
     protected abstract RecyclerView setRecyclerView();
 

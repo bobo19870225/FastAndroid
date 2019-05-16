@@ -10,6 +10,8 @@ import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
 import java.util.List;
 
+import kotlin.Unit;
+
 /**
  * Created by Sampson on 2019-05-07.
  * FastAndroid
@@ -20,6 +22,9 @@ public class AddressAdapter extends RecyclerView.Adapter {
 
     public void setList(List<MemberShopBean> list) {
         this.list = list;
+        for (int i = 0; i < list.size(); i++) {
+            this.list.get(i).setSelect(false);
+        }
         notifyDataSetChanged();
     }
 
@@ -35,7 +40,19 @@ public class AddressAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((AddressViewHolder) holder).bind(list.get(position), onItemClick);
+        ((AddressViewHolder) holder).bind(list.get(position), onItemClick,
+                () -> {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (i == position) {
+                            list.get(i).setSelect(true);
+                        } else {
+                            list.get(i).setSelect(false);
+                        }
+
+                    }
+                    notifyDataSetChanged();
+                    return Unit.INSTANCE;
+                });
     }
 
     @Override

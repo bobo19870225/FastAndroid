@@ -72,7 +72,8 @@ public class MemberShopAdapter extends BasePagedListAdapter<MemberShopBean> {
         @Override
         public boolean areContentsTheSame(@NonNull MemberShopBean oldItem, @NonNull MemberShopBean newItem) {
             return oldItem.getId().equals(newItem.getId()) &&
-                    oldItem.getName().equals(newItem.getName());
+                    oldItem.getName().equals(newItem.getName()) &&
+                    oldItem.isSelect() == newItem.isSelect();
         }
     };
 

@@ -12,6 +12,8 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
+import kotlin.jvm.functions.Function0;
+
 /**
  * Created by Sampson on 2019/3/11.
  * FastAndroid
@@ -35,10 +37,24 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
         return new AddressViewHolder(view);
     }
 
-    void bind(MemberShopBean memberShopBean, OnItemClick<MemberShopBean> onSelectClick) {
+    void bind(MemberShopBean memberShopBean, OnItemClick<MemberShopBean> onSelectClick, Function0 actionSelect) {
         address.setText(memberShopBean.getAddress());
         name.setText(memberShopBean.getContact());
         phone.setText(memberShopBean.getContactPhone());
+        itemView.setOnClickListener(v -> {
+            if (onSelectClick != null) {
+                onSelectClick.onClick(v, memberShopBean, getLayoutPosition());
+            }
+            if (actionSelect != null) {
+                actionSelect.invoke();
+            }
+        });
+        if (memberShopBean.isSelect()) {
+            itemView.setBackground(itemView.getResources().getDrawable(R.drawable.button_them_color_select));
+
+        } else {
+            itemView.setBackground(itemView.getResources().getDrawable(R.drawable.button_them_color_un_select));
+        }
     }
 
 }

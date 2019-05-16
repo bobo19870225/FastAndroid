@@ -282,10 +282,12 @@ public interface ApiService {
 
     /**
      * 获取我的消息列表
+     * 0未审核，1审核通过，2审核拒绝
      */
     @GET("getMemberShopList.json")
     LiveData<Resource<PageBean<MemberShopBean>>> getMemberShopListLD(
-            @Query("sessionID") String sessionID);
+            @Query("sessionID") String sessionID,
+            @Query("verifyStatus") Integer verifyStatus);
 
     /**
      * 签到
@@ -371,6 +373,14 @@ public interface ApiService {
             @Query("sessionID") String sessionID,
             @Query("status") Integer status);
 
+    @GET("removeMemberShop.json")
+    LiveData<Resource<Bean<String>>> removeMemberShop(@Query("sessionID") String sessionID,
+                                                      @Query("memberShopID") String memberShopID);
+
+
+    @GET("getMemberShopDetail.json")
+    LiveData<Resource<Bean<MemberShopBean>>> getMemberShopDetail(@Query("sessionID") String sessionID,
+                                                                 @Query("memberShopID") String memberShopID);
 
 
 

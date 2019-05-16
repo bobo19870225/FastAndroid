@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="com.zaomeng.zaomeng.view_model.CertificationVM" />
+            type="com.zaomeng.zaomeng.view_model.ShopDetailVM" />
     </data>
 
     <LinearLayout
@@ -76,7 +76,7 @@
                         android:textColor="#ff333333"
                         android:textSize="12sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/shop_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -84,10 +84,8 @@
                         android:layout_marginLeft="24dp"
                         android:layout_toEndOf="@+id/tt_shop_name"
                         android:layout_toRightOf="@+id/tt_shop_name"
-                        android:background="@null"
-                        android:hint="@string/tt_shop_name"
-                        android:inputType="text"
-                        android:text="@={model.ldName}"
+                        android:gravity="center_vertical"
+                        android:text="@{model.ldName}"
                         android:textSize="9sp" />
                 </RelativeLayout>
 
@@ -126,64 +124,16 @@
                         android:layout_toRightOf="@+id/tt_shop_type"
                         android:background="@null"
                         android:gravity="center_vertical"
-                        android:hint="@string/chose_type"
                         android:text="@{model.ldShopType}"
                         android:textSize="9sp" />
 
-                    <ImageView
-                        android:id="@+id/image_type"
-                        android:layout_width="@dimen/image"
-                        android:layout_height="@dimen/image"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="0dp"
-                        android:onClick="@{()->model.choiceType()}"
-                        android:padding="@dimen/image_padding"
-                        android:src="@mipmap/back" />
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/line"
                     android:background="@color/bg_color" />
-                <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:background="@android:color/white"-->
-                <!--android:paddingStart="@dimen/layout_padding"-->
-                <!--android:paddingLeft="@dimen/layout_padding"-->
-                <!--android:paddingEnd="@dimen/layout_padding"-->
-                <!--android:paddingRight="@dimen/layout_padding">-->
 
-                <!--<TextView-->
-                <!--android:id="@+id/tt_location"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:text="@string/location" />-->
-
-                <!--<TextView-->
-                <!--android:id="@+id/location"-->
-                <!--android:layout_toEndOf="@+id/tt_location"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginStart="24dp"-->
-                <!--android:layout_marginLeft="24dp"-->
-                <!--android:layout_toRightOf="@+id/tt_location"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:background="@null"-->
-                <!--android:hint="@string/location_hint" />-->
-
-                <!--<ImageView-->
-                <!--android:onClick="@{()->model.choiceArea()}"-->
-                <!--android:layout_width="@dimen/image"-->
-                <!--android:layout_height="@dimen/image"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:padding="@dimen/image_padding"-->
-                <!--android:src="@mipmap/back" />-->
-                <!--</RelativeLayout>-->
 
                 <View
                     android:layout_width="match_parent"
@@ -210,7 +160,7 @@
                         android:textColor="#ff333333"
                         android:textSize="12sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/detailed_address"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -220,9 +170,7 @@
                         android:layout_toRightOf="@+id/tt_detailed_address"
                         android:background="@null"
                         android:gravity="center_vertical"
-                        android:hint="@string/address_hint"
-                        android:inputType="text"
-                        android:text="@={model.ldAddress}"
+                        android:text="@{model.ldAddress}"
                         android:textSize="9sp" />
 
                 </RelativeLayout>
@@ -252,7 +200,7 @@
                         android:textColor="#ff333333"
                         android:textSize="12sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/consignee"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -262,8 +210,7 @@
                         android:layout_toRightOf="@+id/tt_consignee"
                         android:background="@null"
                         android:gravity="center_vertical"
-                        android:hint="@string/consignee_name"
-                        android:text="@={model.ldContact}"
+                        android:text="@{model.ldContact}"
                         android:textSize="9sp" />
 
                 </RelativeLayout>
@@ -293,7 +240,7 @@
                         android:textColor="#ff333333"
                         android:textSize="12sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/consignee_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -303,9 +250,7 @@
                         android:layout_toRightOf="@+id/tt_consignee_phone"
                         android:background="@null"
                         android:gravity="center_vertical"
-                        android:hint="@string/prompt_email"
-                        android:inputType="phone"
-                        android:text="@={model.ldContactPhone}"
+                        android:text="@{model.ldContactPhone}"
                         android:textSize="9sp" />
 
 
@@ -357,8 +302,7 @@
                         android:layout_marginEnd="4dp"
                         android:layout_marginRight="4dp"
                         android:layout_weight="1"
-                        android:background="@drawable/image_bg"
-                        android:onClick="@{()->model.setShopImage()}">
+                        android:background="@drawable/image_bg">
 
 
                         <ImageView
@@ -377,8 +321,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_weight="1"
-                        android:background="@drawable/image_bg"
-                        android:onClick="@{()->model.setLicenseImage()}">
+                        android:background="@drawable/image_bg">
 
                         <ImageView
                             android:id="@+id/img_license"
@@ -431,8 +374,7 @@
                         android:layout_marginEnd="@dimen/half_divide"
                         android:layout_marginRight="@dimen/half_divide"
                         android:layout_weight="1"
-                        android:background="@drawable/image_bg"
-                        android:onClick="@{()->model.setIcFront()}">
+                        android:background="@drawable/image_bg">
 
                         <ImageView
                             android:id="@+id/img_ic_front"
@@ -449,8 +391,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_weight="1"
-                        android:background="@drawable/image_bg"
-                        android:onClick="@{()->model.setIcBack()}">
+                        android:background="@drawable/image_bg">
 
                         <ImageView
                             android:id="@+id/img_ic_back"
@@ -471,8 +412,8 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="80dp"
                     android:background="@drawable/bg_button_them_color"
-                    android:onClick="@{()->model.submit()}"
-                    android:text="@string/submit"
+                    android:onClick="@{()->model.ok()}"
+                    android:text="@string/OK"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>

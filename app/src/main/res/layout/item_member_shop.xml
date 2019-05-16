@@ -51,8 +51,8 @@
                 android:layout_toRightOf="@+id/tt_shop_name"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:maxEms="7"
-                android:maxLines="2" />
+                android:lines="1"
+                android:maxEms="27" />
         </RelativeLayout>
 
 
@@ -76,8 +76,8 @@
                 android:layout_toRightOf="@+id/tt_shop_address"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:maxEms="7"
-                android:maxLines="2" />
+                android:lines="1"
+                android:maxEms="27" />
         </RelativeLayout>
 
 

@@ -15,6 +15,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
+import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 /**
  * Created by Sampson on 2019-05-02.
@@ -23,9 +24,13 @@ import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
  */
 public class OrderSettlementVM extends BaseViewModel {
 
+    public String address;
+    public String user;
+    public String phone;
     private ApiService apiService;
     private String sessionID;
     public final MutableLiveData<String> ldOrderNumber = new MutableLiveData<>();
+    public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public final MediatorLiveData<Resource<Bean<String>>> ldSubmitOrder = new MediatorLiveData<>();
     public OrderSettlementVM(@NonNull Application application, ApiService apiService) {
         super(application);
@@ -37,15 +42,21 @@ public class OrderSettlementVM extends BaseViewModel {
         sessionID = SharedPreferencesUtils.getSessionID(getApplication());
     }
 
+    /**
+     * 0未审核，1审核通过，2审核拒绝
+     */
     public LiveData<Resource<PageBean<MemberShopBean>>> getAddress() {
-        return apiService.getMemberShopListLD(sessionID);
+        return apiService.getMemberShopListLD(sessionID, 1);
     }
 
     public void submitOrder() {
+        if (address == null) {
+            action.setValue("toast:请选择收货地址");
+        }
         ldSubmitOrder.addSource(apiService.createMemberOrderFromCart(sessionID,
                 "卢声波",
                 "18101603953",
-                "上海市，天目中路538弄1号6B"), ldSubmitOrder::setValue);
+                address), ldSubmitOrder::setValue);
     }
 
     public LiveData<Resource<AliPayBean>> appApplyMemberOrderPay(String memberPaymentID) {

@@ -27,6 +27,8 @@ import com.zaomeng.zaomeng.view.custom_view.CommonPopupWindow;
 import com.zaomeng.zaomeng.view_model.CertificationVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,6 +118,8 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
             String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
             if (s != null) {
                 toast("提交成功！");
+                EventBus.getDefault().post("refresh");
+                finish();
             }
         });
 
@@ -136,7 +140,7 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
             Bean bean = gson.fromJson(s, Bean.class);
             showUpDataDialog(false);
             if (bean != null) {
-                Glide.with(image).load((String) bean.getBody().getData()).into(mViewDataBinding.imgShop);
+                Glide.with(image).load((String) bean.getBody().getData()).into(image);
             } else {
                 toast(s);
             }
