@@ -41,7 +41,6 @@
             android:background="@color/them_color"
             android:gravity="center"
             android:paddingTop="24dp"
-            android:text="88"
             android:textColor="@android:color/white"
             android:textSize="36sp" />
 

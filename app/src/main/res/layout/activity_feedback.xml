@@ -152,11 +152,12 @@
                         android:layout_marginLeft="8dp"
                         android:layout_toEndOf="@+id/icon1"
                         android:layout_toRightOf="@+id/icon1"
-                        android:text="联系人"
+                        android:text="联系人："
                         android:textColor="#ff333333"
                         android:textSize="12sp" />
 
                     <EditText
+                        android:layout_marginLeft="16dp"
                         android:id="@+id/contact"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -166,7 +167,8 @@
                         android:inputType="text"
                         android:lines="1"
                         android:text="@={model.ldContacts}"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:layout_marginStart="16dp" />
 
                     <View
                         android:layout_width="match_parent"

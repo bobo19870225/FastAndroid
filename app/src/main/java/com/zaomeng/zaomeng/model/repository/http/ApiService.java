@@ -391,6 +391,11 @@ public interface ApiService {
     LiveData<Resource<Bean<MemberShopBean>>> getMemberShopDetail(@Query("sessionID") String sessionID,
                                                                  @Query("memberShopID") String memberShopID);
 
+    @GET("submitOneFee.json")
+    LiveData<Resource<Bean<String>>> submitOneFee(@Query("sessionID") String sessionID,
+                                                  @Query("contant") String contant,
+                                                  @Query("contact") String contact,
+                                                  @Query("title") String title);
 
 
 }

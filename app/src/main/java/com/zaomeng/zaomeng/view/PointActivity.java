@@ -2,6 +2,7 @@ package com.zaomeng.zaomeng.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -32,7 +33,7 @@ public class PointActivity extends BaseDaggerActivity {
     private static final String[] CHANNELS = new String[]{"获取", "使用"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
     private ViewPager mViewPager;
-
+    public TextView point;
     @Override
     protected String setToolBarTitle() {
         return null;
@@ -50,6 +51,7 @@ public class PointActivity extends BaseDaggerActivity {
 
     @Override
     protected void initView() {
+        point = findViewById(R.id.point);
         findViewById(R.id.back).setOnClickListener(v -> finish());
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new PointFragment());

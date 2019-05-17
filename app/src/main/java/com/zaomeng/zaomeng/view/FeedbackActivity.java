@@ -17,6 +17,7 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityFeedbackBinding;
+import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
 import com.zaomeng.zaomeng.utils.http.BitmapUtils;
 import com.zaomeng.zaomeng.view.adapter.feedback.FeedbackImageAdapter;
@@ -54,8 +55,24 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
     protected void setView() {
         setEditText();
         setImageList();
-        RecyclerView recyclerView = mViewDataBinding.list;
+        setTitleList();
+        mViewModel.action.observe(this, s -> {
+            if (s.contains("toast:")) {
+                toast(s.replaceAll("toast:", ""));
+            }
+        });
+        mViewModel.ldSubmit.observe(this, beanResource -> {
+            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            if (s != null) {
+                toast("提交成功");
+                finish();
+            }
 
+        });
+    }
+
+    private void setTitleList() {
+        RecyclerView recyclerView = mViewDataBinding.list;
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getApplicationContext());
         layoutManager.setFlexWrap(FlexWrap.WRAP);
         layoutManager.setFlexDirection(FlexDirection.ROW);
@@ -81,6 +98,7 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
                 }
                 te.setOnClickListener(v -> {
                             oldPosition = position;
+                            mViewModel.title = itemList.get(position);
                             notifyDataSetChanged();
                         }
                 );

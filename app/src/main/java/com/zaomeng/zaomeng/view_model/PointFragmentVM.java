@@ -41,6 +41,7 @@ public class PointFragmentVM extends ListViewModel<Integer, PointBean> {
 
     @Override
     public void setLoadInitialCallback(PageBean<PointBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, PointBean> callback) {
+//        body.getBody().getData().
         callback.onResult(body.getBody().getData().getRows(), 1, 2);
 
     }

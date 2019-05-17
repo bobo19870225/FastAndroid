@@ -54,7 +54,9 @@
         <activity android:name=".view.CalendarActivity" />
         <activity android:name=".view.PointActivity" />
         <activity android:name=".view.BonusActivity" />
-        <activity android:name=".view.FeedbackActivity" />
+        <activity
+            android:name=".view.FeedbackActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".view.SettingActivity" />
         <activity android:name=".view.UserInfoActivity" />
         <activity android:name=".view.FindPasswordActivity" />
