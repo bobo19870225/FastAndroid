@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
@@ -44,7 +45,7 @@ public class OrderSettlementVM extends BaseViewModel {
     @Override
     public void init(Object data) {
         sessionID = SharedPreferencesUtils.getSessionID(getApplication());
-        ldBonus.setValue("点击查看可用的优惠券");
+
     }
 
     /**
@@ -72,6 +73,10 @@ public class OrderSettlementVM extends BaseViewModel {
         return apiService.appApplyMemberOrderPayForWeChat(sessionID,
                 "402892e96a4ed7a4016a4eda9107000c",
                 "1", null, memberPaymentID);
+    }
+
+    public LiveData<Resource<PageBean<BonusBean>>> getMyMemberBonusList() {
+        return apiService.getMyMemberBonusListLD(sessionID, 1);
     }
 
     public void bonus() {

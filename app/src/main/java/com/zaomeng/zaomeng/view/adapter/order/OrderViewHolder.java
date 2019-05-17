@@ -68,7 +68,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
             int status = orderBean.getStatus();
             switch (status) {
                 case 1:
-                    strStatus = "待支付";
+                    strStatus = "待付款";
                     pay.setText("去支付");
                     cancel.setVisibility(View.VISIBLE);
                     break;
@@ -83,12 +83,22 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
                     cancel.setVisibility(View.GONE);
                     break;
                 case 6:
-                    strStatus = "已发货";
+                    strStatus = "待签收";
                     pay.setText("再次购买");
                     cancel.setVisibility(View.GONE);
                     break;
                 case 8:
                     strStatus = "已签收";
+                    pay.setText("再次购买");
+                    cancel.setVisibility(View.GONE);
+                    break;
+                case 9:
+                    strStatus = "已完成";
+                    pay.setText("再次购买");
+                    cancel.setVisibility(View.GONE);
+                    break;
+                case 10:
+                    strStatus = "待发货";
                     pay.setText("再次购买");
                     cancel.setVisibility(View.GONE);
                     break;

@@ -47,16 +47,26 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     protected void setView() {
         super.setView();
         mViewModel.action.observe(this, s -> {
-            if ("back".equals(s)) {
-                finish();
-            } else if ("addCollect".equals(s)) {
-                if (goodsId != null && goodsName != null)
-                    mViewModel.addCollect(goodsId, goodsName).observe(this, beanResource -> {
-                        HttpHelper<String> httpHelper = new HttpHelper<>(getApplicationContext());
-                        String collectBean = httpHelper.AnalyticalData(beanResource);
-                        if (collectBean != null) toast("收藏成功");
-                    });
+            switch (s) {
+                case "back":
+                    finish();
+                    break;
+                case "addCollect":
+                    if (goodsId != null && goodsName != null)
+                        mViewModel.addCollect(goodsId, goodsName).observe(this, beanResource -> {
+                            HttpHelper<String> httpHelper = new HttpHelper<>(getApplicationContext());
+                            String collectBean = httpHelper.AnalyticalData(beanResource);
+                            if (collectBean != null) {
+                                mViewDataBinding.collect.setImageResource(R.mipmap.collect);
+                                toast("收藏成功");
+                            }
+                        });
+                    break;
+                case "shopCar":
+                    skipTo(MainActivity.class, 3, true);
+                    break;
             }
+
         });
         mViewModel.ldGoodsDetails.observe(this, beanResource -> {
             if (beanResource.isSuccess()) {

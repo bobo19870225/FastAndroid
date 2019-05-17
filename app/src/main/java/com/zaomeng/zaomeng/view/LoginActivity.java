@@ -191,7 +191,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                         BodyBean<LoginBean> body = loginBeanBean.getBody();
                         LoginBean loginBean = body.getData();
                         if (loginBean != null) {
-                            skipTo(MainActivity.class, new String[]{"6ba58046-7eb2-4f11-bbb3-b934abeb29a8", null});
+                            skipTo(MainActivity.class, null);
                             String sessionID = body.getSessionID();
                             SharedPreferencesUtils.saveSessionID(getApplicationContext(), sessionID);
                             SharedPreferencesUtils.saveMemberID(getApplicationContext(), loginBean.getId());

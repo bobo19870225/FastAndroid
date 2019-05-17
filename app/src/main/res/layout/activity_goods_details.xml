@@ -49,6 +49,7 @@
                 android:layout_height="@dimen/line"
                 android:background="@color/bg_color" />
             <ImageView
+                android:padding="@dimen/image_padding"
                 android:layout_centerVertical="true"
                 android:id="@+id/collect"
                 android:layout_width="@dimen/image"
@@ -57,6 +58,7 @@
                 android:src="@mipmap/un_collect" />
 
             <ImageView
+                android:padding="@dimen/image_padding"
                 android:layout_centerVertical="true"
                 android:id="@+id/shop_car"
                 android:layout_width="@dimen/image"

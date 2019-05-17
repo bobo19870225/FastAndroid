@@ -367,10 +367,18 @@ public interface ApiService {
                                                        @Query("memberOrderID") String memberOrderID);
 
     /**
-     * 获取我的订单列表
+     * 获取我的红包列表
      */
     @GET("getMyMemberBonusList.json")
     Call<PageBean<BonusBean>> getMyMemberBonusList(
+            @Query("sessionID") String sessionID,
+            @Query("status") Integer status);
+
+    /**
+     * 获取我的红包列表
+     */
+    @GET("getMyMemberBonusList.json")
+    LiveData<Resource<PageBean<BonusBean>>> getMyMemberBonusListLD(
             @Query("sessionID") String sessionID,
             @Query("status") Integer status);
 

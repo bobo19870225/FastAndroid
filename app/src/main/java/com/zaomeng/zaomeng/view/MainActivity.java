@@ -70,6 +70,10 @@ public class MainActivity extends BaseDaggerActivity {
 
         NavController navController = Navigation.findNavController(this, R.id.nav_fragment);
         NavigationUI.setupWithNavController(navigation, navController);
+        if (transferData instanceof Integer) {
+            if ((int) transferData == 3)
+                navController.navigate(R.id.shoppingCartFragment);
+        }
 
     }
 

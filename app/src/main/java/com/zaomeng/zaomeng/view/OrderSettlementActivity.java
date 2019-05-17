@@ -136,6 +136,23 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
 //                showAlert(PayDemoActivity.this, getString(R.string.pay_failed) + payResult);
             }
         });
+        mViewDataBinding.ttUhq.setClickable(false);
+        mViewModel.getMyMemberBonusList().observe(this, pageBeanResource -> {
+            PageDataBean<BonusBean> bonusBeanPageDataBean = new HttpHelper<BonusBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            if (bonusBeanPageDataBean != null) {
+                int total = bonusBeanPageDataBean.getTotal();
+                if (total != 0) {
+                    mViewDataBinding.ttUhq.setClickable(true);
+                    mViewModel.ldBonus.setValue("可用" + total + "个红包");
+                } else {
+
+                    mViewModel.ldBonus.setValue("无可用红包");
+                }
+
+            } else {
+                mViewModel.ldBonus.setValue("无可用红包");
+            }
+        });
         mViewModel.action.observe(this, s -> {
             if (s.equals("bonus")) {
                 Intent intent = new Intent();

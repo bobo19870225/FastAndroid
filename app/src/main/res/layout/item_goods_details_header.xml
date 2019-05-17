@@ -45,6 +45,7 @@
         android:background="@color/white">
 
         <ImageView
+            android:padding="@dimen/image_padding"
             android:id="@+id/icon"
             android:layout_width="@dimen/image"
             android:layout_height="@dimen/image"
@@ -86,7 +87,7 @@
             android:layout_gravity="center"
             android:text="@string/describe_text"
             android:textColor="@color/text_4"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <View
             android:id="@+id/line1"
@@ -102,10 +103,11 @@
     </RelativeLayout>
 
     <TextView
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         android:id="@+id/describe_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white" />
+        android:gravity="center" />
 
     <RelativeLayout
         android:background="@color/white"
@@ -131,7 +133,7 @@
             android:layout_gravity="center"
             android:text="@string/image_show"
             android:textColor="@color/text_4"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <View
             android:id="@+id/line3"

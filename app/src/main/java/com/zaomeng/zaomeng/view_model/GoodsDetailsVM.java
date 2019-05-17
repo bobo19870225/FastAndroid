@@ -65,11 +65,11 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
     }
 
     public void shopCar() {
-
+        action.setValue("shopCar");
     }
 
     public void addToShopCar() {
-
+        action.setValue("addToShopCar");
     }
 
     @NonNull

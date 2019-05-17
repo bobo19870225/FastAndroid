@@ -60,7 +60,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
     }
     @Override
     protected Object getData() {
-        return getActivity() == null ? null : ((MainActivity) getActivity()).transferData;
+        return getActivity() == null ? null : "6ba58046-7eb2-4f11-bbb3-b934abeb29a8";
     }
 
     @Override
