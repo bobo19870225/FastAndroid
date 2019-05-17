@@ -103,11 +103,12 @@
     </RelativeLayout>
 
     <TextView
+        android:paddingStart="24dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:id="@+id/describe_text"
         android:layout_width="match_parent"
-        android:gravity="center" />
+        android:paddingLeft="24dp" />
 
     <RelativeLayout
         android:background="@color/white"

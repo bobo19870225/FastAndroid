@@ -26,7 +26,7 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="@dimen/line"-->
     <!--android:background="@color/bg_color" />-->
-    <ImageView
+    <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:id="@+id/icon_goods"

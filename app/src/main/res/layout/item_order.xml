@@ -24,20 +24,20 @@
             android:layout_toEndOf="@+id/tt_order_no"
             android:layout_toRightOf="@+id/tt_order_no" />
 
-        <TextView
-            android:layout_below="@+id/order_no"
-            android:id="@+id/tt_order_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="下单时间：" />
+        <!--<TextView-->
+        <!--android:layout_below="@+id/order_no"-->
+        <!--android:id="@+id/tt_order_time"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="下单时间：" />-->
 
-        <TextView
-            android:layout_below="@+id/order_no"
-            android:id="@+id/order_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/tt_order_time"
-            android:layout_toRightOf="@+id/tt_order_time" />
+        <!--<TextView-->
+        <!--android:layout_below="@+id/order_no"-->
+        <!--android:id="@+id/order_time"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/tt_order_time"-->
+        <!--android:layout_toRightOf="@+id/tt_order_time" />-->
 
         <TextView
             android:id="@+id/order_state"
@@ -53,33 +53,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
+            android:scaleType="centerCrop"
             android:id="@+id/image"
             android:layout_width="56dp"
             android:layout_height="56dp" />
 
         <TextView
+            android:layout_height="match_parent"
+            android:layout_above="@+id/qty"
+            android:layout_toStartOf="@+id/price"
             android:id="@+id/goods_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/price"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_toStartOf="@+id/total_price"
-            android:layout_toLeftOf="@+id/total_price"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:layout_toEndOf="@+id/image"
             android:layout_toRightOf="@+id/image" />
 
         <TextView
-            android:id="@+id/total_price"
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true" />
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/image"
@@ -88,6 +92,7 @@
             android:layout_alignParentRight="true" />
 
         <TextView
+            android:layout_toStartOf="@+id/total_price"
             android:id="@+id/qty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,11 +100,11 @@
             android:layout_alignBottom="@+id/image"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_toStartOf="@+id/price"
-            android:layout_toLeftOf="@+id/price" />
+            android:layout_toLeftOf="@+id/total_price" />
     </RelativeLayout>
 
     <View
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line"
         android:background="@color/bg_color" />

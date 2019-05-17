@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
+import com.zaomeng.zaomeng.utils.GlideUtils;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private OnItemClick onItemClick;
     private OnItemClick<NavigatorBean.GoodsListBean> onAddClick;
     private List<Item> objects;
-
+    private GlideUtils glideUtils;
     public void setOnHeaderItemClick(OnItemClick<String> onHeaderItemClick) {
         this.onHeaderItemClick = onHeaderItemClick;
     }
@@ -39,9 +40,9 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.onItemClick = onItemClick;
     }
 
-    public GoodsWithTitleAdapter(Function0 retryCallback) {
-//        super(DIFF_CALLBACK);
+    public GoodsWithTitleAdapter(Function0 retryCallback, GlideUtils glideUtils) {
         this.retryCallback = retryCallback;
+        this.glideUtils = glideUtils;
     }
 
     /**
@@ -83,7 +84,7 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 ((GoodsHeaderViewHolder) holder).bind(onHeaderItemClick);
                 break;
             case R.layout.item_goods:
-                ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick);
+                ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick, glideUtils);
                 break;
             case R.layout.network_state_item:
                 ((NetworkStateItemViewHolder) holder).bindTo(netWorkState);
@@ -95,7 +96,7 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 ((GoodsBannerViewHolder) holder).bind((Item<String>) getItem(position), onItemClick);
                 break;
             case R.layout.item_goods_2:
-                ((GoodsGridViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick);
+                ((GoodsGridViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick, glideUtils);
                 break;
         }
 

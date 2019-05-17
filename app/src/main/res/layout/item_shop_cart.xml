@@ -29,7 +29,8 @@
         android:padding="@dimen/image_padding"
         android:src="@mipmap/un_select" />
 
-    <ImageView
+    <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
+        android:scaleType="centerCrop"
         android:layout_margin="15dp"
         android:id="@+id/icon_goods"
         android:layout_width="90dp"

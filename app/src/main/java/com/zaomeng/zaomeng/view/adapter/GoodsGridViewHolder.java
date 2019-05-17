@@ -9,10 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
+import com.zaomeng.zaomeng.utils.GlideUtils;
 
 /**
  * Created by Sampson on 2019/3/11.
@@ -40,12 +40,12 @@ public class GoodsGridViewHolder extends RecyclerView.ViewHolder {
         return new GoodsGridViewHolder(view);
     }
 
-    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick<NavigatorBean.GoodsListBean> onItemClick, OnItemClick<NavigatorBean.GoodsListBean> onAddClick) {
+    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick<NavigatorBean.GoodsListBean> onItemClick, OnItemClick<NavigatorBean.GoodsListBean> onAddClick, GlideUtils glideUtils) {
         NavigatorBean.GoodsListBean data = goods.getData();
         goodsName.setText(data.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(data.getShowPrice()));
 //        specifications.setText(String.valueOf(data.getStockNumber()));
-        Glide.with(icon_goods).load(data.getListImage()).into(icon_goods);
+        glideUtils.into(icon_goods, data.getListImage());
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
                 onItemClick.onClick(v, goods.getData(), getLayoutPosition());

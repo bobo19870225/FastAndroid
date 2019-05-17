@@ -20,19 +20,19 @@ import androidx.appcompat.widget.AppCompatImageView;
  *
  * @author caizhiming
  */
-public class XCRoundRectImageView extends AppCompatImageView {
+public class RoundRectImageView extends AppCompatImageView {
 
     private Paint paint;
 
-    public XCRoundRectImageView(Context context) {
+    public RoundRectImageView(Context context) {
         this(context, null);
     }
 
-    public XCRoundRectImageView(Context context, AttributeSet attrs) {
+    public RoundRectImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public XCRoundRectImageView(Context context, AttributeSet attrs, int defStyle) {
+    public RoundRectImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         paint = new Paint();
     }
@@ -48,7 +48,7 @@ public class XCRoundRectImageView extends AppCompatImageView {
         Drawable drawable = getDrawable();
         if (null != drawable) {
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-            Bitmap b = getRoundBitmap(bitmap, 20);
+            Bitmap b = getRoundBitmap(bitmap, 8);
             final Rect rectSrc = new Rect(0, 0, b.getWidth(), b.getHeight());
             final Rect rectDest = new Rect(0, 0, getWidth(), getHeight());
             paint.reset();
@@ -79,7 +79,7 @@ public class XCRoundRectImageView extends AppCompatImageView {
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(color);
-        int x = bitmap.getWidth();
+
 
         canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
         paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));

@@ -13,6 +13,7 @@ import com.zaomeng.zaomeng.view.LoginActivity;
 import com.zaomeng.zaomeng.view.MainActivity;
 import com.zaomeng.zaomeng.view.MessageActivity;
 import com.zaomeng.zaomeng.view.OrderActivity;
+import com.zaomeng.zaomeng.view.OrderDetailActivity;
 import com.zaomeng.zaomeng.view.OrderSettlementActivity;
 import com.zaomeng.zaomeng.view.PointActivity;
 import com.zaomeng.zaomeng.view.RegisterActivity;
@@ -125,5 +126,9 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector()
     abstract ChoseBonusActivity choseBonusActivity();
 
+    @ActivityScoped
+
+    @ContributesAndroidInjector()
+    abstract OrderDetailActivity orderDetailActivity();
 
 }

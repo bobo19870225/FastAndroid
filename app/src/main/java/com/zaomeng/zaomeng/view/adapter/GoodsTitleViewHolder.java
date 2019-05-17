@@ -9,10 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
+import com.zaomeng.zaomeng.utils.GlideUtils;
 
 /**
  * Created by Sampson on 2019/3/11.
@@ -40,9 +40,9 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
         return new GoodsTitleViewHolder(view);
     }
 
-    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick<NavigatorBean.GoodsListBean> onItemClick, OnItemClick<NavigatorBean.GoodsListBean> onAddClick) {
+    void bind(Item<NavigatorBean.GoodsListBean> goods, OnItemClick<NavigatorBean.GoodsListBean> onItemClick, OnItemClick<NavigatorBean.GoodsListBean> onAddClick, GlideUtils glideUtils) {
         goodsName.setText(goods.getData().getObjectName());
-        Glide.with(goodsIcon).load(goods.getData().getListImage()).into(goodsIcon);
+        glideUtils.into(goodsIcon, goods.getData().getListImage());
 //        specifications.setText(goods.getData().);
         price.setText(FormatUtils.numberFormatMoney(goods.getData().getShowPrice()));
         itemView.setOnClickListener(v -> {

@@ -24,9 +24,15 @@ public class OrderAdapter extends BasePagedListAdapter<OrderBean> {
     }
 
     private OnItemClick<OrderBean> onItemClick;
+    private OnItemClick<OrderBean> onItemPayClick;
     private OnItemClick<OrderBean> onItemCancelClick;
+
     public void setOnItemClick(OnItemClick<OrderBean> onItemClick) {
         this.onItemClick = onItemClick;
+    }
+
+    public void setOnItemPayClick(OnItemClick<OrderBean> onItemPayClick) {
+        this.onItemPayClick = onItemPayClick;
     }
 
     public void setOnItemCancelClick(OnItemClick<OrderBean> onItemCancelClick) {
@@ -41,7 +47,7 @@ public class OrderAdapter extends BasePagedListAdapter<OrderBean> {
 
     @Override
     protected void viewHolderBind(RecyclerView.ViewHolder holder, int position) {
-        ((OrderViewHolder) holder).bind(getItem(position), onItemClick, onItemCancelClick);
+        ((OrderViewHolder) holder).bind(getItem(position), onItemClick, onItemPayClick, onItemCancelClick);
     }
 
     @Override

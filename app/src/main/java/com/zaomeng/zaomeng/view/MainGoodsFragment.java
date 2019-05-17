@@ -20,6 +20,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.GlideImageLoader;
+import com.zaomeng.zaomeng.utils.GlideUtils;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.specification.InterfaceShowSpecification;
 import com.zaomeng.zaomeng.utils.specification.ShowSpecificationHelper;
@@ -45,6 +46,8 @@ import javax.inject.Inject;
 public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, FragmentGoodsBinding> implements InterfaceShowSpecification {
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    GlideUtils glideUtils;
     private List<Item> list;
     private List<NavigatorBean> rows;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -114,7 +117,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
     }
 
     private GoodsWithTitleAdapter getGoodsWithTitleAdapter() {
-        GoodsWithTitleAdapter goodsAdapter = new GoodsWithTitleAdapter(mViewModel.function0);
+        GoodsWithTitleAdapter goodsAdapter = new GoodsWithTitleAdapter(mViewModel.function0, glideUtils);
         goodsAdapter.setOnItemClick((view, ItemObject, position) -> {
             if (ItemObject instanceof String) {
                 MainFragment parentFragment = (MainFragment) MainGoodsFragment.this.getParentFragment();

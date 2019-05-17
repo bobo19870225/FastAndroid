@@ -13,6 +13,8 @@ import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
@@ -33,7 +35,7 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
     //    public String goodsName;
 //    public String goodsId;
     private ApiService apiService;
-
+    private String sessionID;
     public GoodsDetailsVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -42,6 +44,7 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
 
     @Override
     public void init(Object data) {
+        sessionID = SharedPreferencesUtils.getSessionID(getApplication());
         ldGoodsDetails.addSource(apiService.getGoodsShopDetail((String) data, SharedPreferencesUtils.getMemberID(getApplication())), ldGoodsDetails::setValue);
     }
 
@@ -54,7 +57,7 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
     }
 
     public LiveData<Resource<Bean<String>>> addCollect(String goodsId, String goodsName) {
-        return apiService.addCollect(SharedPreferencesUtils.getSessionID(getApplication()),
+        return apiService.addCollect(sessionID,
                 goodsId,
                 goodsName,
                 "422429993732");
@@ -70,6 +73,7 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
 
     public void addToShopCar() {
         action.setValue("addToShopCar");
+
     }
 
     @NonNull
@@ -97,4 +101,20 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
     public boolean setLoadCallback(PageBean<GoodsDetailsImageBean> body, PageKeyedDataSource.LoadParams<Integer> params, PageKeyedDataSource.LoadCallback<Integer, GoodsDetailsImageBean> callback, Listing<GoodsDetailsImageBean> listing) {
         return false;
     }
+
+    public LiveData<Resource<PageBean<ShopCartBean>>> getCartGoodsListLD() {
+        return apiService.getCartGoodsListLD(sessionID, 1, 10);
+    }
+
+    public LiveData<Resource<Bean<String>>> addGoodsToCart(String objectID, int qty, String objectFeatureItemID) {
+        return apiService.addGoodsShopToCart(sessionID, objectID, qty, objectFeatureItemID);
+    }
+
+    /**
+     * 商品规格
+     */
+    public LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(String objectID) {
+        return apiService.getObjectFeatureItemList(objectID);
+    }
+
 }

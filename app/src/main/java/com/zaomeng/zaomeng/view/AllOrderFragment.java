@@ -129,7 +129,8 @@ public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, Fragment
     @Override
     protected OrderAdapter setAdapter(Function0 reTry) {
         OrderAdapter orderAdapter = new OrderAdapter(reTry);
-        orderAdapter.setOnItemClick((view, ItemObject, position) -> {
+        orderAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(OrderDetailActivity.class, ItemObject.getId()));
+        orderAdapter.setOnItemPayClick((view, ItemObject, position) -> {
             memberOrderID = ItemObject.getGoodsList().get(0).getMemberOrderID();
             chosePayWayHelper.showPayWayDialog(getLayoutInflater());
         });

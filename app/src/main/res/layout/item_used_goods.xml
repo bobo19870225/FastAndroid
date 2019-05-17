@@ -20,7 +20,8 @@
     android:background="@color/white">
 
 
-    <ImageView
+    <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
+        android:scaleType="centerCrop"
         android:id="@+id/icon_goods"
         android:layout_width="90dp"
         android:layout_height="90dp"

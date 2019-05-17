@@ -10,8 +10,8 @@
     </data>
 
     <RelativeLayout
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/bg_color">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -38,35 +38,36 @@
             android:src="@mipmap/back" />
 
         <RelativeLayout
-            android:layout_height="48dp"
             android:id="@+id/bottom"
             android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_alignParentBottom="true">
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line"
                 android:background="@color/bg_color" />
+
             <ImageView
-                android:padding="@dimen/image_padding"
-                android:layout_centerVertical="true"
                 android:id="@+id/collect"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
+                android:layout_centerVertical="true"
                 android:onClick="@{()->model.collect()}"
+                android:padding="@dimen/image_padding"
                 android:src="@mipmap/un_collect" />
 
             <ImageView
-                android:padding="@dimen/image_padding"
-                android:layout_centerVertical="true"
                 android:id="@+id/shop_car"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
+                android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/collect"
                 android:layout_toRightOf="@+id/collect"
                 android:onClick="@{()->model.shopCar()}"
-                android:src="@mipmap/un_shopping_cart" />
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/gouwuche" />
 
             <Button
                 android:layout_width="wrap_content"
