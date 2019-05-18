@@ -13,6 +13,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
@@ -33,6 +34,8 @@ public class OrderSettlementVM extends BaseViewModel {
     public String bonusID;
     public final MutableLiveData<String> ldOrderNumber = new MutableLiveData<>();
     public final MutableLiveData<String> ldBonus = new MutableLiveData<>();
+//    public final MutableLiveData<String> ldTotal = new MutableLiveData<>();
+
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public final MediatorLiveData<Resource<Bean<String>>> ldSubmitOrder = new MediatorLiveData<>();
 
@@ -81,5 +84,9 @@ public class OrderSettlementVM extends BaseViewModel {
 
     public void bonus() {
         action.setValue("bonus");
+    }
+
+    public LiveData<Resource<PageBean<ShopCartBean>>> getOrderGoodsList() {
+        return apiService.getCartGoodsListLD(sessionID, 1, 10);
     }
 }

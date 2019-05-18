@@ -23,6 +23,7 @@ import com.zaomeng.zaomeng.databinding.ActivityOrderSettlementBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PageBodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
@@ -67,6 +68,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
         if (!EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().register(this);
         setOrderList();
+        initTotalPrice();
         setAddressList();
         RadioGroup radioGroup = mViewDataBinding.radioGroup;
         ldPayType = radioGroup.getCheckedRadioButtonId();
@@ -163,6 +165,18 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
         });
     }
 
+    private double priceNow = 0;
+
+    private void initTotalPrice() {
+        mViewModel.getOrderGoodsList().observe(this, pageBeanResource -> {
+            PageBodyBean<ShopCartBean> shopCartBeanPageBodyBean = new HttpHelper<ShopCartBean>(getApplicationContext()).AnalyticalPageDataBody(pageBeanResource);
+            if (shopCartBeanPageBodyBean != null) {
+                priceNow = shopCartBeanPageBodyBean.getPriceAfterDiscount();
+                mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(priceNow)));
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -172,6 +186,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                 mViewModel.bonusID = bonusBean.getId();
                 mViewModel.ldBonus.setValue("-" + FormatUtils.numberFormatMoney(bonusBean.getAmount()));
                 mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_red));
+                mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(priceNow - bonusBean.getAmount())));
             }
         }
     }

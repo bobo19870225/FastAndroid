@@ -20,6 +20,10 @@ public class FormatUtils {
         return changTVSize(format);
     }
 
+    public static String numberFormatMoneyString(double money) {
+        NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance(Locale.CHINA); //建立货币格式化引用
+        return CURRENCY_FORMAT.format(new BigDecimal(money));
+    }
     public static boolean isMobileNO(String mobileNumber) {
         /**
          * 判断字符串是否符合手机号码格式

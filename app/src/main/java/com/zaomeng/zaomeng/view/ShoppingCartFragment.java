@@ -32,7 +32,8 @@ import kotlin.jvm.functions.Function0;
 public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentVM, FragmentShoppingCartBinding, ShopCartAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
-//    private AlertDialog waitDialog;
+    //    private AlertDialog waitDialog;
+//    private double priceTotal;
 
     @Inject
     public ShoppingCartFragment() {
@@ -128,6 +129,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
 
     private ShopCartAdapter shopCartAdapter;
+
     @NonNull
     @Override
     protected ShopCartAdapter setAdapter(Function0 reTry) {
@@ -236,6 +238,16 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         }
     }
 
+    //    private void doRefresh() {
+//        List<List<ShopCartBean>> listGoodsItem1 = shopCartAdapter.getListGoodsItem();
+//        priceTotal = 0;
+//        List<ShopCartBean> shopCartBeans1 = listGoodsItem1.get(1);
+//        for (ShopCartBean shopCartBean : shopCartBeans1
+//        ) {
+//            priceTotal += shopCartBean.getPriceTotal();
+//        }
+//        refresh();
+//    }
     @Override
     public void onStop() {
         super.onStop();

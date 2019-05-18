@@ -151,9 +151,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@string/freight" />
+                        android:text="优惠金额：" />
 
                     <TextView
+                        android:textColor="@color/text_red"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

@@ -10,6 +10,9 @@ public class PageBodyBean<T> {
      */
 
     private PageDataBean<T> data;
+    private double priceTotal;
+    private double discountPrice;
+    private double priceAfterDiscount;
 
     public PageDataBean<T> getData() {
         return data;
@@ -19,4 +22,27 @@ public class PageBodyBean<T> {
         this.data = data;
     }
 
+    public double getPriceTotal() {
+        return priceTotal;
+    }
+
+    public void setPriceTotal(double priceTotal) {
+        this.priceTotal = priceTotal;
+    }
+
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public double getPriceAfterDiscount() {
+        return priceAfterDiscount;
+    }
+
+    public void setPriceAfterDiscount(double priceAfterDiscount) {
+        this.priceAfterDiscount = priceAfterDiscount;
+    }
 }
