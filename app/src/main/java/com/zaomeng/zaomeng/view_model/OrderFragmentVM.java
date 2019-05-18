@@ -96,4 +96,12 @@ public class OrderFragmentVM extends ListViewModel<Integer, OrderBean> {
     public LiveData<Resource<Bean<String>>> cancelMemberOrder(String memberOrderID) {
         return apiService.cancelMemberOrder(sessionID, memberOrderID);
     }
+
+    public LiveData<Resource<Bean<String>>> confirmMemberOrder(String memberOrderID) {
+        return apiService.confirmMemberOrder(sessionID, memberOrderID);
+    }
+
+    public LiveData<Resource<Bean<String>>> applyReturnMemberOrder(String memberOrderID) {
+        return apiService.applyReturnMemberOrder(sessionID, memberOrderID);
+    }
 }

@@ -57,9 +57,12 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(OrderBean orderBean,
-              OnItemClick<OrderBean> onItemClick,
-              OnItemClick<OrderBean> onItemPayClick,
-              OnItemClick<OrderBean> onItemCancelClick) {
+              OnItemClick<OrderBean> onItemClick,//详情
+              OnItemClick<OrderBean> onItemPayClick,//付款
+              OnItemClick<OrderBean> onItemConfirmClick,//确认
+              OnItemClick<OrderBean> onItemReturnClick,//退货
+              OnItemClick<OrderBean> onItemCancelClick//取消
+    ) {
         List<OrderBean.GoodsListBean> goodsList = orderBean.getGoodsList();
         if (goodsList != null) {
             OrderBean.GoodsListBean goodsListBean = goodsList.get(0);
@@ -73,45 +76,92 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
             switch (status) {
                 case 1:
                     strStatus = "待付款";
-                    pay.setText("去支付");
+                    pay.setText("去付款");
                     cancel.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     strStatus = "已取消";
-                    pay.setText("再次购买");
+                    pay.setVisibility(View.GONE);
                     cancel.setVisibility(View.GONE);
                     break;
                 case 4:
                     strStatus = "已付款";
-                    pay.setText("再次购买");
+                    pay.setVisibility(View.VISIBLE);
+                    pay.setText("退单");
+                    cancel.setVisibility(View.GONE);
+                    break;
+                case 5:
+                    strStatus = "已退款";
+                    pay.setVisibility(View.GONE);
                     cancel.setVisibility(View.GONE);
                     break;
                 case 6:
                     strStatus = "待签收";
-                    pay.setText("再次购买");
+                    pay.setVisibility(View.VISIBLE);
+                    pay.setText("确认收货");
+                    cancel.setVisibility(View.GONE);
+                    break;
+                case 7:
+                    strStatus = "已退货";
+                    pay.setVisibility(View.GONE);
                     cancel.setVisibility(View.GONE);
                     break;
                 case 8:
                     strStatus = "已签收";
-                    pay.setText("再次购买");
+                    pay.setVisibility(View.VISIBLE);
+                    pay.setText("退换商品");
                     cancel.setVisibility(View.GONE);
                     break;
                 case 9:
                     strStatus = "已完成";
-                    pay.setText("再次购买");
+                    pay.setVisibility(View.VISIBLE);
+                    pay.setText("退换商品");
                     cancel.setVisibility(View.GONE);
                     break;
                 case 10:
                     strStatus = "待发货";
-                    pay.setText("再次购买");
+                    pay.setVisibility(View.VISIBLE);
+                    pay.setText("退单");
+                    cancel.setVisibility(View.GONE);
+                    break;
+                case 11:
+                    strStatus = "已拒收";
+                    pay.setVisibility(View.GONE);
+                    cancel.setVisibility(View.GONE);
+                    break;
+                case 12:
+                    strStatus = "已送达";
+                    pay.setVisibility(View.GONE);
+                    cancel.setVisibility(View.GONE);
+                    break;
+                case 14:
+                    strStatus = "退款中";
+                    pay.setVisibility(View.GONE);
                     cancel.setVisibility(View.GONE);
                     break;
             }
             orderState.setText(strStatus);
             orderNo.setText(orderBean.getOrderCode());
             pay.setOnClickListener(v -> {
-                if (onItemPayClick != null)
-                    onItemPayClick.onClick(v, orderBean, getLayoutPosition());
+                switch (status) {
+                    case 1:
+                        if (onItemPayClick != null)
+                            onItemPayClick.onClick(v, orderBean, getLayoutPosition());
+                        break;
+                    case 4:
+                        if (onItemReturnClick != null)
+                            onItemReturnClick.onClick(v, orderBean, getLayoutPosition());
+                        break;
+                    case 6:
+                    case 10:
+                        if (onItemConfirmClick != null)
+                            onItemConfirmClick.onClick(v, orderBean, getLayoutPosition());
+                        break;
+                    case 8:
+                    case 9:
+                        break;
+                }
+
             });
             cancel.setOnClickListener(v -> {
                 if (onItemCancelClick != null)

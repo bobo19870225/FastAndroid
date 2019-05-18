@@ -142,6 +142,18 @@ public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, Fragment
                 }
             });
         });
+        orderAdapter.setOnItemConfirmClick((view, ItemObject, position) -> mViewModel.confirmMemberOrder(ItemObject.getGoodsList().get(0).getMemberOrderID()).observe(this, beanResource -> {
+            String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+            if (s != null) {
+                refresh();
+            }
+        }));
+        orderAdapter.setOnItemReturnClick((view, ItemObject, position) -> mViewModel.applyReturnMemberOrder(ItemObject.getGoodsList().get(0).getMemberOrderID()).observe(this, beanResource -> {
+            String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+            if (s != null) {
+                refresh();
+            }
+        }));
         return orderAdapter;
     }
 

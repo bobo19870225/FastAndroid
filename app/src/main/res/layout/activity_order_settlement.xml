@@ -9,17 +9,20 @@
             type="com.zaomeng.zaomeng.view_model.OrderSettlementVM" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar" />
+        <include
+            android:id="@+id/tt"
+            layout="@layout/toolbar" />
 
         <ScrollView
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom"
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_below="@+id/tt"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -67,11 +70,11 @@
                 </com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView>
 
                 <RelativeLayout
-                    android:layout_marginTop="16dp"
                     android:id="@+id/tt_time"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/list"
+                    android:layout_marginTop="16dp"
                     android:background="@color/bg_color">
 
                     <ImageView
@@ -212,12 +215,12 @@
 
 
                 <RelativeLayout
-                    android:onClick="@{()->model.bonus()}"
                     android:id="@+id/tt_uhq"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/radio_group"
                     android:background="@color/bg_color"
+                    android:onClick="@{()->model.bonus()}"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
@@ -230,12 +233,12 @@
 
                     <TextView
                         android:id="@+id/bonus"
-                        android:text="@{model.ldBonus}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:text="@{model.ldBonus}" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -271,41 +274,42 @@
                         android:textSize="12sp" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_marginTop="16dp"
-                    android:layout_height="48dp"
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/tt_bz">
-
-                    <TextView
-                        android:id="@+id/total"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_toStartOf="@+id/submit"
-                        android:layout_toLeftOf="@+id/submit"
-                        android:textColor="@color/text_red" />
-
-                    <TextView
-                        android:id="@+id/submit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:background="@color/them_color"
-                        android:gravity="center"
-                        android:onClick="@{()->model.submitOrder()}"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:text="提交订单"
-                        android:textColor="@android:color/white" />
-                </RelativeLayout>
 
             </RelativeLayout>
 
         </ScrollView>
 
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_toStartOf="@+id/submit"
+                android:layout_toLeftOf="@+id/submit"
+                android:textColor="@color/text_red" />
+
+            <TextView
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/them_color"
+                android:gravity="center"
+                android:onClick="@{()->model.submitOrder()}"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="提交订单"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

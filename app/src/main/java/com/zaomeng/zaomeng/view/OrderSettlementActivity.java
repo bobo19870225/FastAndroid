@@ -219,7 +219,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
             }
         });
         mViewDataBinding.list.setAdapter(addressAdapter);
-        mViewDataBinding.scrollView.smoothScrollTo(0, 0);
+//        mViewDataBinding.scrollView.smoothScrollTo(0, 0);
     }
 
     @SuppressWarnings("unchecked")

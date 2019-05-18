@@ -401,6 +401,16 @@ public interface ApiService {
     LiveData<Resource<Bean<String>>> getParameterValueByCode(@Query("code") String customerPhone);
 
 
+    @GET("confirmMemberOrder.json")
+    LiveData<Resource<Bean<String>>> confirmMemberOrder(@Query("sessionID") String sessionID,
+                                                        @Query("memberOrderID") String memberOrderID);
+
+    @GET("applyReturnMemberOrder.json")
+    LiveData<Resource<Bean<String>>> applyReturnMemberOrder(@Query("sessionID") String sessionID,
+                                                            @Query("memberOrderID") String memberOrderID);
+
+
+
 }
 
 
