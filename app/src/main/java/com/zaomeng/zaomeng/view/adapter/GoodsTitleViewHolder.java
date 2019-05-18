@@ -23,14 +23,14 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
     private TextView specifications;
     private TextView price;
 
-    private ImageView add;
+    //    private ImageView add;
     private ImageView goodsIcon;
     private GoodsTitleViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
         specifications = itemView.findViewById(R.id.specifications);
         price = itemView.findViewById(R.id.price);
-        add = itemView.findViewById(R.id.add);
+//        add = itemView.findViewById(R.id.add);
         goodsIcon = itemView.findViewById(R.id.icon_goods);
     }
 
@@ -49,10 +49,10 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
             if (onItemClick != null)
                 onItemClick.onClick(v, goods.getData(), getLayoutPosition());
         });
-        add.setOnClickListener(v -> {
-            if (onAddClick != null)
-                onAddClick.onClick(v, goods.getData(), getLayoutPosition());
-        });
+//        add.setOnClickListener(v -> {
+//            if (onAddClick != null)
+//                onAddClick.onClick(v, goods.getData(), getLayoutPosition());
+//        });
     }
 
 }

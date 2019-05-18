@@ -397,6 +397,9 @@ public interface ApiService {
                                                   @Query("contact") String contact,
                                                   @Query("title") String title);
 
+    @GET("getParameterValueByCode.json")
+    LiveData<Resource<Bean<String>>> getParameterValueByCode(@Query("code") String customerPhone);
+
 
 }
 

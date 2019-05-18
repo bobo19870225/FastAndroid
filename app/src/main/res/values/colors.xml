@@ -10,6 +10,7 @@
     <color name="item_activated_color">#77CEEE</color>
     <color name="item_location_color">#C0FFFFFF</color>
     <color name="bg_color">#F2F2F2</color>
+    <color name="bg_color_tm">#80F2F2F2</color>
     <color name="them_color">#FF9933</color>
     <color name="line">#000000</color>
     <color name="transparent">#00000000</color>

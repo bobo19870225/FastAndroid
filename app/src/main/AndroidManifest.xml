@@ -68,6 +68,7 @@
         <activity android:name=".view.ShopDetailActivity" />
         <activity android:name=".view.ChoseBonusActivity" />
         <activity android:name=".view.OrderDetailActivity" />
+        <activity android:name=".view.CustomerServiceActivity" />
 
         <receiver android:name=".AppRegister">
             <intent-filter>

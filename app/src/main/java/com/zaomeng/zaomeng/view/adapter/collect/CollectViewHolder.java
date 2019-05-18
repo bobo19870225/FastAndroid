@@ -22,7 +22,7 @@ import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 public class CollectViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
     private TextView price;
-    private ImageView add;
+    //    private ImageView add;
     private ImageView delete;
     private ImageView goodsIcon;
 
@@ -30,7 +30,7 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
         price = itemView.findViewById(R.id.price);
-        add = itemView.findViewById(R.id.add);
+//        add = itemView.findViewById(R.id.add);
         delete = itemView.findViewById(R.id.delete);
         goodsIcon = itemView.findViewById(R.id.icon_goods);
     }
@@ -49,10 +49,10 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
             if (onItemClick != null)
                 onItemClick.onClick(v, collectInfoBean, getLayoutPosition());
         });
-        add.setOnClickListener(v -> {
-            if (onAddClick != null)
-                onAddClick.onClick(v, collectInfoBean, getLayoutPosition());
-        });
+//        add.setOnClickListener(v -> {
+//            if (onAddClick != null)
+//                onAddClick.onClick(v, collectInfoBean, getLayoutPosition());
+//        });
         delete.setOnClickListener(v -> {
             if (onDeleteClick != null) {
                 onDeleteClick.onClick(v, collectInfoBean, getLayoutPosition());

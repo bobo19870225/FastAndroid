@@ -22,13 +22,13 @@ import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 public class GoodsViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
     private TextView price;
-    private ImageView add;
+    //    private ImageView add;
     private ImageView goodsIcon;
     private GoodsViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
         price = itemView.findViewById(R.id.price);
-        add = itemView.findViewById(R.id.add);
+//        add = itemView.findViewById(R.id.add);
         goodsIcon = itemView.findViewById(R.id.icon_goods);
     }
 
@@ -46,10 +46,10 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
             if (onItemClick != null)
                 onItemClick.onClick(v, goods, getLayoutPosition());
         });
-        add.setOnClickListener(v -> {
-            if (onAddClick != null)
-                onAddClick.onClick(v, goods, getLayoutPosition());
-        });
+//        add.setOnClickListener(v -> {
+//            if (onAddClick != null)
+//                onAddClick.onClick(v, goods, getLayoutPosition());
+//        });
     }
 
 }

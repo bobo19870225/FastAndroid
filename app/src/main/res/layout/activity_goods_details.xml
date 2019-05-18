@@ -29,18 +29,21 @@
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+
         <ImageView
+            android:background="@color/bg_color_tm"
             android:layout_width="@dimen/image"
             android:layout_height="@dimen/image"
-            android:layout_margin="8dp"
             android:onClick="@{()->model.back()}"
             android:padding="@dimen/image_padding"
+            android:scaleType="fitStart"
             android:src="@mipmap/back" />
+
 
         <RelativeLayout
             android:id="@+id/bottom"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:background="@color/white">
 

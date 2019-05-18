@@ -21,16 +21,16 @@ import com.zaomeng.zaomeng.utils.GlideUtils;
 public class GoodsGridViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
     private TextView price;
-    private TextView specifications;
-    private ImageView add;
+    //    private TextView specifications;
+//    private ImageView add;
     private ImageView icon_goods;
 
     private GoodsGridViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
         price = itemView.findViewById(R.id.price);
-        specifications = itemView.findViewById(R.id.specifications);
-        add = itemView.findViewById(R.id.add);
+//        specifications = itemView.findViewById(R.id.specifications);
+//        add = itemView.findViewById(R.id.add);
         icon_goods = itemView.findViewById(R.id.icon_goods);
     }
 
@@ -50,10 +50,10 @@ public class GoodsGridViewHolder extends RecyclerView.ViewHolder {
             if (onItemClick != null)
                 onItemClick.onClick(v, goods.getData(), getLayoutPosition());
         });
-        add.setOnClickListener(v -> {
-            if (onAddClick != null)
-                onAddClick.onClick(v, goods.getData(), getLayoutPosition());
-        });
+//        add.setOnClickListener(v -> {
+//            if (onAddClick != null)
+//                onAddClick.onClick(v, goods.getData(), getLayoutPosition());
+//        });
     }
 
 }
