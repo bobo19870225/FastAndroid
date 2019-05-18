@@ -16,6 +16,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsHeaderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
@@ -234,5 +235,13 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     badge.setBadgeNumber(badge.getBadgeNumber() + qty);
             });
         }
+    }
+
+    @Override
+    public void getPrice(String objectFeatureItemID) {
+        mViewModel.getPrice(objectFeatureItemID).observe(this, beanResource -> {
+            PriceBean priceBean = new HttpHelper<PriceBean>(getApplicationContext()).AnalyticalData(beanResource);
+            showSpecificationHelper.setPrice(priceBean.getShowPrice());
+        });
     }
 }

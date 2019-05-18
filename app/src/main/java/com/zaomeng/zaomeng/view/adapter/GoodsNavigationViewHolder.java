@@ -16,11 +16,12 @@ import com.zaomeng.zaomeng.R;
  */
 class GoodsNavigationViewHolder extends RecyclerView.ViewHolder {
     private TextView navigationName;
-
+    private TextView more;
 
     private GoodsNavigationViewHolder(@NonNull View itemView) {
         super(itemView);
         navigationName = itemView.findViewById(R.id.navigation_name);
+        more = itemView.findViewById(R.id.more);
     }
 
     public static GoodsNavigationViewHolder create(ViewGroup parent) {
@@ -30,10 +31,16 @@ class GoodsNavigationViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(Item<String> item, OnItemClick onItemClick) {
-        navigationName.setText(item.getData());
+        String data = item.getData();
+        navigationName.setText(data);
+        if (data.equals("推荐")) {
+            more.setVisibility(View.GONE);
+        } else {
+            more.setVisibility(View.VISIBLE);
+        }
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
-                onItemClick.onClick(v, item.getData(), getLayoutPosition());
+                onItemClick.onClick(v, data, getLayoutPosition());
         });
 
     }

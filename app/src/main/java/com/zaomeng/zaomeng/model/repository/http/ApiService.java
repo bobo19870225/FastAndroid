@@ -21,6 +21,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PointBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
@@ -409,6 +410,9 @@ public interface ApiService {
     LiveData<Resource<Bean<String>>> applyReturnMemberOrder(@Query("sessionID") String sessionID,
                                                             @Query("memberOrderID") String memberOrderID);
 
+    @GET("getObjectFeatureData.json")
+    LiveData<Resource<Bean<PriceBean>>> getObjectFeatureData(@Query("objectID") String objectID,
+                                                             @Query("objectFeatureItemID1") String objectFeatureItemID1);
 
 
 }

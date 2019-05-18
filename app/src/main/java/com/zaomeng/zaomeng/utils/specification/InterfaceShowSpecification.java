@@ -8,4 +8,6 @@ public interface InterfaceShowSpecification {
     void toast(String msg);
 
     void callBack(String objectID, int qty, String objectFeatureItemID);
+
+    void getPrice(String objectFeatureItemID);
 }

@@ -22,6 +22,7 @@ import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
+import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -37,7 +38,7 @@ public class ShowSpecificationHelper {
     private String specificationName;
     private String objectFeatureItemID;
     private BottomSheetDialog bottomSheetDialog;
-
+    private TextView price;
     public ShowSpecificationHelper(@NonNull Context context, InterfaceShowSpecification interfaceShowSpecification) {
         this.interfaceShowSpecification = interfaceShowSpecification;
         bottomSheetDialog = new BottomSheetDialog(context);
@@ -78,6 +79,8 @@ public class ShowSpecificationHelper {
             sl -= 1;
             number.setText(String.valueOf(sl));
         });
+        price = view.findViewById(R.id.price);
+
         bottomSheetDialog.setContentView(view);
         if (itemList == null) {
             root.setVisibility(View.GONE);
@@ -108,6 +111,8 @@ public class ShowSpecificationHelper {
                                 objectFeatureItemID = itemListBean.getObjectFeatureItemID();
                                 specificationName = itemListBean.getObjectFeatureItemName();
                                 oldPosition = position;
+//                        price.setText(itemListBean.);
+                                interfaceShowSpecification.getPrice(objectFeatureItemID);
                                 notifyDataSetChanged();
                             }
                     );
@@ -146,4 +151,9 @@ public class ShowSpecificationHelper {
         }
     }
 
+    public void setPrice(double price) {
+        if (this.price != null) {
+            this.price.setText(FormatUtils.numberFormatMoney(price));
+        }
+    }
 }

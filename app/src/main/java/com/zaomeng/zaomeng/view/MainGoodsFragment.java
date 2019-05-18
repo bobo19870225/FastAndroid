@@ -17,6 +17,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.GlideImageLoader;
@@ -147,10 +148,10 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
                 case "myOrder":
                     skipTo(OrderActivity.class, null);
                     break;
-                case "myCoupon":
+                case "myBonus":
                     skipTo(BonusActivity.class, null);
                     break;
-                case "myPoints":
+                case "signIn":
                     skipTo(CalendarActivity.class, null);
                     break;
             }
@@ -263,5 +264,13 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
                 }
             });
         }
+    }
+
+    @Override
+    public void getPrice(String objectFeatureItemID) {
+        mViewModel.getPrice(objectFeatureItemID).observe(this, beanResource -> {
+            PriceBean priceBean = new HttpHelper<PriceBean>(getContext()).AnalyticalData(beanResource);
+            showSpecificationHelper.setPrice(priceBean.getShowPrice());
+        });
     }
 }

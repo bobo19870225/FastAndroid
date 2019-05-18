@@ -50,7 +50,30 @@
                 android:background="@color/bg_color" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp">
 
+            <TextView
+                android:id="@+id/tt_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="单价："
+                android:textColor="@color/text_black" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/tt_price"
+                android:layout_toRightOf="@+id/tt_price"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_red" />
+
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,7 +138,7 @@
                 android:layout_toLeftOf="@+id/add"
                 android:gravity="center"
                 android:background="@color/bg_color"
-                android:text="@string/_0" />
+                android:text="1" />
 
             <TextView
                 android:id="@+id/add"

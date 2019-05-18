@@ -12,6 +12,7 @@ import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
@@ -94,5 +95,9 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
 
     public LiveData<Resource<Bean<String>>> removeCollect(String collectID) {
         return apiService.removeCollect(sessionID, collectID);
+    }
+
+    public LiveData<Resource<Bean<PriceBean>>> getPrice(String objectFeatureItemID1) {
+        return apiService.getObjectFeatureData("402892e76a0bd37c016a0be8a94e001e", objectFeatureItemID1);
     }
 }
