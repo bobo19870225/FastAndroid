@@ -183,10 +183,19 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
         if (requestCode == 110 && resultCode == 0) {
             if (data != null) {
                 BonusBean bonusBean = data.getParcelableExtra("DATA");
-                mViewModel.bonusID = bonusBean.getId();
-                mViewModel.ldBonus.setValue("-" + FormatUtils.numberFormatMoney(bonusBean.getAmount()));
-                mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_red));
-                mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(priceNow - bonusBean.getAmount())));
+                double total = priceNow - bonusBean.getAmount();
+                if (total > 0) {
+                    mViewModel.bonusID = bonusBean.getId();
+                    mViewModel.ldBonus.setValue("-" + FormatUtils.numberFormatMoney(bonusBean.getAmount()));
+                    mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_red));
+                    mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(total)));
+                } else {
+                    mViewModel.bonusID = null;
+                    mViewModel.ldBonus.setValue("所选红包不可用");
+                    mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_main));
+                    mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(priceNow)));
+                }
+
             }
         }
     }

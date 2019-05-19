@@ -42,7 +42,7 @@ public class BonusActivity extends BaseDaggerActivity {
 
     @Override
     protected String setToolBarTitle() {
-        return null;
+        return "优惠券";
     }
 
     @Override

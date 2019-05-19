@@ -52,6 +52,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
 
     private List<String> titles = new ArrayList<>();
     private List<String> IDs = new ArrayList<>();
+
     @Override
     protected void initUI() {
         Context context = getContext();
@@ -60,7 +61,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
                 .setBadgeGravity(Gravity.END | Gravity.TOP)
 //                .setGravityOffset(-8, -8, true)
 //                .setOnDragStateChangedListener(null)
-                .setBadgeNumber(5);
+                .setBadgeNumber(0);
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "msg":
@@ -139,14 +140,12 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     void setSelectedPosition(String title) {
         for (int i = 0; i < titles.size(); i++) {
             if (titles.get(i).equals(title)) {
-                setSelectedPosition(i);
+                pagerSlidingTabStrip.setSelectedPosition(i);
             }
         }
     }
 
-    void setSelectedPosition(int position) {
-        pagerSlidingTabStrip.setSelectedPosition(position);
-    }
+
     @Override
     protected MainFragmentVM createdViewModel() {
         return ViewModelProviders.of(this, viewModelFactory).get(MainFragmentVM.class);

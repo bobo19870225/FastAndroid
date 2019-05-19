@@ -14,6 +14,7 @@ import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 /**
  * Created by Sampson on 2019/4/18.
  * FastAndroid
+ * {@link com.zaomeng.zaomeng.view.MainFragment}
  */
 public class MainFragmentVM extends BaseViewModel {
     private ApiService apiService;

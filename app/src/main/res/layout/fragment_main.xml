@@ -70,6 +70,7 @@
             android:layout_toLeftOf="@+id/icon_msg" />
 
         <ImageView
+            android:padding="4dp"
             android:id="@+id/icon_msg"
             android:layout_width="@dimen/image"
             android:layout_height="@dimen/image"
