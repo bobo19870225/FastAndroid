@@ -75,11 +75,13 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
             if (loginBeans != null && loginBeans.size() != 0) {
                 loginBean = loginBeans.get(0);
                 String avatarURL = loginBean.getAvatarURL();
+                mViewModel.oldUserURL = avatarURL;
                 RequestOptions requestOptions = new RequestOptions().
                         placeholder(R.mipmap.touxiang).
                         error(R.mipmap.touxiang);
                 Glide.with(iconUser).load(avatarURL).apply(requestOptions).into(iconUser);
                 mViewModel.ldName.setValue(loginBean.getShortName());
+                mViewModel.oldName = loginBean.getShortName();
                 mViewModel.ldPhone.setValue(loginBean.getPhone());
             }
         });
@@ -106,6 +108,8 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE});
             } else if (s.contains("toast:")) {
                 toast(s.replace("toast:", ""));
+            } else if (s.equals("finish")) {
+                finish();
             }
         });
 
@@ -128,20 +132,24 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_ok) {
-            LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.updateMemberInfo();
-            if (resourceLiveData != null) {
-                resourceLiveData.observe(this, beanResource -> {
-                    String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
-                    if (s != null) {
-                        mViewModel.upDateUser(loginBean);
-                        finish();
-                    }
-                });
-            }
+            setUserInfo();
             return false;
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private void setUserInfo() {
+        LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.updateMemberInfo();
+        if (resourceLiveData != null) {
+            resourceLiveData.observe(this, beanResource -> {
+                String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+                if (s != null) {
+                    mViewModel.upDateUser(loginBean);
+                    finish();
+                }
+            });
+        }
     }
 
     @PermissionSuccess(requestCode = LQRPhotoSelectUtils.REQ_SELECT_PHOTO)
@@ -169,5 +177,10 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
     @Override
     protected int setLayoutRes() {
         return R.layout.activity_user_info;
+    }
+
+    @Override
+    protected void doClose() {
+        setUserInfo();
     }
 }

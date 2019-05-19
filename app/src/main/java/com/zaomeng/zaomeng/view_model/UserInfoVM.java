@@ -38,6 +38,8 @@ public class UserInfoVM extends BaseViewModel {
     private ApiService apiService;
     public UserDao userDao;
     private String userURL;
+    public String oldUserURL;
+    public String oldName;
     public final MutableLiveData<String> ldName = new MutableLiveData<>();
     public final MutableLiveData<String> ldPhone = new MutableLiveData<>();
     public final SingleLiveEvent<String> ldUpdateImage = new SingleLiveEvent<>();
@@ -60,9 +62,17 @@ public class UserInfoVM extends BaseViewModel {
     }
 
     public LiveData<Resource<Bean<String>>> updateMemberInfo() {
+
         if (ldName.getValue() == null) {
             action.setValue("toast:请填写昵称");
             return null;
+        }
+        if (ldName.getValue().equals(oldName) && userURL == null) {//用户未修改
+            action.setValue("finish");//直接返回
+            return null;
+        }
+        if (userURL == null) {
+            userURL = oldUserURL;
         }
         return apiService.updateMemberInfo(SharedPreferencesUtils.getSessionID(getApplication()),
                 ldName.getValue(),
@@ -108,7 +118,7 @@ public class UserInfoVM extends BaseViewModel {
 
     public void upDateUser(LoginBean loginBean) {
         loginBean.setAvatarURL(userURL);
-        loginBean.setName(ldName.getValue());
+        loginBean.setShortName(ldName.getValue());
         ExecutorService DB_IO = Executors.newFixedThreadPool(2);
         DB_IO.execute(() -> {
             userDao.upDateUser(loginBean);

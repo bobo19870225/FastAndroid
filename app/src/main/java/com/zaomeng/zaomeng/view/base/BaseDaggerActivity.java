@@ -44,7 +44,13 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
         title.setTextColor(Color.parseColor("#333333"));
         toolBarMenu = setToolBarMenu();
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(view -> onBackPressed());
+        toolbar.setNavigationOnClickListener(view -> {
+            doClose();
+        });
+    }
+
+    protected void doClose() {
+        onBackPressed();
     }
 
 
