@@ -88,7 +88,7 @@
                         android:hint="@string/tt_shop_name"
                         android:inputType="text"
                         android:text="@={model.ldName}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <View
@@ -128,7 +128,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/chose_type"
                         android:text="@{model.ldShopType}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
                     <ImageView
                         android:id="@+id/image_type"
@@ -140,7 +140,7 @@
                         android:layout_marginBottom="0dp"
                         android:onClick="@{()->model.choiceType()}"
                         android:padding="@dimen/image_padding"
-                        android:src="@mipmap/back" />
+                        android:src="@mipmap/xiala" />
                 </RelativeLayout>
 
                 <View
@@ -223,7 +223,7 @@
                         android:hint="@string/address_hint"
                         android:inputType="text"
                         android:text="@={model.ldAddress}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
@@ -264,7 +264,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/consignee_name"
                         android:text="@={model.ldContact}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
@@ -306,7 +306,7 @@
                         android:hint="@string/prompt_email"
                         android:inputType="phone"
                         android:text="@={model.ldContactPhone}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
 
                 </RelativeLayout>
@@ -349,7 +349,6 @@
                     android:paddingBottom="8dp">
 
                     <RelativeLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
@@ -360,6 +359,27 @@
                         android:background="@drawable/image_bg"
                         android:onClick="@{()->model.setShopImage()}">
 
+                        <RelativeLayout
+                            android:id="@+id/rl_shop_face"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/shop_full_face"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/shop_full_face" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/shop_full_face"
+                                android:text="点击上传店铺门面照"
+                                android:textColor="#ff999999"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
 
                         <ImageView
                             android:id="@+id/img_shop"
@@ -379,6 +399,28 @@
                         android:layout_weight="1"
                         android:background="@drawable/image_bg"
                         android:onClick="@{()->model.setLicenseImage()}">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_license"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/icon_license"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/license" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/icon_license"
+                                android:text="点击上营业执照"
+                                android:textColor="#ff999999"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
 
                         <ImageView
                             android:id="@+id/img_license"
@@ -434,6 +476,28 @@
                         android:background="@drawable/image_bg"
                         android:onClick="@{()->model.setIcFront()}">
 
+                        <RelativeLayout
+                            android:id="@+id/rl_id_front"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/icon_id_front"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/ic_full_face" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/icon_id_front"
+                                android:text="点击上传身份证正面照"
+                                android:textColor="#ff999999"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+
                         <ImageView
                             android:id="@+id/img_ic_front"
                             android:layout_width="match_parent"
@@ -451,6 +515,28 @@
                         android:layout_weight="1"
                         android:background="@drawable/image_bg"
                         android:onClick="@{()->model.setIcBack()}">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_id_back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/icon_id_back"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/id_back" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/icon_id_back"
+                                android:text="点击上传身份证背面照"
+                                android:textColor="#ff999999"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
 
                         <ImageView
                             android:id="@+id/img_ic_back"

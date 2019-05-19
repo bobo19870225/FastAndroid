@@ -86,7 +86,7 @@
                         android:layout_toRightOf="@+id/tt_shop_name"
                         android:gravity="center_vertical"
                         android:text="@{model.ldName}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <View
@@ -125,7 +125,7 @@
                         android:background="@null"
                         android:gravity="center_vertical"
                         android:text="@{model.ldShopType}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
@@ -171,7 +171,7 @@
                         android:background="@null"
                         android:gravity="center_vertical"
                         android:text="@{model.ldAddress}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
@@ -211,7 +211,7 @@
                         android:background="@null"
                         android:gravity="center_vertical"
                         android:text="@{model.ldContact}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
@@ -251,7 +251,7 @@
                         android:background="@null"
                         android:gravity="center_vertical"
                         android:text="@{model.ldContactPhone}"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
 
                 </RelativeLayout>

@@ -1,18 +1,15 @@
 package com.zaomeng.zaomeng.view;
 
 import android.Manifest;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.tu.loadingdialog.LoadingDailog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -30,8 +27,6 @@ import com.zaomeng.zaomeng.view.custom_view.CircleImageView;
 import com.zaomeng.zaomeng.view_model.UserInfoVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
-
 import javax.inject.Inject;
 
 import kr.co.namee.permissiongen.PermissionGen;
@@ -45,7 +40,7 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
     @Inject
     ViewModelFactory viewModelFactory;
     private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
-    private AlertDialog alertDialog;
+    private Dialog alertDialog;
     private CircleImageView iconUser;
     private LoginBean loginBean;
 
@@ -58,12 +53,18 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
     @Override
     protected void setView() {
         iconUser = mViewDataBinding.iconUser;
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_wait, null, false);
-        alertDialog = new AlertDialog.Builder(this)
-                .setView(view)
-                .setCancelable(false)
-                .create();
+        LoadingDailog.Builder loadBuilder = new LoadingDailog.Builder(this)
+                .setMessage("加载中...")
+                .setCancelable(true)
+                .setCancelOutside(true);
+        alertDialog = loadBuilder.create();
+
+//        LayoutInflater layoutInflater = getLayoutInflater();
+//        View view = layoutInflater.inflate(R.layout.dialog_wait, null, false);
+//        alertDialog = new AlertDialog.Builder(this)
+//                .setView(view)
+//                .setCancelable(false)
+//                .create();
         mLqrPhotoSelectUtils = new LQRPhotoSelectUtils(this, (outputFile, outputUri) -> {
             // 4、当拍照或从图库选取图片成功后回调
             String s = BitmapUtils.compressImageUpload(outputFile.getAbsolutePath());
@@ -118,12 +119,12 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
     private void showUpDataDialog(boolean isShow) {
         if (isShow) {
             alertDialog.show();
-            Window window = alertDialog.getWindow();
-            if (window != null) {
-                window.setLayout(UIUtil.dip2px(getApplicationContext(), 100),
-                        UIUtil.dip2px(getApplicationContext(), 100));
-                window.setGravity(Gravity.CENTER);
-            }
+//            Window window = alertDialog.getWindow();
+//            if (window != null) {
+//                window.setLayout(UIUtil.dip2px(getApplicationContext(), 100),
+//                        UIUtil.dip2px(getApplicationContext(), 100));
+//                window.setGravity(Gravity.CENTER);
+//            }
         } else if (alertDialog.isShowing()) {
             alertDialog.dismiss();
         }

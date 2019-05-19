@@ -99,16 +99,16 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
             String s = strings[1];
             switch (strings[0]) {
                 case "0":
-                    setImage(s, mViewDataBinding.imgShop);
+                    setImage(s, mViewDataBinding.imgShop, 0);
                     break;
                 case "1":
-                    setImage(s, mViewDataBinding.imgLicense);
+                    setImage(s, mViewDataBinding.imgLicense, 1);
                     break;
                 case "2":
-                    setImage(s, mViewDataBinding.imgIcFront);
+                    setImage(s, mViewDataBinding.imgIcFront, 2);
                     break;
                 case "3":
-                    setImage(s, mViewDataBinding.imgIcBack);
+                    setImage(s, mViewDataBinding.imgIcBack, 3);
                     break;
             }
 
@@ -134,12 +134,26 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
                         Manifest.permission.WRITE_EXTERNAL_STORAGE});
     }
 
-    private void setImage(String s, ImageView image) {
+    private void setImage(String s, ImageView image, int i) {
         if (s != null) {
             Gson gson = new Gson();
             Bean bean = gson.fromJson(s, Bean.class);
             showUpDataDialog(false);
             if (bean != null) {
+                switch (i) {
+                    case 0:
+                        mViewDataBinding.rlShopFace.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        mViewDataBinding.rlLicense.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        mViewDataBinding.rlIdFront.setVisibility(View.GONE);
+                        break;
+                    case 3:
+                        mViewDataBinding.rlIdBack.setVisibility(View.GONE);
+                        break;
+                }
                 Glide.with(image).load((String) bean.getBody().getData()).into(image);
             } else {
                 toast(s);
