@@ -24,6 +24,7 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
     private Function0 retryCallback;
     private NetWorkState netWorkState;
 
+
     public BasePagedListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback, Function0 retryCallback) {
         super(diffCallback);
         this.retryCallback = retryCallback;
@@ -38,11 +39,12 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
     @NonNull
     @Override
     public final RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         if (viewType == R.layout.network_state_item) {
             return NetworkStateItemViewHolder.create(parent, retryCallback);
+        } else {
+            return setViewHolder(parent, viewType);
         }
-        return setViewHolder(parent, viewType);
+
     }
 
     @NonNull
@@ -68,10 +70,11 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
 
     @Override
     public int getItemCount() {
+        int itemCount = super.getItemCount();
         if (hasExtraRow()) {
-            return super.getItemCount() + 1;
+            return itemCount + 1;
         } else {
-            return super.getItemCount();
+            return itemCount;
         }
     }
 
@@ -82,7 +85,6 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
         } else {
             return giveItemViewType(position);
         }
-
     }
 
     protected abstract int giveItemViewType(int position);
@@ -102,6 +104,5 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
             notifyItemChanged(getItemCount() - 1);
         }
     }
-
 
 }

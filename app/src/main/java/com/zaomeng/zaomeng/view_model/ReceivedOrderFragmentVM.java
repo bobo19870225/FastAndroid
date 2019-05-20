@@ -3,13 +3,16 @@ package com.zaomeng.zaomeng.view_model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 
 import retrofit2.Call;
@@ -36,7 +39,7 @@ public class ReceivedOrderFragmentVM extends ListViewModel<Integer, OrderBean> {
 
     @Override
     public Call<PageBean<OrderBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getMemberOrderList(sessionID, 4, 1, params.requestedLoadSize);
+        return apiService.getMemberOrderList(sessionID, 6, 1, params.requestedLoadSize);
     }
 
     @Override
@@ -47,7 +50,7 @@ public class ReceivedOrderFragmentVM extends ListViewModel<Integer, OrderBean> {
 
     @Override
     public Call<PageBean<OrderBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getMemberOrderList(sessionID, 4, params.key, params.requestedLoadSize);
+        return apiService.getMemberOrderList(sessionID, 6, params.key, params.requestedLoadSize);
 
     }
 
@@ -71,4 +74,7 @@ public class ReceivedOrderFragmentVM extends ListViewModel<Integer, OrderBean> {
     }
 
 
+    public LiveData<Resource<Bean<String>>> confirmMemberOrder(String memberOrderID) {
+        return apiService.confirmMemberOrder(sessionID, memberOrderID);
+    }
 }

@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentReceivedOrderBinding;
+import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.adapter.order.OrderAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ReceivedOrderFragmentVM;
@@ -36,7 +37,14 @@ public class ReceivedOrderFragment extends MVVMListFragment<ReceivedOrderFragmen
     @NonNull
     @Override
     protected OrderAdapter setAdapter(Function0 reTry) {
-        return new OrderAdapter(reTry);
+        OrderAdapter orderAdapter = new OrderAdapter(reTry);
+        orderAdapter.setOnItemConfirmClick((view, ItemObject, position) -> mViewModel.confirmMemberOrder(ItemObject.getGoodsList().get(0).getMemberOrderID()).observe(this, beanResource -> {
+            String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+            if (s != null) {
+                refresh();
+            }
+        }));
+        return orderAdapter;
     }
 
 

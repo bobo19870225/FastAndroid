@@ -124,7 +124,9 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
         @Override
         public boolean areContentsTheSame(@NonNull ShopCartBean oldItem, @NonNull ShopCartBean newItem) {
             return oldItem.getId().equals(newItem.getId()) &&
-                    oldItem.getGoodsShopID().equals(newItem.getGoodsShopID()) && oldItem.getIsSelected() == newItem.getIsSelected();
+                    oldItem.getGoodsShopID().equals(newItem.getGoodsShopID())
+                    && oldItem.getIsSelected() == newItem.getIsSelected()
+                    && oldItem.getQty() == newItem.getQty();
         }
     };
 

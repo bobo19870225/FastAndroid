@@ -28,11 +28,13 @@ public class BonusAdapter extends BasePagedListAdapter<BonusBean> {
         this.onItemClick = onItemClick;
     }
 
+
     @NonNull
     @Override
     protected RecyclerView.ViewHolder setViewHolder(ViewGroup parent, int viewType) {
         return BonusViewHolder.create(parent);
     }
+
 
     @Override
     protected void viewHolderBind(RecyclerView.ViewHolder holder, int position) {

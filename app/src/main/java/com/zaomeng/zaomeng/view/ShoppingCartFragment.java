@@ -160,7 +160,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 //                showWaitDialog(false);
                 setListView(transferData);
             }
-
+            refresh();
         });
     }
 

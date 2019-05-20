@@ -82,8 +82,8 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
 
             int n = Integer.parseInt(number.getText().toString());
             n -= 1;
-            if (n < 0) {
-                n = 0;
+            if (n < 1) {
+                n = 1;
             }
             number.setText(String.valueOf(n));
             shopCartBean.setQty(n);
