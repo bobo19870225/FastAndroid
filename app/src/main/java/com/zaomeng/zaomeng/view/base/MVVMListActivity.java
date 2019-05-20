@@ -8,6 +8,7 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.Status;
@@ -26,11 +27,13 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
     private A adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Listing listing;
+
     @Override
     @CallSuper
     protected void setView() {
         recyclerView = setRecyclerView();
         swipeRefreshLayout = setSwipeRefreshLayout();
+        swipeRefreshLayout.setColorSchemeResources(R.color.them_color);
         setListView(transferData);
     }
 
@@ -43,22 +46,9 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 listing.refreshState.setValue(swipeRefreshLayout.isRefreshing());
                 listing.refresh.invoke();
-//            swipeRefreshLayout.setRefreshing(false);
             });
-//            RecyclerViewNoBugLinearLayoutManager recyclerViewNoBugLinearLayoutManager = new RecyclerViewNoBugLinearLayoutManager(getApplicationContext());
-//            recyclerViewNoBugLinearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-//            recyclerView.setLayoutManager(recyclerViewNoBugLinearLayoutManager);
             recyclerView.setAdapter(adapter);
-            pagedList.observe(this, ts -> {
-//                if (emptyView != null) {
-//                    if (ts.size() == 0) {
-//                        emptyView.setVisibility(View.VISIBLE);
-//                    } else {
-//                        emptyView.setVisibility(View.GONE);
-//                    }
-//                }
-                adapter.submitList(ts);
-            });
+            pagedList.observe(this, ts -> adapter.submitList(ts));
             listing.networkState.observe(this, o -> {
 
                 Status status = ((NetWorkState) o).getStatus();
@@ -67,12 +57,10 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
                 } else if (status == Status.SUCCESS) {
                     swipeRefreshLayout.setRefreshing(false);
                     adapter.setNetworkState((NetWorkState) o);
-//                    doError((NetWorkState) o);
                 } else if (status == Status.FAILED) {
                     swipeRefreshLayout.setRefreshing(false);
                     toast(((NetWorkState) o).getMsg());
                     adapter.setNetworkState((NetWorkState) o);
-//                    doError((NetWorkState) o);
                 }
             });
 
@@ -84,6 +72,7 @@ public abstract class MVVMListActivity<VM extends ListViewModel, VDB extends Vie
             listing.refresh.invoke();
         }
     }
+
     @NonNull
     protected abstract RecyclerView setRecyclerView();
 

@@ -7,6 +7,7 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.Status;
@@ -29,6 +30,7 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
     protected final void initUI() {
         recyclerView = setRecyclerView();
         swipeRefreshLayout = setSwipeRefreshLayout();
+        swipeRefreshLayout.setColorSchemeResources(R.color.them_color);
         setListView(transferData);
         setUI();
     }

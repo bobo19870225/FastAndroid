@@ -70,6 +70,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
     @Override
     protected void initUI() {
         swipeRefreshLayout = mViewDataBinding.swipeRefresh;
+        swipeRefreshLayout.setColorSchemeResources(R.color.them_color);
         setBanner();
         GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
         setGoodsData(goodsAdapter);
