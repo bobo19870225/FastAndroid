@@ -56,11 +56,7 @@ public class GoodsDetailsAdapter extends BasePagedListAdapter<GoodsDetailsImageB
     @Override
     public int getItemCount() {
         int itemCount = super.getItemCount();
-        if (hasExtraRow()) {
-            return itemCount + 2;
-        } else {
-            return itemCount + 1;
-        }
+        return itemCount + 1;
     }
 
 
