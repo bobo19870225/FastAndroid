@@ -60,9 +60,7 @@
             android:layout_marginTop="1dp"
             android:background="@android:color/white"
             android:paddingStart="16dp"
-            android:paddingLeft="16dp"
-            android:paddingEnd="16dp"
-            android:paddingRight="16dp">
+            android:paddingLeft="16dp">
 
             <TextView
                 android:id="@+id/my_name"
@@ -77,15 +75,25 @@
                 android:id="@+id/name"
                 android:layout_width="160dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/clean"
+                android:layout_toLeftOf="@+id/clean"
                 android:background="@android:color/white"
                 android:gravity="center_vertical|end"
                 android:inputType="text"
                 android:text="@={model.ldName}"
                 android:textSize="12sp" />
 
+            <ImageView
+                android:id="@+id/clean"
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:onClick="@{()->model.clean()}"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/clean" />
         </RelativeLayout>
 
         <RelativeLayout

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -83,6 +84,11 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
                 Glide.with(iconUser).load(avatarURL).apply(requestOptions).into(iconUser);
                 mViewModel.ldName.setValue(loginBean.getShortName());
                 mViewModel.oldName = loginBean.getShortName();
+                mViewModel.ldName.observe(this, s -> {
+                    EditText name = mViewDataBinding.name;
+                    name.setSelection(name.getText().length());//将光标移至文字末尾
+                });
+
                 mViewModel.ldPhone.setValue(loginBean.getPhone());
             }
         });
@@ -92,7 +98,10 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
                 try {
                     Bean bean = gson.fromJson(s, Bean.class);
                     if (bean != null) {
-                        Glide.with(iconUser).load((String) bean.getBody().getData()).into(iconUser);
+                        RequestOptions requestOptions = new RequestOptions().
+                                placeholder(R.mipmap.loading).
+                                error(R.mipmap.loading_error);
+                        Glide.with(iconUser).load((String) bean.getBody().getData()).apply(requestOptions).into(iconUser);
                     }
                 } catch (JsonSyntaxException j) {
                     toast(s);

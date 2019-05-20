@@ -125,4 +125,8 @@ public class UserInfoVM extends BaseViewModel {
             DB_IO.shutdown();//关闭线程
         });
     }
+
+    public void clean() {
+        ldName.setValue("");
+    }
 }
