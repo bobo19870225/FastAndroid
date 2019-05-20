@@ -17,6 +17,7 @@ import com.zaomeng.zaomeng.view.OrderActivity;
 import com.zaomeng.zaomeng.view.OrderDetailActivity;
 import com.zaomeng.zaomeng.view.OrderSettlementActivity;
 import com.zaomeng.zaomeng.view.PointActivity;
+import com.zaomeng.zaomeng.view.PointRuleActivity;
 import com.zaomeng.zaomeng.view.RegisterActivity;
 import com.zaomeng.zaomeng.view.SearchActivity;
 import com.zaomeng.zaomeng.view.SearchGoodsListActivity;
@@ -135,6 +136,9 @@ public abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector()
     abstract CustomerServiceActivity customerServiceActivity();
+
+    @ContributesAndroidInjector()
+    abstract PointRuleActivity pointRuleActivity();
 
 
 }

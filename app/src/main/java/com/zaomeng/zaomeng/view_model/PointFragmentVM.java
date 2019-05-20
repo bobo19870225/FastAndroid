@@ -3,6 +3,7 @@ package com.zaomeng.zaomeng.view_model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
@@ -22,7 +23,7 @@ import retrofit2.Call;
 public class PointFragmentVM extends ListViewModel<Integer, PointBean> {
     private ApiService apiService;
     private String sessionID;
-
+    public final MutableLiveData<String> ldTotalPoint = new MutableLiveData<>();
     public PointFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -36,19 +37,19 @@ public class PointFragmentVM extends ListViewModel<Integer, PointBean> {
 
     @Override
     public Call<PageBean<PointBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
-        return apiService.getMyPointList(sessionID, 1, params.requestedLoadSize);
+        return apiService.getMyPointList(sessionID, 1, params.requestedLoadSize, (Integer) listRequest);
     }
 
     @Override
     public void setLoadInitialCallback(PageBean<PointBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, PointBean> callback) {
-//        body.getBody().getData().
+        ldTotalPoint.postValue(String.valueOf(body.getBody().getPoint()));
         callback.onResult(body.getBody().getData().getRows(), 1, 2);
 
     }
 
     @Override
     public Call<PageBean<PointBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getMyPointList(sessionID, params.key, params.requestedLoadSize);
+        return apiService.getMyPointList(sessionID, params.key, params.requestedLoadSize, (Integer) listRequest);
 
 
     }

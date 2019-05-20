@@ -30,7 +30,12 @@ public class PointFragment extends MVVMListFragment<PointFragmentVM, FragmentLis
 
     @Override
     protected void setUI() {
-
+        mViewModel.ldTotalPoint.observe(this, s -> {
+            PointActivity activity = (PointActivity) getActivity();
+            if (activity != null) {
+                activity.point.setText(s);
+            }
+        });
     }
 
     @NonNull

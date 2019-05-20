@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.ArticleDetailBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
@@ -312,7 +313,8 @@ public interface ApiService {
     Call<PageBean<PointBean>> getMyPointList(
             @Query("sessionID") String sessionID,
             @Query("currentPage") Integer currentPage,
-            @Query("pageNumber") Integer pageNumber);
+            @Query("pageNumber") Integer pageNumber,
+            @Query("actionType") Integer actionType);
 
     /**
      * 获取我的订单列表
@@ -426,6 +428,10 @@ public interface ApiService {
                                                       @Query("contactIdCardFaceImage") String contactIdCardFaceImage,
                                                       @Query("contactIdCardBackImage") String contactIdCardBackImage,
                                                       @Query("memberShopID") String memberShopID);
+
+    @GET("getArticleDetail.json")
+    LiveData<Resource<Bean<ArticleDetailBean>>> getArticleDetail(@Query("articleID") String articleID);
+
 
 
 

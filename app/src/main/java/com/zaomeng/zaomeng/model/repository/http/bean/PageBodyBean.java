@@ -13,6 +13,7 @@ public class PageBodyBean<T> {
     private double priceTotal;
     private double discountPrice;
     private double priceAfterDiscount;
+    private int point;
 
     public PageDataBean<T> getData() {
         return data;
@@ -44,5 +45,13 @@ public class PageBodyBean<T> {
 
     public void setPriceAfterDiscount(double priceAfterDiscount) {
         this.priceAfterDiscount = priceAfterDiscount;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 }

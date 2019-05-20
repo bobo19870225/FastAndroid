@@ -34,6 +34,7 @@ public class PointActivity extends BaseDaggerActivity {
     private List<String> mDataList = Arrays.asList(CHANNELS);
     private ViewPager mViewPager;
     public TextView point;
+
     @Override
     protected String setToolBarTitle() {
         return null;
@@ -52,12 +53,18 @@ public class PointActivity extends BaseDaggerActivity {
     @Override
     protected void initView() {
         point = findViewById(R.id.point);
+        findViewById(R.id.ll_jfgz).setOnClickListener(v -> {
+            skipTo(PointRuleActivity.class, null);
+        });
         findViewById(R.id.back).setOnClickListener(v -> finish());
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new PointFragment());
         fragmentList.add(new PointFragment());
         mViewPager = findViewById(R.id.view_pager);
-        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(getSupportFragmentManager(), fragmentList, mDataList);
+        List<Integer> integerList = new ArrayList<>();
+        integerList.add(1);//获取
+        integerList.add(2);//消费
+        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(getSupportFragmentManager(), fragmentList, mDataList, integerList);
         mViewPager.setAdapter(listFragmentAdapter);
         initMagicIndicator();
     }
