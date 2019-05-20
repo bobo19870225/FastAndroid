@@ -17,6 +17,7 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCertificationBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
@@ -58,12 +59,58 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
 
     @Override
     protected void setView() {
+        if (transferData instanceof MemberShopBean) {//编辑店铺
+            mViewModel.isEdit = true;
+            mViewModel.memberShopID = ((MemberShopBean) transferData).getId();
+            mViewModel.ldName.setValue(((MemberShopBean) transferData).getName());
+//            mViewModel.ldShopType.setValue(((MemberShopBean) transferData).getShopType());
+            mViewModel.ldShopTypeID.setValue(((MemberShopBean) transferData).getShopCategoryID());
+            mViewModel.ldContact.setValue(((MemberShopBean) transferData).getContact());
+            mViewModel.ldContactPhone.setValue(((MemberShopBean) transferData).getContactPhone());
+            mViewModel.ldAddress.setValue(((MemberShopBean) transferData).getAddress());
+            mViewDataBinding.rlIdBack.setVisibility(View.GONE);
+            mViewDataBinding.rlIdFront.setVisibility(View.GONE);
+            mViewDataBinding.rlLicense.setVisibility(View.GONE);
+            mViewDataBinding.rlShopFace.setVisibility(View.GONE);
+
+            String shopFaceImage = ((MemberShopBean) transferData).getShopFaceImage();
+            mViewModel.shopFaceImage = shopFaceImage;
+            ImageView imgShop = mViewDataBinding.imgShop;
+            Glide.with(imgShop).load(shopFaceImage).into(imgShop);
+
+            String businessImage = ((MemberShopBean) transferData).getBusinessImage();
+            mViewModel.businessImage = businessImage;
+            ImageView imgLicense = mViewDataBinding.imgLicense;
+            Glide.with(imgLicense).load(businessImage).into(imgLicense);
+
+
+            String contactIdCardFaceImage = ((MemberShopBean) transferData).getContactIdCardFaceImage();
+            mViewModel.contactIdCardFaceImage = contactIdCardFaceImage;
+            ImageView imgIcFront = mViewDataBinding.imgIcFront;
+            Glide.with(imgIcFront).load(contactIdCardFaceImage).into(imgIcFront);
+
+
+            String contactIdCardBackImage = ((MemberShopBean) transferData).getContactIdCardBackImage();
+            mViewModel.contactIdCardBackImage = contactIdCardBackImage;
+            ImageView imgIcBack = mViewDataBinding.imgIcBack;
+            Glide.with(imgIcBack).load(contactIdCardBackImage).into(imgIcBack);
+            mViewDataBinding.submit.setText("保存");
+        }
         init();
         mViewModel.getShopType().observe(this, pageBeanResource -> {
             PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = new HttpHelper<GoodsSuperBean>(getApplication()).AnalyticalPageData(pageBeanResource);
             if (goodsSuperBeanPageDataBean != null) {
                 listShopType = goodsSuperBeanPageDataBean.getRows();
                 shopTypeAdapter.setList(listShopType);
+                if (mViewModel.isEdit) {
+                    for (GoodsSuperBean goodsSuperBean : listShopType) {
+                        if (goodsSuperBean.getId().equals(mViewModel.ldShopTypeID.getValue())) {
+                            mViewModel.ldShopType.setValue(goodsSuperBean.getName());
+                            break;
+                        }
+                    }
+
+                }
             }
 
         });

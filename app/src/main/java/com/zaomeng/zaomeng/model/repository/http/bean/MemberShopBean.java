@@ -1,10 +1,13 @@
 package com.zaomeng.zaomeng.model.repository.http.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Sampson on 2019-05-04.
  * FastAndroid
  */
-public class MemberShopBean {
+public class MemberShopBean implements Parcelable {
 
 
     /**
@@ -199,4 +202,69 @@ public class MemberShopBean {
     public void setSelect(boolean select) {
         this.select = select;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.memberID);
+        dest.writeString(this.shopCategoryID);
+        dest.writeString(this.applicationID);
+        dest.writeString(this.name);
+        dest.writeInt(this.shopType);
+        dest.writeInt(this.bizStatus);
+        dest.writeString(this.logoURL);
+        dest.writeString(this.shopFaceImage);
+        dest.writeString(this.businessImage);
+        dest.writeString(this.address);
+        dest.writeString(this.contact);
+        dest.writeString(this.contactPhone);
+        dest.writeString(this.contactIdCardFaceImage);
+        dest.writeString(this.contactIdCardBackImage);
+        dest.writeInt(this.verifyStatus);
+        dest.writeLong(this.verifyDate);
+        dest.writeString(this.verifyDateStr);
+        dest.writeByte(this.select ? (byte) 1 : (byte) 0);
+    }
+
+    public MemberShopBean() {
+    }
+
+    protected MemberShopBean(Parcel in) {
+        this.id = in.readString();
+        this.memberID = in.readString();
+        this.shopCategoryID = in.readString();
+        this.applicationID = in.readString();
+        this.name = in.readString();
+        this.shopType = in.readInt();
+        this.bizStatus = in.readInt();
+        this.logoURL = in.readString();
+        this.shopFaceImage = in.readString();
+        this.businessImage = in.readString();
+        this.address = in.readString();
+        this.contact = in.readString();
+        this.contactPhone = in.readString();
+        this.contactIdCardFaceImage = in.readString();
+        this.contactIdCardBackImage = in.readString();
+        this.verifyStatus = in.readInt();
+        this.verifyDate = in.readLong();
+        this.verifyDateStr = in.readString();
+        this.select = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<MemberShopBean> CREATOR = new Parcelable.Creator<MemberShopBean>() {
+        @Override
+        public MemberShopBean createFromParcel(Parcel source) {
+            return new MemberShopBean(source);
+        }
+
+        @Override
+        public MemberShopBean[] newArray(int size) {
+            return new MemberShopBean[size];
+        }
+    };
 }

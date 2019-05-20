@@ -40,11 +40,9 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
     @Override
     protected MemberShopAdapter setAdapter(Function0 reTry) {
         MemberShopAdapter memberShopAdapter = new MemberShopAdapter(reTry);
-        memberShopAdapter.setOnItemClick((view, ItemObject, position) -> {
-            skipTo(ShopDetailActivity.class, ItemObject.getId());
-        });
+        memberShopAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(ShopDetailActivity.class, ItemObject.getId()));
         memberShopAdapter.setOnEditClick((view, ItemObject, position) -> {
-
+            skipTo(CertificationActivity.class, ItemObject);
         });
         memberShopAdapter.setOnDeleteClick((view, ItemObject, position) -> mViewModel.removeMemberShop(ItemObject.getId()).observe(this, beanResource -> {
             String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);

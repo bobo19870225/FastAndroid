@@ -414,6 +414,20 @@ public interface ApiService {
     LiveData<Resource<Bean<PriceBean>>> getObjectFeatureData(@Query("objectID") String objectID,
                                                              @Query("objectFeatureItemID1") String objectFeatureItemID1);
 
+    @GET("updateMemberShop.json")
+    LiveData<Resource<Bean<String>>> updateMemberShop(@Query("sessionID") String sessionID,
+                                                      @Query("name") String name,
+                                                      @Query("shopCategoryID") String shopCategoryID,
+                                                      @Query("shopFaceImage") String shopFaceImage,
+                                                      @Query("businessImage") String businessImage,
+                                                      @Query("address") String address,
+                                                      @Query("contact") String contact,
+                                                      @Query("contactPhone") String contactPhone,
+                                                      @Query("contactIdCardFaceImage") String contactIdCardFaceImage,
+                                                      @Query("contactIdCardBackImage") String contactIdCardBackImage,
+                                                      @Query("memberShopID") String memberShopID);
+
+
 
 }
 

@@ -33,6 +33,7 @@ import static com.zaomeng.zaomeng.utils.SystemParameter.baseUrl;
  * {@link com.zaomeng.zaomeng.view.CertificationActivity}
  */
 public class CertificationVM extends BaseViewModel {
+    public boolean isEdit;
     private ApiService apiService;
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
     public final MutableLiveData<String> ldName = new MediatorLiveData<>();
@@ -43,11 +44,11 @@ public class CertificationVM extends BaseViewModel {
     public final MutableLiveData<String> ldShopTypeID = new MediatorLiveData<>();
     public final MediatorLiveData<Resource<Bean<String>>> ldSubmit = new MediatorLiveData<>();
     public final SingleLiveEvent<String> ldToast = new SingleLiveEvent<>();
-    //    public final MutableLiveData<Integer> ldProgress = new MediatorLiveData<>();
-    private String shopFaceImage;
-    private String businessImage;
-    private String contactIdCardFaceImage;
-    private String contactIdCardBackImage;
+    public String memberShopID;
+    public String shopFaceImage;
+    public String businessImage;
+    public String contactIdCardFaceImage;
+    public String contactIdCardBackImage;
     public final MutableLiveData<String[]> ldUpDataImage = new MediatorLiveData<>();
     public CertificationVM(@NonNull Application application, ApiService apiService) {
         super(application);
@@ -130,19 +131,36 @@ public class CertificationVM extends BaseViewModel {
             ldToast.setValue("请上传身份证背面照");
             return;
         }
-        ldSubmit.addSource(
-                apiService.applyMemberShop(
-                        SharedPreferencesUtils.getSessionID(getApplication()),
-                        ldName.getValue(),
-                        ldShopTypeID.getValue(),
-                        shopFaceImage,
-                        businessImage,
-                        ldAddress.getValue(),
-                        ldContact.getValue(),
-                        ldContactPhone.getValue(),
-                        contactIdCardFaceImage,
-                        contactIdCardBackImage
-                ), ldSubmit::setValue);
+        if (isEdit) {
+            ldSubmit.addSource(
+                    apiService.updateMemberShop(
+                            SharedPreferencesUtils.getSessionID(getApplication()),
+                            ldName.getValue(),
+                            ldShopTypeID.getValue(),
+                            shopFaceImage,
+                            businessImage,
+                            ldAddress.getValue(),
+                            ldContact.getValue(),
+                            ldContactPhone.getValue(),
+                            contactIdCardFaceImage,
+                            contactIdCardBackImage,
+                            memberShopID
+                    ), ldSubmit::setValue);
+        } else {
+            ldSubmit.addSource(
+                    apiService.applyMemberShop(
+                            SharedPreferencesUtils.getSessionID(getApplication()),
+                            ldName.getValue(),
+                            ldShopTypeID.getValue(),
+                            shopFaceImage,
+                            businessImage,
+                            ldAddress.getValue(),
+                            ldContact.getValue(),
+                            ldContactPhone.getValue(),
+                            contactIdCardFaceImage,
+                            contactIdCardBackImage
+                    ), ldSubmit::setValue);
+        }
     }
 
     public void uploadImg(String fileUrl, int which) {
