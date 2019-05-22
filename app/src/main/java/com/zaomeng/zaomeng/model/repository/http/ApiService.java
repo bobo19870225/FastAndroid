@@ -18,6 +18,8 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.HotWordBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.MessageBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.MessageTypeBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
@@ -93,6 +95,7 @@ public interface ApiService {
 
     /**
      * 发送验证码
+     *
      * @param sendType 0 注册
      */
     @GET("sendSmsCommon.json")
@@ -220,6 +223,18 @@ public interface ApiService {
     LiveData<Resource<PageBean<GoodsSuperBean>>> getNodeCategoryList(@Query("rootID") String rootID, @Query("depth") Integer depth);
 
     /**
+     * 获取子集分类列表（标准结构）
+     * http://www.wgclm.com/zaomeng-api/api/getNodeCategoryList.json?
+     * rootID=fa7c2854-8b56-492b-b542-58a4ab2a7357
+     * &objectDefineID=402892e96a5895ef016a5896b76b0002
+     * &memberID=2c9051726a646c47016a647e046e0006
+     */
+    @GET("getNodeCategoryList.json")
+    LiveData<Resource<PageBean<MessageTypeBean>>> getNodeCategoryList(@Query("rootID") String rootID,
+                                                                      @Query("objectDefineID") String objectDefineID,
+                                                                      @Query("memberID") String memberID);
+
+    /**
      * 获取收藏列表
      */
     @GET("getCollectList.json")
@@ -251,10 +266,10 @@ public interface ApiService {
      * 获取我的消息列表
      */
     @GET("getMyMessageList.json")
-    Call<PageBean<BranchGoodsBean>> getMyMessageList(@Query("currentPage") Integer currentPage,
-                                                     @Query("pageNumber") Integer pageNumber,
-                                                     @Query("sessionID") String sessionID,
-                                                     @Query("messageType") Integer messageType);
+    Call<PageBean<MessageBean>> getMyMessageList(@Query("currentPage") Integer currentPage,
+                                                 @Query("pageNumber") Integer pageNumber,
+                                                 @Query("sessionID") String sessionID,
+                                                 @Query("messageType") String messageType);
 
 
     /**
@@ -327,9 +342,8 @@ public interface ApiService {
             @Query("pageNumber") Integer pageNumber);
 
     /**
-     *
-     *  微信：402892e96a4ed7a4016a4eda9107000c
-     *  支付宝：402892e96a4ed7a4016a4eda5984000a
+     * 微信：402892e96a4ed7a4016a4eda9107000c
+     * 支付宝：402892e96a4ed7a4016a4eda5984000a
      */
 
     @GET("appApplyMemberOrderPay.json")
@@ -432,7 +446,8 @@ public interface ApiService {
     @GET("getArticleDetail.json")
     LiveData<Resource<Bean<ArticleDetailBean>>> getArticleDetail(@Query("articleID") String articleID);
 
-
+    @GET("getMemberOrderDetail.json")
+    LiveData<Resource<Bean<OrderBean>>> getMemberOrderDetail(@Query("sessionID") String sessionID, @Query("memberOrderID") String memberOrderID);
 
 
 }

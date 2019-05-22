@@ -92,7 +92,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new AddressManageVM(application, apiService);
         } else if (modelClass.isAssignableFrom(CalendarVM.class)) {
 
-            return (T) new CalendarVM(application, apiService);
+            return (T) new CalendarVM(application, apiService, userDao);
         } else if (modelClass.isAssignableFrom(PointFragmentVM.class)) {
 
             return (T) new PointFragmentVM(application, apiService);
@@ -132,6 +132,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new OrderDetailVM(application, apiService);
         } else if (modelClass.isAssignableFrom(CustomerServiceVM.class)) {
             return (T) new CustomerServiceVM(application, apiService);
+        } else if (modelClass.isAssignableFrom(MessageTypeVM.class)) {
+            return (T) new MessageTypeVM(application, apiService);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

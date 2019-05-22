@@ -7,12 +7,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SignInBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
+import com.zaomeng.zaomeng.utils.SingleLiveEvent;
+
+import java.util.List;
 
 /**
  * Created by Sampson on 2019-05-05.
@@ -22,12 +27,15 @@ import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 public class CalendarVM extends BaseViewModel {
     private ApiService apiService;
     private String sessionID;
+    private UserDao userDao;
     public final MediatorLiveData<Resource<Bean<String>>> ldSignIn = new MediatorLiveData<>();
-    public final MutableLiveData<String> action = new MutableLiveData<>();
+    public final MutableLiveData<String> ldUserName = new MutableLiveData<>();
+    public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
 
-    public CalendarVM(@NonNull Application application, ApiService apiService) {
+    public CalendarVM(@NonNull Application application, ApiService apiService, UserDao userDao) {
         super(application);
         this.apiService = apiService;
+        this.userDao = userDao;
     }
 
     @Override
@@ -35,6 +43,9 @@ public class CalendarVM extends BaseViewModel {
         sessionID = SharedPreferencesUtils.getSessionID(getApplication());
     }
 
+    public LiveData<List<LoginBean>> getUser() {
+        return userDao.getAllUser();
+    }
     public void signIn() {
         action.setValue("signIn");
         ldSignIn.addSource(apiService.submitOneSignIn(sessionID), ldSignIn::setValue);

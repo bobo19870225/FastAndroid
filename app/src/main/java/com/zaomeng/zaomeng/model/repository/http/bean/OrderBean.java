@@ -8,45 +8,52 @@ import java.util.List;
  */
 public class OrderBean {
 
+
     /**
-     * id : 2c9051726a956662016a9663f4960017
+     * id : 2c9051726acaccb0016acbb16e350011
      * name : null
      * memberID : 2c9051726a646c47016a647e046e0006
-     * memberName : 18101603953
-     * avatarURL : null
-     * orderCode : D20190508034100001
-     * applyTime : 1557301294000
+     * memberName : 卢声波
+     * avatarURL : http://qn.wgclm.com/FiPxfns7K7Fu_s3A5h4Q4xU-3XK_
+     * orderCode : D20190519120600188
+     * applyTime : 1558195564000
+     * applyTimeStr : 2019-05-19 00:06:04
      * getGoodsTime : null
-     * goodsNumbers : 1
-     * goodsQTY : 1
-     * priceTotal : 7.8
-     * priceStandTotal : 7.8
+     * getGoodsTimeStr : null
+     * goodsNumbers : 2
+     * goodsQTY : 2
+     * priceTotal : 6.0
+     * priceStandTotal : 10.0
      * sendPrice : 0.0
-     * discountRate : 1.0
-     * priceAfterDiscount : 0.0
+     * discountRate : 0.6
+     * priceAfterDiscount : 6.0
      * payTotal : 0.0
      * payFrom : 1
      * payTime : null
+     * payTimeStr : null
      * paySequence : null
      * sendType : null
      * memberMemo : null
      * sendTime : null
+     * sendTimeStr : null
      * sendCode : null
-     * status : 1
+     * status : 2
      * contactName : 18101603953
      * contactPhone : 18101603953
-     * address : 上海市，天目中路538弄1号6B
-     * goodsList : [{"id":"2c9051726a956662016a9663f4970018","goodsName":"知味观 小笼包 笋丁猪肉味 250g（包子 早餐 馒头花卷 杭州特产）","listImage":"http://wj.haoju.me/14ef7461cc2c42ebb3f10651b63a7826.jpg","memberOrderID":"2c9051726a956662016a9663f4960017","objectFeatureItemID1":"2c9051726a3f6378016a48243a2f002b","objectFeatureItemName1":null,"priceStand":7.8,"discountRate":1,"priceNow":7.8,"priceReturn":7.8,"priceTotal":7.8,"isReturn":1,"status":1,"qty":1}]
+     * address : 上海市静安区天目中路538弄1号6B
+     * goodsList : [{"id":"2c9051726acaccb0016acbb16e360012","goodsName":"红糖馒头","listImage":"http://wj.haoju.me/d59f50ed84444a6c912242034c8b0895.png","memberOrderID":"2c9051726acaccb0016acbb16e350011","objectFeatureItemID1":"402892e76a0bd37c016a0be91e540024","objectFeatureItemName1":null,"priceStand":9.99,"discountRate":0.6,"priceNow":5.994,"priceReturn":5.994,"priceTotal":5.994,"isReturn":1,"status":1,"qty":1},{"id":"2c9051726acaccb0016acbb16e360013","goodsName":"安井 杂粮包 800g（早餐 粗粮养胃 馒头花卷 早餐包子 早茶点心）","listImage":"http://wj.haoju.me/d67e1dfa40c84fb9914756fe7f9dff10.jpg","memberOrderID":"2c9051726acaccb0016acbb16e350011","objectFeatureItemID1":"2c9051726a3f6378016a483bddd8005f","objectFeatureItemName1":null,"priceStand":0.01,"discountRate":0.6,"priceNow":0.006,"priceReturn":0.006,"priceTotal":0.006,"isReturn":1,"status":1,"qty":1}]
      */
 
     private String id;
     private Object name;
     private String memberID;
     private String memberName;
-    private Object avatarURL;
+    private String avatarURL;
     private String orderCode;
     private long applyTime;
+    private String applyTimeStr;
     private Object getGoodsTime;
+    private Object getGoodsTimeStr;
     private int goodsNumbers;
     private int goodsQTY;
     private double priceTotal;
@@ -57,10 +64,12 @@ public class OrderBean {
     private double payTotal;
     private int payFrom;
     private Object payTime;
+    private Object payTimeStr;
     private Object paySequence;
     private Object sendType;
     private Object memberMemo;
     private Object sendTime;
+    private Object sendTimeStr;
     private Object sendCode;
     private int status;
     private String contactName;
@@ -100,11 +109,11 @@ public class OrderBean {
         this.memberName = memberName;
     }
 
-    public Object getAvatarURL() {
+    public String getAvatarURL() {
         return avatarURL;
     }
 
-    public void setAvatarURL(Object avatarURL) {
+    public void setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
     }
 
@@ -124,12 +133,28 @@ public class OrderBean {
         this.applyTime = applyTime;
     }
 
+    public String getApplyTimeStr() {
+        return applyTimeStr;
+    }
+
+    public void setApplyTimeStr(String applyTimeStr) {
+        this.applyTimeStr = applyTimeStr;
+    }
+
     public Object getGetGoodsTime() {
         return getGoodsTime;
     }
 
     public void setGetGoodsTime(Object getGoodsTime) {
         this.getGoodsTime = getGoodsTime;
+    }
+
+    public Object getGetGoodsTimeStr() {
+        return getGoodsTimeStr;
+    }
+
+    public void setGetGoodsTimeStr(Object getGoodsTimeStr) {
+        this.getGoodsTimeStr = getGoodsTimeStr;
     }
 
     public int getGoodsNumbers() {
@@ -212,6 +237,14 @@ public class OrderBean {
         this.payTime = payTime;
     }
 
+    public Object getPayTimeStr() {
+        return payTimeStr;
+    }
+
+    public void setPayTimeStr(Object payTimeStr) {
+        this.payTimeStr = payTimeStr;
+    }
+
     public Object getPaySequence() {
         return paySequence;
     }
@@ -242,6 +275,14 @@ public class OrderBean {
 
     public void setSendTime(Object sendTime) {
         this.sendTime = sendTime;
+    }
+
+    public Object getSendTimeStr() {
+        return sendTimeStr;
+    }
+
+    public void setSendTimeStr(Object sendTimeStr) {
+        this.sendTimeStr = sendTimeStr;
     }
 
     public Object getSendCode() {
@@ -294,17 +335,17 @@ public class OrderBean {
 
     public static class GoodsListBean {
         /**
-         * id : 2c9051726a956662016a9663f4970018
-         * goodsName : 知味观 小笼包 笋丁猪肉味 250g（包子 早餐 馒头花卷 杭州特产）
-         * listImage : http://wj.haoju.me/14ef7461cc2c42ebb3f10651b63a7826.jpg
-         * memberOrderID : 2c9051726a956662016a9663f4960017
-         * objectFeatureItemID1 : 2c9051726a3f6378016a48243a2f002b
+         * id : 2c9051726acaccb0016acbb16e360012
+         * goodsName : 红糖馒头
+         * listImage : http://wj.haoju.me/d59f50ed84444a6c912242034c8b0895.png
+         * memberOrderID : 2c9051726acaccb0016acbb16e350011
+         * objectFeatureItemID1 : 402892e76a0bd37c016a0be91e540024
          * objectFeatureItemName1 : null
-         * priceStand : 7.8
-         * discountRate : 1.0
-         * priceNow : 7.8
-         * priceReturn : 7.8
-         * priceTotal : 7.8
+         * priceStand : 9.99
+         * discountRate : 0.6
+         * priceNow : 5.994
+         * priceReturn : 5.994
+         * priceTotal : 5.994
          * isReturn : 1
          * status : 1
          * qty : 1

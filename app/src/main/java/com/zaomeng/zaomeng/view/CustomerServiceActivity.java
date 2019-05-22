@@ -30,6 +30,16 @@ public class CustomerServiceActivity extends MVVMActivity<CustomerServiceVM, Act
     protected void setView() {
         mViewModel.getParameterValueByCode("customerPhone").observe(this, beanResource -> {
             String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            mViewModel.ldPhone.setValue(s);
+        });
+        mViewModel.action.observe(this, s -> {
+            switch (s) {
+                case "pointRule":
+                    skipTo(PointRuleActivity.class, "pointRule");
+                    break;
+                case "pointRul":
+                    break;
+            }
         });
     }
 

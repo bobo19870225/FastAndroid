@@ -13,6 +13,7 @@ import com.zaomeng.zaomeng.view.LocationActivity;
 import com.zaomeng.zaomeng.view.LoginActivity;
 import com.zaomeng.zaomeng.view.MainActivity;
 import com.zaomeng.zaomeng.view.MessageActivity;
+import com.zaomeng.zaomeng.view.MessageTypeActivity;
 import com.zaomeng.zaomeng.view.OrderActivity;
 import com.zaomeng.zaomeng.view.OrderDetailActivity;
 import com.zaomeng.zaomeng.view.OrderSettlementActivity;
@@ -139,6 +140,9 @@ public abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector()
     abstract PointRuleActivity pointRuleActivity();
+
+    @ContributesAndroidInjector()
+    abstract MessageTypeActivity messageTypeActivity();
 
 
 }

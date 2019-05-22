@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -16,10 +17,12 @@ import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormat
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCalendarBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
+import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SignInBean;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
+import com.zaomeng.zaomeng.view.custom_view.CircleImageView;
 import com.zaomeng.zaomeng.view_model.CalendarVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
@@ -40,6 +43,7 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
     private AlertDialog alertDialog;
     @Inject
     ViewModelFactory viewModelFactory;
+
     @NonNull
     @Override
     protected CalendarVM createdViewModel() {
@@ -48,6 +52,12 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
 
     @Override
     protected void setView() {
+        mViewModel.getUser().observe(this, loginBeans -> {
+            LoginBean loginBean = loginBeans.get(0);
+            mViewModel.ldUserName.setValue(loginBean.getShortName());
+            CircleImageView iconUser = mViewDataBinding.iconUser;
+            Glide.with(iconUser).load(loginBean.getAvatarURL()).into(iconUser);
+        });
         setDialog();
         setCalendar();
         mViewModel.action.observe(this, s -> {

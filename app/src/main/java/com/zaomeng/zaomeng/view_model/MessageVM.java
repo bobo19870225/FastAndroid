@@ -8,7 +8,7 @@ import androidx.paging.PageKeyedDataSource;
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
-import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.MessageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 
@@ -17,9 +17,9 @@ import retrofit2.Call;
 /**
  * Created by Sampson on 2019/4/18.
  * FastAndroid
- *{@link com.zaomeng.zaomeng.view.MessageActivity}
+ * {@link com.zaomeng.zaomeng.view.MessageActivity}
  */
-public class MessageVM extends ListViewModel<Integer, BranchGoodsBean> {
+public class MessageVM extends ListViewModel<Integer, MessageBean> {
     private ApiService apiService;
 
     public MessageVM(@NonNull Application application, ApiService apiService) {
@@ -40,27 +40,29 @@ public class MessageVM extends ListViewModel<Integer, BranchGoodsBean> {
 
 
     @Override
-    public Call<PageBean<BranchGoodsBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
+    public Call<PageBean<MessageBean>> setLoadInitialCall(PageKeyedDataSource.LoadInitialParams<Integer> params) {
         return apiService.getMyMessageList(1, params.requestedLoadSize,
                 SharedPreferencesUtils.getSessionID(getApplication()),
-                1);
+                ((String[]) listRequest)[1]);
     }
 
     @Override
-    public void setLoadInitialCallback(PageBean<BranchGoodsBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, BranchGoodsBean> callback) {
+    public void setLoadInitialCallback(PageBean<MessageBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, MessageBean> callback) {
         callback.onResult(body.getBody().getData().getRows(), 1, 2);
 
     }
 
 
     @Override
-    public Call<PageBean<BranchGoodsBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
-        return apiService.getMyMessageList(params.key, params.requestedLoadSize, SharedPreferencesUtils.getSessionID(getApplication()), 1);
+    public Call<PageBean<MessageBean>> setLoadAfterCall(PageKeyedDataSource.LoadParams<Integer> params) {
+        return apiService.getMyMessageList(params.key, params.requestedLoadSize,
+                SharedPreferencesUtils.getSessionID(getApplication()),
+                ((String[]) listRequest)[1]);
 
     }
 
     @Override
-    public boolean setLoadCallback(PageBean<BranchGoodsBean> body, PageKeyedDataSource.LoadParams<Integer> params, PageKeyedDataSource.LoadCallback<Integer, BranchGoodsBean> callback, Listing<BranchGoodsBean> listing) {
+    public boolean setLoadCallback(PageBean<MessageBean> body, PageKeyedDataSource.LoadParams<Integer> params, PageKeyedDataSource.LoadCallback<Integer, MessageBean> callback, Listing<MessageBean> listing) {
         if (body.getHeader().getCode() == 0) {
 //            int currentPage = body.getBody().getData().getCurrentPage();
             int total = body.getBody().getData().getTotalPage();

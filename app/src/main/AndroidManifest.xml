@@ -71,6 +71,7 @@
         <activity android:name=".view.OrderDetailActivity" />
         <activity android:name=".view.CustomerServiceActivity" />
         <activity android:name=".view.PointRuleActivity" />
+        <activity android:name=".view.MessageTypeActivity" />
 
         <receiver android:name=".AppRegister">
             <intent-filter>

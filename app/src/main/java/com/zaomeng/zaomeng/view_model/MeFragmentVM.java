@@ -71,4 +71,9 @@ public class MeFragmentVM extends BaseViewModel {
         action.setValue("customerService");
     }
 
+    public void message() {
+        action.setValue("message");
+    }
+
+
 }

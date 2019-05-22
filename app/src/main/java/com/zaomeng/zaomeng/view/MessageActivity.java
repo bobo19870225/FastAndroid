@@ -7,7 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityMessageBinding;
-import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
+import com.zaomeng.zaomeng.view.adapter.message.MessageAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view_model.MessageVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -20,7 +20,7 @@ import kotlin.jvm.functions.Function0;
  * Created by Sampson on 2019/4/18.
  * FastAndroid
  */
-public class MessageActivity extends MVVMListActivity<MessageVM, ActivityMessageBinding, GoodsAdapter> {
+public class MessageActivity extends MVVMListActivity<MessageVM, ActivityMessageBinding, MessageAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
     @NonNull
@@ -31,8 +31,8 @@ public class MessageActivity extends MVVMListActivity<MessageVM, ActivityMessage
 
     @NonNull
     @Override
-    protected GoodsAdapter setAdapter(Function0 reTry) {
-        return new GoodsAdapter(reTry);
+    protected MessageAdapter setAdapter(Function0 reTry) {
+        return new MessageAdapter(reTry);
     }
 
     @Override
@@ -53,7 +53,8 @@ public class MessageActivity extends MVVMListActivity<MessageVM, ActivityMessage
 
     @Override
     protected String setToolBarTitle() {
-        return "消息中心";
+        String[] strings = (String[]) transferData;
+        return strings[0];
     }
 
     @Override

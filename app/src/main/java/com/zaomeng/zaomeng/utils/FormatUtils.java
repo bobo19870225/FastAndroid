@@ -7,6 +7,8 @@ import android.text.style.RelativeSizeSpan;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -24,6 +26,7 @@ public class FormatUtils {
         NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance(Locale.CHINA); //建立货币格式化引用
         return CURRENCY_FORMAT.format(new BigDecimal(money));
     }
+
     public static boolean isMobileNO(String mobileNumber) {
         /**
          * 判断字符串是否符合手机号码格式
@@ -49,5 +52,14 @@ public class FormatUtils {
         return spannableString;
     }
 
-
+    /*
+     * 将时间戳转换为时间
+     */
+    public static String stampToDate(long s) {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        Date date = new Date(s);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
 }

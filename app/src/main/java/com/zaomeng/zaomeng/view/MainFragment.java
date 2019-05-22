@@ -65,7 +65,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "msg":
-                    skipTo(MessageActivity.class, null);
+                    skipTo(MessageTypeActivity.class, null);
                     msgBadge.setBadgeNumber(0);
                     break;
                 case "location":

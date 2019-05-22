@@ -72,6 +72,9 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
                 case "customerService":
                     skipTo(CustomerServiceActivity.class, null);
                     break;
+                case "message":
+                    skipTo(MessageTypeActivity.class, null);
+                    break;
             }
         });
     }
