@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
-import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
 import java.util.List;
@@ -23,10 +22,10 @@ import java.util.Locale;
  * FastAndroid
  */
 public class OrderViewHolder extends RecyclerView.ViewHolder {
-    private TextView goodsName;
+    //    private TextView goodsName;
     //    private TextView time;
-    private TextView price;
-    private TextView totalPrice;
+//    private TextView price;
+//    private TextView totalPrice;
     private TextView qty;
     private TextView pay;
     private TextView cancel;
@@ -35,17 +34,22 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
     private TextView orderNo;
 
     private ImageView goodsIcon;
-
+    private ImageView goodsIcon1;
+    private ImageView goodsIcon2;
+    private ImageView more;
     private OrderViewHolder(@NonNull View itemView) {
         super(itemView);
-        goodsName = itemView.findViewById(R.id.goods_name);
+//        goodsName = itemView.findViewById(R.id.goods_name);
 //        time = itemView.findViewById(R.id.order_time);
-        price = itemView.findViewById(R.id.price);
-        totalPrice = itemView.findViewById(R.id.total_price);
+//        price = itemView.findViewById(R.id.price);
+//        totalPrice = itemView.findViewById(R.id.total_price);
         qty = itemView.findViewById(R.id.qty);
         pay = itemView.findViewById(R.id.pay);
         cancel = itemView.findViewById(R.id.cancel);
         goodsIcon = itemView.findViewById(R.id.image);
+        goodsIcon1 = itemView.findViewById(R.id.image1);
+        goodsIcon2 = itemView.findViewById(R.id.image2);
+        more = itemView.findViewById(R.id.more);
         orderState = itemView.findViewById(R.id.order_state);
         orderNo = itemView.findViewById(R.id.order_no);
     }
@@ -65,11 +69,28 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
     ) {
         List<OrderBean.GoodsListBean> goodsList = orderBean.getGoodsList();
         if (goodsList != null) {
-            OrderBean.GoodsListBean goodsListBean = goodsList.get(0);
-            goodsName.setText(goodsListBean.getGoodsName());
-            Glide.with(goodsIcon).load(goodsListBean.getListImage()).into(goodsIcon);
-            price.setText(FormatUtils.numberFormatMoney(goodsListBean.getPriceNow()));
-            totalPrice.setText(String.format("合计：%s", FormatUtils.numberFormatMoney(goodsListBean.getPriceTotal())));
+            if (goodsList.size() < 3) {
+                more.setVisibility(View.GONE);
+            } else {
+                more.setVisibility(View.VISIBLE);
+            }
+            for (int i = 0; i < goodsList.size(); i++) {
+                OrderBean.GoodsListBean goodsListBean = goodsList.get(i);
+                if (i == 0) {
+                    Glide.with(goodsIcon).load(goodsListBean.getListImage()).into(goodsIcon);
+                } else if (i == 1) {
+                    Glide.with(goodsIcon1).load(goodsListBean.getListImage()).into(goodsIcon1);
+                } else if (i == 2) {
+                    Glide.with(goodsIcon2).load(goodsListBean.getListImage()).into(goodsIcon2);
+                } else {
+                    break;
+                }
+            }
+            qty.setText(String.format(Locale.CHINA, "共%d件商品", orderBean.getGoodsNumbers()));
+//            goodsName.setText(goodsListBean.getGoodsName());
+
+//            price.setText(FormatUtils.numberFormatMoney(goodsListBean.getPriceNow()));
+//            totalPrice.setText(String.format("合计：%s", FormatUtils.numberFormatMoney(goodsListBean.getPriceTotal())));
 //            time.setText(String.valueOf(orderBean.getApplyTime()));
             String strStatus = "";
             int status = orderBean.getStatus();
@@ -167,7 +188,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
                 if (onItemCancelClick != null)
                     onItemCancelClick.onClick(v, orderBean, getLayoutPosition());
             });
-            qty.setText(String.format(Locale.CHINA, "共%d件商品", goodsListBean.getQty()));
+
         }
         itemView.setOnClickListener(v -> {
             if (onItemClick != null) {

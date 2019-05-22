@@ -49,59 +49,97 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_height="64dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
 
         <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
             android:id="@+id/image"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/goods_name"
-            android:layout_width="wrap_content"
+        <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
+            android:id="@+id/image1"
+            android:layout_width="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_above="@+id/qty"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_toStartOf="@+id/price"
-            android:layout_toLeftOf="@+id/price"
-            android:layout_toEndOf="@+id/image"
-            android:layout_toRightOf="@+id/image"
-            android:ellipsize="end"
-            android:maxLines="2" />
+            android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+        <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
+            android:id="@+id/image2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/total_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/image"
-            android:layout_alignBottom="@+id/image"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+        <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
+            android:id="@+id/image3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/qty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/image"
-            android:layout_alignBottom="@+id/image"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_toStartOf="@+id/total_price"
-            android:layout_toLeftOf="@+id/total_price" />
-    </RelativeLayout>
+        <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
+            android:id="@+id/more"
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/image_padding"
+            android:src="@mipmap/gengduo" />
+        <!--<TextView-->
+        <!--android:id="@+id/goods_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/qty"-->
+        <!--android:layout_marginStart="24dp"-->
+        <!--android:layout_marginLeft="24dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_toStartOf="@+id/price"-->
+        <!--android:layout_toLeftOf="@+id/price"-->
+        <!--android:layout_toEndOf="@+id/image"-->
+        <!--android:layout_toRightOf="@+id/image"-->
+        <!--android:ellipsize="end"-->
+        <!--android:maxLines="2" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/price"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/total_price"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBaseline="@+id/image"-->
+        <!--android:layout_alignBottom="@+id/image"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true" />-->
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp" />
 
     <View
         android:layout_width="match_parent"
