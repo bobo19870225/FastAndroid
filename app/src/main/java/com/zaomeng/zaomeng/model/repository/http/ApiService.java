@@ -25,7 +25,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PointBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SignInBean;
@@ -52,11 +51,11 @@ public interface ApiService {
      * 会员注册
      */
     @GET("phoneRegister.json")
-    LiveData<Resource<Bean<RegisterBean>>> phoneRegister(@Query("phone") String phone,
-                                                         @Query("password") String password,
-                                                         @Query("vCode") String vCode,
-                                                         @Query("siteID") String siteID,
-                                                         @Query("recommandID") String recommandID);
+    LiveData<Resource<Bean<LoginBean>>> phoneRegister(@Query("phone") String phone,
+                                                      @Query("password") String password,
+                                                      @Query("vCode") String vCode,
+                                                      @Query("siteID") String siteID,
+                                                      @Query("recommandID") String recommandID);
 
     /**
      * 获取商品列表

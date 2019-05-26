@@ -7,13 +7,19 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityRegisterBinding;
+import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
-import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.utils.CountDownTimerUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.RegisterViewModel;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -24,7 +30,8 @@ import javax.inject.Inject;
 public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRegisterBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
-
+    @Inject
+    UserDao userDao;
     @NonNull
     @Override
     protected RegisterViewModel createdViewModel() {
@@ -54,9 +61,28 @@ public class RegisterActivity extends MVVMActivity<RegisterViewModel, ActivityRe
 
         mViewModel.ldRegister.observe(this, beanResource -> {
             if (beanResource.isSuccess()) {
-                Bean<RegisterBean> resource = beanResource.getResource();
+                Bean<LoginBean> resource = beanResource.getResource();
                 if (resource != null && resource.getHeader().getCode() == 0) {
-                    skipTo(CertificationActivity.class, null);
+                    BodyBean<LoginBean> body = resource.getBody();
+                    LoginBean loginBean = body.getData();
+                    if (loginBean != null) {
+                        skipTo(MainActivity.class, null, true);
+                        String sessionID = body.getSessionID();
+                        SharedPreferencesUtils.saveSessionID(getApplicationContext(), sessionID);
+                        SharedPreferencesUtils.saveMemberID(getApplicationContext(), loginBean.getId());
+                        ExecutorService DB_IO = Executors.newFixedThreadPool(2);
+                        DB_IO.execute(() -> {
+                            userDao.InsertDateUser(loginBean);
+                            DB_IO.shutdown();//关闭线程
+                        });
+
+                        String ldPhoneValue = mViewModel.ldPhone.getValue();
+                        String ldPasswordValue = mViewModel.ldPassword.getValue();
+                        if (ldPhoneValue != null && ldPasswordValue != null) {
+                            SharedPreferencesUtils.saveLoginInfo(getApplicationContext(), ldPhoneValue, ldPasswordValue);
+                        }
+                    }
+//                    skipTo(CertificationActivity.class, null);
                 } else if (resource != null) {
                     toast(resource.getHeader().getMsg());
                 }

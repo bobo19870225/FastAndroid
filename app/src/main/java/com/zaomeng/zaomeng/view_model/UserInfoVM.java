@@ -58,7 +58,12 @@ public class UserInfoVM extends BaseViewModel {
     }
 
     public LiveData<List<LoginBean>> getUserInfo() {
-        return userDao.getAllUser();
+        String[] loginInfo = SharedPreferencesUtils.getLoginInfo(getApplication());
+        if (loginInfo != null) {
+            return userDao.getUserByPhone(loginInfo[0]);
+        } else {
+            return null;
+        }
     }
 
     public LiveData<Resource<Bean<String>>> updateMemberInfo() {

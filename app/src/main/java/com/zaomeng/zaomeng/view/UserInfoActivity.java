@@ -28,6 +28,8 @@ import com.zaomeng.zaomeng.view.custom_view.CircleImageView;
 import com.zaomeng.zaomeng.view_model.UserInfoVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import kr.co.namee.permissiongen.PermissionGen;
@@ -72,26 +74,28 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
             mViewModel.uploadImg(s);
             showUpDataDialog(true);
         }, false);//true裁剪，false不裁剪
+        LiveData<List<LoginBean>> userInfo = mViewModel.getUserInfo();
+        if (userInfo != null) {
+            userInfo.observe(this, loginBeans -> {
+                if (loginBeans != null && loginBeans.size() != 0) {
+                    loginBean = loginBeans.get(0);
+                    String avatarURL = loginBean.getAvatarURL();
+                    mViewModel.oldUserURL = avatarURL;
+                    RequestOptions requestOptions = new RequestOptions().
+                            placeholder(R.mipmap.touxiang).
+                            error(R.mipmap.touxiang);
+                    Glide.with(iconUser).load(avatarURL).apply(requestOptions).into(iconUser);
+                    mViewModel.ldName.setValue(loginBean.getShortName());
+                    mViewModel.oldName = loginBean.getShortName();
+                    mViewModel.ldName.observe(this, s -> {
+                        EditText name = mViewDataBinding.name;
+                        name.setSelection(name.getText().length());//将光标移至文字末尾
+                    });
 
-        mViewModel.getUserInfo().observe(this, loginBeans -> {
-            if (loginBeans != null && loginBeans.size() != 0) {
-                loginBean = loginBeans.get(0);
-                String avatarURL = loginBean.getAvatarURL();
-                mViewModel.oldUserURL = avatarURL;
-                RequestOptions requestOptions = new RequestOptions().
-                        placeholder(R.mipmap.touxiang).
-                        error(R.mipmap.touxiang);
-                Glide.with(iconUser).load(avatarURL).apply(requestOptions).into(iconUser);
-                mViewModel.ldName.setValue(loginBean.getShortName());
-                mViewModel.oldName = loginBean.getShortName();
-                mViewModel.ldName.observe(this, s -> {
-                    EditText name = mViewDataBinding.name;
-                    name.setSelection(name.getText().length());//将光标移至文字末尾
-                });
-
-                mViewModel.ldPhone.setValue(loginBean.getPhone());
-            }
-        });
+                    mViewModel.ldPhone.setValue(loginBean.getPhone());
+                }
+            });
+        }
         mViewModel.ldUpdateImage.observe(this, s -> {
             if (s != null) {
                 Gson gson = new Gson();

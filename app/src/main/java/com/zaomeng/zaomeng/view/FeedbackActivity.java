@@ -1,13 +1,11 @@
 package com.zaomeng.zaomeng.view;
 
-import android.Manifest;
 import android.content.Intent;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.flexbox.AlignItems;
@@ -19,8 +17,6 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityFeedbackBinding;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
-import com.zaomeng.zaomeng.utils.http.BitmapUtils;
-import com.zaomeng.zaomeng.view.adapter.feedback.FeedbackImageAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.FeedbackVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -32,7 +28,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
 /**
@@ -42,8 +37,8 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
-    private List<String> list = new ArrayList<>();
-    private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
+    //    private List<String> list = new ArrayList<>();
+//    private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
     private int oldPosition = -1;
     @NonNull
     @Override
@@ -54,7 +49,7 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
     @Override
     protected void setView() {
         setEditText();
-        setImageList();
+//        setImageList();
         setTitleList();
         mViewModel.action.observe(this, s -> {
             if (s.contains("toast:")) {
@@ -114,30 +109,30 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
         });
     }
 
-    private void setImageList() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        mViewDataBinding.listImage.setLayoutManager(linearLayoutManager);
-        FeedbackImageAdapter feedbackImageAdapter = new FeedbackImageAdapter();
-        feedbackImageAdapter.setOnAddItemClick((view, ItemObject, position) -> {
-            // 3、调用从图库选取图片方法
-            PermissionGen.needPermission(FeedbackActivity.this,
-                    LQRPhotoSelectUtils.REQ_SELECT_PHOTO,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE}
-            );
-
-        });
-        mViewDataBinding.listImage.setAdapter(feedbackImageAdapter);
-
-        mLqrPhotoSelectUtils = new LQRPhotoSelectUtils(this, (outputFile, outputUri) -> {
-            // 4、当拍照或从图库选取图片成功后回调
-            String s = BitmapUtils.compressImageUpload(outputFile.getAbsolutePath());
-            list.add(s);
-            feedbackImageAdapter.setList(list);
-//            mViewModel.uploadImg(s);
-        }, false);//true裁剪，false不裁剪
-    }
+//    private void setImageList() {
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+//        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+//        mViewDataBinding.listImage.setLayoutManager(linearLayoutManager);
+//        FeedbackImageAdapter feedbackImageAdapter = new FeedbackImageAdapter();
+//        feedbackImageAdapter.setOnAddItemClick((view, ItemObject, position) -> {
+//            // 3、调用从图库选取图片方法
+//            PermissionGen.needPermission(FeedbackActivity.this,
+//                    LQRPhotoSelectUtils.REQ_SELECT_PHOTO,
+//                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+//                            Manifest.permission.WRITE_EXTERNAL_STORAGE}
+//            );
+//
+//        });
+//        mViewDataBinding.listImage.setAdapter(feedbackImageAdapter);
+//
+//        mLqrPhotoSelectUtils = new LQRPhotoSelectUtils(this, (outputFile, outputUri) -> {
+//            // 4、当拍照或从图库选取图片成功后回调
+//            String s = BitmapUtils.compressImageUpload(outputFile.getAbsolutePath());
+//            list.add(s);
+//            feedbackImageAdapter.setList(list);
+////            mViewModel.uploadImg(s);
+//        }, false);//true裁剪，false不裁剪
+//    }
 
     private void setEditText() {
         mViewDataBinding.contant.setHorizontallyScrolling(false);
@@ -150,15 +145,15 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
     }
 
     @PermissionSuccess(requestCode = LQRPhotoSelectUtils.REQ_SELECT_PHOTO)
-    private void selectPhoto() {
-        mLqrPhotoSelectUtils.selectPhoto();
-    }
+//    private void selectPhoto() {
+//        mLqrPhotoSelectUtils.selectPhoto();
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 2、在Activity中的onActivityResult()方法里与LQRPhotoSelectUtils关联
-        mLqrPhotoSelectUtils.attachToActivityForResult(requestCode, resultCode, data);
+//        mLqrPhotoSelectUtils.attachToActivityForResult(requestCode, resultCode, data);
     }
     @Override
     protected int setToolBarMenu() {

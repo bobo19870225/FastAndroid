@@ -25,6 +25,7 @@ public class LoginBean {
      * recommandChain : 00001
      * siteID : 8a2f462a6763d1d7016763e2c07f0049
      * avatarURL : http://admin.haoju.me:8082/kpbase//group/M00/85/6A/5FA8-8338-4468-92AB-EED0E66BEACF.jpeg?w=23&h=23
+     *
      */
     @PrimaryKey
     @NonNull

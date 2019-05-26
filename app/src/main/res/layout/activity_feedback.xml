@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -90,42 +89,42 @@
                         android:text="@{model.ldTextNumber}" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@android:color/white"
-                    android:padding="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/rl_title">
+                <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:background="@android:color/white"-->
+                <!--android:padding="16dp"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/rl_title">-->
 
-                    <TextView
-                        android:id="@+id/icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="*"
-                        android:textColor="#ffff4747"
-                        android:textSize="12sp" />
+                <!--<TextView-->
+                <!--android:id="@+id/icon"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="*"-->
+                <!--android:textColor="#ffff4747"-->
+                <!--android:textSize="12sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_toEndOf="@+id/icon"
-                        android:layout_toRightOf="@+id/icon"
-                        android:text="上传凭证（不超过3张）"
-                        android:textColor="#ff333333"
-                        android:textSize="12sp" />
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:layout_toEndOf="@+id/icon"-->
+                <!--android:layout_toRightOf="@+id/icon"-->
+                <!--android:text="上传凭证（不超过3张）"-->
+                <!--android:textColor="#ff333333"-->
+                <!--android:textSize="12sp" />-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="8dp"
-                        android:id="@+id/list_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_below="@+id/icon">
+                <!--<androidx.recyclerview.widget.RecyclerView-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:id="@+id/list_image"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:layout_below="@+id/icon">-->
 
-                    </androidx.recyclerview.widget.RecyclerView>
-                </RelativeLayout>
+                <!--</androidx.recyclerview.widget.RecyclerView>-->
+                <!--</RelativeLayout>-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -170,12 +169,12 @@
                         android:textSize="12sp"
                         android:layout_marginStart="16dp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/line"
-                        android:layout_below="@+id/contact"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/bg_color" />
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/line"-->
+                    <!--android:layout_below="@+id/contact"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:background="@color/bg_color" />-->
                 </RelativeLayout>
 
                 <Button

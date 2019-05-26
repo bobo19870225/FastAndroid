@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
-import com.zaomeng.zaomeng.model.repository.http.bean.RegisterBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
@@ -27,7 +27,7 @@ public class RegisterViewModel extends BaseViewModel {
     public final MutableLiveData<String> ldGetVCode = new MutableLiveData<>();
     public final MutableLiveData<String> ldPhone = new MutableLiveData<>();
     public final MutableLiveData<String> ldPassword = new MutableLiveData<>();
-    public final MediatorLiveData<Resource<Bean<RegisterBean>>> ldRegister = new MediatorLiveData<>();
+    public final MediatorLiveData<Resource<Bean<LoginBean>>> ldRegister = new MediatorLiveData<>();
     public final MediatorLiveData<Resource<SendSmsCommonBean>> ldSendSmsCommonBean = new MediatorLiveData<>();
     private String sVCode;
     private String oldPhone;
@@ -69,17 +69,17 @@ public class RegisterViewModel extends BaseViewModel {
             action.setValue("phoneError");
             return;
         }
-        //防止发送验证码后串改号码
-        if (!oldPhone.equals(ldPhone.getValue())) {
-            action.setValue("phoneError");
-            return;
-        }
         if (ldVCode.getValue() == null) {
             action.setValue("inputVCode");
             return;
         }
         if (!sVCode.equals(ldVCode.getValue())) {
             action.setValue("vCodeError");
+            return;
+        }
+        //防止发送验证码后串改号码
+        if (!oldPhone.equals(ldPhone.getValue())) {
+            action.setValue("phoneError");
             return;
         }
 

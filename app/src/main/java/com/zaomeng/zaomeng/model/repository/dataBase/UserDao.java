@@ -20,6 +20,8 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     LiveData<List<LoginBean>> getAllUser();
 
+    @Query("SELECT * FROM user WHERE loginName = :phone")
+    LiveData<List<LoginBean>> getUserByPhone(String phone);
     //不能插入
     @Update(onConflict = OnConflictStrategy.REPLACE)
     int upDateUser(LoginBean loginBean);

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCertificationBinding;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
@@ -183,8 +184,15 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
 
     private void setImage(String s, ImageView image, int i) {
         if (s != null) {
-            Gson gson = new Gson();
-            Bean bean = gson.fromJson(s, Bean.class);
+
+            Bean bean = null;
+            try {
+                Gson gson = new Gson();
+                bean = gson.fromJson(s, Bean.class);
+            } catch (JsonSyntaxException j) {
+                toast(s + ":" + j.toString());
+            }
+
             showUpDataDialog(false);
             if (bean != null) {
                 switch (i) {
@@ -202,8 +210,6 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
                         break;
                 }
                 Glide.with(image).load((String) bean.getBody().getData()).into(image);
-            } else {
-                toast(s);
             }
 
         }
