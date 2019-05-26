@@ -38,7 +38,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     }
 
     public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
-    public final MutableLiveData<String> ldFreight = new MediatorLiveData<>();
+    //    public final MutableLiveData<String> ldFreight = new MediatorLiveData<>();
     public final MutableLiveData<String> ldTotal = new MediatorLiveData<>();
 //    public final MutableLiveData<Boolean> ldIsSelectAll = new MediatorLiveData<>();
 //    public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
@@ -93,7 +93,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     public void setLoadInitialCallback(PageBean<ShopCartBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, ShopCartBean> callback) {
         ldGoodsTotal.postValue(body.getBody().getData().getTotal());
         ldTotal.postValue(FormatUtils.numberFormatMoneyString(body.getBody().getPriceAfterDiscount()));
-        ldFreight.postValue("-" + FormatUtils.numberFormatMoneyString(body.getBody().getDiscountPrice()));
+//        ldFreight.postValue("-" + FormatUtils.numberFormatMoneyString(body.getBody().getDiscountPrice()));
         callback.onResult(body.getBody().getData().getRows(), 1, 2);
     }
 

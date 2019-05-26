@@ -1,7 +1,5 @@
 package com.zaomeng.zaomeng.view;
 
-import android.content.Context;
-
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,14 +15,11 @@ import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.GlideImageLoader;
 import com.zaomeng.zaomeng.utils.GlideUtils;
 import com.zaomeng.zaomeng.utils.HttpHelper;
-import com.zaomeng.zaomeng.utils.specification.InterfaceShowSpecification;
-import com.zaomeng.zaomeng.utils.specification.ShowSpecificationHelper;
 import com.zaomeng.zaomeng.view.adapter.GoodsWithTitleAdapter;
 import com.zaomeng.zaomeng.view.adapter.Item;
 import com.zaomeng.zaomeng.view.base.MVVMFragment;
@@ -44,7 +39,7 @@ import javax.inject.Inject;
  *
  *
  */
-public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, FragmentGoodsBinding> implements InterfaceShowSpecification {
+public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, FragmentGoodsBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
     @Inject
@@ -52,7 +47,8 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
     private List<Item> list;
     private List<NavigatorBean> rows;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ShowSpecificationHelper showSpecificationHelper;
+
+    //    private ShowSpecificationHelper showSpecificationHelper;
     @Inject
     public MainGoodsFragment() {
         // Required empty public constructor
@@ -75,10 +71,10 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
         setGoodsData(goodsAdapter);
         mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsAdapter));
-        Context context = getContext();
-        if (context != null) {
-            showSpecificationHelper = new ShowSpecificationHelper(context, this);
-        }
+//        Context context = getContext();
+//        if (context != null) {
+//            showSpecificationHelper = new ShowSpecificationHelper(context, this);
+//        }
     }
 
 
@@ -134,7 +130,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
 
         goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
 //            //null的时候显示加载状态
-            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getObjectID());
+//            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getObjectID());
 
             MainGoodsFragment.this.getSpecification(ItemObject);
         });
@@ -187,11 +183,12 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
                             });
                         }
 
-                    } else {
-                        SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
-                        List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
-                        showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, ItemObject.getObjectID());
                     }
+//                    else {
+//                        SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
+//                        List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
+//                        showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, ItemObject.getObjectID());
+//                    }
 
                 } else {
                     if (resource != null) {
@@ -254,24 +251,24 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         super.toast(msg);
     }
 
-    @Override
-    public void callBack(String objectID, int qty, String objectFeatureItemID) {
-        LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.addGoodsShopToCart(objectID, qty, objectFeatureItemID);
-        if (resourceLiveData != null) {
-            resourceLiveData.observe(this, beanResource -> {
-                BodyBean<String> stringBodyBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
-                if (stringBodyBean != null) {
-                    addBadge(stringBodyBean.getQty());
-                }
-            });
-        }
-    }
+//    @Override
+//    public void callBack(String objectID, int qty, String objectFeatureItemID) {
+//        LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.addGoodsShopToCart(objectID, qty, objectFeatureItemID);
+//        if (resourceLiveData != null) {
+//            resourceLiveData.observe(this, beanResource -> {
+//                BodyBean<String> stringBodyBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
+//                if (stringBodyBean != null) {
+//                    addBadge(stringBodyBean.getQty());
+//                }
+//            });
+//        }
+//    }
 
-    @Override
-    public void getPrice(String objectFeatureItemID) {
-        mViewModel.getPrice(objectFeatureItemID).observe(this, beanResource -> {
-            PriceBean priceBean = new HttpHelper<PriceBean>(getContext()).AnalyticalData(beanResource);
-            showSpecificationHelper.setPrice(priceBean.getShowPrice());
-        });
-    }
+//    @Override
+//    public void getPrice(String objectFeatureItemID) {
+//        mViewModel.getPrice(objectFeatureItemID).observe(this, beanResource -> {
+//            PriceBean priceBean = new HttpHelper<PriceBean>(getContext()).AnalyticalData(beanResource);
+//            showSpecificationHelper.setPrice(priceBean.getShowPrice());
+//        });
+//    }
 }

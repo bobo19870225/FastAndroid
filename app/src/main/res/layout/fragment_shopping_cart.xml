@@ -10,8 +10,8 @@
     </data>
 
     <RelativeLayout
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/bg_color">
 
         <RelativeLayout
@@ -51,20 +51,21 @@
                 android:onClick="@{()->model.delete()}"
                 android:text="@string/delete" />
         </RelativeLayout>
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_above="@+id/bottom"
             android:layout_below="@+id/title"
             android:layout_marginTop="8dp"
-            android:background="@color/white"
-            android:id="@+id/swipe_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:background="@color/white">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -78,13 +79,13 @@
 
 
             <ImageView
-                android:onClick="@{()->model.selectAll()}"
                 android:id="@+id/select"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
+                android:onClick="@{()->model.selectAll()}"
                 android:padding="@dimen/image_padding" />
 
             <TextView
@@ -109,62 +110,53 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@+id/settlement"
-                android:layout_toLeftOf="@+id/settlement"
-                android:orientation="vertical">
+                android:layout_toLeftOf="@+id/settlement">
 
-                <RelativeLayout
+                <!--<TextView-->
+                <!--android:textSize="18sp"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:id="@+id/total"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:text="@string/total" />-->
+
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:minWidth="72dp"
+                    android:text="@{model.ldTotal}"
+                    android:textSize="18sp" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"
-                        android:id="@+id/total"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="@string/total" />
+            <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1">-->
 
-                    <TextView
-                        android:textSize="18sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/total"
-                        android:layout_toRightOf="@+id/total"
-                        android:minWidth="72dp"
-                        android:text="@{model.ldTotal}" />
-                </RelativeLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/freight"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="优惠金额：" />-->
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/freight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="优惠金额：" />
-
-                    <TextView
-                        android:textColor="@color/text_red"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/freight"
-                        android:layout_toRightOf="@+id/freight"
-                        android:minWidth="72dp"
-                        android:text="@{model.ldFreight}" />
-                </RelativeLayout>
-
-            </LinearLayout>
+            <!--<TextView-->
+            <!--android:textColor="@color/text_red"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toEndOf="@+id/freight"-->
+            <!--android:layout_toRightOf="@+id/freight"-->
+            <!--android:minWidth="72dp"-->
+            <!--android:text="@{model.ldFreight}" />-->
+            <!--</RelativeLayout>-->
 
 
             <View

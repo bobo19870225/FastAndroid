@@ -71,7 +71,7 @@
                 android:layout_toEndOf="@+id/tt_price"
                 android:layout_toRightOf="@+id/tt_price"
                 android:gravity="center_vertical"
-                android:textColor="@color/text_red" />
+                android:textColor="@color/text_them" />
 
         </RelativeLayout>
         <RelativeLayout

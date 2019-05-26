@@ -238,10 +238,11 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     }
 
     @Override
-    public void getPrice(String objectFeatureItemID) {
-        mViewModel.getPrice(objectFeatureItemID).observe(this, beanResource -> {
+    public void getPrice(String goodsID, String objectFeatureItemID) {
+        mViewModel.getPrice(goodsID, objectFeatureItemID).observe(this, beanResource -> {
             PriceBean priceBean = new HttpHelper<PriceBean>(getApplicationContext()).AnalyticalData(beanResource);
             showSpecificationHelper.setPrice(priceBean.getShowPrice());
         });
     }
+
 }

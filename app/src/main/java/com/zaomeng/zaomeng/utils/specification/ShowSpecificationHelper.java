@@ -112,7 +112,7 @@ public class ShowSpecificationHelper {
                                 specificationName = itemListBean.getObjectFeatureItemName();
                                 oldPosition = position;
 //                        price.setText(itemListBean.);
-                                interfaceShowSpecification.getPrice(objectFeatureItemID);
+                                interfaceShowSpecification.getPrice(goodsID, objectFeatureItemID);
                                 notifyDataSetChanged();
                             }
                     );

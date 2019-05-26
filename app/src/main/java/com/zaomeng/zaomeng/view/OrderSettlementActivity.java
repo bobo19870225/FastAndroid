@@ -187,7 +187,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                 if (total > 0) {
                     mViewModel.bonusID = bonusBean.getId();
                     mViewModel.ldBonus.setValue("-" + FormatUtils.numberFormatMoney(bonusBean.getAmount()));
-                    mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_red));
+                    mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_them));
                     mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(total)));
                 } else {
                     mViewModel.bonusID = null;

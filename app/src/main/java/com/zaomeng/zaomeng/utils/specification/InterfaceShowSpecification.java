@@ -9,5 +9,5 @@ public interface InterfaceShowSpecification {
 
     void callBack(String objectID, int qty, String objectFeatureItemID);
 
-    void getPrice(String objectFeatureItemID);
+    void getPrice(String goodsID, String objectFeatureItemID);
 }

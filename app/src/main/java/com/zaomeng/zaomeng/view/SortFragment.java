@@ -16,12 +16,9 @@ import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.HttpHelper;
-import com.zaomeng.zaomeng.utils.specification.InterfaceShowSpecification;
-import com.zaomeng.zaomeng.utils.specification.ShowSpecificationHelper;
 import com.zaomeng.zaomeng.view.adapter.GoodsParentAdapter;
 import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
@@ -35,11 +32,11 @@ import javax.inject.Inject;
 import kotlin.jvm.functions.Function0;
 
 
-public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortBinding, GoodsAdapter> implements InterfaceShowSpecification {
+public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortBinding, GoodsAdapter> {
     private static final int SEARCH = 110;
     @Inject
     ViewModelFactory viewModelFactory;
-    private ShowSpecificationHelper showSpecificationHelper;
+    //    private ShowSpecificationHelper showSpecificationHelper;
     private int oldPosition = 0;
     @Inject
     public SortFragment() {
@@ -86,9 +83,9 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
                 goodsParentAdapter.setSelect(0);
             }
         });
-        if (context != null) {
-            showSpecificationHelper = new ShowSpecificationHelper(context, this);
-        }
+//        if (context != null) {
+//            showSpecificationHelper = new ShowSpecificationHelper(context, this);
+//        }
     }
 
     @NonNull
@@ -97,7 +94,7 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
         GoodsAdapter goodsAdapter = new GoodsAdapter(reTry);
         goodsAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(GoodsDetailsActivity.class, ItemObject.getId()));
         goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
-            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getId());
+//            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getId());
             getSpecification(ItemObject);
         });
         return goodsAdapter;
@@ -119,11 +116,12 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
                             });
                         }
 
-                    } else {
-                        SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
-                        List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
-                        showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, ItemObject.getId());
                     }
+//                    else {
+//                        SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
+//                        List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
+//                        showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, ItemObject.getId());
+//                    }
 
                 } else {
                     if (resource != null) {
@@ -174,24 +172,24 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
         super.toast(msg);
     }
 
-    @Override
-    public void callBack(String objectID, int qty, String objectFeatureItemID) {
-        LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.addGoodsShopToCart(objectID, qty, objectFeatureItemID);
-        if (resourceLiveData != null) {
-            resourceLiveData.observe(this, beanResource -> {
-                BodyBean<String> stringBodyBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
-                if (stringBodyBean != null) {
-                    addBadge(stringBodyBean.getQty());
-                }
-            });
-        }
-    }
+//    @Override
+//    public void callBack(String objectID, int qty, String objectFeatureItemID) {
+//        LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.addGoodsShopToCart(objectID, qty, objectFeatureItemID);
+//        if (resourceLiveData != null) {
+//            resourceLiveData.observe(this, beanResource -> {
+//                BodyBean<String> stringBodyBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
+//                if (stringBodyBean != null) {
+//                    addBadge(stringBodyBean.getQty());
+//                }
+//            });
+//        }
+//    }
 
-    @Override
-    public void getPrice(String objectFeatureItemID) {
-        mViewModel.getPrice(objectFeatureItemID).observe(this, beanResource -> {
-            PriceBean priceBean = new HttpHelper<PriceBean>(getContext()).AnalyticalData(beanResource);
-            showSpecificationHelper.setPrice(priceBean.getShowPrice());
-        });
-    }
+//    @Override
+//    public void getPrice(String objectFeatureItemID) {
+//        mViewModel.getPrice(objectFeatureItemID).observe(this, beanResource -> {
+//            PriceBean priceBean = new HttpHelper<PriceBean>(getContext()).AnalyticalData(beanResource);
+//            showSpecificationHelper.setPrice(priceBean.getShowPrice());
+//        });
+//    }
 }

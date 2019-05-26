@@ -296,7 +296,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_toStartOf="@+id/submit"
                 android:layout_toLeftOf="@+id/submit"
-                android:textColor="@color/text_red" />
+                android:textColor="@color/text_them" />
 
             <TextView
                 android:id="@+id/submit"
