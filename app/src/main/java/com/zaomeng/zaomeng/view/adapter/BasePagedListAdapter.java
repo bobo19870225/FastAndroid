@@ -124,6 +124,9 @@ public abstract class BasePagedListAdapter<T> extends PagedListAdapter<T, Recycl
         }
     }
 
+    public int getDataItemCount() {
+        return super.getItemCount();
+    }
     @Override
     public final int getItemViewType(int position) {
         if (hasExtraRow() && position == getItemCount() - 1) {

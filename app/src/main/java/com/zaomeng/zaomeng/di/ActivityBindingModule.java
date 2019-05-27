@@ -4,6 +4,7 @@ import com.zaomeng.zaomeng.view.AddressManageActivity;
 import com.zaomeng.zaomeng.view.BonusActivity;
 import com.zaomeng.zaomeng.view.CalendarActivity;
 import com.zaomeng.zaomeng.view.CertificationActivity;
+import com.zaomeng.zaomeng.view.ChoseAddressActivity;
 import com.zaomeng.zaomeng.view.ChoseBonusActivity;
 import com.zaomeng.zaomeng.view.CustomerServiceActivity;
 import com.zaomeng.zaomeng.view.FeedbackActivity;
@@ -143,6 +144,9 @@ public abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector()
     abstract MessageTypeActivity messageTypeActivity();
+
+    @ContributesAndroidInjector()
+    abstract ChoseAddressActivity choseAddressActivity();
 
 
 }

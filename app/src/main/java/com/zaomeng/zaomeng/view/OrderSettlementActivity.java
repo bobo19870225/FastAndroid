@@ -1,8 +1,10 @@
 package com.zaomeng.zaomeng.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
@@ -30,7 +32,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.PayResult;
-import com.zaomeng.zaomeng.view.adapter.address.AddressAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.OrderSettlementVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -53,7 +54,7 @@ import javax.inject.Inject;
 public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, ActivityOrderSettlementBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
-    private AddressAdapter addressAdapter;
+    //    private AddressAdapter addressAdapter;
     private final MutableLiveData<Map<String, String>> ldResult = new MutableLiveData<>();
     private int ldPayType;
 
@@ -69,7 +70,8 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
             EventBus.getDefault().register(this);
         setOrderList();
         initTotalPrice();
-        setAddressList();
+//        setAddressList();
+        setAddress();
         RadioGroup radioGroup = mViewDataBinding.radioGroup;
         ldPayType = radioGroup.getCheckedRadioButtonId();
 
@@ -161,8 +163,20 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                 intent.setClass(getApplicationContext(), ChoseBonusActivity.class);
                 startActivityForResult(intent, 110);
 //                skipTo(ChoseBonusActivity.class,null);
+            } else if (s.equals("choseAddress")) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), ChoseAddressActivity.class);
+                startActivityForResult(intent, 111);
+//                skipTo(ChoseAddressActivity.class, null);
             }
         });
+    }
+
+
+    private void setAddress() {
+        mViewModel.ldAddress.setValue("点击选择地址");
+        mViewDataBinding.use.setVisibility(View.GONE);
+        mViewDataBinding.phone.setVisibility(View.GONE);
     }
 
     private double priceNow = 0;
@@ -197,6 +211,15 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                 }
 
             }
+        } else if (requestCode == 111 && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                MemberShopBean memberShopBean = data.getParcelableExtra("DATA");
+                mViewDataBinding.use.setVisibility(View.VISIBLE);
+                mViewDataBinding.phone.setVisibility(View.VISIBLE);
+                mViewModel.ldAddress.setValue(memberShopBean.getAddress());
+                mViewModel.ldUser.setValue(memberShopBean.getContact());
+                mViewModel.ldPhone.setValue(memberShopBean.getContactPhone());
+            }
         }
     }
 
@@ -228,23 +251,23 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
 
     }
 
-    private void setAddressList() {
-        addressAdapter = new AddressAdapter();
-        addressAdapter.setOnItemClick((view, ItemObject, position) -> {
-            mViewModel.address = ItemObject.getAddress();
-            mViewModel.user = ItemObject.getContact();
-            mViewModel.phone = ItemObject.getContactPhone();
-        });
-        mViewModel.getAddress().observe(this, pageBeanResource -> {
-            PageDataBean<MemberShopBean> memberShopBeanPageDataBean = new HttpHelper<MemberShopBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
-            if (memberShopBeanPageDataBean != null) {
-                List<MemberShopBean> rows = memberShopBeanPageDataBean.getRows();
-                addressAdapter.setList(rows);
-            }
-        });
-        mViewDataBinding.list.setAdapter(addressAdapter);
-//        mViewDataBinding.scrollView.smoothScrollTo(0, 0);
-    }
+//    private void setAddressList() {
+//        addressAdapter = new AddressAdapter();
+//        addressAdapter.setOnItemClick((view, ItemObject, position) -> {
+//            mViewModel.address = ItemObject.getAddress();
+//            mViewModel.user = ItemObject.getContact();
+//            mViewModel.phone = ItemObject.getContactPhone();
+//        });
+//        mViewModel.getAddress().observe(this, pageBeanResource -> {
+//            PageDataBean<MemberShopBean> memberShopBeanPageDataBean = new HttpHelper<MemberShopBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+//            if (memberShopBeanPageDataBean != null) {
+//                List<MemberShopBean> rows = memberShopBeanPageDataBean.getRows();
+//                addressAdapter.setList(rows);
+//            }
+//        });
+//        mViewDataBinding.list.setAdapter(addressAdapter);
+////        mViewDataBinding.scrollView.smoothScrollTo(0, 0);
+//    }
 
     @SuppressWarnings("unchecked")
     private void setOrderList() {

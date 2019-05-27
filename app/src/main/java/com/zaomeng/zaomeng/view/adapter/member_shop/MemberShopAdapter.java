@@ -73,7 +73,11 @@ public class MemberShopAdapter extends BasePagedListAdapter<MemberShopBean> {
         public boolean areContentsTheSame(@NonNull MemberShopBean oldItem, @NonNull MemberShopBean newItem) {
             return oldItem.getId().equals(newItem.getId()) &&
                     oldItem.getName().equals(newItem.getName()) &&
-                    oldItem.isSelect() == newItem.isSelect();
+                    oldItem.isSelect() == newItem.isSelect() &&
+                    oldItem.getContactPhone().equals(newItem.getContactPhone()) &&
+                    oldItem.getContact().equals(newItem.getContact()) &&
+                    oldItem.getAddress().equals(newItem.getAddress()) &&
+                    oldItem.getVerifyStatus() == newItem.getVerifyStatus();
         }
     };
 

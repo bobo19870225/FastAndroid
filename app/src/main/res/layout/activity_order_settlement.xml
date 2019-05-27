@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -18,10 +17,10 @@
             layout="@layout/toolbar" />
 
         <ScrollView
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/bottom"
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom"
             android:layout_below="@+id/tt"
             android:fillViewport="true"
             android:scrollbars="none">
@@ -57,24 +56,57 @@
                         android:text="@string/address" />
                 </RelativeLayout>
 
-                <com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView
-                    android:id="@+id/list"
+                <RelativeLayout
+                    android:id="@+id/rl_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tt_address"
-                    android:paddingStart="16dp"
-                    android:paddingLeft="16dp"
-                    android:scrollbars="none"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+                    android:onClick="@{()->model.choseAddress()}"
+                    android:padding="16dp">
 
-                </com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView>
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{model.ldAddress}" />
+
+                    <TextView
+                        android:id="@+id/use"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/address"
+                        android:text="@{model.ldUser}"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/address"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toEndOf="@+id/use"
+                        android:layout_toRightOf="@+id/use"
+                        android:text="@{model.ldPhone}"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+                <!--<com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView-->
+                <!--android:id="@+id/list"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/tt_address"-->
+                <!--android:paddingStart="16dp"-->
+                <!--android:paddingLeft="16dp"-->
+                <!--android:scrollbars="none"-->
+                <!--app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">-->
+
+                <!--</com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView>-->
 
                 <RelativeLayout
                     android:id="@+id/tt_time"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_below="@+id/list"
-                    android:layout_marginTop="16dp"
+                    android:layout_below="@+id/rl_address"
                     android:background="@color/bg_color">
 
                     <ImageView
@@ -94,16 +126,16 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/line1"
                         android:layout_toRightOf="@+id/line1"
-                        android:text="送达时间" />
+                        android:text="商品" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/chose_time"
-                        android:layout_toLeftOf="@+id/chose_time"
-                        android:text="今天 13：00-16：00"
-                        android:textColor="@color/them_color" />
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_toStartOf="@+id/chose_time"-->
+                    <!--android:layout_toLeftOf="@+id/chose_time"-->
+                    <!--android:text="今天 13：00-16：00"-->
+                    <!--android:textColor="@color/them_color" />-->
 
                     <ImageView
                         android:id="@+id/chose_time"
@@ -124,10 +156,10 @@
                     android:paddingLeft="16dp">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_centerVertical="true"
                         android:id="@+id/list_order"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toStartOf="@+id/total_number"
                         android:layout_toLeftOf="@+id/total_number">
 

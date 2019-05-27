@@ -22,6 +22,7 @@ public class MemberShopViewHolder extends RecyclerView.ViewHolder {
     private TextView shopAddress;
     private TextView shopConsignee;
     private TextView phone;
+    private TextView state;
     private ImageView edit;
     private ImageView delete;
     private MemberShopViewHolder(@NonNull View itemView) {
@@ -30,6 +31,7 @@ public class MemberShopViewHolder extends RecyclerView.ViewHolder {
         shopAddress = itemView.findViewById(R.id.shop_address);
         shopConsignee = itemView.findViewById(R.id.shop_consignee);
         phone = itemView.findViewById(R.id.phone);
+        state = itemView.findViewById(R.id.state);
         edit = itemView.findViewById(R.id.edit);
         delete = itemView.findViewById(R.id.delete);
     }
@@ -48,6 +50,21 @@ public class MemberShopViewHolder extends RecyclerView.ViewHolder {
         shopAddress.setText(memberShopBean.getAddress());
         shopConsignee.setText(memberShopBean.getContact());
         phone.setText(memberShopBean.getContactPhone());
+        int verifyStatus = memberShopBean.getVerifyStatus();
+        switch (verifyStatus) {
+            case 0:
+                state.setText("等待审核");
+                break;
+            case 1:
+                state.setText("审核通过");
+                break;
+            case 2:
+                state.setText("审核未通过");
+                break;
+
+        }
+
+
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
                 onItemClick.onClick(v, memberShopBean, getLayoutPosition());

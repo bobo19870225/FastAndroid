@@ -134,6 +134,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new CustomerServiceVM(application, apiService);
         } else if (modelClass.isAssignableFrom(MessageTypeVM.class)) {
             return (T) new MessageTypeVM(application, apiService);
+        } else if (modelClass.isAssignableFrom(ChoseAddressVM.class)) {
+            return (T) new ChoseAddressVM(application, apiService);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

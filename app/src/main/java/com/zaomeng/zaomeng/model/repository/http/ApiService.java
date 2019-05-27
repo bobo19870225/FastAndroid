@@ -291,12 +291,18 @@ public interface ApiService {
 //    LiveData<Resource<Bean<List<String>>>> uploadFile(@Part MultipartBody.Part file);
 
     /**
-     * 获取我的消息列表
+     * 获取商铺列表
      */
     @GET("getMemberShopList.json")
     Call<PageBean<MemberShopBean>> getMemberShopList(
-            @Query("sessionID") String sessionID);
+            @Query("sessionID") String sessionID,
+            @Query("verifyStatus") Integer verifyStatus);
 
+    /**
+     * 获取商铺列表
+     */
+    @GET("getMemberShopList.json")
+    Call<PageBean<MemberShopBean>> getMemberShopList(@Query("sessionID") String sessionID);
     /**
      * 获取我的消息列表
      * 0未审核，1审核通过，2审核拒绝

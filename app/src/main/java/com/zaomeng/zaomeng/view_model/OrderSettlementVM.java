@@ -26,14 +26,17 @@ import com.zaomeng.zaomeng.utils.SingleLiveEvent;
  */
 public class OrderSettlementVM extends BaseViewModel {
 
-    public String address;
-    public String user;
-    public String phone;
+    //    public String address;
+//    public String user;
+//    public String phone;
     private ApiService apiService;
     private String sessionID;
     public String bonusID;
     public final MutableLiveData<String> ldOrderNumber = new MutableLiveData<>();
     public final MutableLiveData<String> ldBonus = new MutableLiveData<>();
+    public final MutableLiveData<String> ldAddress = new MutableLiveData<>();
+    public final MutableLiveData<String> ldUser = new MutableLiveData<>();
+    public final MutableLiveData<String> ldPhone = new MutableLiveData<>();
 //    public final MutableLiveData<String> ldTotal = new MutableLiveData<>();
 
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
@@ -48,7 +51,6 @@ public class OrderSettlementVM extends BaseViewModel {
     @Override
     public void init(Object data) {
         sessionID = SharedPreferencesUtils.getSessionID(getApplication());
-
     }
 
     /**
@@ -59,11 +61,14 @@ public class OrderSettlementVM extends BaseViewModel {
     }
 
     public void submitOrder() {
-        if (address == null) {
+        String addressValue = ldAddress.getValue();
+        String userValue = ldUser.getValue();
+        String phoneValue = ldPhone.getValue();
+        if (userValue == null) {
             action.setValue("toast:请选择收货地址");
         }
         ldSubmitOrder.addSource(apiService.createMemberOrderFromCart
-                (sessionID, user, phone, address, bonusID), ldSubmitOrder::setValue);
+                (sessionID, userValue, phoneValue, addressValue, bonusID), ldSubmitOrder::setValue);
     }
 
     public LiveData<Resource<AliPayBean>> appApplyMemberOrderPay(String memberPaymentID) {
@@ -86,6 +91,9 @@ public class OrderSettlementVM extends BaseViewModel {
         action.setValue("bonus");
     }
 
+    public void choseAddress() {
+        action.setValue("choseAddress");
+    }
     public LiveData<Resource<PageBean<ShopCartBean>>> getOrderGoodsList() {
         return apiService.getCartGoodsListLD(sessionID, 1, 10);
     }

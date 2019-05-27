@@ -66,7 +66,7 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
                     onReduceClick);
         }
         boolean isAll = true;
-        for (int i = 0; i < getItemCount(); i++) {
+        for (int i = 0; i < getDataItemCount(); i++) {
             ShopCartBean item1 = getItem(i);
             if (item1 != null && item1.getIsSelected() == 0) {
                 isAll = false;
@@ -84,7 +84,7 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
         List<ShopCartBean> selectList = new ArrayList<>();
         List<ShopCartBean> unList = new ArrayList<>();
 
-        for (int i = 0; i < getItemCount(); i++) {
+        for (int i = 0; i < getDataItemCount(); i++) {
             ShopCartBean shopCartBean = getItem(i);
             if (shopCartBean != null) {
                 boolean aBoolean = shopCartBean.getIsSelected() == 1;
@@ -97,8 +97,6 @@ public class ShopCartAdapter extends BasePagedListAdapter<ShopCartBean> {
                 }
             }
         }
-
-
         listList.add(allList);
         listList.add(selectList);
         listList.add(unList);

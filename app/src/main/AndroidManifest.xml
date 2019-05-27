@@ -72,6 +72,7 @@
         <activity android:name=".view.CustomerServiceActivity" />
         <activity android:name=".view.PointRuleActivity" />
         <activity android:name=".view.MessageTypeActivity" />
+        <activity android:name=".view.ChoseAddressActivity" />
 
         <receiver android:name=".AppRegister">
             <intent-filter>
