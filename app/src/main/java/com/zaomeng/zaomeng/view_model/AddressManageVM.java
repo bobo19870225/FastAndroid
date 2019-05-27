@@ -64,7 +64,7 @@ public class AddressManageVM extends ListViewModel<Integer, MemberShopBean> {
         return apiService.removeMemberShop(sessionID, id);
     }
 
-    public LiveData<Resource<Bean<MemberShopBean>>> getMemberShopDetail(String id) {
-        return apiService.getMemberShopDetail(sessionID, id);
-    }
+//    public LiveData<Resource<Bean<MemberShopBean>>> getMemberShopDetail(String id) {
+//        return apiService.getMemberShopDetail(sessionID, id);
+//    }
 }

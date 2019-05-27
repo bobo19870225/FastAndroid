@@ -1,8 +1,14 @@
 package com.zaomeng.zaomeng.view;
 
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -30,6 +36,9 @@ import kotlin.jvm.functions.Function0;
 public class AddressManageActivity extends MVVMListActivity<AddressManageVM, ActivityAddressManageBinding, MemberShopAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
+    private AlertDialog alertDialog;
+    private TextView ok;
+
     @NonNull
     @Override
     protected RecyclerView setRecyclerView() {
@@ -41,15 +50,33 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
     protected MemberShopAdapter setAdapter(Function0 reTry) {
         MemberShopAdapter memberShopAdapter = new MemberShopAdapter(reTry);
         memberShopAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(ShopDetailActivity.class, ItemObject.getId()));
-        memberShopAdapter.setOnEditClick((view, ItemObject, position) -> {
-            skipTo(CertificationActivity.class, ItemObject);
+        memberShopAdapter.setOnEditClick((view, ItemObject, position) -> skipTo(CertificationActivity.class, ItemObject));
+        memberShopAdapter.setOnDeleteClick((view, ItemObject, position) -> {
+            showDeleteDialog(ItemObject.getId());
+//            mViewModel.removeMemberShop(ItemObject.getId()).observe(this, beanResource -> {
+//                String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+//                if (s != null)
+//                    refresh();
+//            });
         });
-        memberShopAdapter.setOnDeleteClick((view, ItemObject, position) -> mViewModel.removeMemberShop(ItemObject.getId()).observe(this, beanResource -> {
+        return memberShopAdapter;
+    }
+
+    private void showDeleteDialog(String id) {
+        ok.setOnClickListener(v -> mViewModel.removeMemberShop(id).observe(AddressManageActivity.this, beanResource -> {
             String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
             if (s != null)
                 refresh();
         }));
-        return memberShopAdapter;
+        if (!alertDialog.isShowing()) {
+            alertDialog.show();
+            Window window = alertDialog.getWindow();
+            if (window != null) {
+//                window.setContentView(R.layout.dialog_delete);
+                window.setLayout(800, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            }
+        }
+
     }
 
 
@@ -61,6 +88,18 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
     @Override
     protected void setView() {
         super.setView();
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View inflate = layoutInflater.inflate(R.layout.dialog_delete, null, false);
+        TextView cancel = inflate.findViewById(R.id.cancel);
+        cancel.setOnClickListener(v -> {
+            if (alertDialog.isShowing())
+                alertDialog.dismiss();
+        });
+        ok = inflate.findViewById(R.id.ok);
+
+        alertDialog = new AlertDialog.Builder(this).
+                setView(inflate).
+                create();
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
