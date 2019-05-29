@@ -3,14 +3,18 @@ package com.zaomeng.zaomeng.view_model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 import retrofit2.Call;
@@ -77,5 +81,15 @@ public class SearchGoodsListVM extends ListViewModel<Integer, GoodsListRowsBean>
 
     public void cancel() {
         action.setValue("cancel");
+    }
+
+    public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
+        String sessionID = SharedPreferencesUtils.getSessionID(getApplication());
+        if (sessionID != null) {
+            return apiService.addGoodsShopToCart(sessionID,
+                    goodsShopID, qty, objectFeatureItemID1);
+
+        }
+        return null;
     }
 }

@@ -6,6 +6,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
@@ -56,7 +57,9 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
     @SuppressWarnings("unchecked")
     @Override
     protected void setView() {
-        mViewModel.getUser().observe(this, loginBeans -> {
+        LiveData<List<LoginBean>> user = mViewModel.getUser();
+        if (user != null)
+            user.observe(this, loginBeans -> {
             LoginBean loginBean = loginBeans.get(0);
             mViewModel.ldUserName.setValue(loginBean.getShortName());
             CircleImageView iconUser = mViewDataBinding.iconUser;

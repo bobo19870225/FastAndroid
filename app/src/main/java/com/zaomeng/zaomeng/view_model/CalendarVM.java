@@ -44,7 +44,13 @@ public class CalendarVM extends BaseViewModel {
     }
 
     public LiveData<List<LoginBean>> getUser() {
-        return userDao.getAllUser();
+        String[] loginInfo = SharedPreferencesUtils.getLoginInfo(getApplication());
+        if (loginInfo != null && loginInfo[0] != null && loginInfo[1] != null) {
+            return userDao.getUserByPhone(loginInfo[0]);
+        } else {
+            return null;
+        }
+
     }
     public void signIn() {
         action.setValue("signIn");

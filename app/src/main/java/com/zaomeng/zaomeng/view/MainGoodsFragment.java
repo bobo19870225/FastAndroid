@@ -1,7 +1,6 @@
 package com.zaomeng.zaomeng.view;
 
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,14 +10,10 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentGoodsBinding;
 import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
 import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
-import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
-import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
-import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.GlideImageLoader;
 import com.zaomeng.zaomeng.utils.GlideUtils;
 import com.zaomeng.zaomeng.view.adapter.GoodsWithTitleAdapter;
@@ -134,8 +129,25 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
 //            //null的时候显示加载状态
 //            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getObjectID());
+//            MainGoodsFragment.this.getSpecification(ItemObject);
+            mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), 1, ItemObject.getObjectFeatureItemID1()).observe(this, beanResource -> {
+                Object o = httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+                        skipTo(LoginActivity.class);
+                    }
 
-            MainGoodsFragment.this.getSpecification(ItemObject);
+                    @Override
+                    public void reLoad() {
+                        mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), 1, ItemObject.getObjectFeatureItemID1());
+                    }
+                }, this);
+                if (o != null) {
+                    addBadge(1);
+                    toast("添加成功");
+                }
+            });
+
         });
         goodsAdapter.setOnHeaderItemClick((view, ItemObject, position) -> {
             switch (ItemObject) {
@@ -169,53 +181,53 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         return goodsAdapter;
     }
 
-    @SuppressWarnings("unchecked")
-    private void getSpecification(NavigatorBean.GoodsListBean ItemObject) {
-        mViewModel.getObjectFeatureItemList(ItemObject.getObjectID()).observe(this, specificationsBeanResource -> {
-            if (specificationsBeanResource.isSuccess()) {
-                SpecificationsBean resource = specificationsBeanResource.getResource();
-                if (resource != null && resource.getHeader().getCode() == 0) {
-                    List<SpecificationsBean.BodyBean.DataBean> data = resource.getBody().getData();
-                    if (data.size() == 0) {
-                        int qty = 1;
-                        LiveData<Resource<Bean<String>>> addGoodsShopToCart = mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), qty, null);
-                        if (addGoodsShopToCart != null) {
-                            addGoodsShopToCart.observe(this, beanResource -> {
-                                BodyBean<String> addToShopCartBean = httpHelper.AnalyticalDataBody(beanResource, new InterfaceLogin() {
-                                    @Override
-                                    public void skipLoginActivity() {
-                                        skipTo(LoginActivity.class, null);
-                                    }
-
-                                    @Override
-                                    public void reLoad() {
-                                        mViewModel.getObjectFeatureItemList(ItemObject.getObjectID());
-                                    }
-                                }, this);
-                                addBadge(addToShopCartBean.getQty());
-                            });
-                        }
-
-                    }
-//                    else {
-//                        SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
-//                        List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
-//                        showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, ItemObject.getObjectID());
+//    @SuppressWarnings("unchecked")
+//    private void getSpecification(NavigatorBean.GoodsListBean ItemObject) {
+//        mViewModel.getObjectFeatureItemList(ItemObject.getObjectID()).observe(this, specificationsBeanResource -> {
+//            if (specificationsBeanResource.isSuccess()) {
+//                SpecificationsBean resource = specificationsBeanResource.getResource();
+//                if (resource != null && resource.getHeader().getCode() == 0) {
+//                    List<SpecificationsBean.BodyBean.DataBean> data = resource.getBody().getData();
+//                    if (data.size() == 0) {
+//                        int qty = 1;
+//                        LiveData<Resource<Bean<String>>> addGoodsShopToCart = mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), qty, null);
+//                        if (addGoodsShopToCart != null) {
+//                            addGoodsShopToCart.observe(this, beanResource -> {
+//                                BodyBean<String> addToShopCartBean = httpHelper.AnalyticalDataBody(beanResource, new InterfaceLogin() {
+//                                    @Override
+//                                    public void skipLoginActivity() {
+//                                        skipTo(LoginActivity.class, null);
+//                                    }
+//
+//                                    @Override
+//                                    public void reLoad() {
+//                                        mViewModel.getObjectFeatureItemList(ItemObject.getObjectID());
+//                                    }
+//                                }, this);
+//                                addBadge(addToShopCartBean.getQty());
+//                            });
+//                        }
+//
 //                    }
-
-                } else {
-                    if (resource != null) {
-                        toast(resource.getHeader().getMsg());
-                    }
-                }
-            } else {
-                Throwable error = specificationsBeanResource.getError();
-                if (error != null) {
-                    toast(error.toString());
-                }
-            }
-        });
-    }
+////                    else {
+////                        SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
+////                        List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
+////                        showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, ItemObject.getObjectID());
+////                    }
+//
+//                } else {
+//                    if (resource != null) {
+//                        toast(resource.getHeader().getMsg());
+//                    }
+//                }
+//            } else {
+//                Throwable error = specificationsBeanResource.getError();
+//                if (error != null) {
+//                    toast(error.toString());
+//                }
+//            }
+//        });
+//    }
 
     /**
      * 添加小红点

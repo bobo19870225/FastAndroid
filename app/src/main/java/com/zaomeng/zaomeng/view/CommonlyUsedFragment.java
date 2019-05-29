@@ -7,6 +7,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentCommonlyUsedBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.view.adapter.collect.CollectAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.CommonlyUsedFragmentVM;
@@ -20,7 +22,8 @@ import kotlin.jvm.functions.Function0;
 public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentVM, FragmentCommonlyUsedBinding, CollectAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
-
+    @Inject
+    HttpHelper httpHelper;
     //    private ShowSpecificationHelper showSpecificationHelper;
     @Inject
     public CommonlyUsedFragment() {
@@ -47,10 +50,27 @@ public class CommonlyUsedFragment extends MVVMListFragment<CommonlyUsedFragmentV
     protected CollectAdapter setAdapter(Function0 reTry) {
         CollectAdapter collectAdapter = new CollectAdapter(reTry);
         collectAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(GoodsDetailsActivity.class, ItemObject.getObjectID()));
-//        collectAdapter.setOnAddClick((view, ItemObject, position) -> {
+        collectAdapter.setOnAddClick((view, ItemObject, position) -> {
 //            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getObjectID());
 //            getSpecification(ItemObject);
-//        });
+            mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), 1, ItemObject.getObjectFeatureItemID1()).observe(this, beanResource -> {
+                Object o = httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+                        skipTo(LoginActivity.class);
+                    }
+
+                    @Override
+                    public void reLoad() {
+                        mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), 1, ItemObject.getObjectFeatureItemID1());
+                    }
+                }, this);
+                if (o != null) {
+                    addBadge(1);
+                    toast("添加成功");
+                }
+            });
+        });
 //        collectAdapter.setOnDeleteClick((view, ItemObject, position) -> {
 //            mViewModel.removeCollect(ItemObject.getCollectID()).observe(this, beanResource -> {
 //                String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);

@@ -7,6 +7,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityGoodsListBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view_model.SearchGoodsListVM;
@@ -23,7 +25,8 @@ import kotlin.jvm.functions.Function0;
 public class SearchGoodsListActivity extends MVVMListActivity<SearchGoodsListVM, ActivityGoodsListBinding, GoodsAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
-
+    @Inject
+    HttpHelper httpHelper;
     @Override
     protected void setView() {
         super.setView();
@@ -43,9 +46,39 @@ public class SearchGoodsListActivity extends MVVMListActivity<SearchGoodsListVM,
     @NonNull
     @Override
     protected GoodsAdapter setAdapter(Function0 reTry) {
-        return new GoodsAdapter(reTry);
+        GoodsAdapter goodsAdapter = new GoodsAdapter(reTry);
+        goodsAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(GoodsDetailsActivity.class, ItemObject.getId()));
+        goodsAdapter.setOnAddClick((view, ItemObject, position) -> {
+//            showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, ItemObject.getId());
+//            getSpecification(ItemObject);
+            mViewModel.addGoodsShopToCart(ItemObject.getId(), 1, ItemObject.getObjectFeatureItemID1()).observe(this, beanResource -> {
+                Object o = httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+                        skipTo(LoginActivity.class);
+                    }
+
+                    @Override
+                    public void reLoad() {
+                        mViewModel.addGoodsShopToCart(ItemObject.getId(), 1, ItemObject.getObjectFeatureItemID1());
+                    }
+                }, this);
+                if (o != null) {
+//                    addBadge(1);
+                    toast("添加成功");
+                }
+            });
+
+        });
+        return goodsAdapter;
     }
 
+    //    private void addBadge(int qty) {
+//
+//            int badgeNumber = mainActivity.badge.getBadgeNumber();
+//            mainActivity.badge.setBadgeNumber(badgeNumber + qty);
+//
+//    }
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {
         return mViewDataBinding.swipeRefresh;
