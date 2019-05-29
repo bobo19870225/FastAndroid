@@ -32,6 +32,7 @@ public class SharedPreferencesUtils {
             return new String[]{sharedPre.getString("username", null), sharedPre.getString("password", null)};
         return null;
     }
+
     public static void cleanLoginInfo(Context context) {
         // 获取SharedPreferences对象
         SharedPreferences sharedPre = context.getSharedPreferences("config", MODE_PRIVATE);
@@ -43,6 +44,7 @@ public class SharedPreferencesUtils {
         // 提交
         editor.apply();
     }
+
     /**
      * 使用SharedPreferences保存sessionID
      */
@@ -69,6 +71,16 @@ public class SharedPreferencesUtils {
         return null;
     }
 
+    public static void cleanSessionID(Context context) {
+        // 获取SharedPreferences对象
+        SharedPreferences sharedPre = context.getSharedPreferences("sessionID", MODE_PRIVATE);
+        // 获取Editor对象
+        SharedPreferences.Editor editor = sharedPre.edit();
+        // 设置参数
+        editor.putString("sessionID", null);
+        // 提交
+        editor.apply();
+    }
 
     public static void saveMemberID(Context context, String memberID) {
         // 获取SharedPreferences对象
@@ -87,5 +99,16 @@ public class SharedPreferencesUtils {
         if (sharedPre != null)
             return sharedPre.getString("memberID", null);
         return null;
+    }
+
+    public static void cleanMemberID(Context context) {
+        // 获取SharedPreferences对象
+        SharedPreferences sharedPre = context.getSharedPreferences("memberID", MODE_PRIVATE);
+        // 获取Editor对象
+        SharedPreferences.Editor editor = sharedPre.edit();
+        // 设置参数
+        editor.putString("memberID", null);
+        // 提交
+        editor.apply();
     }
 }

@@ -37,6 +37,6 @@ public class SettingActivity extends MVVMActivity<SettingVM, ActivitySettingBind
 
     @Override
     protected void setView() {
-        mViewModel.action.observe(this, s -> skipTo(LoginActivity.class, null, true));
+        mViewModel.action.observe(this, s -> skipTo(MainActivity.class, null, true));
     }
 }

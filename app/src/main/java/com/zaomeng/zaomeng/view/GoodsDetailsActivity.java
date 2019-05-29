@@ -10,6 +10,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityGoodsDetailsBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
@@ -20,7 +22,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.specification.InterfaceShowSpecification;
 import com.zaomeng.zaomeng.utils.specification.ShowSpecificationHelper;
 import com.zaomeng.zaomeng.view.adapter.goods_details.GoodsDetailsAdapter;
@@ -46,19 +47,21 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     @Inject
     ViewModelFactory viewModelFactory;
     @Inject
-    HttpHelper<ShopCartBean> httpHelper;
+    HttpHelper httpHelper;
     private ShowSpecificationHelper showSpecificationHelper;
     private String goodsName;
     private String goodsId;
     private GoodsDetailsAdapter goodsDetailsAdapter;
     private GoodsDetailsHeaderBean goodsDetailsHeaderBean;
     private Badge badge;
+
     @NonNull
     @Override
     protected GoodsDetailsVM createdViewModel() {
         return ViewModelProviders.of(this, viewModelFactory).get(GoodsDetailsVM.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void setView() {
         super.setView();
@@ -70,7 +73,18 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
 //                .setOnDragStateChangedListener(null)
                 .setBadgeNumber(0);
         mViewModel.getCartGoodsListLD().observe(this, pageBeanResource -> {
-            PageDataBean<ShopCartBean> goodsPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource);
+            PageDataBean<ShopCartBean> goodsPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+
+                @Override
+                public void skipLoginActivity() {
+                    toLogin();
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getCartGoodsListLD();
+                }
+            }, this);
             if (goodsPageDataBean != null) {
                 int total = goodsPageDataBean.getTotal();
                 badge.setBadgeNumber(total);
@@ -86,8 +100,17 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                 case "addCollect":
                     if (goodsId != null && goodsName != null)
                         mViewModel.addCollect(goodsId, goodsName).observe(this, beanResource -> {
-                            HttpHelper<String> httpHelper = new HttpHelper<>(getApplicationContext());
-                            String collectBean = httpHelper.AnalyticalData(beanResource);
+                            String collectBean = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                                @Override
+                                public void skipLoginActivity() {
+                                    toLogin();
+                                }
+
+                                @Override
+                                public void reLoad() {
+                                    mViewModel.addCollect(goodsId, goodsName);
+                                }
+                            }, this);
                             if (collectBean != null) {
                                 mViewDataBinding.collect.setImageResource(R.mipmap.collect);
                                 toast("收藏成功");
@@ -109,7 +132,17 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                                     LiveData<Resource<Bean<String>>> addGoodsShopToCart = mViewModel.addGoodsToCart(goodsId, qty, null);
                                     if (addGoodsShopToCart != null) {
                                         addGoodsShopToCart.observe(this, beanResource -> {
-                                            BodyBean<String> addToShopCartBean = new HttpHelper<String>(getApplicationContext()).AnalyticalDataBody(beanResource);
+                                            BodyBean<String> addToShopCartBean = httpHelper.AnalyticalDataBody(beanResource, new InterfaceLogin() {
+                                                @Override
+                                                public void skipLoginActivity() {
+                                                    toLogin();
+                                                }
+
+                                                @Override
+                                                public void reLoad() {
+//                                                    mViewModel.addCollect(goodsId, goodsName);
+                                                }
+                                            }, this);
                                             badge.setBadgeNumber(badge.getBadgeNumber() + addToShopCartBean.getQty());
                                         });
                                     }
@@ -173,9 +206,24 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
         });
     }
 
+    private void toLogin() {
+        skipTo(LoginActivity.class, null);
+    }
+
+    @SuppressWarnings("unchecked")
     private void getBannerImage() {
         mViewModel.getBannerImageList(goodsId).observe(this, pageBeanResource -> {
-            PageDataBean<GoodsDetailsImageBean> goodsDetailsImageBeanPageDataBean = new HttpHelper<GoodsDetailsImageBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            PageDataBean<GoodsDetailsImageBean> goodsDetailsImageBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    toLogin();
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getBannerImageList(goodsId);
+                }
+            }, this);
             if (goodsDetailsImageBeanPageDataBean != null) {
                 List<GoodsDetailsImageBean> rows = goodsDetailsImageBeanPageDataBean.getRows();
                 List<String> imageURL = new ArrayList<>();
@@ -210,7 +258,6 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     }
 
 
-
     @Override
     protected int setToolBarMenu() {
         return 0;
@@ -226,21 +273,43 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
         return R.layout.activity_goods_details;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void callBack(String objectID, int qty, String objectFeatureItemID) {
         if (goodsId != null) {
             mViewModel.addGoodsToCart(objectID, qty, objectFeatureItemID).observe(this, beanResource -> {
-                String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+                String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+                        toLogin();
+                    }
+
+                    @Override
+                    public void reLoad() {
+//                        mViewModel.addCollect(goodsId, goodsName);
+                    }
+                }, this);
                 if (s != null)
                     badge.setBadgeNumber(badge.getBadgeNumber() + qty);
             });
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void getPrice(String goodsID, String objectFeatureItemID) {
         mViewModel.getPrice(goodsID, objectFeatureItemID).observe(this, beanResource -> {
-            PriceBean priceBean = new HttpHelper<PriceBean>(getApplicationContext()).AnalyticalData(beanResource);
+            PriceBean priceBean = (PriceBean) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    toLogin();
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getPrice(goodsID, objectFeatureItemID);
+                }
+            }, this);
             showSpecificationHelper.setPrice(priceBean.getShowPrice());
         });
     }

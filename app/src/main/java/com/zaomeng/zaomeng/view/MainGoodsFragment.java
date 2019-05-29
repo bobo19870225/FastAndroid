@@ -9,6 +9,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentGoodsBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
@@ -19,7 +21,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.GlideImageLoader;
 import com.zaomeng.zaomeng.utils.GlideUtils;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.adapter.GoodsWithTitleAdapter;
 import com.zaomeng.zaomeng.view.adapter.Item;
 import com.zaomeng.zaomeng.view.base.MVVMFragment;
@@ -37,13 +38,14 @@ import javax.inject.Inject;
 
 /**
  *
- *
  */
 public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, FragmentGoodsBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
     @Inject
     GlideUtils glideUtils;
+    @Inject
+    HttpHelper httpHelper;
     private List<Item> list;
     private List<NavigatorBean> rows;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -58,6 +60,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
     protected int setLayoutRes() {
         return R.layout.fragment_goods;
     }
+
     @Override
     protected Object getData() {
         return getActivity() == null ? null : "6ba58046-7eb2-4f11-bbb3-b934abeb29a8";
@@ -166,7 +169,7 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         return goodsAdapter;
     }
 
-
+    @SuppressWarnings("unchecked")
     private void getSpecification(NavigatorBean.GoodsListBean ItemObject) {
         mViewModel.getObjectFeatureItemList(ItemObject.getObjectID()).observe(this, specificationsBeanResource -> {
             if (specificationsBeanResource.isSuccess()) {
@@ -178,7 +181,17 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
                         LiveData<Resource<Bean<String>>> addGoodsShopToCart = mViewModel.addGoodsShopToCart(ItemObject.getObjectID(), qty, null);
                         if (addGoodsShopToCart != null) {
                             addGoodsShopToCart.observe(this, beanResource -> {
-                                BodyBean<String> addToShopCartBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
+                                BodyBean<String> addToShopCartBean = httpHelper.AnalyticalDataBody(beanResource, new InterfaceLogin() {
+                                    @Override
+                                    public void skipLoginActivity() {
+                                        skipTo(LoginActivity.class, null);
+                                    }
+
+                                    @Override
+                                    public void reLoad() {
+                                        mViewModel.getObjectFeatureItemList(ItemObject.getObjectID());
+                                    }
+                                }, this);
                                 addBadge(addToShopCartBean.getQty());
                             });
                         }

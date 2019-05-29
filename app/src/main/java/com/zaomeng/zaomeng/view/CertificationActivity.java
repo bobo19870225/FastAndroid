@@ -16,11 +16,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCertificationBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
 import com.zaomeng.zaomeng.utils.http.BitmapUtils;
 import com.zaomeng.zaomeng.view.adapter.shop_type.ShopTypeAdapter;
@@ -46,18 +47,22 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 public class CertificationActivity extends MVVMActivity<CertificationVM, ActivityCertificationBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    HttpHelper httpHelper;
     private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
     private AlertDialog alertDialog;
     private List<GoodsSuperBean> listShopType = new ArrayList<>();
     private CommonPopupWindow commonPopupWindow;
     private ShopTypeAdapter shopTypeAdapter;
     private int which = -1;
+
     @NonNull
     @Override
     protected CertificationVM createdViewModel() {
         return ViewModelProviders.of(this, viewModelFactory).get(CertificationVM.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void setView() {
         if (transferData instanceof MemberShopBean) {//编辑店铺
@@ -99,7 +104,17 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
         }
         init();
         mViewModel.getShopType().observe(this, pageBeanResource -> {
-            PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = new HttpHelper<GoodsSuperBean>(getApplication()).AnalyticalPageData(pageBeanResource);
+            PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getShopType();
+                }
+            }, this);
             if (goodsSuperBeanPageDataBean != null) {
                 listShopType = goodsSuperBeanPageDataBean.getRows();
                 shopTypeAdapter.setList(listShopType);
@@ -163,7 +178,17 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
 
         });
         mViewModel.ldSubmit.observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
             if (s != null) {
                 toast("提交成功！");
                 EventBus.getDefault().post("refresh");

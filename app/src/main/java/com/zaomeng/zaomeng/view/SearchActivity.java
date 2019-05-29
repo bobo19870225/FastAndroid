@@ -18,9 +18,10 @@ import com.zaomeng.zaomeng.databinding.ActivitySearchBinding;
 import com.zaomeng.zaomeng.model.repository.dataBase.HistorySearchKey;
 import com.zaomeng.zaomeng.model.repository.dataBase.SearchDao;
 import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.HotWordBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.SearchViewModel;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -44,6 +45,8 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
     SearchDao searchDao;
     @Inject
     UserDao userDao;
+    @Inject
+    HttpHelper httpHelper;
     private String memberID;
     private int oldPosition = -1;
     private int historyOldPosition = -1;
@@ -57,6 +60,7 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
         return ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void setView() {
 
@@ -68,7 +72,17 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
             });
         });
         mViewModel.getHotWordList().observe(this, pageBeanResource -> {
-            PageDataBean<HotWordBean> hotWordBeanPageDataBean = new HttpHelper<HotWordBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            PageDataBean<HotWordBean> hotWordBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
             if (hotWordBeanPageDataBean != null) {
                 List<HotWordBean> rows = hotWordBeanPageDataBean.getRows();
                 if (rows != null) {

@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityOrderDetailBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.OrderBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.OrderDetailVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -30,7 +31,8 @@ import javax.inject.Inject;
 public class OrderDetailActivity extends MVVMActivity<OrderDetailVM, ActivityOrderDetailBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
-
+    @Inject
+    HttpHelper httpHelper;
     @NonNull
     @Override
     protected OrderDetailVM createdViewModel() {
@@ -40,7 +42,17 @@ public class OrderDetailActivity extends MVVMActivity<OrderDetailVM, ActivityOrd
     @Override
     protected void setView() {
         mViewModel.getMemberOrderDetail((String) transferData).observe(this, beanResource -> {
-            OrderBean orderBean = new HttpHelper<OrderBean>(getApplicationContext()).AnalyticalData(beanResource);
+            OrderBean orderBean = (OrderBean) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getMemberOrderDetail((String) transferData);
+                }
+            }, this);
             if (orderBean != null) {
                 mViewModel.ldOrderNo.setValue(orderBean.getOrderCode());
                 mViewModel.ldTime.setValue(orderBean.getApplyTimeStr());

@@ -15,7 +15,8 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityFeedbackBinding;
-import com.zaomeng.zaomeng.utils.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.FeedbackVM;
@@ -37,8 +38,8 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
-    //    private List<String> list = new ArrayList<>();
-//    private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
+    @Inject
+    HttpHelper httpHelper;
     private int oldPosition = -1;
     @NonNull
     @Override
@@ -57,7 +58,17 @@ public class FeedbackActivity extends MVVMActivity<FeedbackVM, ActivityFeedbackB
             }
         });
         mViewModel.ldSubmit.observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
             if (s != null) {
                 toast("提交成功");
                 finish();

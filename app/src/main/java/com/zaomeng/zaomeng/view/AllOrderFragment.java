@@ -15,9 +15,10 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentOrderBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 import com.zaomeng.zaomeng.utils.pay_way.ChosePayWayHelper;
@@ -44,12 +45,15 @@ public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, Fragment
     private final SingleLiveEvent<Map<String, String>> ldResult = new SingleLiveEvent<>();
     private ChosePayWayHelper chosePayWayHelper;
     private String memberOrderID;
+
     @Inject
     public AllOrderFragment() {
     }
 
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    HttpHelper httpHelper;
 
     @Override
     protected void setUI() {
@@ -125,6 +129,7 @@ public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, Fragment
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     @NonNull
     @Override
     protected OrderAdapter setAdapter(Function0 reTry) {
@@ -136,20 +141,50 @@ public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, Fragment
         });
         orderAdapter.setOnItemCancelClick((view, ItemObject, position) -> {//取消订单
             mViewModel.cancelMemberOrder(ItemObject.getId()).observe(this, beanResource -> {
-                String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+                String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+                        skipTo(LoginActivity.class, null);
+                    }
+
+                    @Override
+                    public void reLoad() {
+                        mViewModel.cancelMemberOrder(ItemObject.getId());
+                    }
+                }, this);
                 if (s != null) {
                     EventBus.getDefault().post("refresh");
                 }
             });
         });
         orderAdapter.setOnItemConfirmClick((view, ItemObject, position) -> mViewModel.confirmMemberOrder(ItemObject.getGoodsList().get(0).getMemberOrderID()).observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.confirmMemberOrder(ItemObject.getGoodsList().get(0).getMemberOrderID());
+                }
+            }, this);
             if (s != null) {
                 refresh();
             }
         }));
         orderAdapter.setOnItemReturnClick((view, ItemObject, position) -> mViewModel.applyReturnMemberOrder(ItemObject.getGoodsList().get(0).getMemberOrderID()).observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.applyReturnMemberOrder(ItemObject.getGoodsList().get(0).getMemberOrderID());
+                }
+            }, this);
             if (s != null) {
                 refresh();
             }
@@ -197,6 +232,7 @@ public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, Fragment
             refresh();
         }
     }
+
     @NonNull
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {

@@ -22,6 +22,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityOrderSettlementBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BonusBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
@@ -30,7 +32,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.OrderSettlementVM;
@@ -54,7 +55,8 @@ import javax.inject.Inject;
 public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, ActivityOrderSettlementBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
-    //    private AddressAdapter addressAdapter;
+    @Inject
+    HttpHelper httpHelper;
     private final MutableLiveData<Map<String, String>> ldResult = new MutableLiveData<>();
     private int ldPayType;
 
@@ -64,6 +66,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
         return ViewModelProviders.of(this, viewModelFactory).get(OrderSettlementVM.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void setView() {
         if (!EventBus.getDefault().isRegistered(this))
@@ -78,7 +81,17 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> ldPayType = checkedId);
 
         mViewModel.ldSubmitOrder.observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
             if (s != null) {
                 if (ldPayType == R.id.radio_weixin) {
                     mViewModel.appApplyMemberOrderPayForWeChat(s).observe(this, payBeanResource -> {
@@ -142,7 +155,17 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
         });
         mViewDataBinding.ttUhq.setClickable(false);
         mViewModel.getMyMemberBonusList().observe(this, pageBeanResource -> {
-            PageDataBean<BonusBean> bonusBeanPageDataBean = new HttpHelper<BonusBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            PageDataBean<BonusBean> bonusBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getMyMemberBonusList();
+                }
+            }, this);
             if (bonusBeanPageDataBean != null) {
                 int total = bonusBeanPageDataBean.getTotal();
                 if (total != 0) {
@@ -181,9 +204,20 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
 
     private double priceNow = 0;
 
+    @SuppressWarnings("unchecked")
     private void initTotalPrice() {
         mViewModel.getOrderGoodsList().observe(this, pageBeanResource -> {
-            PageBodyBean<ShopCartBean> shopCartBeanPageBodyBean = new HttpHelper<ShopCartBean>(getApplicationContext()).AnalyticalPageDataBody(pageBeanResource);
+            PageBodyBean<ShopCartBean> shopCartBeanPageBodyBean = httpHelper.AnalyticalPageDataBody(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getOrderGoodsList();
+                }
+            }, this);
             if (shopCartBeanPageBodyBean != null) {
                 priceNow = shopCartBeanPageBodyBean.getPriceAfterDiscount();
                 mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(priceNow)));

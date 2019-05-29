@@ -8,6 +8,7 @@ import com.zaomeng.zaomeng.model.repository.dataBase.AppDatabase;
 import com.zaomeng.zaomeng.model.repository.dataBase.SearchDao;
 import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataCallAdapterFactory;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.LiveDataResponseBodyConverterFactory;
 
@@ -74,6 +75,12 @@ public class RepositoryModule {
     @Provides
     static SearchDao searchDao(AppDatabase appDatabase) {
         return appDatabase.searchDao();
+    }
+
+    @Singleton
+    @Provides
+    static HttpHelper httpHelper(Context context, ApiService apiService, UserDao userDao) {
+        return new HttpHelper(context, apiService, userDao);
     }
 
 }

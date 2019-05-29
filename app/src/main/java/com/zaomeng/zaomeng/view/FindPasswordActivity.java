@@ -7,9 +7,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityFindPasswordBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.SendSmsCommonBean;
 import com.zaomeng.zaomeng.utils.CountDownTimerUtils;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.FindPasswordVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -23,7 +24,8 @@ import javax.inject.Inject;
 public class FindPasswordActivity extends MVVMActivity<FindPasswordVM, ActivityFindPasswordBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
-
+    @Inject
+    HttpHelper httpHelper;
     @NonNull
     @Override
     protected FindPasswordVM createdViewModel() {
@@ -51,7 +53,17 @@ public class FindPasswordActivity extends MVVMActivity<FindPasswordVM, ActivityF
             }
         });
         mViewModel.ldFindPassword.observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
             if (s != null) {
                 finish();
             }

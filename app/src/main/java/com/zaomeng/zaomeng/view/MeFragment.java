@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.view;
 
 import android.content.Context;
+import android.view.View;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -27,6 +28,7 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
     public MeFragment() {
     }
 
+    private Context context;
     @Inject
     UserDao userDao;
     @Override
@@ -41,6 +43,15 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
 
     @Override
     protected void initUI() {
+        context = getContext();
+        if (context != null) {
+            String[] loginInfo = SharedPreferencesUtils.getLoginInfo(context);
+            if (loginInfo == null) {
+                skipTo(LoginActivity.class);
+            } else if (loginInfo[0] == null || loginInfo[1] == null) {
+                skipTo(LoginActivity.class);
+            }
+        }
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "allOrder":
@@ -85,12 +96,11 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
     @Override
     public void onResume() {
         super.onResume();
-        Context context = getContext();
         CircleImageView iconUser = mViewDataBinding.iconUser;
         String[] loginInfo;
         if (context != null) {
             loginInfo = SharedPreferencesUtils.getLoginInfo(context);
-            if (loginInfo != null) {
+            if (loginInfo != null && loginInfo[0] != null && loginInfo[1] != null) {
                 userDao.getUserByPhone(loginInfo[0]).observe(this, loginBeans -> {
                     if (loginBeans != null && loginBeans.size() != 0) {
                         LoginBean loginBean = loginBeans.get(0);
@@ -107,6 +117,8 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
                         }
                     }
                 });
+            } else {
+                iconUser.setVisibility(View.GONE);
             }
 
         }

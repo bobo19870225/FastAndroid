@@ -17,10 +17,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityUserInfoBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
 import com.zaomeng.zaomeng.utils.http.BitmapUtils;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
@@ -42,6 +43,8 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    HttpHelper httpHelper;
     private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
     private Dialog alertDialog;
     private CircleImageView iconUser;
@@ -157,7 +160,17 @@ public class UserInfoActivity extends MVVMActivity<UserInfoVM, ActivityUserInfoB
         LiveData<Resource<Bean<String>>> resourceLiveData = mViewModel.updateMemberInfo();
         if (resourceLiveData != null) {
             resourceLiveData.observe(this, beanResource -> {
-                String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+                String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+                        skipTo(LoginActivity.class);
+                    }
+
+                    @Override
+                    public void reLoad() {
+
+                    }
+                }, this);
                 if (s != null) {
                     mViewModel.upDateUser(loginBean);
                     finish();

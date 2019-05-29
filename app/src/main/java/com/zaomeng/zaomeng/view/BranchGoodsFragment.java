@@ -20,7 +20,6 @@ import kotlin.jvm.functions.Function0;
 public class BranchGoodsFragment extends MVVMListFragment<BranchGoodsFragmentVM, FragmentBranchGoodsBinding, BranchGoodsAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
-    private BranchGoodsAdapter branchGoodsAdapter;
 
     @Inject
     public BranchGoodsFragment() {
@@ -42,7 +41,7 @@ public class BranchGoodsFragment extends MVVMListFragment<BranchGoodsFragmentVM,
     @NonNull
     @Override
     protected BranchGoodsAdapter setAdapter(Function0 reTry) {
-        return branchGoodsAdapter = new BranchGoodsAdapter(reTry);
+        return new BranchGoodsAdapter(reTry);
     }
 
     @NonNull

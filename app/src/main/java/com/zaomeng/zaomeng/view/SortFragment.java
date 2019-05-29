@@ -11,6 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentSortBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
@@ -18,7 +20,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.adapter.GoodsParentAdapter;
 import com.zaomeng.zaomeng.view.adapter.goods.GoodsAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
@@ -37,7 +38,10 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
     @Inject
     ViewModelFactory viewModelFactory;
     //    private ShowSpecificationHelper showSpecificationHelper;
+    @Inject
+    HttpHelper httpHelper;
     private int oldPosition = 0;
+
     @Inject
     public SortFragment() {
         // Required empty public constructor
@@ -52,6 +56,7 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
 
     private List<GoodsSuperBean> rows;
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void setUI() {
         Context context = getContext();
@@ -73,8 +78,17 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
         });
         mViewDataBinding.list1.setAdapter(goodsParentAdapter);
         mViewModel.getNodeCategoryList().observe(this, pageBeanResource -> {
-            HttpHelper<GoodsSuperBean> goodsSuperBeanHttpHelper = new HttpHelper<>(context);
-            PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = goodsSuperBeanHttpHelper.AnalyticalPageData(pageBeanResource);
+            PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getNodeCategoryList();
+                }
+            }, this);
             if (goodsSuperBeanPageDataBean != null) {
                 rows = goodsSuperBeanPageDataBean.getRows();
                 goodsParentAdapter.setList(rows);
@@ -100,6 +114,7 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
         return goodsAdapter;
     }
 
+    @SuppressWarnings("unchecked")
     private void getSpecification(GoodsListRowsBean ItemObject) {
         mViewModel.getObjectFeatureItemList(ItemObject.getId()).observe(this, specificationsBeanResource -> {
             if (specificationsBeanResource.isSuccess()) {
@@ -111,7 +126,17 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
                         LiveData<Resource<Bean<String>>> addGoodsShopToCart = mViewModel.addGoodsShopToCart(ItemObject.getId(), qty, null);
                         if (addGoodsShopToCart != null) {
                             addGoodsShopToCart.observe(this, beanResource -> {
-                                BodyBean<String> addToShopCartBean = new HttpHelper<String>(getContext()).AnalyticalDataBody(beanResource);
+                                BodyBean<String> addToShopCartBean = httpHelper.AnalyticalDataBody(beanResource, new InterfaceLogin() {
+                                    @Override
+                                    public void skipLoginActivity() {
+                                        skipTo(LoginActivity.class);
+                                    }
+
+                                    @Override
+                                    public void reLoad() {
+                                        mViewModel.getObjectFeatureItemList(ItemObject.getId());
+                                    }
+                                }, this);
                                 addBadge(addToShopCartBean.getQty());
                             });
                         }
@@ -149,6 +174,7 @@ public class SortFragment extends MVVMListFragment<SortFragmentVM, FragmentSortB
             mainActivity.badge.setBadgeNumber(badgeNumber + qty);
         }
     }
+
     @NonNull
     @Override
     protected SwipeRefreshLayout setSwipeRefreshLayout() {

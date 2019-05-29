@@ -43,9 +43,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
         title.setTextColor(Color.parseColor("#333333"));
         toolBarMenu = setToolBarMenu();
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(view -> {
-            doClose();
-        });
+        toolbar.setNavigationOnClickListener(view -> doClose());
     }
 
     protected void doClose() {
@@ -95,12 +93,19 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
      * @param mClass 类名
      */
     public void skipTo(Class<?> mClass, Object data) {
-//        if (mClass.isAssignableFrom(BaseDaggerActivity.class)) {
             Intent intent = new Intent();
             skipTo(mClass, data, intent);
-//        }
     }
 
+    /**
+     * 跳转
+     *
+     * @param mClass 类名
+     */
+    public void skipTo(Class<?> mClass) {
+        Intent intent = new Intent();
+        skipTo(mClass, null, intent);
+    }
     /**
      * 跳转
      *

@@ -16,11 +16,12 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormatter;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCalendarBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SignInBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view.custom_view.CircleImageView;
 import com.zaomeng.zaomeng.view_model.CalendarVM;
@@ -43,6 +44,8 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
     private AlertDialog alertDialog;
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    HttpHelper httpHelper;
 
     @NonNull
     @Override
@@ -50,6 +53,7 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
         return ViewModelProviders.of(this, viewModelFactory).get(CalendarVM.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void setView() {
         mViewModel.getUser().observe(this, loginBeans -> {
@@ -88,7 +92,18 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
         });
 
         mViewModel.getSignInList().observe(this, pageBeanResource -> {
-            PageDataBean<SignInBean> signInBeanPageDataBean = new HttpHelper<SignInBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            PageDataBean<SignInBean> signInBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getSignInList();
+                }
+            }, this);
             if (signInBeanPageDataBean != null) {
                 List<SignInBean> rows = signInBeanPageDataBean.getRows();
                 for (SignInBean s : rows) {

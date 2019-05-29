@@ -7,7 +7,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentReceivedOrderBinding;
-import com.zaomeng.zaomeng.utils.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.view.adapter.order.OrderAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ReceivedOrderFragmentVM;
@@ -29,7 +30,8 @@ public class ReceivedOrderFragment extends MVVMListFragment<ReceivedOrderFragmen
 
     @Inject
     ViewModelFactory viewModelFactory;
-
+    @Inject
+    HttpHelper httpHelper;
     @Override
     protected void setUI() {
     }
@@ -39,7 +41,17 @@ public class ReceivedOrderFragment extends MVVMListFragment<ReceivedOrderFragmen
     protected OrderAdapter setAdapter(Function0 reTry) {
         OrderAdapter orderAdapter = new OrderAdapter(reTry);
         orderAdapter.setOnItemConfirmClick((view, ItemObject, position) -> mViewModel.confirmMemberOrder(ItemObject.getGoodsList().get(0).getMemberOrderID()).observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
             if (s != null) {
                 refresh();
             }

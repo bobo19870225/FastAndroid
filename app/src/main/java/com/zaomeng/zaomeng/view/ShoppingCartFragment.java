@@ -12,8 +12,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ShoppingCartFragmentVM;
@@ -34,7 +35,8 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     ViewModelFactory viewModelFactory;
     //    private AlertDialog waitDialog;
 //    private double priceTotal;
-
+    @Inject
+    HttpHelper httpHelper;
     @Inject
     public ShoppingCartFragment() {
     }
@@ -99,7 +101,17 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                             }
                         }
                         mViewModel.removeCartGoods(selectID.toString()).observe(this, beanResource -> {
-                            String s1 = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+                            String s1 = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                                @Override
+                                public void skipLoginActivity() {
+                                    skipTo(LoginActivity.class);
+                                }
+
+                                @Override
+                                public void reLoad() {
+                                    mViewModel.removeCartGoods(selectID.toString());
+                                }
+                            }, this);
                             if (s1 != null) refresh();
                         });
                     } else {
@@ -154,7 +166,17 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     private void upDataGoodsNumber(ShopCartBean ItemObject) {
 //        showWaitDialog(true);
         mViewModel.updateCartGoodsNumber(ItemObject.getId(), ItemObject.getQty()).observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.updateCartGoodsNumber(ItemObject.getId(), ItemObject.getQty());
+                }
+            }, this);
             if (s == null) {
                 //更改失败,刷新列表
 //                showWaitDialog(false);

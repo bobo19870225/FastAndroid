@@ -96,6 +96,9 @@ public abstract class BaseDaggerFragment extends DaggerFragment {
 //        Snackbar.make(rootView, msg, Snackbar.LENGTH_LONG).show();
     }
 
+    public void skipTo(Class mClass) {
+        skipTo(mClass, null);
+    }
     /**
      * 跳转
      *

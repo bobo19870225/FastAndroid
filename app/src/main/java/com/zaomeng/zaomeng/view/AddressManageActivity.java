@@ -15,7 +15,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityAddressManageBinding;
-import com.zaomeng.zaomeng.utils.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.view.adapter.member_shop.MemberShopAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListActivity;
 import com.zaomeng.zaomeng.view_model.AddressManageVM;
@@ -36,6 +37,8 @@ import kotlin.jvm.functions.Function0;
 public class AddressManageActivity extends MVVMListActivity<AddressManageVM, ActivityAddressManageBinding, MemberShopAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    HttpHelper httpHelper;
     private AlertDialog alertDialog;
     private TextView ok;
 
@@ -62,9 +65,20 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
         return memberShopAdapter;
     }
 
+    @SuppressWarnings("unchecked")
     private void showDeleteDialog(String id) {
         ok.setOnClickListener(v -> mViewModel.removeMemberShop(id).observe(AddressManageActivity.this, beanResource -> {
-            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.removeMemberShop(id);
+                }
+            }, this);
             if (s != null)
                 refresh();
         }));

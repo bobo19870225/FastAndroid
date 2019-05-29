@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityMessageTypeBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.MessageTypeBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.MessageTypeVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -33,19 +34,31 @@ public class MessageTypeActivity extends MVVMActivity<MessageTypeVM, ActivityMes
     @Inject
     ViewModelFactory viewModelFactory;
     private List<MessageTypeBean> list;
-
+    @Inject
+    HttpHelper httpHelper;
     @NonNull
     @Override
     protected MessageTypeVM createdViewModel() {
         return ViewModelProviders.of(this, viewModelFactory).get(MessageTypeVM.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void setView() {
         list = new ArrayList<>();
         RecyclerView listView = mViewDataBinding.list;
         mViewModel.getMessageTypeList().observe(this, pageBeanResource -> {
-            PageDataBean<MessageTypeBean> messageBeanPageDataBean = new HttpHelper<MessageTypeBean>(getApplicationContext()).AnalyticalPageData(pageBeanResource);
+            PageDataBean<MessageTypeBean> messageBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getMessageTypeList();
+                }
+            }, this);
             if (messageBeanPageDataBean != null) {
                 list = messageBeanPageDataBean.getRows();
                 listView.setAdapter(new CommonAdapter<MessageTypeBean>(getApplicationContext(), R.layout.item_message, list) {

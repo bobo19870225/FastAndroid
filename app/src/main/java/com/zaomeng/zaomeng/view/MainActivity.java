@@ -11,9 +11,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.base.BaseDaggerActivity;
 
@@ -26,9 +27,11 @@ public class MainActivity extends BaseDaggerActivity {
     @Inject
     ApiService apiService;
     @Inject
-    HttpHelper<ShopCartBean> httpHelper;
+    HttpHelper httpHelper;
+
     public Badge badge;
     protected BottomNavigationView navigation;
+
     @Override
     protected int setToolBarMenu() {
         return 0;
@@ -44,6 +47,7 @@ public class MainActivity extends BaseDaggerActivity {
         return R.layout.activity_main;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void initView() {
 
@@ -61,7 +65,17 @@ public class MainActivity extends BaseDaggerActivity {
                 .setBadgeNumber(0);
         apiService.getCartGoodsListLD(SharedPreferencesUtils.getSessionID(getApplicationContext()), 1, 10)
                 .observe(this, pageBeanResource -> {
-                    PageDataBean<ShopCartBean> goodsPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource);
+                    PageDataBean<ShopCartBean> goodsPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                        @Override
+                        public void skipLoginActivity() {
+//                            skipTo(LoginActivity.class, null);
+                        }
+
+                        @Override
+                        public void reLoad() {
+
+                        }
+                    }, this);
                     if (goodsPageDataBean != null) {
                         int total = goodsPageDataBean.getTotal();
                         badge.setBadgeNumber(total);

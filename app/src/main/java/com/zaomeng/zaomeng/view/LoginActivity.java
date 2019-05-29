@@ -18,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityLoginBinding;
 import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
-import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
@@ -38,8 +37,6 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBinding> {
-    @Inject
-    ApiService apiService;
 
     @Inject
     ViewModelFactory viewModelFactory;
@@ -191,7 +188,6 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                         BodyBean<LoginBean> body = loginBeanBean.getBody();
                         LoginBean loginBean = body.getData();
                         if (loginBean != null) {
-                            skipTo(MainActivity.class, null);
                             String sessionID = body.getSessionID();
                             SharedPreferencesUtils.saveSessionID(getApplicationContext(), sessionID);
                             SharedPreferencesUtils.saveMemberID(getApplicationContext(), loginBean.getId());
@@ -206,7 +202,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                             if (ldPhoneValue != null && ldPasswordValue != null) {
                                 SharedPreferencesUtils.saveLoginInfo(getApplicationContext(), ldPhoneValue, ldPasswordValue);
                             }
-                            finish();
+                            skipTo(MainActivity.class, null, true);
                         }
                     } else {
                         toast(loginBeanBean.getHeader().getMsg());

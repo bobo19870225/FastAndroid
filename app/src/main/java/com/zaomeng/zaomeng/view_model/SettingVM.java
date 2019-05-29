@@ -27,5 +27,7 @@ public class SettingVM extends BaseViewModel {
     public void exit() {
         action.setValue("exit");
         SharedPreferencesUtils.cleanLoginInfo(getApplication());
+        SharedPreferencesUtils.cleanSessionID(getApplication());
+        SharedPreferencesUtils.cleanMemberID(getApplication());
     }
 }

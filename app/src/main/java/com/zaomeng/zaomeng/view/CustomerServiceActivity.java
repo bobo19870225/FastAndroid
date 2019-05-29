@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityCustomerServiceBinding;
-import com.zaomeng.zaomeng.utils.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.CustomerServiceVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -19,7 +20,8 @@ import javax.inject.Inject;
 public class CustomerServiceActivity extends MVVMActivity<CustomerServiceVM, ActivityCustomerServiceBinding> {
     @Inject
     ViewModelFactory viewModelFactory;
-
+    @Inject
+    HttpHelper httpHelper;
     @NonNull
     @Override
     protected CustomerServiceVM createdViewModel() {
@@ -29,7 +31,17 @@ public class CustomerServiceActivity extends MVVMActivity<CustomerServiceVM, Act
     @Override
     protected void setView() {
         mViewModel.getParameterValueByCode("customerPhone").observe(this, beanResource -> {
-            String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
+            String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class, null);
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
             mViewModel.ldPhone.setValue(s);
         });
         mViewModel.action.observe(this, s -> {

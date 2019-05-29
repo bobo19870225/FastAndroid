@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityShopDetailBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
-import com.zaomeng.zaomeng.utils.HttpHelper;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.ShopDetailVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -22,6 +23,8 @@ public class ShopDetailActivity extends MVVMActivity<ShopDetailVM, ActivityShopD
 
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    HttpHelper httpHelper;
 
     @NonNull
     @Override
@@ -33,7 +36,17 @@ public class ShopDetailActivity extends MVVMActivity<ShopDetailVM, ActivityShopD
     protected void setView() {
         String memberShopID = (String) transferData;
         mViewModel.getMemberShopDetail(memberShopID).observe(this, beanResource -> {
-            MemberShopBean memberShopBean = new HttpHelper<MemberShopBean>(getApplication()).AnalyticalData(beanResource);
+            MemberShopBean memberShopBean = (MemberShopBean) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
             if (memberShopBean != null) {
                 mViewModel.ldName.setValue(memberShopBean.getName());
                 mViewModel.ldAddress.setValue(memberShopBean.getAddress());
