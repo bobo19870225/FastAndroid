@@ -138,6 +138,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
             intent.putExtra("BUNDLE", bundle);
         }
         startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
 
@@ -148,4 +149,10 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     int setLayoutRes();
 
     protected abstract void initView();
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
+    }
 }

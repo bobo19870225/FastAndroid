@@ -1,23 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2017 The Android Open Source Project
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
+<?xml version="1.0" encoding="utf-8"?>
+
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/layout_padding">
@@ -27,18 +13,20 @@
     <!--android:layout_height="@dimen/line"-->
     <!--android:background="@color/bg_color" />-->
     <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
+        android:id="@+id/icon_goods"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:id="@+id/icon_goods"
         android:scaleType="centerCrop" />
 
 
     <TextView
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
         android:id="@+id/goods_name"
         android:layout_width="wrap_content"
-        android:maxLines="3" />
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@color/text_main"
+        android:textSize="@dimen/text1" />
 
     <TextView
         android:id="@+id/specifications"
@@ -51,19 +39,20 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:textColor="@color/text_them"
             android:id="@+id/price"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_them" />
 
-        <!--<ImageView-->
-        <!--android:id="@+id/add"-->
-        <!--android:layout_width="21dp"-->
-        <!--android:layout_height="21dp"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:src="@mipmap/add" />-->
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/add"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/add" />
+    </RelativeLayout>
 
 
 </LinearLayout>

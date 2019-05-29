@@ -62,7 +62,7 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         switch (viewType) {
             case R.layout.item_header:
                 return GoodsHeaderViewHolder.create(parent);
-            case R.layout.item_goods:
+            case R.layout.item_goods1:
                 return GoodsTitleViewHolder.create(parent);
             case R.layout.network_state_item:
                 return NetworkStateItemViewHolder.create(parent, retryCallback);
@@ -83,7 +83,7 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case R.layout.item_header:
                 ((GoodsHeaderViewHolder) holder).bind(onHeaderItemClick);
                 break;
-            case R.layout.item_goods:
+            case R.layout.item_goods1:
                 ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick, glideUtils);
                 break;
             case R.layout.network_state_item:
@@ -130,13 +130,13 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 case 0:
                     return R.layout.item_goods_navigation;
                 case 1:
-                    return R.layout.item_goods;
+                    return R.layout.item_goods1;
                 case 2:
                     return R.layout.item_goods_banner;
                 case 3:
                     return R.layout.item_goods_2;
                 default:
-                    return R.layout.item_goods;
+                    return R.layout.item_goods1;
             }
 
         }
@@ -157,7 +157,7 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     switch (type) {
                         case R.layout.item_header:
                         case R.layout.item_goods_navigation:
-                        case R.layout.item_goods: //这三种方式都是一列的，所以返回6
+                        case R.layout.item_goods1: //这三种方式都是一列的，所以返回6
                             return 6;
                         case R.layout.item_goods_2: //两列，返回3
                             return 3;

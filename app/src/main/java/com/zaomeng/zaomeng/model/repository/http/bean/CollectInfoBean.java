@@ -7,13 +7,15 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
 public class CollectInfoBean {
 
     /**
-     * collectID : 2c9051726a4ee143016a5da3685a0006
-     * objectID : 2c9051726a3f6378016a48346ea90043
-     * objectName : 正大食品（CP）猪肉圆白菜包 510g（6只装 包子馒头花卷 儿童早餐）
-     * listImage : http://wj.haoju.me/8776b086e9014c5ca0caaaf19667f543.jpeg
-     * showPrice : 23.99
+     * collectID : 2c9051726b01cf1d016b0264b8310061
+     * objectID : 402892e76a0bd37c016a0be8a94e001e
+     * objectName : 红糖馒头
+     * listImage : http://wj.haoju.me/d59f50ed84444a6c912242034c8b0895.png
+     * showPrice : 8.88
      * stockNumber : 0.0
      * stockOut : 0.0
+     * unitDescription : 红色
+     * objectFeatureItemID1 : 402892e76a0bd37c016a0be91deb0023
      */
 
     private String collectID;
@@ -23,6 +25,8 @@ public class CollectInfoBean {
     private double showPrice;
     private double stockNumber;
     private double stockOut;
+    private String unitDescription;
+    private String objectFeatureItemID1;
 
     public String getCollectID() {
         return collectID;
@@ -78,5 +82,21 @@ public class CollectInfoBean {
 
     public void setStockOut(double stockOut) {
         this.stockOut = stockOut;
+    }
+
+    public String getUnitDescription() {
+        return unitDescription;
+    }
+
+    public void setUnitDescription(String unitDescription) {
+        this.unitDescription = unitDescription;
+    }
+
+    public String getObjectFeatureItemID1() {
+        return objectFeatureItemID1;
+    }
+
+    public void setObjectFeatureItemID1(String objectFeatureItemID1) {
+        this.objectFeatureItemID1 = objectFeatureItemID1;
     }
 }

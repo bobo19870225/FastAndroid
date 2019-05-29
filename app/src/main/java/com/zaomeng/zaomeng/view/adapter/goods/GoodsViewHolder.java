@@ -21,14 +21,18 @@ import com.zaomeng.zaomeng.view.adapter.OnItemClick;
  */
 public class GoodsViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
+    private TextView specifications;
     private TextView price;
-    //    private ImageView add;
+
+    private ImageView add;
     private ImageView goodsIcon;
+
     private GoodsViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
+        specifications = itemView.findViewById(R.id.specifications);
         price = itemView.findViewById(R.id.price);
-//        add = itemView.findViewById(R.id.add);
+        add = itemView.findViewById(R.id.add);
         goodsIcon = itemView.findViewById(R.id.icon_goods);
     }
 
@@ -41,15 +45,16 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
     void bind(GoodsListRowsBean goods, OnItemClick<GoodsListRowsBean> onItemClick, OnItemClick<GoodsListRowsBean> onAddClick) {
         goodsName.setText(goods.getName());
         Glide.with(goodsIcon).load(goods.getLargerImage()).into(goodsIcon);
+        specifications.setText(String.format("规格：%s", goods.getUnitDescription()));
         price.setText(FormatUtils.numberFormatMoney(goods.getShowPrice()));
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
                 onItemClick.onClick(v, goods, getLayoutPosition());
         });
-//        add.setOnClickListener(v -> {
-//            if (onAddClick != null)
-//                onAddClick.onClick(v, goods, getLayoutPosition());
-//        });
+        add.setOnClickListener(v -> {
+            if (onAddClick != null)
+                onAddClick.onClick(v, goods, getLayoutPosition());
+        });
     }
 
 }

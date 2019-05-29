@@ -30,13 +30,13 @@
         android:src="@mipmap/un_select" />
 
     <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
-        android:scaleType="centerCrop"
-        android:layout_margin="15dp"
         android:id="@+id/icon_goods"
         android:layout_width="90dp"
         android:layout_height="90dp"
+        android:layout_margin="15dp"
         android:layout_toEndOf="@+id/select"
-        android:layout_toRightOf="@+id/select" />
+        android:layout_toRightOf="@+id/select"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:id="@+id/ll"
@@ -77,20 +77,21 @@
         android:layout_toRightOf="@+id/icon_goods">
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:textColor="@color/text_them" />
 
-        <TextView
+        <ImageView
             android:id="@+id/reduce"
-            android:layout_width="56dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
             android:layout_toStartOf="@+id/number"
             android:layout_toLeftOf="@+id/number"
-            android:gravity="center"
-            android:text="@string/reduce" />
+            android:padding="@dimen/image_padding"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/jian" />
 
         <TextView
             android:id="@+id/number"
@@ -101,17 +102,17 @@
             android:background="@color/bg_color"
             android:gravity="center" />
 
-        <TextView
+        <ImageView
+            android:layout_width="@dimen/image"
             android:id="@+id/add"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerCrop"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
-            android:gravity="center"
             android:padding="@dimen/image_padding"
-            android:text="@string/add" />
+            android:src="@mipmap/jia" />
     </RelativeLayout>
 
 

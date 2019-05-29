@@ -5,20 +5,23 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
  * FastAndroid
  */
 public class GoodsListRowsBean {
+
     /**
      * id : dsfsdfdsf
-     * name : 2
+     * name : 奶黄包
      * shortName : 1
-     * showName : 2
+     * showName : 奶黄包
      * orderSeq : 1
      * largerImage : http://wj.haoju.me/3883e6c9761a49788368bcd7a369ab0c.png
      * littleImage : http://wj.haoju.me/3883e6c9761a49788368bcd7a369ab0c.png
      * standPrice : 0.0
-     * priceUnit : 2
-     * realPrice : 1.0
+     * priceUnit : 元
+     * realPrice : 25.0
      * stockNumber : 1.0
      * stockOut : 1.0
-     * showPrice : 1.0
+     * showPrice : 25.0
+     * unitDescription : 1斤
+     * objectFeatureItemID1 : 402881856a07a2f6016a07a7c09d0008
      */
 
     private String id;
@@ -34,6 +37,8 @@ public class GoodsListRowsBean {
     private double stockNumber;
     private double stockOut;
     private double showPrice;
+    private String unitDescription;
+    private String objectFeatureItemID1;
 
     public String getId() {
         return id;
@@ -137,5 +142,21 @@ public class GoodsListRowsBean {
 
     public void setShowPrice(double showPrice) {
         this.showPrice = showPrice;
+    }
+
+    public String getUnitDescription() {
+        return unitDescription;
+    }
+
+    public void setUnitDescription(String unitDescription) {
+        this.unitDescription = unitDescription;
+    }
+
+    public String getObjectFeatureItemID1() {
+        return objectFeatureItemID1;
+    }
+
+    public void setObjectFeatureItemID1(String objectFeatureItemID1) {
+        this.objectFeatureItemID1 = objectFeatureItemID1;
     }
 }

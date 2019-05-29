@@ -31,13 +31,12 @@
 
 
         <ImageView
-            android:background="@color/bg_color_tm"
+            android:padding="4dp"
             android:layout_width="@dimen/image"
             android:layout_height="@dimen/image"
             android:onClick="@{()->model.back()}"
-            android:padding="@dimen/image_padding"
-            android:scaleType="fitStart"
-            android:src="@mipmap/back" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/fanhuitianchong" />
 
 
         <RelativeLayout
