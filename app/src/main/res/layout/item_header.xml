@@ -35,8 +35,8 @@
 
             <ImageView
                 android:id="@+id/commonly_used"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_below="@+id/yunshu"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="15dp"
@@ -47,7 +47,7 @@
         <ImageView
             android:id="@+id/my_order"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:src="@mipmap/my_order" />
@@ -55,7 +55,7 @@
         <ImageView
             android:id="@+id/my_bonus"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:src="@mipmap/hongbao" />
@@ -76,8 +76,8 @@
 
             <ImageView
                 android:id="@+id/sign_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_below="@+id/tuihuan"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"

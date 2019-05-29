@@ -16,107 +16,107 @@
 
         <RelativeLayout
             android:id="@+id/rl_title"
-            android:layout_height="160dp"
             android:layout_width="match_parent"
+            android:layout_height="160dp"
             android:background="@color/them_color">
 
             <com.zaomeng.zaomeng.view.custom_view.CircleImageView
-                android:onClick="@{()->model.userInfo()}"
-                android:layout_width="56dp"
                 android:id="@+id/icon_user"
+                android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginStart="30dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp" />
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:onClick="@{()->model.userInfo()}" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_toEndOf="@+id/icon_user"
                 android:layout_toRightOf="@+id/icon_user"
-                android:layout_marginLeft="16dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_height="wrap_content" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/user_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_marginTop="8dp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <ImageView
-                android:onClick="@{()->model.message()}"
-                android:layout_marginTop="16dp"
                 android:id="@+id/icon_msg"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
-                android:padding="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="16dp"
+                android:onClick="@{()->model.message()}"
+                android:padding="10dp"
                 android:src="@mipmap/msg" />
 
             <ImageView
-                android:onClick="@{()->model.calendar()}"
                 android:id="@+id/calendar"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
                 android:layout_marginTop="16dp"
                 android:layout_toStartOf="@+id/icon_msg"
                 android:layout_toLeftOf="@+id/icon_msg"
+                android:onClick="@{()->model.calendar()}"
                 android:padding="10dp"
                 android:src="@mipmap/calendar" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_1"
+            android:layout_width="match_parent"
             android:layout_height="66dp"
             android:layout_below="@+id/rl_title"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="-33dp"
             android:layout_marginEnd="16dp"
-            android:layout_width="match_parent"
             android:layout_marginRight="16dp"
             android:background="@drawable/bg_button_corner_white">
 
             <RelativeLayout
-                android:onClick="@{()->model.bonus()}"
-                android:layout_margin="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="4dp"
                 android:layout_toStartOf="@+id/line"
-                android:layout_toLeftOf="@+id/line">
+                android:layout_toLeftOf="@+id/line"
+                android:onClick="@{()->model.bonus()}">
 
                 <ImageView
+                    android:id="@+id/icon_coupon"
                     android:layout_width="41dp"
                     android:layout_height="32dp"
-                    android:id="@+id/icon_coupon"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:src="@mipmap/coupon" />
 
                 <TextView
-                    android:layout_marginStart="35dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="35dp"
                     android:layout_marginLeft="35dp"
-                    android:textSize="12sp"
                     android:layout_toEndOf="@+id/icon_coupon"
                     android:layout_toRightOf="@+id/icon_coupon"
                     android:gravity="center"
-                    android:text="@string/coupon" />
+                    android:text="@string/coupon"
+                    android:textSize="@dimen/text2" />
 
                 <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
@@ -138,33 +138,33 @@
                 android:background="@color/bg_color" />
 
             <RelativeLayout
-                android:onClick="@{()->model.point()}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="4dp"
                 android:layout_toEndOf="@+id/line"
                 android:layout_toRightOf="@+id/line"
                 android:background="@android:color/white"
-                android:layout_margin="4dp">
+                android:onClick="@{()->model.point()}">
 
                 <ImageView
+                    android:id="@+id/icon_score"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:id="@+id/icon_score"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:src="@mipmap/points_manage" />
 
                 <TextView
-                    android:layout_marginStart="44dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="44dp"
                     android:layout_marginLeft="44dp"
-                    android:textSize="12sp"
                     android:layout_toEndOf="@+id/icon_score"
                     android:layout_toRightOf="@+id/icon_score"
                     android:gravity="center"
-                    android:text="@string/score" />
+                    android:text="@string/score"
+                    android:textSize="@dimen/text2" />
 
                 <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
@@ -182,15 +182,15 @@
 
         <RelativeLayout
             android:id="@+id/rl_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/rl_1"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:background="@drawable/bg_button_corner_white"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp">
+            android:background="@drawable/bg_button_corner_white">
 
             <LinearLayout
                 android:id="@+id/ll_my_order"
@@ -198,23 +198,23 @@
                 android:layout_height="@dimen/layout_height">
 
                 <View
+                    android:id="@+id/line1"
                     android:layout_width="3dp"
                     android:layout_height="13dp"
-                    android:id="@+id/line1"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@color/them_color" />
 
                 <TextView
-                    android:layout_marginStart="8dp"
                     android:id="@+id/tt_my_order"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/layout_height"
+                    android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:textSize="12sp"
                     android:gravity="center"
-                    android:text="@string/my_order" />
+                    android:text="@string/my_order"
+                    android:textSize="@dimen/text2" />
 
             </LinearLayout>
 
@@ -224,6 +224,7 @@
                 android:layout_height="@dimen/line"
                 android:layout_below="@+id/ll_my_order"
                 android:background="@color/bg_color" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
@@ -231,11 +232,11 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_gravity="center_vertical"
-                    android:onClick="@{()->model.allOrder()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->model.allOrder()}">
 
                     <ImageView
                         android:id="@+id/icon_all_order"
@@ -245,21 +246,21 @@
                         android:src="@mipmap/all_order" />
 
                     <TextView
-                        android:layout_marginTop="8dp"
-                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_all_order"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/all_order" />
+                        android:layout_marginTop="8dp"
+                        android:text="@string/all_order"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_gravity="center_vertical"
-                    android:onClick="@{()->model.payment()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->model.payment()}">
 
                     <ImageView
                         android:id="@+id/icon_payment"
@@ -269,21 +270,21 @@
                         android:src="@mipmap/payment" />
 
                     <TextView
-                        android:layout_marginTop="8dp"
-                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_payment"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/payment" />
+                        android:layout_marginTop="8dp"
+                        android:text="@string/payment"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_gravity="center_vertical"
-                    android:onClick="@{()->model.receivingGoods()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->model.receivingGoods()}">
 
                     <ImageView
                         android:id="@+id/icon_receiving_goods"
@@ -293,21 +294,21 @@
                         android:src="@mipmap/consignment" />
 
                     <TextView
-                        android:layout_marginTop="8dp"
-                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_receiving_goods"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/receiving_goods" />
+                        android:layout_marginTop="8dp"
+                        android:text="@string/receiving_goods"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_gravity="center_vertical"
-                    android:onClick="@{()->model.cancel()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->model.cancel()}">
 
                     <ImageView
                         android:id="@+id/icon_cancel"
@@ -317,26 +318,26 @@
                         android:src="@mipmap/refund" />
 
                     <TextView
-                        android:layout_marginTop="8dp"
-                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_cancel"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/cancel" />
+                        android:layout_marginTop="8dp"
+                        android:text="@string/cancel"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/rl_2"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:background="@drawable/bg_button_corner_white">
 
             <LinearLayout
@@ -345,23 +346,23 @@
                 android:layout_height="@dimen/layout_height">
 
                 <View
-                    android:layout_gravity="center_vertical"
                     android:id="@+id/line2"
                     android:layout_width="3dp"
                     android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@color/them_color" />
 
                 <TextView
-                    android:layout_marginStart="8dp"
                     android:id="@+id/tt_common_functions"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/layout_height"
+                    android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:textSize="12sp"
                     android:gravity="center"
-                    android:text="常用功能" />
+                    android:text="常用功能"
+                    android:textSize="@dimen/text2" />
 
             </LinearLayout>
 
@@ -371,6 +372,7 @@
                 android:layout_height="@dimen/line"
                 android:layout_below="@+id/ll_common_functions"
                 android:background="@color/bg_color" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
@@ -378,11 +380,11 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_gravity="center_vertical"
-                    android:onClick="@{()->model.address()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->model.address()}">
 
                     <ImageView
                         android:id="@+id/icon_address"
@@ -392,21 +394,21 @@
                         android:src="@mipmap/receiving_address" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_address"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/address" />
+                        android:layout_marginTop="12dp"
+                        android:text="@string/address"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:onClick="@{()->model.feedback()}"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->model.feedback()}">
 
                     <ImageView
                         android:id="@+id/icon_feedback"
@@ -416,21 +418,21 @@
                         android:src="@mipmap/feedback" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_feedback"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/feedback" />
+                        android:layout_marginTop="12dp"
+                        android:text="@string/feedback"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:onClick="@{()->model.customerService()}"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->model.customerService()}">
 
                     <ImageView
                         android:id="@+id/icon_customer_service"
@@ -440,21 +442,21 @@
                         android:src="@mipmap/customer_service" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_customer_service"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/customer_service" />
+                        android:layout_marginTop="12dp"
+                        android:text="@string/customer_service"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:onClick="@{()->model.setting()}"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->model.setting()}">
 
                     <ImageView
                         android:id="@+id/icon_setting"
@@ -464,13 +466,13 @@
                         android:src="@mipmap/setting" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textSize="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/icon_setting"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/setting" />
+                        android:layout_marginTop="12dp"
+                        android:text="@string/setting"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>

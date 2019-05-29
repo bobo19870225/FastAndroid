@@ -28,10 +28,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:onClick="@{()->m"
                 android:text="清除缓存"
                 android:textColor="#ff333333"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text2" />
 
             <ImageView
                 android:layout_width="@dimen/image"
@@ -40,7 +39,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/image_padding"
-                android:src="@mipmap/back" />
+                android:src="@mipmap/more" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -54,10 +53,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="12dp"
                 android:text="检测更新"
                 android:textColor="#ff333333"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text2" />
 
             <ImageView
                 android:layout_width="@dimen/image"
@@ -66,7 +66,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/image_padding"
-                android:src="@mipmap/back" />
+                android:scaleType="centerCrop"
+                android:src="@mipmap/more" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -83,7 +84,7 @@
                 android:layout_centerVertical="true"
                 android:text="关于我们"
                 android:textColor="#ff333333"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text2" />
 
             <ImageView
                 android:layout_width="@dimen/image"
@@ -92,19 +93,19 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/image_padding"
-                android:src="@mipmap/back" />
+                android:src="@mipmap/more" />
         </RelativeLayout>
 
 
         <TextView
-            android:onClick="@{()->model.exit()}"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:background="@android:color/white"
             android:gravity="center"
+            android:onClick="@{()->model.exit()}"
             android:text="退出登录"
-            android:textColor="#ff333333"
-            android:textSize="12sp" />
+            android:textColor="@color/text_main"
+            android:textSize="@dimen/text1" />
     </LinearLayout>
 </layout>

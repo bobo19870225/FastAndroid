@@ -15,6 +15,7 @@ import com.zaomeng.zaomeng.databinding.FragmentShoppingCartBinding;
 import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
 import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
+import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ShoppingCartFragmentVM;
@@ -37,6 +38,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 //    private double priceTotal;
     @Inject
     HttpHelper httpHelper;
+
     @Inject
     public ShoppingCartFragment() {
     }
@@ -53,7 +55,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                 mViewDataBinding.select.setImageResource(R.mipmap.un_select);
             }
         });
-
+        mViewModel.ldTotal.observe(this, aDouble -> mViewDataBinding.total.setText(FormatUtils.numberFormatMoney(aDouble)));
         mViewModel.action.observe(this, s -> {
             List<List<ShopCartBean>> listGoodsItem = shopCartAdapter.getListGoodsItem();
             switch (s) {

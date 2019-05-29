@@ -15,7 +15,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
-import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
@@ -39,7 +38,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
 
     public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
     //    public final MutableLiveData<String> ldFreight = new MediatorLiveData<>();
-    public final MutableLiveData<String> ldTotal = new MediatorLiveData<>();
+    public final MutableLiveData<Double> ldTotal = new MediatorLiveData<>();
 //    public final MutableLiveData<Boolean> ldIsSelectAll = new MediatorLiveData<>();
 //    public final MutableLiveData<String> ldGoodsNumber = new MediatorLiveData<>();
 
@@ -92,7 +91,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     @Override
     public void setLoadInitialCallback(PageBean<ShopCartBean> body, PageKeyedDataSource.LoadInitialCallback<Integer, ShopCartBean> callback) {
         ldGoodsTotal.postValue(body.getBody().getData().getTotal());
-        ldTotal.postValue(FormatUtils.numberFormatMoneyString(body.getBody().getPriceAfterDiscount()));
+        ldTotal.postValue(body.getBody().getPriceTotal());
 //        ldFreight.postValue("-" + FormatUtils.numberFormatMoneyString(body.getBody().getDiscountPrice()));
         callback.onResult(body.getBody().getData().getRows(), 1, 2);
     }

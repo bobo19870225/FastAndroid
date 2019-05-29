@@ -127,12 +127,13 @@
                 <!--android:text="@string/total" />-->
 
                 <TextView
+                    android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:minWidth="72dp"
-                    android:text="@{model.ldTotal}"
-                    android:textSize="18sp" />
+                    android:textColor="@color/them_color"
+                    android:textSize="@dimen/text1" />
             </RelativeLayout>
 
             <!--<RelativeLayout-->

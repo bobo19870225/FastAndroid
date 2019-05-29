@@ -41,7 +41,9 @@ public class BranchGoodsFragment extends MVVMListFragment<BranchGoodsFragmentVM,
     @NonNull
     @Override
     protected BranchGoodsAdapter setAdapter(Function0 reTry) {
-        return new BranchGoodsAdapter(reTry);
+        BranchGoodsAdapter branchGoodsAdapter = new BranchGoodsAdapter(reTry);
+        branchGoodsAdapter.setOnItemClick((view, ItemObject, position) -> skipTo(GoodsDetailsActivity.class, ItemObject.getObjectID()));
+        return branchGoodsAdapter;
     }
 
     @NonNull
