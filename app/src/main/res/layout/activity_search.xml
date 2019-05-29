@@ -29,7 +29,7 @@
                 android:text="取消"
                 android:textColor="@color/text_main"
                 android:layout_marginRight="16dp"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text1" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -57,6 +57,7 @@
                 android:imeOptions="actionDone"  //右下角按键内容为'完成'
                 -->
                 <EditText
+                    android:textSize="@dimen/text3"
                     android:gravity="center_vertical"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
@@ -94,6 +95,7 @@
                     android:background="@color/bg_color">
 
                     <TextView
+                        android:textSize="@dimen/text2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toStartOf="@+id/delete"
@@ -106,8 +108,8 @@
                     <ImageView
                         android:onClick="@{()->model.clean()}"
                         android:id="@+id/delete"
-                        android:layout_width="@dimen/image"
-                        android:layout_height="@dimen/image"
+                        android:layout_width="@dimen/small_image"
+                        android:layout_height="@dimen/small_image"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
@@ -129,6 +131,7 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
+                    android:textSize="@dimen/text2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/bg_color"

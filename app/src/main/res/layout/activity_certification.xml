@@ -9,7 +9,6 @@
     </data>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -22,7 +21,6 @@
             android:background="@android:color/white">
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -54,7 +52,7 @@
                         android:paddingRight="@dimen/layout_padding"
                         android:text="@string/shop_info"
                         android:textColor="#ff333333"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/text2" />
                 </RelativeLayout>
 
 
@@ -74,7 +72,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/shop_name"
                         android:textColor="#ff333333"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                     <EditText
                         android:id="@+id/shop_name"
@@ -88,7 +86,7 @@
                         android:hint="@string/tt_shop_name"
                         android:inputType="text"
                         android:text="@={model.ldName}"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <View
@@ -114,7 +112,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/shop_type"
                         android:textColor="#ff333333"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                     <TextView
                         android:id="@+id/shop_type"
@@ -128,7 +126,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/chose_type"
                         android:text="@{model.ldShopType}"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                     <ImageView
                         android:id="@+id/image_type"
@@ -208,7 +206,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/detailed_address"
                         android:textColor="#ff333333"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                     <EditText
                         android:id="@+id/detailed_address"
@@ -223,7 +221,7 @@
                         android:hint="@string/address_hint"
                         android:inputType="text"
                         android:text="@={model.ldAddress}"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                 </RelativeLayout>
 
@@ -250,7 +248,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/consignee"
                         android:textColor="#ff333333"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                     <EditText
                         android:id="@+id/consignee"
@@ -264,7 +262,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/consignee_name"
                         android:text="@={model.ldContact}"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                 </RelativeLayout>
 
@@ -291,7 +289,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/consignee_phone"
                         android:textColor="#ff333333"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                     <EditText
                         android:id="@+id/consignee_phone"
@@ -306,7 +304,7 @@
                         android:hint="@string/prompt_email"
                         android:inputType="phone"
                         android:text="@={model.ldContactPhone}"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
 
                 </RelativeLayout>
@@ -336,7 +334,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/shop_photo"
                         android:textColor="#ff333333"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/text2" />
                 </RelativeLayout>
 
 
@@ -378,7 +376,7 @@
                                 android:layout_below="@+id/shop_full_face"
                                 android:text="点击上传店铺门面照"
                                 android:textColor="#ff999999"
-                                android:textSize="12sp" />
+                                android:textSize="@dimen/text3" />
                         </RelativeLayout>
 
                         <ImageView
@@ -419,7 +417,7 @@
                                 android:layout_below="@+id/icon_license"
                                 android:text="点击上营业执照"
                                 android:textColor="#ff999999"
-                                android:textSize="12sp" />
+                                android:textSize="@dimen/text3" />
                         </RelativeLayout>
 
                         <ImageView
@@ -454,7 +452,7 @@
                         android:gravity="center_vertical"
                         android:text="经营者身份证照片"
                         android:textColor="#ff333333"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/text2" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -495,7 +493,7 @@
                                 android:layout_below="@+id/icon_id_front"
                                 android:text="点击上传身份证正面照"
                                 android:textColor="#ff999999"
-                                android:textSize="12sp" />
+                                android:textSize="@dimen/text3" />
                         </RelativeLayout>
 
                         <ImageView
@@ -535,7 +533,7 @@
                                 android:layout_below="@+id/icon_id_back"
                                 android:text="点击上传身份证背面照"
                                 android:textColor="#ff999999"
-                                android:textSize="12sp" />
+                                android:textSize="@dimen/text3" />
                         </RelativeLayout>
 
                         <ImageView
@@ -560,7 +558,7 @@
                     android:onClick="@{()->model.submit()}"
                     android:text="@string/submit"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text1" />
             </LinearLayout>
 
         </ScrollView>

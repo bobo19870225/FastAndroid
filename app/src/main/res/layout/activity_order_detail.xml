@@ -68,6 +68,7 @@
                     android:src="@mipmap/them" />
 
                 <TextView
+                    android:textSize="@dimen/text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -143,30 +144,31 @@
                     android:src="@mipmap/them" />
 
                 <TextView
+                    android:textSize="@dimen/text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/line1"
                     android:layout_toRightOf="@+id/line1"
-                    android:text="送达时间" />
+                    android:text="商品" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf="@+id/chose_time"
-                    android:layout_toLeftOf="@+id/chose_time"
-                    android:text="今天 13：00-16：00"
-                    android:textColor="@color/them_color" />
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_toStartOf="@+id/chose_time"-->
+                <!--android:layout_toLeftOf="@+id/chose_time"-->
+                <!--android:text="今天 13：00-16：00"-->
+                <!--android:textColor="@color/them_color" />-->
 
-                <ImageView
-                    android:id="@+id/chose_time"
-                    android:layout_width="@dimen/image"
-                    android:layout_height="@dimen/image"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:padding="@dimen/image_padding"
-                    android:src="@mipmap/more" />
+                <!--<ImageView-->
+                <!--android:id="@+id/chose_time"-->
+                <!--android:layout_width="@dimen/image"-->
+                <!--android:layout_height="@dimen/image"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:padding="@dimen/image_padding"-->
+                <!--android:src="@mipmap/more" />-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -190,6 +192,7 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
+                    android:textSize="@dimen/text3"
                     android:id="@+id/total_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -223,12 +226,14 @@
 
 
                 <TextView
+                    android:textSize="@dimen/text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="优惠券" />
 
                 <TextView
+                    android:textSize="@dimen/text3"
                     android:id="@+id/bonus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -287,7 +292,7 @@
                 android:layout_height="wrap_content"
                 android:text="商品金额"
                 android:textColor="#ff333333"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text2" />
 
             <TextView
                 android:id="@+id/total"
@@ -297,7 +302,7 @@
                 android:layout_alignParentRight="true"
                 android:text="@{model.ldTotal}"
                 android:textColor="#ff333333"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text3" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -306,7 +311,7 @@
                 android:layout_marginTop="8dp"
                 android:text="优惠金额"
                 android:textColor="#ff333333"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text3" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -317,7 +322,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@{model.ldDiscount}"
                 android:textColor="#ff333333"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text3" />
         </RelativeLayout>
 
     </LinearLayout>

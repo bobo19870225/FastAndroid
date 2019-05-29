@@ -11,9 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_color"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:background="@color/bg_color">
+        android:orientation="vertical">
 
         <!-- Login progress -->
         <RelativeLayout
@@ -42,19 +42,19 @@
 
 
         <ScrollView
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:scrollbars="none"
             android:id="@+id/login_form"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:scrollbars="none">
 
 
             <LinearLayout
-                android:gravity="center"
                 android:id="@+id/email_login_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <com.zaomeng.zaomeng.view.custom_view.CircleImageView
@@ -64,93 +64,97 @@
                     android:src="@mipmap/logo" />
 
                 <TextView
-                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top"
                     android:text="@string/app_name"
                     android:textColor="@color/text_black"
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/title_text_size" />
+                    android:textSize="@dimen/text1"
+                    android:textStyle="bold" />
 
                 <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="@dimen/margin_top"
                     android:background="@drawable/bg_button_corner"
-                    android:layout_width="match_parent"
                     android:paddingStart="16dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
                     <ImageView
-                        android:scaleType="fitCenter"
                         android:id="@+id/icon_user"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="@dimen/small_image"
+                        android:layout_height="@dimen/small_image"
                         android:layout_centerVertical="true"
+                        android:padding="@dimen/image_padding"
+                        android:scaleType="fitCenter"
                         android:src="@mipmap/zhanghao" />
 
                     <EditText
-                        android:background="@null"
                         android:id="@+id/phone"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toEndOf="@+id/icon_user"
                         android:layout_toRightOf="@+id/icon_user"
-                        android:inputType="phone"
-                        android:layout_width="match_parent"
-                        android:text="@={model.ldPhone}"
+                        android:background="@null"
                         android:hint="@string/prompt_email"
-                        android:paddingStart="16dp"
+                        android:inputType="phone"
                         android:maxLines="1"
+                        android:paddingStart="16dp"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:text="@={model.ldPhone}"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="@dimen/margin_top"
                     android:background="@drawable/bg_button_corner"
-                    android:layout_width="match_parent"
                     android:paddingStart="16dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
                     <ImageView
-                        android:scaleType="fitCenter"
                         android:id="@+id/icon_password"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="@dimen/small_image"
+                        android:layout_height="@dimen/small_image"
                         android:layout_centerVertical="true"
+                        android:padding="@dimen/image_padding"
+                        android:scaleType="fitCenter"
                         android:src="@mipmap/mima" />
 
                     <EditText
-                        android:background="@null"
                         android:id="@+id/password"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toEndOf="@+id/icon_password"
                         android:layout_toRightOf="@+id/icon_password"
-                        android:text="@={model.ldPassword}"
-                        android:layout_width="match_parent"
-                        android:inputType="textPassword"
+                        android:background="@null"
                         android:hint="@string/prompt_password"
-                        android:paddingStart="16dp"
+                        android:inputType="textPassword"
                         android:maxLines="1"
+                        android:paddingStart="16dp"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:text="@={model.ldPassword}"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
 
                 <Button
-                    android:onClick="@{()->model.login()}"
-                    android:background="@drawable/bg_button_them_color"
                     android:id="@+id/email_sign_in_button"
-                    android:text="@string/login"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:textColor="@color/text_white"
                     android:layout_marginTop="16dp"
-                    android:textSize="@dimen/title_text_size" />
+                    android:background="@drawable/bg_button_them_color"
+                    android:onClick="@{()->model.login()}"
+                    android:text="@string/login"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text1" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -164,7 +168,6 @@
                         android:layout_centerInParent="true" />
 
                     <TextView
-                        android:onClick="@{()->model.register()}"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="16dp"
@@ -172,11 +175,12 @@
                         android:layout_toStartOf="@+id/group_divider"
                         android:layout_toLeftOf="@+id/group_divider"
                         android:gravity="center"
-                        android:text="@string/user_registration" />
+                        android:onClick="@{()->model.register()}"
+                        android:text="@string/user_registration"
+                        android:textSize="@dimen/text2" />
 
 
                     <TextView
-                        android:onClick="@{()->model.forgetPassword()}"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
@@ -184,7 +188,9 @@
                         android:layout_toEndOf="@+id/group_divider"
                         android:layout_toRightOf="@+id/group_divider"
                         android:gravity="center"
-                        android:text="@string/forget_password" />
+                        android:onClick="@{()->model.forgetPassword()}"
+                        android:text="@string/forget_password"
+                        android:textSize="@dimen/text2" />
                 </RelativeLayout>
 
             </LinearLayout>

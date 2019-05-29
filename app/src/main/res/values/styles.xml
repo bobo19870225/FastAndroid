@@ -20,6 +20,10 @@
         <item name="android:textColor">@color/text_black</item>
     </style>
 
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">@color/text_2</item>
+    </style>
+
     <style name="AppThemeNoActionBar.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -34,6 +38,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:background">#33000000</item>
     </style>
+
     <style name="AppThemeNoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppThemeNoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

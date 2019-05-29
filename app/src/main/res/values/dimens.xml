@@ -29,11 +29,16 @@
     <!--去掉底部导航大小变化-->
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">14dp</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">14dp</dimen>
-    <dimen name="text">12sp</dimen>
+
     <dimen name="common_navigator_height">40dp</dimen>
     <dimen name="point_navigator_height">32dp</dimen>
     <dimen name="navigator_margin_top">5dp</dimen>
     <dimen name="small_navigator_height">5dp</dimen>
     <dimen name="navigator_margin_top_large">45dp</dimen>
     <dimen name="large_navigator_height">65dp</dimen>
+
+    <dimen name="text1">16sp</dimen>
+    <dimen name="text2">14sp</dimen>
+    <dimen name="text3">13sp</dimen>
+
 </resources>

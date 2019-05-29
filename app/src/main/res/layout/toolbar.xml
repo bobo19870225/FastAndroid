@@ -2,23 +2,26 @@
   ~ Copyright (c) 2018. 代码著作权归卢声波所有。
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_tool_bar"
-    app:layout_collapseMode="pin"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_tool_bar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:layout_collapseMode="pin">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@android:color/white"
+        android:theme="@style/ToolbarTheme"
         app:navigationIcon="@mipmap/back"
         app:titleTextAppearance="@style/ToolbarTitle" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="@dimen/text1" />
 </RelativeLayout>

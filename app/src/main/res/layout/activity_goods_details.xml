@@ -73,6 +73,7 @@
                 android:src="@mipmap/gouwuche" />
 
             <Button
+                android:textSize="@dimen/text1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"

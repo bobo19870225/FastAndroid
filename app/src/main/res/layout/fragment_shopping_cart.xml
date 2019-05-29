@@ -30,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/shopping_cart"
-                android:textColor="@color/text_3"
-                android:textSize="20sp" />
+                android:textColor="@color/text_main"
+                android:textSize="@dimen/text1" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -12,30 +12,31 @@
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/bg_color"
+        android:orientation="vertical"
         tools:context="com.zaomeng.zaomeng.view.CommonlyUsedFragment">
 
         <TextView
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@color/white"
             android:gravity="center"
             android:text="@string/commonly_used_list"
-            android:textSize="@dimen/title_text_size" />
+            android:textColor="@color/text_main"
+            android:textSize="@dimen/text1" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:layout_marginTop="1dp"
-            android:background="@color/white"
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
 
             <androidx.recyclerview.widget.RecyclerView
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

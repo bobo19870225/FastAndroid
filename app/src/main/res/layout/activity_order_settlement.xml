@@ -53,7 +53,8 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/line"
                         android:layout_toRightOf="@+id/line"
-                        android:text="@string/address" />
+                        android:text="@string/address"
+                        android:textSize="@dimen/text2" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -68,7 +69,8 @@
                         android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{model.ldAddress}" />
+                        android:text="@{model.ldAddress}"
+                        android:textSize="@dimen/text3" />
 
                     <TextView
                         android:id="@+id/use"
@@ -76,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/address"
                         android:text="@{model.ldUser}"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
 
                     <TextView
                         android:id="@+id/phone"
@@ -88,7 +90,7 @@
                         android:layout_toEndOf="@+id/use"
                         android:layout_toRightOf="@+id/use"
                         android:text="@{model.ldPhone}"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
                 <!--<com.zaomeng.zaomeng.view.custom_view.RecyclerViewForScrollView-->
                 <!--android:id="@+id/list"-->
@@ -126,7 +128,8 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/line1"
                         android:layout_toRightOf="@+id/line1"
-                        android:text="商品" />
+                        android:text="商品"
+                        android:textSize="@dimen/text2" />
 
                     <!--<TextView-->
                     <!--android:layout_width="wrap_content"-->
@@ -210,7 +213,8 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/line2"
                         android:layout_toRightOf="@+id/line2"
-                        android:text="支付方式" />
+                        android:text="支付方式"
+                        android:textSize="@dimen/text2" />
                 </RelativeLayout>
 
 
@@ -231,7 +235,8 @@
                         android:drawableStart="@mipmap/weixinzhifu"
                         android:drawableLeft="@mipmap/weixinzhifu"
                         android:drawablePadding="8dp"
-                        android:text="微信支付" />
+                        android:text="微信支付"
+                        android:textSize="@dimen/text3" />
 
 
                     <RadioButton
@@ -241,7 +246,8 @@
                         android:drawableStart="@mipmap/alipay"
                         android:drawableLeft="@mipmap/alipay"
                         android:drawablePadding="8dp"
-                        android:text="支付宝支付" />
+                        android:text="支付宝支付"
+                        android:textSize="@dimen/text3" />
 
 
                 </RadioGroup>
@@ -261,8 +267,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="优惠券" />
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="12dp"
+                        android:text="优惠券"
+                        android:textSize="@dimen/text3" />
 
                     <TextView
                         android:id="@+id/bonus"
@@ -271,7 +279,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="@{model.ldBonus}" />
+                        android:text="@{model.ldBonus}"
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -290,7 +299,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="备注" />
+                        android:text="备注"
+                        android:textSize="@dimen/text3" />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -304,7 +314,7 @@
                         android:layout_toRightOf="@+id/text"
                         android:background="@color/bg_color"
                         android:hint="选填"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
 
@@ -328,7 +338,8 @@
                 android:layout_marginRight="16dp"
                 android:layout_toStartOf="@+id/submit"
                 android:layout_toLeftOf="@+id/submit"
-                android:textColor="@color/text_them" />
+                android:textColor="@color/text_them"
+                android:textSize="@dimen/text3" />
 
             <TextView
                 android:id="@+id/submit"
@@ -342,7 +353,8 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:text="提交订单"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text1" />
         </RelativeLayout>
     </RelativeLayout>
 </layout>

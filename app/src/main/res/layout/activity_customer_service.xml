@@ -40,7 +40,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="热线电话："
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text2" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="@{model.ldPhone}"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text2" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -65,7 +65,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="常见问题" />
+                android:text="常见问题"
+                android:textSize="@dimen/text3" />
 
             <ImageView
                 android:layout_width="@dimen/image"
@@ -89,7 +90,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="支付问题" />
+                android:text="支付问题"
+                android:textSize="@dimen/text3" />
 
             <ImageView
                 android:layout_width="@dimen/image"
@@ -113,7 +115,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="配送问题" />
+                android:text="配送问题"
+                android:textSize="@dimen/text3" />
 
             <ImageView
                 android:layout_width="@dimen/image"
@@ -138,7 +141,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="10dp"
-                android:text="退换货问题" />
+                android:text="退换货问题"
+                android:textSize="@dimen/text3" />
 
             <ImageView
                 android:layout_width="@dimen/image"
@@ -151,11 +155,11 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:onClick="@{()->model.pointRule()}"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="1dp"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:onClick="@{()->model.pointRule()}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -164,7 +168,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="10dp"
-                android:text="积分规则" />
+                android:text="积分规则"
+                android:textSize="@dimen/text3" />
 
             <ImageView
                 android:layout_width="@dimen/image"

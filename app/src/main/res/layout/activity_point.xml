@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:text="赚取积分"
                 android:textColor="@color/text_main"
-                android:textSize="@dimen/text" />
+                android:textSize="@dimen/text3" />
         </LinearLayout>
 
         <LinearLayout
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:text="积分规则"
                 android:textColor="@color/text_main"
-                android:textSize="@dimen/text" />
+                android:textSize="@dimen/text3" />
         </LinearLayout>
 
         <LinearLayout
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:text="积分兑换"
                 android:textColor="@color/text_main"
-                android:textSize="@dimen/text" />
+                android:textSize="@dimen/text3" />
         </LinearLayout>
     </LinearLayout>
 
