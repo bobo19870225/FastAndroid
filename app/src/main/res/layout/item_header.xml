@@ -1,18 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:orientation="vertical"
     android:paddingTop="13dp">
 
-    <ImageView
-        android:id="@+id/you_hui"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:src="@mipmap/youhui" />
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+
+            <ImageView
+                android:id="@+id/yunshu"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:id="@+id/text_yunshu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_toEndOf="@+id/yunshu"
+                android:layout_toRightOf="@+id/yunshu"
+                android:textSize="@dimen/text3" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/you_hui"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/text_youhui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_toEndOf="@+id/you_hui"
+                android:layout_toRightOf="@+id/you_hui"
+                android:textSize="@dimen/text3" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+
+            <ImageView
+                android:id="@+id/tuihuan"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_toStartOf="@+id/text_tuihuan"
+                android:layout_toLeftOf="@+id/text_tuihuan" />
+
+            <TextView
+                android:id="@+id/text_tuihuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text3" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/fast_link"
@@ -21,34 +91,17 @@
         android:layout_marginTop="13dp"
         android:layout_marginBottom="13dp">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/commonly_used"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/yunshu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/yunshu" />
-
-            <ImageView
-                android:id="@+id/commonly_used"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_below="@+id/yunshu"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="15dp"
-                android:src="@mipmap/used_list" />
-
-        </RelativeLayout>
+            android:src="@mipmap/used_list" />
 
         <ImageView
             android:id="@+id/my_order"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_gravity="bottom"
             android:layout_weight="1"
             android:src="@mipmap/my_order" />
 
@@ -56,34 +109,15 @@
             android:id="@+id/my_bonus"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_gravity="bottom"
             android:layout_weight="1"
             android:src="@mipmap/hongbao" />
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/sign_in"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_weight="1"
-            android:gravity="center">
+            android:src="@mipmap/qiandao" />
 
-            <ImageView
-                android:id="@+id/tuihuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/tuihuan" />
-
-            <ImageView
-                android:id="@+id/sign_in"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_below="@+id/tuihuan"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="15dp"
-                android:src="@mipmap/qiandao" />
-        </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

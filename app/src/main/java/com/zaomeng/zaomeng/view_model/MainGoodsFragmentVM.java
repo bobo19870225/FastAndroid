@@ -75,4 +75,9 @@ public class MainGoodsFragmentVM extends BaseViewModel {
     public LiveData<Resource<Bean<PriceBean>>> getPrice(String objectFeatureItemID1) {
         return apiService.getObjectFeatureData("402892e76a0bd37c016a0be8a94e001e", objectFeatureItemID1);
     }
+
+    public LiveData<Resource<PageBean<NavigatorBean>>> getNodeNavigatorList1() {
+        return apiService.getNodeNavigatorList("aacf61561f274ce2a4da48227eca8062", null, null);
+
+    }
 }

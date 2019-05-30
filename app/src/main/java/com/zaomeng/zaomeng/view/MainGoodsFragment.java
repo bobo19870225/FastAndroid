@@ -66,21 +66,40 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
         swipeRefreshLayout = mViewDataBinding.swipeRefresh;
         swipeRefreshLayout.setColorSchemeResources(R.color.them_color);
         setBanner();
-        GoodsWithTitleAdapter goodsAdapter = getGoodsWithTitleAdapter();
-        setGoodsData(goodsAdapter);
-        mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsAdapter));
-//        Context context = getContext();
-//        if (context != null) {
-//            showSpecificationHelper = new ShowSpecificationHelper(context, this);
-//        }
+        GoodsWithTitleAdapter goodsWithTitleAdapter = getGoodsWithTitleAdapter();
+        setGoodsData(goodsWithTitleAdapter);
+        mViewDataBinding.swipeRefresh.setOnRefreshListener(() -> setGoodsData(goodsWithTitleAdapter));
     }
 
-
+    @SuppressWarnings("unchecked")
     private void setGoodsData(GoodsWithTitleAdapter goodsAdapter) {
+
+        mViewModel.getNodeNavigatorList1().observe(this, pageBeanResource -> {
+            PageDataBean<NavigatorBean> pageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getNodeNavigatorList1();
+                }
+            }, this);
+            list = new ArrayList<>();
+            if (pageDataBean != null) {
+                List<NavigatorBean> rows = pageDataBean.getRows();
+                list.add(new Item(rows, 4));
+            }
+            getGoodsList(goodsAdapter);
+        });
+    }
+
+    private void getGoodsList(GoodsWithTitleAdapter goodsAdapter) {
         mViewModel.getNodeNavigatorList().observe(this, pageBeanResource -> {
             swipeRefreshLayout.setRefreshing(false);
             if (pageBeanResource.isSuccess()) {
-                list = new ArrayList<>();
+
                 PageBean<NavigatorBean> resource = pageBeanResource.getResource();
                 PageDataBean<NavigatorBean> pageDataBean;
                 if (resource != null) {

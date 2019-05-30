@@ -77,11 +77,12 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case R.layout.item_header:
-                ((GoodsHeaderViewHolder) holder).bind(onHeaderItemClick);
+                ((GoodsHeaderViewHolder) holder).bind((Item<List<NavigatorBean>>) getItem(position), onHeaderItemClick);
                 break;
             case R.layout.item_goods1:
                 ((GoodsTitleViewHolder) holder).bind((Item<NavigatorBean.GoodsListBean>) getItem(position), onItemClick, onAddClick, glideUtils);
@@ -103,8 +104,7 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private Object getItem(int position) {
-        //+1头部
-        return objects.get(position - 1);
+        return objects.get(position);
     }
 
 
@@ -114,19 +114,18 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemCount() {
-        //+1头部
-        return objects == null ? 0 : hasExtraRow() ? objects.size() + 2 : objects.size() + 1;
+        return objects == null ? 0 : hasExtraRow() ? objects.size() + 1 : objects.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {//头部
-            return R.layout.item_header;
-        }
+//        if (position == 0) {//头部
+//            return R.layout.item_header;
+//        }
         if (hasExtraRow() && position == getItemCount() - 1) {
             return R.layout.network_state_item;
         } else {
-            switch (objects.get(position - 1).getType()) {
+            switch (objects.get(position).getType()) {
                 case 0:
                     return R.layout.item_goods_navigation;
                 case 1:
@@ -135,6 +134,8 @@ public class GoodsWithTitleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     return R.layout.item_goods_banner;
                 case 3:
                     return R.layout.item_goods_2;
+                case 4:
+                    return R.layout.item_header;
                 default:
                     return R.layout.item_goods1;
             }
