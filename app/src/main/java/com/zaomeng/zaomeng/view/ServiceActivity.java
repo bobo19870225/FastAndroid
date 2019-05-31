@@ -19,8 +19,6 @@ import java.util.List;
 public class ServiceActivity extends BaseDaggerActivity {
 
 
-    private PagerSlidingTabStrip pagerSlidingTabStrip;
-    private ViewPager viewPager;
     @Override
     protected String setToolBarTitle() {
         return "申请售后";
@@ -38,11 +36,11 @@ public class ServiceActivity extends BaseDaggerActivity {
 
     @Override
     protected void initView() {
-        pagerSlidingTabStrip = findViewById(R.id.table_strip);
-        viewPager = findViewById(R.id.view_pager);
+        PagerSlidingTabStrip pagerSlidingTabStrip = findViewById(R.id.table_strip);
+        ViewPager viewPager = findViewById(R.id.view_pager);
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new CommonlyUsedFragment());
+        fragmentList.add(new AfterSaleOrderFragment());
         fragmentList.add(new CommonlyUsedFragment());
         String[] titles = {"售后申请", "申请记录"};
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles, null);

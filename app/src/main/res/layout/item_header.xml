@@ -21,12 +21,14 @@
             <ImageView
                 android:id="@+id/yunshu"
                 android:layout_width="24dp"
-                android:layout_height="24dp" />
+                android:layout_height="24dp"
+                android:padding="4dp" />
 
             <TextView
                 android:id="@+id/text_yunshu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_toEndOf="@+id/yunshu"
@@ -44,7 +46,7 @@
                 android:id="@+id/you_hui"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_centerVertical="true" />
+                android:padding="4dp" />
 
             <TextView
                 android:id="@+id/text_youhui"
@@ -72,12 +74,14 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_toStartOf="@+id/text_tuihuan"
-                android:layout_toLeftOf="@+id/text_tuihuan" />
+                android:layout_toLeftOf="@+id/text_tuihuan"
+                android:padding="4dp" />
 
             <TextView
                 android:id="@+id/text_tuihuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:textSize="@dimen/text3" />
 
 

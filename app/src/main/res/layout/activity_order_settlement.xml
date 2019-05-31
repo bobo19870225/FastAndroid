@@ -140,14 +140,14 @@
                     <!--android:text="今天 13：00-16：00"-->
                     <!--android:textColor="@color/them_color" />-->
 
-                    <ImageView
-                        android:id="@+id/chose_time"
-                        android:layout_width="@dimen/image"
-                        android:layout_height="@dimen/image"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:padding="@dimen/image_padding"
-                        android:src="@mipmap/more" />
+                    <!--<ImageView-->
+                    <!--android:id="@+id/chose_time"-->
+                    <!--android:layout_width="@dimen/image"-->
+                    <!--android:layout_height="@dimen/image"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:padding="@dimen/image_padding"-->
+                    <!--android:src="@mipmap/more" />-->
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -327,7 +327,8 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:background="@color/bg_color">
 
             <TextView
                 android:id="@+id/total"

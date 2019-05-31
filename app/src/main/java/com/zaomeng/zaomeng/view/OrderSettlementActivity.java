@@ -191,6 +191,8 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                 intent.setClass(getApplicationContext(), ChoseAddressActivity.class);
                 startActivityForResult(intent, 111);
 //                skipTo(ChoseAddressActivity.class, null);
+            } else if (s.contains("toast:")) {
+                toast(s.replaceAll("toast:", ""));
             }
         });
     }

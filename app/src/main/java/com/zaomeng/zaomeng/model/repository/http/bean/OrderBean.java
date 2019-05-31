@@ -356,7 +356,7 @@ public class OrderBean {
         private String listImage;
         private String memberOrderID;
         private String objectFeatureItemID1;
-        private Object objectFeatureItemName1;
+        private String objectFeatureItemName1;
         private double priceStand;
         private double discountRate;
         private double priceNow;
@@ -406,11 +406,11 @@ public class OrderBean {
             this.objectFeatureItemID1 = objectFeatureItemID1;
         }
 
-        public Object getObjectFeatureItemName1() {
+        public String getObjectFeatureItemName1() {
             return objectFeatureItemName1;
         }
 
-        public void setObjectFeatureItemName1(Object objectFeatureItemName1) {
+        public void setObjectFeatureItemName1(String objectFeatureItemName1) {
             this.objectFeatureItemName1 = objectFeatureItemName1;
         }
 

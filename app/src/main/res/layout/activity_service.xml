@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height"
         app:pstsDividerPadding="@dimen/divide_padding"
-        app:pstsIndicatorColor="@color/tab_blue"
-        app:pstsIndicatorHeight="@dimen/line"
+        app:pstsIndicatorColor="@color/them_color"
+        app:pstsIndicatorHeight="2dp"
         app:pstsSelectedTabTextColor="@color/them_color"
-        app:pstsTextSize="@dimen/title_text_size"
-        app:pstsUnderlineColor="@color/main_gray"
+        app:pstsTextSize="@dimen/text1"
+        app:pstsUnderlineColor="@color/white"
         app:pstsUnselectedTextColor="@android:color/black">
 
     </com.zaomeng.zaomeng.view.custom_view.PagerSlidingTabStrip>

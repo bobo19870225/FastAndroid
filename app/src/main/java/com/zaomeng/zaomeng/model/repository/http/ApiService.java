@@ -454,6 +454,11 @@ public interface ApiService {
     @GET("getMemberOrderDetail.json")
     LiveData<Resource<Bean<OrderBean>>> getMemberOrderDetail(@Query("sessionID") String sessionID, @Query("memberOrderID") String memberOrderID);
 
+    @GET("applyMemberOrderGoodsReturn.json")
+    LiveData<Resource<Bean<String>>> applyMemberOrderGoodsReturn(@Query("sessionID") String sessionID,
+                                                                 @Query("description") String description,
+                                                                 @Query("memberOrderGoodsID") String memberOrderGoodsID);
+
 
 }
 

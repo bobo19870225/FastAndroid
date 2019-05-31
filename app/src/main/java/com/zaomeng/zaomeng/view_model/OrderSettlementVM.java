@@ -66,6 +66,7 @@ public class OrderSettlementVM extends BaseViewModel {
         String phoneValue = ldPhone.getValue();
         if (userValue == null) {
             action.setValue("toast:请选择收货地址");
+            return;
         }
         ldSubmitOrder.addSource(apiService.createMemberOrderFromCart
                 (sessionID, userValue, phoneValue, addressValue, bonusID), ldSubmitOrder::setValue);

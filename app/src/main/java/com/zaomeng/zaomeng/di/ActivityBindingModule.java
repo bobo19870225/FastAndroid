@@ -67,7 +67,7 @@ public abstract class ActivityBindingModule {
     abstract OrderActivity orderActivity();
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = {OrderModule.class})
+    @ContributesAndroidInjector(modules = {ServiceModule.class})
     abstract ServiceActivity serviceActivity();
 
     @ActivityScoped

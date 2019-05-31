@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_dialog_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="申请原因"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text2" />
+
+    <EditText
+        android:id="@+id/msg"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/tt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/bg_dialog_black"
+        android:gravity="start"
+        android:hint="请写下您的退款理由"
+        android:inputType="text"
+        android:maxLength="200"
+        android:padding="8dp"
+        android:textColor="@color/text_main"
+        android:textSize="@dimen/text3" />
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/msg"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_button_them_color"
+        android:gravity="center"
+        android:text="提交申请"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text2" />
+</RelativeLayout>
