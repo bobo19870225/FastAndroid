@@ -41,7 +41,7 @@ public class ServiceActivity extends BaseDaggerActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new AfterSaleOrderFragment());
-        fragmentList.add(new CommonlyUsedFragment());
+        fragmentList.add(new AfterSaleRecordFragment());
         String[] titles = {"售后申请", "申请记录"};
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fragmentManager, fragmentList, titles, null);
         viewPager.setAdapter(fragmentAdapter);

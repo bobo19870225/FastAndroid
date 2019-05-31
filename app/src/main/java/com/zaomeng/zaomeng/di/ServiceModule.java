@@ -1,7 +1,7 @@
 package com.zaomeng.zaomeng.di;
 
 import com.zaomeng.zaomeng.view.AfterSaleOrderFragment;
-import com.zaomeng.zaomeng.view.CommonlyUsedFragment;
+import com.zaomeng.zaomeng.view.AfterSaleRecordFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -13,8 +13,9 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ServiceModule {
     @ContributesAndroidInjector
-    abstract CommonlyUsedFragment commonlyUsedFragment();
+    abstract AfterSaleRecordFragment afterSaleRecordFragment();
 
     @ContributesAndroidInjector
     abstract AfterSaleOrderFragment afterSaleOrderFragment();
+
 }

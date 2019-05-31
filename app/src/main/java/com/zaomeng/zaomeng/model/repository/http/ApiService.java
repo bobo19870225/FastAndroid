@@ -4,6 +4,7 @@ package com.zaomeng.zaomeng.model.repository.http;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.zaomeng.zaomeng.model.repository.http.bean.AfterSaleBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.AliPayBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ArticleDetailBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
@@ -459,6 +460,12 @@ public interface ApiService {
                                                                  @Query("description") String description,
                                                                  @Query("memberOrderGoodsID") String memberOrderGoodsID);
 
+    /**
+     * 获取退货订单列表
+     */
+    @GET("getMemberOrderGoodsReturnList.json")
+    Call<PageBean<AfterSaleBean>> getMemberOrderGoodsReturnList(
+            @Query("sessionID") String sessionID);
 
 }
 
