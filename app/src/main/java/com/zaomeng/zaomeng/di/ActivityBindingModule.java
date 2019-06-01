@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.di;
 
 import com.zaomeng.zaomeng.view.AddressManageActivity;
+import com.zaomeng.zaomeng.view.AfterSaleDetailsActivity;
 import com.zaomeng.zaomeng.view.BonusActivity;
 import com.zaomeng.zaomeng.view.CalendarActivity;
 import com.zaomeng.zaomeng.view.CertificationActivity;
@@ -147,6 +148,9 @@ public abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector()
     abstract ChoseAddressActivity choseAddressActivity();
+
+    @ContributesAndroidInjector()
+    abstract AfterSaleDetailsActivity afterSaleDetailsActivity();
 
 
 }

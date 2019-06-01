@@ -15,6 +15,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.FocusPictureListRowsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsListRowsBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.GoodsReturnDetailBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.HotWordBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
@@ -304,6 +305,7 @@ public interface ApiService {
      */
     @GET("getMemberShopList.json")
     Call<PageBean<MemberShopBean>> getMemberShopList(@Query("sessionID") String sessionID);
+
     /**
      * 获取我的消息列表
      * 0未审核，1审核通过，2审核拒绝
@@ -466,6 +468,11 @@ public interface ApiService {
     @GET("getMemberOrderGoodsReturnList.json")
     Call<PageBean<AfterSaleBean>> getMemberOrderGoodsReturnList(
             @Query("sessionID") String sessionID);
+
+    @GET("getMemberOrderGoodsReturnDetail.json")
+    LiveData<Resource<Bean<GoodsReturnDetailBean>>> getMemberOrderGoodsReturnDetail(@Query("sessionID") String sessionID,
+                                                                                    @Query("memberOrderGoodsReturnID") String memberOrderGoodsReturnID);
+
 
 }
 

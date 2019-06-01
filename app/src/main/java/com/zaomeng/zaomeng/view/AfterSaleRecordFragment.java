@@ -48,7 +48,7 @@ public class AfterSaleRecordFragment extends MVVMListFragment<AfterSaleRecordFra
     protected AfterSaleRecordAdapter setAdapter(Function0 reTry) {
         AfterSaleRecordAdapter afterSaleOrderAdapter = new AfterSaleRecordAdapter(reTry);
         afterSaleOrderAdapter.setOnItemClick((view, ItemObject, position) -> {
-//            showWhyDialog(ItemObject);
+            skipTo(AfterSaleDetailsActivity.class, ItemObject.getId());
         });
         return afterSaleOrderAdapter;
     }

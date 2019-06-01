@@ -70,6 +70,7 @@
         <activity android:name=".view.PointRuleActivity" />
         <activity android:name=".view.MessageTypeActivity" />
         <activity android:name=".view.ChoseAddressActivity" />
+        <activity android:name=".view.AfterSaleDetailsActivity" />
 
         <receiver android:name=".AppRegister">
             <intent-filter>
