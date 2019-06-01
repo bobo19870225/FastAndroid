@@ -65,7 +65,8 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
               OnItemClick<OrderBean> onItemPayClick,//付款
               OnItemClick<OrderBean> onItemConfirmClick,//确认
               OnItemClick<OrderBean> onItemReturnClick,//退货
-              OnItemClick<OrderBean> onItemCancelClick//取消
+              OnItemClick<OrderBean> onItemCancelClick,//取消
+              OnItemClick<OrderBean> onItemAfterSaleClick//取消
     ) {
         List<OrderBean.GoodsListBean> goodsList = orderBean.getGoodsList();
         if (goodsList != null) {
@@ -136,7 +137,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
                 case 9:
                     strStatus = "已完成";
                     pay.setVisibility(View.VISIBLE);
-                    pay.setText("退换商品");
+                    pay.setText("售后");
                     cancel.setVisibility(View.GONE);
                     break;
                 case 10:
@@ -179,7 +180,11 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
                             onItemConfirmClick.onClick(v, orderBean, getLayoutPosition());
                         break;
                     case 8:
+                        break;
                     case 9:
+                        if (onItemAfterSaleClick != null) {
+                            onItemAfterSaleClick.onClick(v, orderBean, getLayoutPosition());
+                        }
                         break;
                 }
 

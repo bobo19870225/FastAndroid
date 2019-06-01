@@ -55,10 +55,11 @@ public class BasePageKeyedDataSource<Key, Value> extends PageKeyedDataSource<Key
                 PageBean<Value> body = response.body();
                 if (body != null) {
                     function = null;
-
                     if (body.getHeader().getCode() == 0) {
                         listing.networkState.postValue(NetWorkState.loaded());
                         interfacePageRepository.setLoadInitialCallback(body, callback);
+                    } else if (body.getHeader().getCode() == 10000) {
+                        listing.networkState.postValue(NetWorkState.needLogin());
                     } else {
                         listing.networkState.postValue(NetWorkState.error(body.getHeader().getMsg()));
                     }

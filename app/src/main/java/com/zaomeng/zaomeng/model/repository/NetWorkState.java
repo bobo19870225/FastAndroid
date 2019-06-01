@@ -40,4 +40,8 @@ public class NetWorkState {
     public static NetWorkState error(String msg) {
         return new NetWorkState(Status.FAILED, msg);
     }
+
+    public static NetWorkState needLogin() {
+        return new NetWorkState(Status.NEED_LOGIN, null);
+    }
 }

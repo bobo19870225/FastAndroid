@@ -3,6 +3,8 @@ package com.zaomeng.zaomeng.view;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -20,6 +22,10 @@ import com.zaomeng.zaomeng.view.adapter.shop_cart.ShopCartAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMListFragment;
 import com.zaomeng.zaomeng.view_model.ShoppingCartFragmentVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -46,7 +52,8 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
     @Override
     protected void setUI() {
-//        initDialog();
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
         requestPermission();
         shopCartAdapter.isSelectedAll.observe(this, aBoolean -> {
             if (aBoolean) {
@@ -55,7 +62,30 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                 mViewDataBinding.select.setImageResource(R.mipmap.un_select);
             }
         });
-        mViewModel.ldTotal.observe(this, aDouble -> mViewDataBinding.total.setText(FormatUtils.numberFormatMoney(aDouble)));
+        mViewModel.ldTotal.observe(this, aDouble -> {
+            TextView ttTotal = mViewDataBinding.ttTotal;
+            TextView total = mViewDataBinding.total;
+            if (aDouble == 0) {
+                ttTotal.setVisibility(View.GONE);
+                total.setVisibility(View.GONE);
+            } else {
+                ttTotal.setVisibility(View.VISIBLE);
+                total.setVisibility(View.VISIBLE);
+                total.setText(FormatUtils.numberFormatMoney(aDouble));
+            }
+        });
+        mViewModel.ldDiscount.observe(this, aDouble -> {
+            TextView ttDiscount = mViewDataBinding.ttDiscount;
+            TextView discount = mViewDataBinding.discount;
+            if (aDouble == 0) {
+                ttDiscount.setVisibility(View.GONE);
+                discount.setVisibility(View.GONE);
+            } else {
+                ttDiscount.setVisibility(View.VISIBLE);
+                discount.setVisibility(View.VISIBLE);
+                discount.setText(FormatUtils.numberFormatMoney(aDouble));
+            }
+        });
         mViewModel.action.observe(this, s -> {
             List<List<ShopCartBean>> listGoodsItem = shopCartAdapter.getListGoodsItem();
             switch (s) {
@@ -272,14 +302,21 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 //        }
 //        refresh();
 //    }
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//    }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        refresh();
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(String event) {
+        if (event.equals("refreshShopCart")) {
+            refresh();
+        }
     }
 }

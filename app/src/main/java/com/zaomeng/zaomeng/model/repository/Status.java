@@ -7,5 +7,6 @@ package com.zaomeng.zaomeng.model.repository;
 public enum Status {
     RUNNING,
     SUCCESS,
-    FAILED
+    FAILED,
+    NEED_LOGIN
 }

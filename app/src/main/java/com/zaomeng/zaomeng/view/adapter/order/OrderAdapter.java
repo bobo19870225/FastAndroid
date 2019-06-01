@@ -28,6 +28,11 @@ public class OrderAdapter extends BasePagedListAdapter<OrderBean> {
     private OnItemClick<OrderBean> onItemConfirmClick;//确认
     private OnItemClick<OrderBean> onItemReturnClick;//退货
     private OnItemClick<OrderBean> onItemCancelClick;
+    private OnItemClick<OrderBean> onItemAfterSaleClick;
+
+    public void setOnItemAfterSaleClick(OnItemClick<OrderBean> onItemAfterSaleClick) {
+        this.onItemAfterSaleClick = onItemAfterSaleClick;
+    }
 
     public void setOnItemClick(OnItemClick<OrderBean> onItemClick) {
         this.onItemClick = onItemClick;
@@ -59,7 +64,7 @@ public class OrderAdapter extends BasePagedListAdapter<OrderBean> {
     protected void viewHolderBind(RecyclerView.ViewHolder holder, int position) {
         ((OrderViewHolder) holder).bind(getItem(position),
                 onItemClick, onItemPayClick, onItemConfirmClick,
-                onItemReturnClick, onItemCancelClick);
+                onItemReturnClick, onItemCancelClick, onItemAfterSaleClick);
     }
 
     @Override

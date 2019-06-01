@@ -93,6 +93,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                 }
             }, this);
             if (s != null) {
+                EventBus.getDefault().post("refreshShopCart");
                 if (ldPayType == R.id.radio_weixin) {
                     mViewModel.appApplyMemberOrderPayForWeChat(s).observe(this, payBeanResource -> {
                         if (payBeanResource.isSuccess()) {

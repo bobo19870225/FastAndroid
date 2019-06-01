@@ -189,6 +189,9 @@ public class AllOrderFragment extends MVVMListFragment<OrderFragmentVM, Fragment
                 refresh();
             }
         }));
+        orderAdapter.setOnItemAfterSaleClick((view, ItemObject, position) -> {
+            skipTo(ServiceActivity.class);
+        });
         return orderAdapter;
     }
 

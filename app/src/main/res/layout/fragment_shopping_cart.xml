@@ -115,49 +115,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@+id/settlement"
-                android:layout_toLeftOf="@+id/settlement">
+                android:layout_toLeftOf="@+id/settlement"
+                android:gravity="center_vertical">
 
-                <!--<TextView-->
-                <!--android:textSize="18sp"-->
-                <!--android:textColor="@android:color/black"-->
-                <!--android:id="@+id/total"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:text="@string/total" />-->
+                <TextView
+                    android:id="@+id/tt_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total"
+                    android:textColor="@color/text_main"
+                    android:textSize="@dimen/text1" />
 
                 <TextView
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/tt_total"
+                    android:layout_toRightOf="@+id/tt_total"
                     android:minWidth="72dp"
                     android:textColor="@color/them_color"
                     android:textSize="@dimen/text1" />
+
+                <TextView
+                    android:id="@+id/ttDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tt_total"
+                    android:text="已优惠："
+                    android:textSize="@dimen/text1" />
+
+                <TextView
+                    android:id="@+id/discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tt_total"
+                    android:layout_toEndOf="@+id/ttDiscount"
+                    android:layout_toRightOf="@+id/ttDiscount"
+                    android:minWidth="72dp"
+                    android:textColor="@color/them_color" />
             </RelativeLayout>
-
-            <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1">-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/freight"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="优惠金额：" />-->
-
-            <!--<TextView-->
-            <!--android:textColor="@color/text_red"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_toEndOf="@+id/freight"-->
-            <!--android:layout_toRightOf="@+id/freight"-->
-            <!--android:minWidth="72dp"-->
-            <!--android:text="@{model.ldFreight}" />-->
-            <!--</RelativeLayout>-->
 
 
             <View
