@@ -98,12 +98,12 @@ public class AfterSaleOrderFragment extends MVVMListFragment<AfterSaleOrderFragm
 
                 }
             }, this);
-            if (s != null) {
-                if (bottomSheetDialog.isShowing()) {
-                    bottomSheetDialog.dismiss();
-                }
-                refresh();
+
+            if (bottomSheetDialog.isShowing()) {
+                bottomSheetDialog.dismiss();
             }
+            refresh();
+
         });
     }
 

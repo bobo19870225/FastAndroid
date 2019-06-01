@@ -74,18 +74,18 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                 total.setText(FormatUtils.numberFormatMoney(aDouble));
             }
         });
-        mViewModel.ldDiscount.observe(this, aDouble -> {
-            TextView ttDiscount = mViewDataBinding.ttDiscount;
-            TextView discount = mViewDataBinding.discount;
-            if (aDouble == 0) {
-                ttDiscount.setVisibility(View.GONE);
-                discount.setVisibility(View.GONE);
-            } else {
-                ttDiscount.setVisibility(View.VISIBLE);
-                discount.setVisibility(View.VISIBLE);
-                discount.setText(FormatUtils.numberFormatMoney(aDouble));
-            }
-        });
+//        mViewModel.ldDiscount.observe(this, aDouble -> {
+//            TextView ttDiscount = mViewDataBinding.ttDiscount;
+//            TextView discount = mViewDataBinding.discount;
+//            if (aDouble == 0) {
+//                ttDiscount.setVisibility(View.GONE);
+//                discount.setVisibility(View.GONE);
+//            } else {
+//                ttDiscount.setVisibility(View.VISIBLE);
+//                discount.setVisibility(View.VISIBLE);
+//                discount.setText(FormatUtils.numberFormatMoney(aDouble));
+//            }
+//        });
         mViewModel.action.observe(this, s -> {
             List<List<ShopCartBean>> listGoodsItem = shopCartAdapter.getListGoodsItem();
             switch (s) {

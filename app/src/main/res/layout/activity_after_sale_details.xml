@@ -111,5 +111,28 @@
         </RelativeLayout>
 
 
+        <TextView
+            android:id="@+id/tt_reasons_for_refusal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:text="拒绝理由"
+            android:textSize="@dimen/text2" />
+
+
+        <TextView
+            android:id="@+id/reasons_for_refusal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:text="@{model.ldReasons}"
+            android:textSize="@dimen/text2" />
     </LinearLayout>
 </layout>

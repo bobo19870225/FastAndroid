@@ -27,8 +27,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:id="@+id/tt_address"
@@ -328,19 +327,51 @@
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="16dp"
-            android:background="@color/bg_color">
+            android:background="@color/bg_color"
+            android:paddingLeft="16dp">
 
-            <TextView
-                android:id="@+id/total"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_toStartOf="@+id/submit"
-                android:layout_toLeftOf="@+id/submit"
-                android:textColor="@color/text_them"
-                android:textSize="@dimen/text3" />
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/tt_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合计："
+                    android:textSize="@dimen/text3" />
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tt_total"
+                    android:layout_toRightOf="@+id/tt_total"
+                    android:minWidth="72dp"
+                    android:textColor="@color/text_them"
+                    android:textSize="@dimen/text3" />
+
+                <TextView
+                    android:id="@+id/ttDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total"
+                    android:text="已优惠："
+                    android:textSize="@dimen/text3" />
+
+                <TextView
+                    android:id="@+id/discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total"
+                    android:layout_toEndOf="@+id/ttDiscount"
+                    android:layout_toRightOf="@+id/ttDiscount"
+                    android:minWidth="72dp"
+                    android:textColor="@color/them_color"
+                    android:textSize="@dimen/text3" />
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/submit"

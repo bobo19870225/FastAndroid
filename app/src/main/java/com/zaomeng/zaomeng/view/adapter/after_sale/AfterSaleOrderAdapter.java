@@ -59,7 +59,8 @@ public class AfterSaleOrderAdapter extends BasePagedListAdapter<OrderBean> {
         public boolean areContentsTheSame(@NonNull OrderBean oldItem, @NonNull OrderBean newItem) {
             return oldItem.getId().equals(newItem.getId())
                     && oldItem.getApplyTime() == newItem.getApplyTime()
-                    && oldItem.getStatus() == newItem.getStatus();
+                    && oldItem.getStatus() == newItem.getStatus()
+                    && oldItem.getGoodsList().equals(newItem.getGoodsList());
 
         }
     };

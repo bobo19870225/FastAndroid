@@ -22,6 +22,7 @@ public class AfterSaleDetailsVM extends BaseViewModel {
     public final MutableLiveData<String> ldTime = new MutableLiveData<>();
     public final MutableLiveData<String> ldNo = new MutableLiveData<>();
     public final MutableLiveData<String> ldState = new MutableLiveData<>();
+    public final MutableLiveData<String> ldReasons = new MutableLiveData<>();
 
     private String sessionID;
 

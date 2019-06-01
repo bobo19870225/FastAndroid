@@ -64,11 +64,11 @@ public class AfterSaleOrderViewHolder extends RecyclerView.ViewHolder {
 
                     switch (status) {
                         case 2:
-                            textViewReturn.setText("已退货");
+                            textViewReturn.setText("申请退货中...");
                             textViewReturn.setBackground(textViewReturn.getContext().getResources().getDrawable(R.drawable.bg_circular_gray));
                             break;
                         case 3:
-                            textViewReturn.setText("已拒绝");
+                            textViewReturn.setText("已退货");
                             textViewReturn.setBackground(textViewReturn.getContext().getResources().getDrawable(R.drawable.bg_circular_gray));
                             break;
                         default:

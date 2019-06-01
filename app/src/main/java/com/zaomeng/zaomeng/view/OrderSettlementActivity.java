@@ -223,7 +223,8 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
             }, this);
             if (shopCartBeanPageBodyBean != null) {
                 priceNow = shopCartBeanPageBodyBean.getPriceAfterDiscount();
-                mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(priceNow)));
+                mViewDataBinding.total.setText(FormatUtils.numberFormatMoney(priceNow));
+                mViewDataBinding.discount.setText(FormatUtils.numberFormatMoney(shopCartBeanPageBodyBean.getDiscountPrice()));
             }
         });
     }
@@ -239,12 +240,12 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                     mViewModel.bonusID = bonusBean.getId();
                     mViewModel.ldBonus.setValue("-" + FormatUtils.numberFormatMoney(bonusBean.getAmount()));
                     mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_them));
-                    mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(total)));
+                    mViewDataBinding.total.setText(FormatUtils.numberFormatMoney(total));
                 } else {
                     mViewModel.bonusID = null;
                     mViewModel.ldBonus.setValue("所选红包不可用");
                     mViewDataBinding.bonus.setTextColor(getResources().getColor(R.color.text_main));
-                    mViewDataBinding.total.setText(String.format("共计：%s", FormatUtils.numberFormatMoney(priceNow)));
+                    mViewDataBinding.total.setText(FormatUtils.numberFormatMoney(priceNow));
                 }
 
             }
@@ -308,9 +309,13 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
 
     @SuppressWarnings("unchecked")
     private void setOrderList() {
+        int orderNumber = 0;
         RecyclerView listOrder = mViewDataBinding.listOrder;
         List<ShopCartBean> shopCartBeans = (List<ShopCartBean>) transferData;
-        mViewModel.ldOrderNumber.setValue("共" + shopCartBeans.size() + "件");
+        for (ShopCartBean shopCartBean : shopCartBeans) {
+            orderNumber += shopCartBean.getQty();
+        }
+        mViewModel.ldOrderNumber.setValue("共" + orderNumber + "件");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         listOrder.setLayoutManager(linearLayoutManager);

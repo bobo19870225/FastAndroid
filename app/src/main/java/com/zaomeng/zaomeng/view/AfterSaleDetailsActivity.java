@@ -1,5 +1,7 @@
 package com.zaomeng.zaomeng.view;
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -49,7 +51,26 @@ public class AfterSaleDetailsActivity extends MVVMActivity<AfterSaleDetailsVM, A
                 mViewModel.ldNo.setValue(pageDataBean.getReturnCode());
                 mViewModel.ldTime.setValue(pageDataBean.getApplyTimeStr());
                 mViewDataBinding.price.setText(FormatUtils.numberFormatMoney(pageDataBean.getPriceTotalReturn()));
-                mViewModel.ldState.setValue(pageDataBean.getMemo());
+
+                int status = pageDataBean.getStatus();
+                switch (status) {
+                    case 1:
+                        mViewModel.ldState.setValue("退货审核中");
+                        mViewDataBinding.ttReasonsForRefusal.setVisibility(View.GONE);
+                        mViewDataBinding.reasonsForRefusal.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        mViewModel.ldState.setValue("退货完成");
+                        mViewDataBinding.ttReasonsForRefusal.setVisibility(View.GONE);
+                        mViewDataBinding.reasonsForRefusal.setVisibility(View.GONE);
+                        break;
+                    case 3:
+                        mViewDataBinding.ttReasonsForRefusal.setVisibility(View.VISIBLE);
+                        mViewDataBinding.reasonsForRefusal.setVisibility(View.VISIBLE);
+                        mViewModel.ldState.setValue("退货被拒绝");
+                        mViewModel.ldReasons.setValue(pageDataBean.getMemo());
+                        break;
+                }
             }
         });
 
