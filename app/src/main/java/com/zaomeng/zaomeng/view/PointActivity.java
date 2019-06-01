@@ -53,9 +53,9 @@ public class PointActivity extends BaseDaggerActivity {
     @Override
     protected void initView() {
         point = findViewById(R.id.point);
-        findViewById(R.id.ll_jfgz).setOnClickListener(v -> {
-            skipTo(PointRuleActivity.class, null);
-        });
+        findViewById(R.id.ll_jfgz).setOnClickListener(v -> skipTo(PointRuleActivity.class, "积分规则"));
+        findViewById(R.id.ll_zqjf).setOnClickListener(v -> skipTo(PointRuleActivity.class, "赚取积分"));
+        findViewById(R.id.ll_jfdh).setOnClickListener(v -> skipTo(PointRuleActivity.class, "积分兑换"));
         findViewById(R.id.back).setOnClickListener(v -> finish());
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new PointFragment());

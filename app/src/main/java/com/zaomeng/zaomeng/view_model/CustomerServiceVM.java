@@ -20,6 +20,7 @@ public class CustomerServiceVM extends BaseViewModel {
     private ApiService apiService;
     public final MutableLiveData<String> ldPhone = new MutableLiveData<>();
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
+
     public CustomerServiceVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -36,5 +37,21 @@ public class CustomerServiceVM extends BaseViewModel {
 
     public void pointRule() {
         action.setValue("pointRule");
+    }
+
+    public void FAQ() {
+        action.setValue("FAQ");
+    }
+
+    public void payQuestion() {
+        action.setValue("payQuestion");
+    }
+
+    public void deliveryQuestion() {
+        action.setValue("deliveryQuestion");
+    }
+
+    public void returnGoodsQuestion() {
+        action.setValue("returnGoodsQuestion");
     }
 }

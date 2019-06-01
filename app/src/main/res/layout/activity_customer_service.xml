@@ -54,12 +54,15 @@
 
         </RelativeLayout>
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:onClick="@{()->model.FAQ()}">
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -82,7 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="1dp"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:onClick="@{()->model.payQuestion()}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,6 +94,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginBottom="66dp"
                 android:text="支付问题"
                 android:textSize="@dimen/text3" />
 
@@ -107,7 +112,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="1dp"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:onClick="@{()->model.deliveryQuestion()}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -132,7 +138,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="1dp"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:onClick="@{()->model.returnGoodsQuestion()}">
 
             <TextView
                 android:layout_width="wrap_content"
