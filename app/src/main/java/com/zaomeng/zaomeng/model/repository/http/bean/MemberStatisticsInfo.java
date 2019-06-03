@@ -6,6 +6,7 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
  */
 public class MemberStatisticsInfo {
 
+
     /**
      * id : 2c9051726a9b0175016ab994bc4f0352
      * name : 会员卢声波的资金统计
@@ -17,6 +18,8 @@ public class MemberStatisticsInfo {
      * cashBalance : 0.0
      * cashTotalRecharge : 0.0
      * memberBonusNum : 1
+     * rankName : 黄金会员
+     * rankUrl : http://qn.wgclm.com/63d5c73eee084f04887744aef7d239e7.png
      */
 
     private String id;
@@ -29,6 +32,8 @@ public class MemberStatisticsInfo {
     private double cashBalance;
     private double cashTotalRecharge;
     private int memberBonusNum;
+    private String rankName;
+    private String rankUrl;
 
     public String getId() {
         return id;
@@ -108,5 +113,21 @@ public class MemberStatisticsInfo {
 
     public void setMemberBonusNum(int memberBonusNum) {
         this.memberBonusNum = memberBonusNum;
+    }
+
+    public String getRankName() {
+        return rankName;
+    }
+
+    public void setRankName(String rankName) {
+        this.rankName = rankName;
+    }
+
+    public String getRankUrl() {
+        return rankUrl;
+    }
+
+    public void setRankUrl(String rankUrl) {
+        this.rankUrl = rankUrl;
     }
 }

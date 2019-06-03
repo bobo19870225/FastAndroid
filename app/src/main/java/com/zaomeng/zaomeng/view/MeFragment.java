@@ -100,6 +100,8 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
             if (memberStatisticsInfo != null) {
                 mViewModel.ldCoupon.setValue("(" + memberStatisticsInfo.getMemberBonusNum() + ")");
                 mViewModel.ldPoint.setValue("(" + memberStatisticsInfo.getPointTotal() + ")");
+                mViewDataBinding.vipLevel.setText(memberStatisticsInfo.getRankName());
+                Glide.with(mViewDataBinding.iconVIP).load(memberStatisticsInfo.getRankUrl()).into(mViewDataBinding.iconVIP);
             }
         });
 
