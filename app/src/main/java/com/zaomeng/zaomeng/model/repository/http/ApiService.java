@@ -20,6 +20,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.GoodsSuperBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.HotWordBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.MemberStatisticsInfo;
 import com.zaomeng.zaomeng.model.repository.http.bean.MessageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.MessageTypeBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
@@ -472,6 +473,12 @@ public interface ApiService {
     @GET("getMemberOrderGoodsReturnDetail.json")
     LiveData<Resource<Bean<GoodsReturnDetailBean>>> getMemberOrderGoodsReturnDetail(@Query("sessionID") String sessionID,
                                                                                     @Query("memberOrderGoodsReturnID") String memberOrderGoodsReturnID);
+
+    @GET("getMemberStatisticsInfo.json")
+    LiveData<Resource<Bean<MemberStatisticsInfo>>> getMemberStatisticsInfo(@Query("sessionID") String sessionID);
+
+    @GET("getNoReadMessageNum.json")
+    LiveData<Resource<Bean<Integer>>> getNoReadMessageNum(@Query("sessionID") String sessionID);
 
 
 }

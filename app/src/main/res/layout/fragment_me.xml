@@ -108,26 +108,27 @@
                     android:src="@mipmap/coupon" />
 
                 <TextView
+                    android:id="@+id/tt_coupon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
                     android:layout_toEndOf="@+id/icon_coupon"
                     android:layout_toRightOf="@+id/icon_coupon"
                     android:gravity="center"
                     android:text="@string/coupon"
+                    android:textColor="@color/text_main"
                     android:textSize="@dimen/text2" />
 
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_marginEnd="@dimen/layout_margin"-->
-                <!--android:layout_marginRight="@dimen/layout_margin"-->
-                <!--android:gravity="center"-->
-                <!--android:text="N张"-->
-                <!--android:textColor="@android:color/holo_red_light" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@+id/tt_coupon"
+                    android:layout_toRightOf="@+id/tt_coupon"
+                    android:gravity="center"
+                    android:text="@{model.ldCoupon}"
+                    android:textColor="@color/text_main"
+                    android:textSize="@dimen/text1" />
             </RelativeLayout>
 
             <View
@@ -156,6 +157,7 @@
                     android:src="@mipmap/points_manage" />
 
                 <TextView
+                    android:id="@+id/tt_point"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="44dp"
@@ -164,18 +166,18 @@
                     android:layout_toRightOf="@+id/icon_score"
                     android:gravity="center"
                     android:text="@string/score"
+                    android:textColor="@color/text_main"
                     android:textSize="@dimen/text2" />
 
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_marginEnd="@dimen/layout_margin"-->
-                <!--android:layout_marginRight="@dimen/layout_margin"-->
-                <!--android:gravity="center"-->
-                <!--android:text="100分"-->
-                <!--android:textColor="@android:color/holo_green_light" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@+id/tt_point"
+                    android:layout_toRightOf="@+id/tt_point"
+                    android:gravity="center"
+                    android:text="@{model.ldPoint}"
+                    android:textColor="@color/text_main"
+                    android:textSize="@dimen/text1" />
             </RelativeLayout>
 
         </RelativeLayout>

@@ -7,29 +7,33 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
 public class GoodsDetailsBean {
 
     /**
-     * id : 2c9051726a3f6378016a483b2ce8005c
+     * id : 2c9051726a3f6378016a482352ff0023
      * goodsCategoryID : fa7c2854-8b56-492b-b542-58a4ab2a7358
-     * name : 安井 杂粮包 800g（早餐 粗粮养胃 馒头花卷 早餐包子 早茶点心）
+     * name : 知味观 小笼包 笋丁猪肉味 250g（包子 早餐 馒头花卷 杭州特产）
      * shortName : null
-     * showName : 安井 杂粮包 800g（早餐 粗粮养胃 馒头花卷 早餐包子 早茶点心）
-     * description : 品牌： 安井
-     商品名称：安井冷冻面点 杂粮包
-     商品编号：3891852
-     商品毛重：0.83kg
-     商品产地：江苏无锡；福建厦门
-     国产/进口：国产
-     分类：馒头
-     风味：中式
-     * largerImage : http://wj.haoju.me/d67e1dfa40c84fb9914756fe7f9dff10.jpg
-     * littleImage : http://wj.haoju.me/d67e1dfa40c84fb9914756fe7f9dff10.jpg
+     * showName : 知味观 小笼包 笋丁猪肉味 250g（包子 早餐 馒头花卷 杭州特产）
+     * description : 商品名称：知味观小笼包
+     商品编号：7088658
+     商品毛重：290.00g
+     商品产地：浙江省杭州市
+     货号：6957310403004
+     风味：中式套餐
+     份量：1人份
+     净含量：300g以下
+     分类：包子
+     国产/进口：国产售卖
+     方式：单品
+     * largerImage : http://wj.haoju.me/14ef7461cc2c42ebb3f10651b63a7826.jpg
+     * littleImage : http://wj.haoju.me/14ef7461cc2c42ebb3f10651b63a7826.jpg
      * standPrice : 0.0
-     * realPrice : 22.0
+     * realPrice : 7.8
      * stockNumber : 0.0
      * stockOut : 0.0
      * salesUnit : null
-     * brandName : 安井
+     * brandName : 知味观
      * showPrice : 0.0
-     * isCollect : 0
+     * isCollect : 1
+     * collectID : 2c9051726b17b4db016b1885da3b0004
      */
 
     private String id;
@@ -48,6 +52,7 @@ public class GoodsDetailsBean {
     private String brandName;
     private double showPrice;
     private int isCollect;
+    private String collectID;
 
     public String getId() {
         return id;
@@ -175,6 +180,14 @@ public class GoodsDetailsBean {
 
     public void setIsCollect(int isCollect) {
         this.isCollect = isCollect;
+    }
+
+    public String getCollectID() {
+        return collectID;
+    }
+
+    public void setCollectID(String collectID) {
+        this.collectID = collectID;
     }
 }
 

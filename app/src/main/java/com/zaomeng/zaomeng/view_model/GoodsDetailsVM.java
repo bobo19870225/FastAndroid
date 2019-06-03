@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
@@ -29,7 +28,7 @@ import retrofit2.Call;
  */
 public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean> {
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
-    public final MediatorLiveData<Resource<Bean<GoodsDetailsBean>>> ldGoodsDetails = new MediatorLiveData<>();
+    //    public final MediatorLiveData<Resource<Bean<GoodsDetailsBean>>> ldGoodsDetails = new MediatorLiveData<>();
     //    public final MutableLiveData<String> ldDescribe = new MutableLiveData<>();
 //    public final MutableLiveData<SpannableString> ldShowPrice = new MutableLiveData<>();
 //    public final MutableLiveData<String> ldShowName = new MutableLiveData<>();
@@ -37,6 +36,7 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
 //    public String goodsId;
     private ApiService apiService;
     private String sessionID;
+
     public GoodsDetailsVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -46,7 +46,11 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
     @Override
     public void init(Object data) {
         sessionID = SharedPreferencesUtils.getSessionID(getApplication());
-        ldGoodsDetails.addSource(apiService.getGoodsShopDetail((String) data, SharedPreferencesUtils.getMemberID(getApplication())), ldGoodsDetails::setValue);
+
+    }
+
+    public LiveData<Resource<Bean<GoodsDetailsBean>>> getGoodsShopDetail(String goodsShopID) {
+        return apiService.getGoodsShopDetail(goodsShopID, SharedPreferencesUtils.getMemberID(getApplication()));
     }
 
     public void back() {
@@ -120,5 +124,9 @@ public class GoodsDetailsVM extends ListViewModel<Integer, GoodsDetailsImageBean
 
     public LiveData<Resource<Bean<PriceBean>>> getPrice(String goodsID, String objectFeatureItemID1) {
         return apiService.getObjectFeatureData(goodsID, objectFeatureItemID1);
+    }
+
+    public LiveData<Resource<Bean<String>>> removeCollect(String collectID) {
+        return apiService.removeCollect(sessionID, collectID);
     }
 }

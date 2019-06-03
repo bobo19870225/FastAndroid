@@ -4,6 +4,7 @@ import android.view.Gravity;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -54,7 +55,8 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     private GoodsDetailsAdapter goodsDetailsAdapter;
     private GoodsDetailsHeaderBean goodsDetailsHeaderBean;
     private Badge badge;
-
+    private final MutableLiveData<Integer> ldIsCollect = new MutableLiveData<>();
+    private String collectID;
     @NonNull
     @Override
     protected GoodsDetailsVM createdViewModel() {
@@ -65,6 +67,7 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     @Override
     protected void setView() {
         super.setView();
+        getGoodsDetail(false);
         showSpecificationHelper = new ShowSpecificationHelper(this, this);
         badge = new QBadgeView(this).bindTarget(mViewDataBinding.shopCar)
                 .setShowShadow(false)
@@ -98,24 +101,47 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     finish();
                     break;
                 case "addCollect":
-                    if (goodsId != null && goodsName != null)
-                        mViewModel.addCollect(goodsId, goodsName).observe(this, beanResource -> {
-                            String collectBean = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
-                                @Override
-                                public void skipLoginActivity() {
-                                    toLogin();
-                                }
+                    if (goodsId != null && goodsName != null) {
+                        Integer ldIsCollectValue = ldIsCollect.getValue();
+                        if (ldIsCollectValue != null && ldIsCollectValue == 0) {
+                            mViewModel.addCollect(goodsId, goodsName).observe(this, beanResource -> {
+                                String collectBean = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                                    @Override
+                                    public void skipLoginActivity() {
+                                        toLogin();
+                                    }
 
-                                @Override
-                                public void reLoad() {
-                                    mViewModel.addCollect(goodsId, goodsName);
+                                    @Override
+                                    public void reLoad() {
+                                        mViewModel.addCollect(goodsId, goodsName);
+                                    }
+                                }, this);
+                                if (collectBean != null) {
+                                    getGoodsDetail(true);
+                                    toast("收藏成功");
                                 }
-                            }, this);
-                            if (collectBean != null) {
-                                mViewDataBinding.collect.setImageResource(R.mipmap.collect);
-                                toast("收藏成功");
-                            }
-                        });
+                            });
+                        } else {
+                            mViewModel.removeCollect(collectID).observe(this, beanResource -> {
+                                String collectBean = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                                    @Override
+                                    public void skipLoginActivity() {
+                                        toLogin();
+                                    }
+
+                                    @Override
+                                    public void reLoad() {
+                                        mViewModel.removeCollect(goodsId);
+                                    }
+                                }, this);
+                                if (collectBean != null) {
+                                    getGoodsDetail(true);
+                                    toast("取消收藏");
+                                }
+                            });
+                        }
+                    }
+
                     break;
                 case "shopCar":
                     skipTo(MainActivity.class, 3, true);
@@ -169,40 +195,42 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
             }
 
         });
-        mViewModel.ldGoodsDetails.observe(this, beanResource -> {
-            if (beanResource.isSuccess()) {
-                Bean<GoodsDetailsBean> goodsDetailsBeanBean = beanResource.getResource();
-                if (goodsDetailsBeanBean != null) {
-                    if (goodsDetailsBeanBean.getHeader().getCode() == 0) {
-                        GoodsDetailsBean goodsDetailsBean = goodsDetailsBeanBean.getBody().getData();
-                        setListView(goodsDetailsBean.getId());
-//                        mViewModel.ldShowName.setValue(goodsDetailsBean.getShowName());
-                        goodsName = goodsDetailsBean.getName();
-                        goodsId = goodsDetailsBean.getId();
-                        goodsDetailsHeaderBean = new GoodsDetailsHeaderBean();
-                        goodsDetailsHeaderBean.setGoodsName(goodsDetailsBean.getShowName());
-                        goodsDetailsHeaderBean.setPrice(goodsDetailsBean.getRealPrice());
-                        goodsDetailsHeaderBean.setDescribe(goodsDetailsBean.getDescription());
-                        getBannerImage();
-                        if (goodsDetailsBean.getIsCollect() == 1) {
-                            mViewDataBinding.collect.setImageResource(R.mipmap.collect);
-                        } else {
-                            mViewDataBinding.collect.setImageResource(R.mipmap.un_collect);
-                        }
-
-                    } else {
-                        toast(goodsDetailsBeanBean.getHeader().getMsg());
-                    }
-                }
+        ldIsCollect.observe(this, integer -> {
+            if (integer == 1) {
+                mViewDataBinding.collect.setImageResource(R.mipmap.collect);
             } else {
-                Throwable error = beanResource.getError();
-                if (error != null) {
-                    toast(error.toString());
+                mViewDataBinding.collect.setImageResource(R.mipmap.un_collect);
+            }
+        });
+    }
+
+    private void getGoodsDetail(boolean isForCollect) {
+        mViewModel.getGoodsShopDetail((String) transferData).observe(this, beanResource -> {
+            GoodsDetailsBean goodsDetailsBean = (GoodsDetailsBean) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
                 }
 
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
+            if (goodsDetailsBean != null) {
+                ldIsCollect.setValue(goodsDetailsBean.getIsCollect());
+                collectID = goodsDetailsBean.getCollectID();
+                if (!isForCollect) {
+                    setListView(goodsDetailsBean.getId());
+                    goodsName = goodsDetailsBean.getName();
+                    goodsId = goodsDetailsBean.getId();
+                    goodsDetailsHeaderBean = new GoodsDetailsHeaderBean();
+                    goodsDetailsHeaderBean.setGoodsName(goodsDetailsBean.getShowName());
+                    goodsDetailsHeaderBean.setPrice(goodsDetailsBean.getRealPrice());
+                    goodsDetailsHeaderBean.setDescribe(goodsDetailsBean.getDescription());
+                    getBannerImage();
+                }
             }
-
-
         });
     }
 

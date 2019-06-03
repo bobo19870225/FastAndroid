@@ -21,9 +21,7 @@
         android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
 
 
-        <activity
-            android:name="com.zaomeng.zaomeng.view.MainActivity"
-            android:label="@string/title_activity_main">
+        <activity android:name="com.zaomeng.zaomeng.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />

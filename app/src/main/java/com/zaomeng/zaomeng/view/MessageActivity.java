@@ -23,6 +23,7 @@ import kotlin.jvm.functions.Function0;
 public class MessageActivity extends MVVMListActivity<MessageVM, ActivityMessageBinding, MessageAdapter> {
     @Inject
     ViewModelFactory viewModelFactory;
+
     @NonNull
     @Override
     protected RecyclerView setRecyclerView() {

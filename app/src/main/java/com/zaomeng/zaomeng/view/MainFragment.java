@@ -11,6 +11,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentMainBinding;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.view.adapter.FragmentAdapter;
@@ -24,7 +26,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
 /**
@@ -39,7 +40,8 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     ViewModelFactory viewModelFactory;
     @Inject
     MainGoodsFragment mainGoodsFragment;
-    private Badge msgBadge;
+    @Inject
+    HttpHelper httpHelper;
 
     @Inject
     public MainFragment() {
@@ -56,17 +58,32 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     @Override
     protected void initUI() {
         Context context = getContext();
-        msgBadge = new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg)
-                .setShowShadow(true)
-                .setBadgeGravity(Gravity.END | Gravity.TOP)
-//                .setGravityOffset(-8, -8, true)
-//                .setOnDragStateChangedListener(null)
-                .setBadgeNumber(0);
+        mViewModel.getNoReadMessageNum().observe(this, beanResource -> {
+            Integer integer = (Integer) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
+            if (integer != null) {
+                new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg)
+                        .setShowShadow(true)
+                        .setBadgeGravity(Gravity.END | Gravity.TOP)
+                        .setGravityOffset(-2, -2, true)
+                        .setBadgeNumber(integer);
+            }
+
+        });
+
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "msg":
                     skipTo(MessageTypeActivity.class, null);
-                    msgBadge.setBadgeNumber(0);
                     break;
                 case "location":
                     Intent intent = new Intent();
@@ -97,20 +114,6 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
                     FragmentManager fragmentManager = getChildFragmentManager();
                     List<Fragment> fragmentList = new ArrayList<>();
                     fragmentList.add(mainGoodsFragment);
-//                    BranchGoodsFragment branchGoodsFragment = new BranchGoodsFragment();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("DATA", IDs.get(0));
-//                    branchGoodsFragment.setArguments(bundle);
-//                    //第二个
-//                    BranchGoodsFragment branchGoodsFragment1 = new BranchGoodsFragment();
-//                    Bundle bundle1 = new Bundle();
-//                    bundle1.putString("DATA", IDs.get(1));
-//                    branchGoodsFragment.setArguments(bundle1);
-//                    //第三个
-//                    BranchGoodsFragment branchGoodsFragment2 = new BranchGoodsFragment();
-//                    Bundle bundle2 = new Bundle();
-//                    bundle2.putString("DATA", IDs.get(2));
-//                    branchGoodsFragment.setArguments(bundle2);
                     //------------------------------------------------
                     fragmentList.add(new BranchGoodsFragment());
                     fragmentList.add(new BranchGoodsFragment());

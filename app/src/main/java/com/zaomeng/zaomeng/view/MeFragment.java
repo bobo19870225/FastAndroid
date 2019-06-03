@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.view;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProviders;
@@ -10,19 +11,29 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.FragmentMeBinding;
 import com.zaomeng.zaomeng.model.repository.dataBase.UserDao;
+import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
+import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
 import com.zaomeng.zaomeng.model.repository.http.bean.LoginBean;
+import com.zaomeng.zaomeng.model.repository.http.bean.MemberStatisticsInfo;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.base.MVVMFragment;
 import com.zaomeng.zaomeng.view.custom_view.CircleImageView;
 import com.zaomeng.zaomeng.view_model.MeFragmentVM;
+import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
+
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * Created by Sampson on 2019/4/16.
  * FastAndroid
  */
 public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
+    @Inject
+    ViewModelFactory viewModelFactory;
+    @Inject
+    HttpHelper httpHelper;
 
     @Inject
     public MeFragment() {
@@ -31,9 +42,10 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
     private Context context;
     @Inject
     UserDao userDao;
+
     @Override
     protected MeFragmentVM createdViewModel() {
-        return ViewModelProviders.of(this).get(MeFragmentVM.class);
+        return ViewModelProviders.of(this, viewModelFactory).get(MeFragmentVM.class);
     }
 
     @Override
@@ -52,6 +64,45 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
                 skipTo(LoginActivity.class);
             }
         }
+        mViewModel.getNoReadMessageNum().observe(this, beanResource -> {
+            Integer integer = (Integer) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+
+                }
+
+                @Override
+                public void reLoad() {
+
+                }
+            }, this);
+            if (integer != null) {
+                new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg)
+                        .setShowShadow(true)
+                        .setBadgeGravity(Gravity.END | Gravity.TOP)
+                        .setGravityOffset(-2, -2, true)
+                        .setBadgeNumber(integer);
+            }
+
+        });
+        mViewModel.getMemberStatisticsInfo().observe(this, beanResource -> {
+            MemberStatisticsInfo memberStatisticsInfo = (MemberStatisticsInfo) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                @Override
+                public void skipLoginActivity() {
+                    skipTo(LoginActivity.class);
+                }
+
+                @Override
+                public void reLoad() {
+                    mViewModel.getMemberStatisticsInfo();
+                }
+            }, this);
+            if (memberStatisticsInfo != null) {
+                mViewModel.ldCoupon.setValue("(" + memberStatisticsInfo.getMemberBonusNum() + ")");
+                mViewModel.ldPoint.setValue("(" + memberStatisticsInfo.getPointTotal() + ")");
+            }
+        });
+
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "allOrder":

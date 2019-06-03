@@ -6,9 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 
 /**
@@ -46,4 +48,7 @@ public class MainFragmentVM extends BaseViewModel {
         action.setValue("search");
     }
 
+    public LiveData<Resource<Bean<Integer>>> getNoReadMessageNum() {
+        return apiService.getNoReadMessageNum(SharedPreferencesUtils.getSessionID(getApplication()));
+    }
 }

@@ -28,6 +28,7 @@ import retrofit2.Call;
 public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBean> {
     private ApiService apiService;
     private String sessionID;
+
     public CommonlyUsedFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
         this.apiService = apiService;
@@ -93,9 +94,6 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
         return null;
     }
 
-    public LiveData<Resource<Bean<String>>> removeCollect(String collectID) {
-        return apiService.removeCollect(sessionID, collectID);
-    }
 
     public LiveData<Resource<Bean<PriceBean>>> getPrice(String objectFeatureItemID1) {
         return apiService.getObjectFeatureData("402892e76a0bd37c016a0be8a94e001e", objectFeatureItemID1);
