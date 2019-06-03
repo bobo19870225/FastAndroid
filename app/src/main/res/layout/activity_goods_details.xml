@@ -9,78 +9,81 @@
             type="com.zaomeng.zaomeng.view_model.GoodsDetailsVM" />
     </data>
 
-    <RelativeLayout
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_color">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/bottom">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_height="match_parent"
                 android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_above="@+id/bottom"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
             </androidx.recyclerview.widget.RecyclerView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <ImageView
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:onClick="@{()->model.back()}"
+                android:padding="4dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/fanhuitianchong" />
 
 
-        <ImageView
-            android:padding="4dp"
-            android:layout_width="@dimen/image"
-            android:layout_height="@dimen/image"
-            android:onClick="@{()->model.back()}"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/fanhuitianchong" />
-
-
-        <RelativeLayout
-            android:id="@+id/bottom"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white">
-
-            <View
+            <RelativeLayout
+                android:id="@+id/bottom"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/line"
-                android:background="@color/bg_color" />
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white">
 
-            <ImageView
-                android:id="@+id/collect"
-                android:layout_width="@dimen/image"
-                android:layout_height="@dimen/image"
-                android:layout_centerVertical="true"
-                android:onClick="@{()->model.collect()}"
-                android:padding="@dimen/image_padding"
-                android:src="@mipmap/un_collect" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/bg_color" />
 
-            <ImageView
-                android:id="@+id/shop_car"
-                android:layout_width="@dimen/image"
-                android:layout_height="@dimen/image"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/collect"
-                android:layout_toRightOf="@+id/collect"
-                android:onClick="@{()->model.shopCar()}"
-                android:padding="@dimen/image_padding"
-                android:src="@mipmap/gouwuche" />
+                <ImageView
+                    android:id="@+id/collect"
+                    android:layout_width="@dimen/image"
+                    android:layout_height="@dimen/image"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{()->model.collect()}"
+                    android:padding="@dimen/image_padding"
+                    android:src="@mipmap/un_collect" />
 
-            <Button
-                android:textSize="@dimen/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:background="@color/them_color"
-                android:onClick="@{()->model.addToShopCar()}"
-                android:text="@string/add_shop_car"
-                android:textColor="@android:color/white" />
+                <ImageView
+                    android:id="@+id/shop_car"
+                    android:layout_width="@dimen/image"
+                    android:layout_height="@dimen/image"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/collect"
+                    android:layout_toRightOf="@+id/collect"
+                    android:onClick="@{()->model.shopCar()}"
+                    android:padding="@dimen/image_padding"
+                    android:src="@mipmap/gouwuche" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/them_color"
+                    android:onClick="@{()->model.addToShopCar()}"
+                    android:text="@string/add_shop_car"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text1" />
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </layout>
