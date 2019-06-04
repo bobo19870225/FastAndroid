@@ -123,4 +123,8 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     public LiveData<Resource<Bean<String>>> updateCartGoodsNumber(String cartGoodsID, int qty) {
         return apiService.updateCartGoodsNumber(sessionID, cartGoodsID, qty);
     }
+
+    public LiveData<Resource<Bean<String>>> getParameterValueByCode() {
+        return apiService.getParameterValueByCode("minOrderFee");
+    }
 }

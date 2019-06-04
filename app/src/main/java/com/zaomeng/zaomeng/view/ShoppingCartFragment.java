@@ -65,13 +65,44 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         mViewModel.ldTotal.observe(this, aDouble -> {
             TextView ttTotal = mViewDataBinding.ttTotal;
             TextView total = mViewDataBinding.total;
+
             if (aDouble == 0) {
                 ttTotal.setVisibility(View.GONE);
                 total.setVisibility(View.GONE);
+                disableSettlement(false, R.color.bg_color);
             } else {
                 ttTotal.setVisibility(View.VISIBLE);
                 total.setVisibility(View.VISIBLE);
                 total.setText(FormatUtils.numberFormatMoney(aDouble));
+                mViewModel.getParameterValueByCode().observe(ShoppingCartFragment.this, beanResource -> {
+                    String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                        @Override
+                        public void skipLoginActivity() {
+
+                        }
+
+                        @Override
+                        public void reLoad() {
+
+                        }
+                    }, ShoppingCartFragment.this);
+                    if (s != null) {
+                        Double totalPrice = mViewModel.ldTotal.getValue();
+
+                        if (totalPrice != null) {
+                            try {
+                                if (totalPrice < Double.valueOf(s)) {
+                                    disableSettlement(false, R.color.bg_color);
+                                } else {
+                                    disableSettlement(true, R.color.them_color);
+                                }
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                });
             }
         });
 //        mViewModel.ldDiscount.observe(this, aDouble -> {
@@ -160,6 +191,13 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                 activity.badge.setBadgeNumber(integer);
             }
         });
+
+    }
+
+    private void disableSettlement(boolean enable, int color) {
+        TextView settlement = mViewDataBinding.settlement;
+        settlement.setEnabled(enable);
+        settlement.setBackgroundColor(getResources().getColor(color));
     }
 
 //    private void initDialog() {

@@ -15,7 +15,7 @@
     <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
         android:id="@+id/icon_goods"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="160dp"
         android:scaleType="centerCrop" />
 
 
