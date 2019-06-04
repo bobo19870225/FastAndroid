@@ -24,11 +24,9 @@
             android:paddingRight="16dp"
             android:paddingBottom="8dp">
 
-            <TextView
-                android:background="@drawable/bg_button_corner_bc"
-                android:gravity="center_vertical"
-                android:onClick="@{()->model.cancel()}"
-                android:text="@{model.ldSearch}"
+
+            <EditText
+                android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:layout_centerVertical="true"
@@ -36,17 +34,40 @@
                 android:layout_marginRight="16dp"
                 android:layout_toStartOf="@+id/cancel"
                 android:layout_toLeftOf="@+id/cancel"
-                android:paddingStart="16dp"
-                android:paddingLeft="16dp" />
+                android:background="@drawable/bg_button_corner_bc"
+                android:gravity="center_vertical"
+                android:hint="@string/fast_search_goods"
+                android:paddingStart="32dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:singleLine="true"
+                android:text="@={model.ldSearch}"
+                android:textColor="@color/text_main"
+                android:textSize="@dimen/text2" />
+
+            <ImageView
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/search" />
+
+            <ImageView
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_alignEnd="@+id/search"
+                android:layout_alignRight="@+id/search"
+                android:onClick="@{()->model.clean()}"
+                android:padding="@dimen/image_padding"
+                android:src="@mipmap/quxiao" />
 
             <TextView
-                android:onClick="@{()->model.cancel()}"
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:gravity="center"
+                android:onClick="@{()->model.cancel()}"
                 android:text="取消" />
         </RelativeLayout>
 

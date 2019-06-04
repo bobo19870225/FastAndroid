@@ -83,6 +83,10 @@ public class SearchGoodsListVM extends ListViewModel<Integer, GoodsListRowsBean>
         action.setValue("cancel");
     }
 
+    public void clean() {
+        action.setValue("clean");
+    }
+
     public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
         String sessionID = SharedPreferencesUtils.getSessionID(getApplication());
         if (sessionID != null) {

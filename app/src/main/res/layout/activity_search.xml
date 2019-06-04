@@ -18,17 +18,17 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_marginEnd="16dp"
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:onClick="@{()->model.cancel()}"
                 android:text="取消"
                 android:textColor="@color/text_main"
-                android:layout_marginRight="16dp"
                 android:textSize="@dimen/text1" />
 
             <RelativeLayout
@@ -42,11 +42,11 @@
                 android:paddingRight="16dp">
 
                 <ImageView
-                    android:onClick="@{()->model.search()}"
                     android:id="@+id/icon_search"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"
+                    android:onClick="@{()->model.search()}"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/search" />
                 <!--android:imeOptions="actionNone"  //输入框右侧不带任何提示
@@ -57,21 +57,21 @@
                 android:imeOptions="actionDone"  //右下角按键内容为'完成'
                 -->
                 <EditText
-                    android:textSize="@dimen/text3"
-                    android:gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:imeOptions="actionSearch"
                     android:id="@+id/search"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_toEndOf="@+id/icon_search"
                     android:layout_toRightOf="@+id/icon_search"
                     android:background="@color/bg_color"
+                    android:gravity="center_vertical"
+                    android:imeOptions="actionSearch"
                     android:inputType="text"
-                    android:text="@={model.ldSearchWord}">
+                    android:text="@={model.ldSearchWord}"
+                    android:textSize="@dimen/text3">
 
                 </EditText>
 
@@ -88,6 +88,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_color"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="热门搜索"
+                    android:textSize="@dimen/text2" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_hot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -95,7 +114,6 @@
                     android:background="@color/bg_color">
 
                     <TextView
-                        android:textSize="@dimen/text2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toStartOf="@+id/delete"
@@ -103,10 +121,10 @@
                         android:gravity="center_vertical"
                         android:paddingStart="@dimen/layout_padding"
                         android:paddingLeft="@dimen/layout_padding"
-                        android:text="@string/search_history" />
+                        android:text="@string/search_history"
+                        android:textSize="@dimen/text2" />
 
                     <ImageView
-                        android:onClick="@{()->model.clean()}"
                         android:id="@+id/delete"
                         android:layout_width="@dimen/small_image"
                         android:layout_height="@dimen/small_image"
@@ -115,6 +133,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
+                        android:onClick="@{()->model.clean()}"
                         android:padding="@dimen/image_padding"
                         android:src="@mipmap/delete" />
                 </RelativeLayout>
@@ -125,31 +144,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginRight="16dp"
-                    android:minHeight="200dp">
+                    android:layout_marginRight="16dp">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <TextView
-                    android:textSize="@dimen/text2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bg_color"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="热门搜索" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_hot"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="16dp"
-                    android:minHeight="200dp">
-
-                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

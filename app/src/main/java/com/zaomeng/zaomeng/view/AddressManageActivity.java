@@ -56,11 +56,6 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
         memberShopAdapter.setOnEditClick((view, ItemObject, position) -> skipTo(CertificationActivity.class, ItemObject));
         memberShopAdapter.setOnDeleteClick((view, ItemObject, position) -> {
             showDeleteDialog(ItemObject.getId());
-//            mViewModel.removeMemberShop(ItemObject.getId()).observe(this, beanResource -> {
-//                String s = new HttpHelper<String>(getApplicationContext()).AnalyticalData(beanResource);
-//                if (s != null)
-//                    refresh();
-//            });
         });
         return memberShopAdapter;
     }
@@ -68,6 +63,9 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
     @SuppressWarnings("unchecked")
     private void showDeleteDialog(String id) {
         ok.setOnClickListener(v -> mViewModel.removeMemberShop(id).observe(AddressManageActivity.this, beanResource -> {
+            if (alertDialog.isShowing()) {
+                alertDialog.dismiss();
+            }
             String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
                 @Override
                 public void skipLoginActivity() {

@@ -3,6 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="24dp"
     android:layout_margin="1dp"
-    android:background="@drawable/button_them_color_un_select"
+    android:background="@drawable/bg_button_corner_bc"
     android:gravity="center"
-    android:maxLines="1" />
+    android:maxLines="1"
+    android:textColor="@color/text_main"
+    android:textSize="@dimen/text2" />

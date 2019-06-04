@@ -1,5 +1,7 @@
 package com.zaomeng.zaomeng.view;
 
+import android.view.inputmethod.EditorInfo;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,13 +29,28 @@ public class SearchGoodsListActivity extends MVVMListActivity<SearchGoodsListVM,
     ViewModelFactory viewModelFactory;
     @Inject
     HttpHelper httpHelper;
+
     @Override
     protected void setView() {
         super.setView();
         mViewModel.action.observe(this, s -> {
             if (s.equals("cancel")) {
+                skipTo(MainActivity.class, true);
+            } else if (s.equals("clean")) {
                 finish();
             }
+        });
+        mViewDataBinding.search.clearFocus();
+        mViewDataBinding.search.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_SEARCH || id == EditorInfo.IME_NULL) {
+                if (mViewModel.ldSearch.getValue() == null) {
+                    toast("请填写搜索关键词");
+                } else {
+                    setListView(mViewModel.ldSearch.getValue());
+                }
+                return true;
+            }
+            return false;
         });
     }
 

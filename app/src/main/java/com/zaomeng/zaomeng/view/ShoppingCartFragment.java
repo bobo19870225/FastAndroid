@@ -1,12 +1,16 @@
 package com.zaomeng.zaomeng.view;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +46,8 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     ViewModelFactory viewModelFactory;
     //    private AlertDialog waitDialog;
 //    private double priceTotal;
+    private AlertDialog alertDialog;
+    private TextView ok;
     @Inject
     HttpHelper httpHelper;
 
@@ -55,6 +61,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         if (!EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().register(this);
         requestPermission();
+        initDeleteDialog();
         shopCartAdapter.isSelectedAll.observe(this, aBoolean -> {
             if (aBoolean) {
                 mViewDataBinding.select.setImageResource(R.mipmap.selected);
@@ -105,6 +112,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                 });
             }
         });
+
 //        mViewModel.ldDiscount.observe(this, aDouble -> {
 //            TextView ttDiscount = mViewDataBinding.ttDiscount;
 //            TextView discount = mViewDataBinding.discount;
@@ -155,31 +163,11 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                 case "delete":
                     List<ShopCartBean> selectGoods = listGoodsItem.get(1);
                     if (selectGoods.size() != 0) {
-                        StringBuilder selectID = new StringBuilder();
-                        for (int i = 0; i < selectGoods.size(); i++) {
-                            if (i == selectGoods.size() - 1) {
-                                selectID.append(selectGoods.get(i).getId());
-                            } else {
-                                selectID.append(selectGoods.get(i).getId()).append(",");
-                            }
-                        }
-                        mViewModel.removeCartGoods(selectID.toString()).observe(this, beanResource -> {
-                            String s1 = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
-                                @Override
-                                public void skipLoginActivity() {
-                                    skipTo(LoginActivity.class);
-                                }
-
-                                @Override
-                                public void reLoad() {
-                                    mViewModel.removeCartGoods(selectID.toString());
-                                }
-                            }, this);
-                            if (s1 != null) refresh();
-                        });
+                        showDeleteDialog(selectGoods);
                     } else {
                         toast("请先选择商品");
                     }
+
                     break;
                 default:
                     break;
@@ -194,21 +182,66 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
     }
 
+    private void initDeleteDialog() {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View inflate = layoutInflater.inflate(R.layout.dialog_delete, null, false);
+        TextView cancel = inflate.findViewById(R.id.cancel);
+        cancel.setOnClickListener(v -> {
+            if (alertDialog.isShowing())
+                alertDialog.dismiss();
+        });
+        ok = inflate.findViewById(R.id.ok);
+
+        alertDialog = new AlertDialog.Builder(getContext()).
+                setView(inflate).
+                create();
+    }
+
     private void disableSettlement(boolean enable, int color) {
         TextView settlement = mViewDataBinding.settlement;
         settlement.setEnabled(enable);
         settlement.setBackgroundColor(getResources().getColor(color));
     }
 
-//    private void initDialog() {
-//        LayoutInflater layoutInflater = getLayoutInflater();
-//        View view = layoutInflater.inflate(R.layout.dialog_wait, null, false);
-//        waitDialog = new AlertDialog.Builder(getContext()).
-//                setCancelable(false).
-//                setView(view).
-//                create();
-//    }
+    @SuppressWarnings("unchecked")
+    private void showDeleteDialog(List<ShopCartBean> selectGoods) {
+        ok.setOnClickListener(v -> {
+            if (alertDialog.isShowing()) {
+                alertDialog.dismiss();
+            }
+            StringBuilder selectID = new StringBuilder();
+            for (int i = 0; i < selectGoods.size(); i++) {
+                if (i == selectGoods.size() - 1) {
+                    selectID.append(selectGoods.get(i).getId());
+                } else {
+                    selectID.append(selectGoods.get(i).getId()).append(",");
+                }
+            }
+            mViewModel.removeCartGoods(selectID.toString()).observe(this, beanResource -> {
+                String s1 = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+                        skipTo(LoginActivity.class);
+                    }
 
+                    @Override
+                    public void reLoad() {
+                        mViewModel.removeCartGoods(selectID.toString());
+                    }
+                }, this);
+                if (s1 != null) refresh();
+            });
+        });
+        if (!alertDialog.isShowing()) {
+            alertDialog.show();
+            Window window = alertDialog.getWindow();
+            if (window != null) {
+//                window.setContentView(R.layout.dialog_delete);
+                window.setLayout(800, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            }
+        }
+
+    }
 
     private ShopCartAdapter shopCartAdapter;
 

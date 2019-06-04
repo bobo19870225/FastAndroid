@@ -43,12 +43,7 @@ public class SearchViewModel extends BaseViewModel {
     }
 
     public void search() {
-        if (ldSearchWord.getValue() == null) {
-            action.setValue("toast:请填写搜索关键词");
-        } else {
-            action.setValue("search");
-        }
-
+        action.setValue("search");
     }
 
     public void clean() {
