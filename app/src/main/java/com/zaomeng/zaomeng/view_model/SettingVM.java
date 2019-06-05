@@ -30,4 +30,8 @@ public class SettingVM extends BaseViewModel {
         SharedPreferencesUtils.cleanSessionID(getApplication());
         SharedPreferencesUtils.cleanMemberID(getApplication());
     }
+
+    public void us() {
+        action.setValue("us");
+    }
 }

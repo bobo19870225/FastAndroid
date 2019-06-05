@@ -17,7 +17,7 @@ import javax.inject.Inject;
  * Created by Sampson on 2019-05-20.
  * FastAndroid
  */
-public class PointRuleActivity extends BaseDaggerActivity {
+public class ArticleActivity extends BaseDaggerActivity {
     @Inject
     ApiService apiService;
     @Inject
@@ -53,6 +53,9 @@ public class PointRuleActivity extends BaseDaggerActivity {
                 break;
             case "常见问题":
                 articleID = "2c9051726ad486f5016af2bcbf670025";
+                break;
+            case "关于我们":
+                articleID = "2c9051726ad486f5016af2f90ab40029";
                 break;
 
         }

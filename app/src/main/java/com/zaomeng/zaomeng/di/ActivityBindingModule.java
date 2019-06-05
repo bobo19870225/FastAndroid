@@ -2,6 +2,7 @@ package com.zaomeng.zaomeng.di;
 
 import com.zaomeng.zaomeng.view.AddressManageActivity;
 import com.zaomeng.zaomeng.view.AfterSaleDetailsActivity;
+import com.zaomeng.zaomeng.view.ArticleActivity;
 import com.zaomeng.zaomeng.view.BonusActivity;
 import com.zaomeng.zaomeng.view.CalendarActivity;
 import com.zaomeng.zaomeng.view.CertificationActivity;
@@ -20,7 +21,6 @@ import com.zaomeng.zaomeng.view.OrderActivity;
 import com.zaomeng.zaomeng.view.OrderDetailActivity;
 import com.zaomeng.zaomeng.view.OrderSettlementActivity;
 import com.zaomeng.zaomeng.view.PointActivity;
-import com.zaomeng.zaomeng.view.PointRuleActivity;
 import com.zaomeng.zaomeng.view.RegisterActivity;
 import com.zaomeng.zaomeng.view.SearchActivity;
 import com.zaomeng.zaomeng.view.SearchGoodsListActivity;
@@ -141,7 +141,7 @@ public abstract class ActivityBindingModule {
     abstract CustomerServiceActivity customerServiceActivity();
 
     @ContributesAndroidInjector()
-    abstract PointRuleActivity pointRuleActivity();
+    abstract ArticleActivity pointRuleActivity();
 
     @ContributesAndroidInjector()
     abstract MessageTypeActivity messageTypeActivity();

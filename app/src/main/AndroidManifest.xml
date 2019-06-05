@@ -70,7 +70,7 @@
         <activity android:name=".view.ChoseBonusActivity" />
         <activity android:name=".view.OrderDetailActivity" />
         <activity android:name=".view.CustomerServiceActivity" />
-        <activity android:name=".view.PointRuleActivity" />
+        <activity android:name=".view.ArticleActivity" />
         <activity android:name=".view.MessageTypeActivity" />
         <activity android:name=".view.ChoseAddressActivity" />
         <activity android:name=".view.AfterSaleDetailsActivity" />

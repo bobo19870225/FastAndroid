@@ -48,19 +48,19 @@ public class CustomerServiceActivity extends MVVMActivity<CustomerServiceVM, Act
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "pointRule":
-                    skipTo(PointRuleActivity.class, "积分规则");
+                    skipTo(ArticleActivity.class, "积分规则");
                     break;
                 case "FAQ":
-                    skipTo(PointRuleActivity.class, "常见问题");
+                    skipTo(ArticleActivity.class, "常见问题");
                     break;
                 case "payQuestion":
-                    skipTo(PointRuleActivity.class, "支付问题");
+                    skipTo(ArticleActivity.class, "支付问题");
                     break;
                 case "deliveryQuestion":
-                    skipTo(PointRuleActivity.class, "配送问题");
+                    skipTo(ArticleActivity.class, "配送问题");
                     break;
                 case "returnGoodsQuestion":
-                    skipTo(PointRuleActivity.class, "退换货问题");
+                    skipTo(ArticleActivity.class, "退换货问题");
                     break;
             }
         });
