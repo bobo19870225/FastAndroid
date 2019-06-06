@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg_color">
 
         <include
             android:id="@+id/tt"
@@ -22,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/bottom"
             android:layout_below="@+id/tt"
+            android:layout_marginTop="@dimen/line"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -33,7 +35,7 @@
                     android:id="@+id/tt_address"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@color/bg_color">
+                    android:background="@android:color/white">
 
                     <ImageView
                         android:id="@+id/line"
@@ -53,6 +55,7 @@
                         android:layout_toEndOf="@+id/line"
                         android:layout_toRightOf="@+id/line"
                         android:text="@string/address"
+                        android:textColor="@color/text_main"
                         android:textSize="@dimen/text2" />
                 </RelativeLayout>
 
@@ -61,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tt_address"
+                    android:background="@android:color/white"
                     android:onClick="@{()->model.choseAddress()}"
                     android:padding="16dp">
 
@@ -108,7 +112,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/rl_address"
-                    android:background="@color/bg_color">
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/white">
 
                     <ImageView
                         android:id="@+id/line1"
@@ -128,6 +133,7 @@
                         android:layout_toEndOf="@+id/line1"
                         android:layout_toRightOf="@+id/line1"
                         android:text="商品"
+                        android:textColor="@color/text_main"
                         android:textSize="@dimen/text2" />
 
                     <!--<TextView-->
@@ -154,6 +160,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_below="@+id/tt_time"
+                    android:layout_marginTop="@dimen/line"
+                    android:background="@android:color/white"
                     android:paddingStart="16dp"
                     android:paddingLeft="16dp">
 
@@ -193,7 +201,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/goods"
-                    android:background="@color/bg_color">
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/white">
 
                     <ImageView
                         android:id="@+id/line2"
@@ -213,6 +222,7 @@
                         android:layout_toEndOf="@+id/line2"
                         android:layout_toRightOf="@+id/line2"
                         android:text="支付方式"
+                        android:textColor="@color/text_main"
                         android:textSize="@dimen/text2" />
                 </RelativeLayout>
 
@@ -222,6 +232,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tt_pay_way"
+                    android:background="@android:color/white"
                     android:paddingStart="16dp"
                     android:paddingLeft="16dp">
 
@@ -257,7 +268,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/radio_group"
-                    android:background="@color/bg_color"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/white"
                     android:onClick="@{()->model.bonus()}"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
@@ -269,6 +281,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="12dp"
                         android:text="优惠券"
+                        android:textColor="@color/text_main"
                         android:textSize="@dimen/text3" />
 
                     <TextView
@@ -287,8 +300,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/tt_uhq"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/bg_color"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/white"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
@@ -299,6 +312,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="备注"
+                        android:textColor="@color/text_main"
                         android:textSize="@dimen/text3" />
 
                     <EditText
@@ -311,11 +325,61 @@
                         android:layout_marginLeft="32dp"
                         android:layout_toEndOf="@+id/text"
                         android:layout_toRightOf="@+id/text"
-                        android:background="@color/bg_color"
+                        android:background="@android:color/white"
                         android:hint="选填"
                         android:textSize="@dimen/text3" />
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tt_bz"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/ttGoodsPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商品价格："
+                        android:textColor="@color/text_main"
+                        android:textSize="@dimen/text3" />
+
+                    <TextView
+                        android:id="@+id/goodsPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/ttGoodsPrice"
+                        android:layout_toRightOf="@+id/ttGoodsPrice"
+                        android:minWidth="72dp"
+                        android:textColor="@color/them_color"
+                        android:textSize="@dimen/text3" />
+
+                    <TextView
+                        android:id="@+id/ttDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ttGoodsPrice"
+                        android:layout_marginTop="4dp"
+                        android:text="优惠金额："
+                        android:textColor="@color/text_main"
+                        android:textSize="@dimen/text3" />
+
+                    <TextView
+                        android:id="@+id/discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ttGoodsPrice"
+                        android:layout_marginTop="4dp"
+                        android:layout_toEndOf="@+id/ttDiscount"
+                        android:layout_toRightOf="@+id/ttDiscount"
+                        android:minWidth="72dp"
+                        android:textColor="@color/them_color"
+                        android:textSize="@dimen/text3" />
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -327,7 +391,8 @@
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="16dp"
-            android:background="@color/bg_color"
+            android:background="@android:color/white"
+            android:paddingStart="16dp"
             android:paddingLeft="16dp">
 
             <RelativeLayout
@@ -339,7 +404,8 @@
                     android:id="@+id/tt_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="合计："
+                    android:gravity="center_vertical"
+                    android:text="实付："
                     android:textSize="@dimen/text3" />
 
                 <TextView
@@ -352,24 +418,6 @@
                     android:textColor="@color/text_them"
                     android:textSize="@dimen/text3" />
 
-                <TextView
-                    android:id="@+id/ttDiscount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/total"
-                    android:text="已优惠："
-                    android:textSize="@dimen/text3" />
-
-                <TextView
-                    android:id="@+id/discount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/total"
-                    android:layout_toEndOf="@+id/ttDiscount"
-                    android:layout_toRightOf="@+id/ttDiscount"
-                    android:minWidth="72dp"
-                    android:textColor="@color/them_color"
-                    android:textSize="@dimen/text3" />
             </RelativeLayout>
 
 

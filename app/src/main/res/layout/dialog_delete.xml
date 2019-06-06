@@ -23,7 +23,6 @@
         android:layout_below="@+id/tt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
-        android:text="确定删除该店铺"
         android:textColor="@color/text_main"
         android:textSize="12sp" />
 

@@ -76,7 +76,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
             if (aDouble == 0) {
                 ttTotal.setVisibility(View.GONE);
                 total.setVisibility(View.GONE);
-                disableSettlement(false, R.color.bg_color);
+                disableSettlement(false, R.color.gray);
             } else {
                 ttTotal.setVisibility(View.VISIBLE);
                 total.setVisibility(View.VISIBLE);
@@ -99,7 +99,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                         if (totalPrice != null) {
                             try {
                                 if (totalPrice < Double.valueOf(s)) {
-                                    disableSettlement(false, R.color.bg_color);
+                                    disableSettlement(false, R.color.gray);
                                 } else {
                                     disableSettlement(true, R.color.them_color);
                                 }
@@ -191,7 +191,8 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                 alertDialog.dismiss();
         });
         ok = inflate.findViewById(R.id.ok);
-
+        TextView msg = inflate.findViewById(R.id.msg);
+        msg.setText("确定要删除该商品？");
         alertDialog = new AlertDialog.Builder(getContext()).
                 setView(inflate).
                 create();

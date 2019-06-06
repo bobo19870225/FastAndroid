@@ -21,6 +21,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:background="@android:color/white"
+            android:onClick="@{()->model.cleanCache()}"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
@@ -32,7 +33,17 @@
                 android:textColor="#ff333333"
                 android:textSize="@dimen/text2" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/more"
+                android:layout_toLeftOf="@+id/more"
+                android:text="@{model.ldCache}"
+                android:textSize="@dimen/text2" />
+
             <ImageView
+                android:id="@+id/more"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
                 android:layout_alignParentEnd="true"
@@ -55,11 +66,21 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="12dp"
-                android:text="检测更新"
+                android:text="当前版本"
                 android:textColor="#ff333333"
                 android:textSize="@dimen/text2" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/more1"
+                android:layout_toLeftOf="@+id/more1"
+                android:text="@{model.ldVersion}"
+                android:textSize="@dimen/text2" />
+
             <ImageView
+                android:id="@+id/more1"
                 android:layout_width="@dimen/image"
                 android:layout_height="@dimen/image"
                 android:layout_alignParentEnd="true"
@@ -71,11 +92,11 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:onClick="@{()->model.us()}"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="2dp"
             android:background="@android:color/white"
+            android:onClick="@{()->model.us()}"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 

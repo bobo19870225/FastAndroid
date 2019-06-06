@@ -3,6 +3,7 @@ package com.zaomeng.zaomeng.view.adapter.bonus;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class BonusViewHolder extends RecyclerView.ViewHolder {
     private TextView price;
     private TextView date;
     private TextView use;
+    private LinearLayout linearLayout;
 
     private BonusViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -30,6 +32,7 @@ public class BonusViewHolder extends RecyclerView.ViewHolder {
         price = itemView.findViewById(R.id.price);
         date = itemView.findViewById(R.id.date);
         use = itemView.findViewById(R.id.use);
+        linearLayout = itemView.findViewById(R.id.LL);
     }
 
     public static BonusViewHolder create(ViewGroup parent) {
@@ -45,8 +48,10 @@ public class BonusViewHolder extends RecyclerView.ViewHolder {
         date.setText(String.format("有效期：%s--%s", bonusBean.getStartDateStr(), bonusBean.getEndDateStr()));
         if (bonusBean.getStatus() == 1) {
             use.setVisibility(View.VISIBLE);
+            linearLayout.setBackground(linearLayout.getContext().getResources().getDrawable(R.mipmap.bonus));
         } else {
             use.setVisibility(View.GONE);
+            linearLayout.setBackground(linearLayout.getContext().getResources().getDrawable(R.mipmap.bonus_gary));
         }
         use.setOnClickListener(v -> {
             if (onItemClick != null) {

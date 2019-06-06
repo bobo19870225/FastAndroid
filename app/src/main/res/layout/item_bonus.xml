@@ -8,6 +8,7 @@
     android:paddingRight="16dp">
 
     <LinearLayout
+        android:id="@+id/LL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@mipmap/bonus"

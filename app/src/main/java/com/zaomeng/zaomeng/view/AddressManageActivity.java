@@ -108,7 +108,8 @@ public class AddressManageActivity extends MVVMListActivity<AddressManageVM, Act
                 alertDialog.dismiss();
         });
         ok = inflate.findViewById(R.id.ok);
-
+        TextView msg = inflate.findViewById(R.id.msg);
+        msg.setText("确定要删除该店铺？");
         alertDialog = new AlertDialog.Builder(this).
                 setView(inflate).
                 create();

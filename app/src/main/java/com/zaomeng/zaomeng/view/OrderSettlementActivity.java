@@ -225,6 +225,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                 priceNow = shopCartBeanPageBodyBean.getPriceAfterDiscount();
                 mViewDataBinding.total.setText(FormatUtils.numberFormatMoney(priceNow));
                 mViewDataBinding.discount.setText(FormatUtils.numberFormatMoney(shopCartBeanPageBodyBean.getDiscountPrice()));
+                mViewDataBinding.goodsPrice.setText(FormatUtils.numberFormatMoney(shopCartBeanPageBodyBean.getPriceAfterDiscount()));
             }
         });
     }
