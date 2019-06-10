@@ -64,46 +64,6 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
                 skipTo(LoginActivity.class);
             }
         }
-        mViewModel.getNoReadMessageNum().observe(this, beanResource -> {
-            Integer integer = (Integer) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
-                @Override
-                public void skipLoginActivity() {
-
-                }
-
-                @Override
-                public void reLoad() {
-
-                }
-            }, this);
-            if (integer != null) {
-                new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg)
-                        .setShowShadow(true)
-                        .setBadgeGravity(Gravity.END | Gravity.TOP)
-                        .setGravityOffset(-2, -2, true)
-                        .setBadgeNumber(integer);
-            }
-
-        });
-        mViewModel.getMemberStatisticsInfo().observe(this, beanResource -> {
-            MemberStatisticsInfo memberStatisticsInfo = (MemberStatisticsInfo) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
-                @Override
-                public void skipLoginActivity() {
-                    skipTo(LoginActivity.class);
-                }
-
-                @Override
-                public void reLoad() {
-                    mViewModel.getMemberStatisticsInfo();
-                }
-            }, this);
-            if (memberStatisticsInfo != null) {
-                mViewModel.ldCoupon.setValue("(" + memberStatisticsInfo.getMemberBonusNum() + ")");
-                mViewModel.ldPoint.setValue("(" + memberStatisticsInfo.getPointTotal() + ")");
-                mViewDataBinding.vipLevel.setText(memberStatisticsInfo.getRankName());
-                Glide.with(mViewDataBinding.iconVIP).load(memberStatisticsInfo.getRankUrl()).into(mViewDataBinding.iconVIP);
-            }
-        });
 
         mViewModel.action.observe(this, s -> {
             switch (s) {
@@ -173,7 +133,46 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
             } else {
                 iconUser.setVisibility(View.GONE);
             }
+            mViewModel.getNoReadMessageNum().observe(this, beanResource -> {
+                Integer integer = (Integer) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
 
+                    }
+
+                    @Override
+                    public void reLoad() {
+
+                    }
+                }, this);
+                if (integer != null) {
+                    new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg)
+                            .setShowShadow(true)
+                            .setBadgeGravity(Gravity.END | Gravity.TOP)
+                            .setGravityOffset(-2, -2, true)
+                            .setBadgeNumber(integer);
+                }
+
+            });
+            mViewModel.getMemberStatisticsInfo().observe(this, beanResource -> {
+                MemberStatisticsInfo memberStatisticsInfo = (MemberStatisticsInfo) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+//                        skipTo(LoginActivity.class);
+                    }
+
+                    @Override
+                    public void reLoad() {
+//                        mViewModel.getMemberStatisticsInfo();
+                    }
+                }, this);
+                if (memberStatisticsInfo != null) {
+                    mViewModel.ldCoupon.setValue("(" + memberStatisticsInfo.getMemberBonusNum() + ")");
+                    mViewModel.ldPoint.setValue("(" + memberStatisticsInfo.getPointTotal() + ")");
+                    mViewDataBinding.vipLevel.setText(memberStatisticsInfo.getRankName());
+                    Glide.with(mViewDataBinding.iconVIP).load(memberStatisticsInfo.getRankUrl()).into(mViewDataBinding.iconVIP);
+                }
+            });
         }
     }
 }

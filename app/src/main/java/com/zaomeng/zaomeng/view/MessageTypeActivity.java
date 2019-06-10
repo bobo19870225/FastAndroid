@@ -69,6 +69,8 @@ public class MessageTypeActivity extends MVVMActivity<MessageTypeVM, ActivityMes
                         Glide.with(image).load(messageTypeBean.getLargeIcon()).into(image);
                         TextView text = itemView.findViewById(R.id.text);
                         text.setText(messageTypeBean.getName());
+                        TextView subTitle = itemView.findViewById(R.id.subTitle);
+                        subTitle.setText(messageTypeBean.getMessageList().get(0).getDescription());
                         itemView.setOnClickListener(v -> skipTo(MessageActivity.class, new String[]{messageTypeBean.getName(), messageTypeBean.getId()}));
                     }
                 });

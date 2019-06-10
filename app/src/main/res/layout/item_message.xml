@@ -12,15 +12,29 @@
         android:layout_margin="8dp"
         android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/text"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/icon"
-        android:layout_toRightOf="@+id/icon"
-        android:textColor="@color/text_main"
-        android:textSize="16sp" />
+        android:layout_toRightOf="@+id/icon">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_main"
+            android:textSize="@dimen/text1" />
+
+        <TextView
+            android:id="@+id/subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text"
+            android:textColor="@color/text_2"
+            android:textSize="@dimen/text2" />
+    </RelativeLayout>
+
 
     <ImageView
         android:layout_width="@dimen/image"
