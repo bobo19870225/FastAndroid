@@ -52,7 +52,7 @@ public class ShopDetailActivity extends MVVMActivity<ShopDetailVM, ActivityShopD
                 mViewModel.ldAddress.setValue(memberShopBean.getAddress());
                 mViewModel.ldContact.setValue(memberShopBean.getContact());
                 mViewModel.ldContactPhone.setValue(memberShopBean.getContactPhone());
-                mViewModel.ldShopType.setValue(String.valueOf(memberShopBean.getShopType()));
+                mViewModel.ldShopType.setValue(memberShopBean.getShopCategoryName());
                 setImage(memberShopBean);
             }
         });

@@ -39,6 +39,7 @@ public class ShowSpecificationHelper {
     private String objectFeatureItemID;
     private BottomSheetDialog bottomSheetDialog;
     private TextView price;
+
     public ShowSpecificationHelper(@NonNull Context context, InterfaceShowSpecification interfaceShowSpecification) {
         this.interfaceShowSpecification = interfaceShowSpecification;
         bottomSheetDialog = new BottomSheetDialog(context);
@@ -46,7 +47,7 @@ public class ShowSpecificationHelper {
     }
 
     public void showSpecificationDialog(LayoutInflater layoutInflater, List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList,
-                                        String goodsID) {
+                                        String goodsID, double realPrice) {
 
         //默认Cancelable和CanceledOnTouchOutside均为true
         //bsDialog.setCancelable(true);
@@ -80,7 +81,7 @@ public class ShowSpecificationHelper {
             number.setText(String.valueOf(sl));
         });
         price = view.findViewById(R.id.price);
-
+        setPrice(realPrice);
         bottomSheetDialog.setContentView(view);
         if (itemList == null) {
             root.setVisibility(View.GONE);

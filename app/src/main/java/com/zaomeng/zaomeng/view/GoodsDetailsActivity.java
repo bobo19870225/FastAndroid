@@ -57,6 +57,8 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     private Badge badge;
     private final MutableLiveData<Integer> ldIsCollect = new MutableLiveData<>();
     private String collectID;
+    private double realPrice;
+
     @NonNull
     @Override
     protected GoodsDetailsVM createdViewModel() {
@@ -147,7 +149,7 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     skipTo(MainActivity.class, 3, true);
                     break;
                 case "addToShopCar":
-                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId);
+                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice);
                     mViewModel.getObjectFeatureItemList(goodsId).observe(this, specificationsBeanResource -> {
                         if (specificationsBeanResource.isSuccess()) {
                             SpecificationsBean resource = specificationsBeanResource.getResource();
@@ -176,7 +178,7 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                                 } else {
                                     SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
                                     List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
-                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, goodsId);
+                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, goodsId, realPrice);
                                 }
 
                             } else {
@@ -226,7 +228,8 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     goodsId = goodsDetailsBean.getId();
                     goodsDetailsHeaderBean = new GoodsDetailsHeaderBean();
                     goodsDetailsHeaderBean.setGoodsName(goodsDetailsBean.getShowName());
-                    goodsDetailsHeaderBean.setPrice(goodsDetailsBean.getRealPrice());
+                    realPrice = goodsDetailsBean.getRealPrice();
+                    goodsDetailsHeaderBean.setPrice(realPrice);
                     goodsDetailsHeaderBean.setDescribe(goodsDetailsBean.getDescription());
                     getBannerImage();
                 }

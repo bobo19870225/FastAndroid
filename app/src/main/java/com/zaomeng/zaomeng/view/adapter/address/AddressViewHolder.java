@@ -47,12 +47,12 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
 //                actionSelect.invoke();
 //            }
         });
-        if (memberShopBean.isSelect()) {
-            itemView.setBackground(itemView.getResources().getDrawable(R.drawable.button_them_color_select));
-
-        } else {
-            itemView.setBackground(itemView.getResources().getDrawable(R.drawable.button_them_color_un_select));
-        }
+//        if (memberShopBean.isSelect()) {
+//            itemView.setBackground(itemView.getResources().getDrawable(R.drawable.button_them_color_select));
+//
+//        } else {
+//            itemView.setBackground(itemView.getResources().getDrawable(R.drawable.button_them_color_un_select));
+//        }
     }
 
 }
