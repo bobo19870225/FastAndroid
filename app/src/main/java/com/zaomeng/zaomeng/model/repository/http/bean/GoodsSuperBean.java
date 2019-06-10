@@ -1,10 +1,13 @@
 package com.zaomeng.zaomeng.model.repository.http.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Sampson on 2019-04-26.
  * FastAndroid
  */
-public class GoodsSuperBean {
+public class GoodsSuperBean implements Parcelable {
 
     /**
      * id : fa7c2854-8b56-492b-b542-58a4ab2a7358
@@ -69,4 +72,43 @@ public class GoodsSuperBean {
     public void setSmallIcon(String smallIcon) {
         this.smallIcon = smallIcon;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.largeIcon);
+        dest.writeInt(this.orderSeq);
+        dest.writeString(this.parentID);
+        dest.writeString(this.smallIcon);
+    }
+
+    public GoodsSuperBean() {
+    }
+
+    protected GoodsSuperBean(Parcel in) {
+        this.id = in.readString();
+        this.name = in.readString();
+        this.largeIcon = in.readString();
+        this.orderSeq = in.readInt();
+        this.parentID = in.readString();
+        this.smallIcon = in.readString();
+    }
+
+    public static final Parcelable.Creator<GoodsSuperBean> CREATOR = new Parcelable.Creator<GoodsSuperBean>() {
+        @Override
+        public GoodsSuperBean createFromParcel(Parcel source) {
+            return new GoodsSuperBean(source);
+        }
+
+        @Override
+        public GoodsSuperBean[] newArray(int size) {
+            return new GoodsSuperBean[size];
+        }
+    };
 }

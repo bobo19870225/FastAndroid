@@ -23,6 +23,7 @@ import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
 import javax.inject.Inject;
 
+import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
 /**
@@ -40,6 +41,7 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
     }
 
     private Context context;
+    private Badge msgBadge;
     @Inject
     UserDao userDao;
 
@@ -63,6 +65,7 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
             } else if (loginInfo[0] == null || loginInfo[1] == null) {
                 skipTo(LoginActivity.class);
             }
+            msgBadge = new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg);
         }
 
         mViewModel.action.observe(this, s -> {
@@ -145,9 +148,8 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
 
                     }
                 }, this);
-                if (integer != null) {
-                    new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg)
-                            .setShowShadow(true)
+                if (integer != null && msgBadge != null) {
+                    msgBadge.setShowShadow(true)
                             .setBadgeGravity(Gravity.END | Gravity.TOP)
                             .setGravityOffset(-2, -2, true)
                             .setBadgeNumber(integer);

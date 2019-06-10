@@ -8,6 +8,7 @@ import com.zaomeng.zaomeng.view.CalendarActivity;
 import com.zaomeng.zaomeng.view.CertificationActivity;
 import com.zaomeng.zaomeng.view.ChoseAddressActivity;
 import com.zaomeng.zaomeng.view.ChoseBonusActivity;
+import com.zaomeng.zaomeng.view.ChoseShopTypeActivity;
 import com.zaomeng.zaomeng.view.CustomerServiceActivity;
 import com.zaomeng.zaomeng.view.FeedbackActivity;
 import com.zaomeng.zaomeng.view.FindPasswordActivity;
@@ -151,6 +152,9 @@ public abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector()
     abstract AfterSaleDetailsActivity afterSaleDetailsActivity();
+
+    @ContributesAndroidInjector()
+    abstract ChoseShopTypeActivity choseShopTypeActivity();
 
 
 }

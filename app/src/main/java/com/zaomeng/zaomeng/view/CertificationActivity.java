@@ -1,6 +1,8 @@
 package com.zaomeng.zaomeng.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,7 +11,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -24,15 +25,12 @@ import com.zaomeng.zaomeng.model.repository.http.bean.MemberShopBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.utils.LQRPhotoSelectUtils;
 import com.zaomeng.zaomeng.utils.http.BitmapUtils;
-import com.zaomeng.zaomeng.view.adapter.shop_type.ShopTypeAdapter;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
-import com.zaomeng.zaomeng.view.custom_view.CommonPopupWindow;
 import com.zaomeng.zaomeng.view_model.CertificationVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,9 +49,9 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
     HttpHelper httpHelper;
     private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
     private AlertDialog alertDialog;
-    private List<GoodsSuperBean> listShopType = new ArrayList<>();
-    private CommonPopupWindow commonPopupWindow;
-    private ShopTypeAdapter shopTypeAdapter;
+    //    private List<GoodsSuperBean> listShopType = new ArrayList<>();
+    //    private CommonPopupWindow commonPopupWindow;
+//    private ShopTypeAdapter shopTypeAdapter;
     private int which = -1;
 
     @NonNull
@@ -69,6 +67,34 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
             mViewModel.isEdit = true;
             mViewModel.memberShopID = ((MemberShopBean) transferData).getId();
             mViewModel.ldName.setValue(((MemberShopBean) transferData).getName());
+            mViewModel.getShopType().observe(this, pageBeanResource -> {
+                PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
+                    @Override
+                    public void skipLoginActivity() {
+//                    skipTo(LoginActivity.class, null);
+                    }
+
+                    @Override
+                    public void reLoad() {
+//                    mViewModel.getShopType();
+                    }
+                }, this);
+                if (goodsSuperBeanPageDataBean != null) {
+                    List<GoodsSuperBean> rows = goodsSuperBeanPageDataBean.getRows();
+//                shopTypeAdapter.setList(listShopType);
+                    if (mViewModel.isEdit) {
+                        for (GoodsSuperBean goodsSuperBean : rows) {
+                            if (goodsSuperBean.getId().equals(mViewModel.ldShopTypeID.getValue())) {
+                                mViewModel.ldShopType.setValue(goodsSuperBean.getName());
+                                mViewModel.ldShopTypeID.setValue(goodsSuperBean.getId());
+                                break;
+                            }
+                        }
+
+                    }
+                }
+
+            });
 //            mViewModel.ldShopType.setValue(((MemberShopBean) transferData).getShopType());
             mViewModel.ldShopTypeID.setValue(((MemberShopBean) transferData).getShopCategoryID());
             mViewModel.ldContact.setValue(((MemberShopBean) transferData).getContact());
@@ -103,33 +129,7 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
             mViewDataBinding.submit.setText("保存");
         }
         init();
-        mViewModel.getShopType().observe(this, pageBeanResource -> {
-            PageDataBean<GoodsSuperBean> goodsSuperBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
-                @Override
-                public void skipLoginActivity() {
-                    skipTo(LoginActivity.class, null);
-                }
 
-                @Override
-                public void reLoad() {
-                    mViewModel.getShopType();
-                }
-            }, this);
-            if (goodsSuperBeanPageDataBean != null) {
-                listShopType = goodsSuperBeanPageDataBean.getRows();
-                shopTypeAdapter.setList(listShopType);
-                if (mViewModel.isEdit) {
-                    for (GoodsSuperBean goodsSuperBean : listShopType) {
-                        if (goodsSuperBean.getId().equals(mViewModel.ldShopTypeID.getValue())) {
-                            mViewModel.ldShopType.setValue(goodsSuperBean.getName());
-                            break;
-                        }
-                    }
-
-                }
-            }
-
-        });
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "setShopImage":
@@ -152,7 +152,10 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
                     break;
 
                 case "choiceType":
-                    commonPopupWindow.showAsDropDown(mViewDataBinding.imageType, 0, 0);
+//                    commonPopupWindow.showAsDropDown(mViewDataBinding.imageType, 0, 0);
+                    Intent intent = new Intent();
+                    intent.setClass(getApplicationContext(), ChoseShopTypeActivity.class);
+                    startActivityForResult(intent, 10086);
                     break;
             }
 
@@ -243,7 +246,7 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
 
     private void init() {
         LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_wait, null, false);
+        @SuppressLint("InflateParams") View view = layoutInflater.inflate(R.layout.dialog_wait, null, false);
         alertDialog = new AlertDialog.Builder(this)
                 .setView(view)
                 .setCancelable(false)
@@ -256,25 +259,25 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
             showUpDataDialog(true);
         }, false);//true裁剪，false不裁剪
 
-        commonPopupWindow = new CommonPopupWindow(getApplication(), R.layout.window_shop_type, 500, 300) {
-            @Override
-            protected void initView(View contentView) {
-                shopTypeAdapter = new ShopTypeAdapter();
-                shopTypeAdapter.setOnItemClick((view1, ItemObject, position) -> {
-                    mViewModel.ldShopType.setValue(ItemObject.getName());
-                    mViewModel.ldShopTypeID.setValue(ItemObject.getId());
-                    commonPopupWindow.dismiss();
-                });
-                RecyclerView recyclerView = contentView.findViewById(R.id.list);
-                recyclerView.setAdapter(shopTypeAdapter);
-
-            }
-
-            @Override
-            protected void initEvent() {
-
-            }
-        };
+//        commonPopupWindow = new CommonPopupWindow(getApplication(), R.layout.window_shop_type, 500, 300) {
+//            @Override
+//            protected void initView(View contentView) {
+//                shopTypeAdapter = new ShopTypeAdapter();
+//                shopTypeAdapter.setOnItemClick((view1, ItemObject, position) -> {
+//                    mViewModel.ldShopType.setValue(ItemObject.getName());
+//                    mViewModel.ldShopTypeID.setValue(ItemObject.getId());
+//                    commonPopupWindow.dismiss();
+//                });
+//                RecyclerView recyclerView = contentView.findViewById(R.id.list);
+//                recyclerView.setAdapter(shopTypeAdapter);
+//
+//            }
+//
+//            @Override
+//            protected void initEvent() {
+//
+//            }
+//        };
     }
 
     private void showUpDataDialog(boolean isShow) {
@@ -295,6 +298,14 @@ public class CertificationActivity extends MVVMActivity<CertificationVM, Activit
         super.onActivityResult(requestCode, resultCode, data);
         // 2、在Activity中的onActivityResult()方法里与LQRPhotoSelectUtils关联
         mLqrPhotoSelectUtils.attachToActivityForResult(requestCode, resultCode, data);
+        if (requestCode == 10086 && resultCode == Activity.RESULT_OK) {
+            GoodsSuperBean goodsSuperBean = data.getParcelableExtra("Data");
+            if (goodsSuperBean != null) {
+                mViewModel.ldShopType.setValue(goodsSuperBean.getName());
+                mViewModel.ldShopTypeID.setValue(goodsSuperBean.getId());
+            }
+        }
+
     }
 
     @Override

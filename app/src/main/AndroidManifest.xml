@@ -74,6 +74,7 @@
         <activity android:name=".view.MessageTypeActivity" />
         <activity android:name=".view.ChoseAddressActivity" />
         <activity android:name=".view.AfterSaleDetailsActivity" />
+        <activity android:name=".view.ChoseShopTypeActivity" />
 
         <receiver android:name=".AppRegister">
             <intent-filter>
