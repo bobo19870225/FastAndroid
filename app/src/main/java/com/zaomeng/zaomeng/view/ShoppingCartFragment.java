@@ -48,6 +48,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 //    private double priceTotal;
     private AlertDialog alertDialog;
     private TextView ok;
+    private Double buyPrice;
     @Inject
     HttpHelper httpHelper;
 
@@ -72,15 +73,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         mViewModel.ldTotal.observe(this, aDouble -> {
             TextView ttTotal = mViewDataBinding.ttTotal;
             TextView total = mViewDataBinding.total;
-
-            if (aDouble == 0) {
-                ttTotal.setVisibility(View.GONE);
-                total.setVisibility(View.GONE);
-                disableSettlement(false, R.color.gray);
-            } else {
-                ttTotal.setVisibility(View.VISIBLE);
-                total.setVisibility(View.VISIBLE);
-                total.setText(FormatUtils.numberFormatMoney(aDouble));
+            if (buyPrice == null) {//不重复调用
                 mViewModel.getParameterValueByCode().observe(ShoppingCartFragment.this, beanResource -> {
                     String s = (String) httpHelper.AnalyticalData(beanResource, new InterfaceLogin() {
                         @Override
@@ -94,14 +87,13 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                         }
                     }, ShoppingCartFragment.this);
                     if (s != null) {
-                        Double totalPrice = mViewModel.ldTotal.getValue();
-
-                        if (totalPrice != null) {
+                        if (aDouble != null) {
                             try {
-                                if (totalPrice < Double.valueOf(s)) {
-                                    disableSettlement(false, R.color.gray);
+                                buyPrice = Double.valueOf(s);
+                                if (aDouble < buyPrice) {
+                                    disableSettlement(false, buyPrice);
                                 } else {
-                                    disableSettlement(true, R.color.them_color);
+                                    disableSettlement(true, buyPrice);
                                 }
                             } catch (NumberFormatException e) {
                                 e.printStackTrace();
@@ -110,6 +102,23 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                     }
 
                 });
+            } else {
+                if (aDouble < buyPrice) {
+                    disableSettlement(false, buyPrice);
+                } else {
+                    disableSettlement(true, buyPrice);
+                }
+            }
+
+            if (aDouble == 0) {
+                ttTotal.setVisibility(View.GONE);
+                total.setVisibility(View.GONE);
+//                disableSettlement(false, R.color.gray);
+            } else {
+                ttTotal.setVisibility(View.VISIBLE);
+                total.setVisibility(View.VISIBLE);
+                total.setText(FormatUtils.numberFormatMoney(aDouble));
+
             }
         });
 
@@ -198,10 +207,17 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
                 create();
     }
 
-    private void disableSettlement(boolean enable, int color) {
+    private void disableSettlement(boolean enable, Double minBuyPrice) {
         TextView settlement = mViewDataBinding.settlement;
         settlement.setEnabled(enable);
-        settlement.setBackgroundColor(getResources().getColor(color));
+        if (enable) {
+            settlement.setBackgroundColor(getResources().getColor(R.color.them_color));
+            settlement.setText("结算");
+        } else {
+            settlement.setBackgroundColor(getResources().getColor(R.color.gray));
+            settlement.setText(String.format("%s起订", FormatUtils.numberFormatMoney(minBuyPrice)));
+        }
+
     }
 
     @SuppressWarnings("unchecked")
