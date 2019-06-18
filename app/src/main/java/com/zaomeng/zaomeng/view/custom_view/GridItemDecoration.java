@@ -50,9 +50,8 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
 
         for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
-
             //最后一行底部横线不绘制
-            if (isLastRaw(parent, i, getSpanCount(parent), childCount) && !mShowLastLine) {
+            if (isLastRaw(parent, i, getSpanCount(parent, i), childCount) && !mShowLastLine) {
                 continue;
             }
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
@@ -60,7 +59,6 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
             final int right = child.getRight() + params.rightMargin;
             final int top = child.getBottom() + params.bottomMargin;
             final int bottom = top + mHorizonSpan;
-
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
         }
@@ -70,9 +68,11 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
-            if ((parent.getChildViewHolder(child).getAdapterPosition() + 1) % getSpanCount(parent) == 0) {
-                continue;
-            }
+            int spanCount = getSpanCount(parent, i);
+            int i1 = (parent.getChildViewHolder(child).getAdapterPosition() + 1) % spanCount;
+//            if (i1 == 0) {
+//                continue;
+//            }
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int top = child.getTop() - params.topMargin;
             final int bottom = child.getBottom() + params.bottomMargin + mHorizonSpan;
@@ -92,10 +92,9 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
      */
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        int spanCount = getSpanCount(parent);
         int childCount = Objects.requireNonNull(parent.getAdapter()).getItemCount();
         int itemPosition = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
-
+        int spanCount = getSpanCount(parent, itemPosition);
         if (itemPosition < 0) {
             return;
         }
@@ -121,12 +120,14 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 获取列数
      */
-    private int getSpanCount(RecyclerView parent) {
+    private int getSpanCount(RecyclerView parent, int position) {
         // 列数
         int mSpanCount = -1;
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-            mSpanCount = ((GridLayoutManager) layoutManager).getSpanCount();
+//            mSpanCount = ((GridLayoutManager) layoutManager).getSpanCount();
+            GridLayoutManager.SpanSizeLookup spanSizeLookup = ((GridLayoutManager) layoutManager).getSpanSizeLookup();
+            mSpanCount = spanSizeLookup.getSpanSize(position);
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             mSpanCount = ((StaggeredGridLayoutManager) layoutManager).getSpanCount();
         }
