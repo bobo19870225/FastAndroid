@@ -105,7 +105,7 @@ public class ShoppingCartFragmentVM extends ListViewModel<Integer, ShopCartBean>
     @Override
     public boolean setLoadCallback(PageBean<ShopCartBean> body, PageKeyedDataSource.LoadParams<Integer> params, PageKeyedDataSource.LoadCallback<Integer, ShopCartBean> callback, Listing<ShopCartBean> listing) {
         if (body.getHeader().getCode() == 0) {
-            int currentPage = body.getBody().getData().getCurrentPage();
+//            int currentPage = body.getBody().getData().getCurrentPage();
             int total = body.getBody().getData().getTotalPage();
             if (total > params.key) {
                 callback.onResult(body.getBody().getData().getRows(), params.key + 1);

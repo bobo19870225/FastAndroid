@@ -1,6 +1,7 @@
 package com.zaomeng.zaomeng.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -56,7 +57,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
     public ShoppingCartFragment() {
     }
 
-
+    @SuppressWarnings("unchecked")
     @Override
     protected void setUI() {
         if (!EventBus.getDefault().isRegistered(this))
@@ -193,7 +194,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
     private void initDeleteDialog() {
         LayoutInflater layoutInflater = getLayoutInflater();
-        View inflate = layoutInflater.inflate(R.layout.dialog_delete, null, false);
+        @SuppressLint("InflateParams") View inflate = layoutInflater.inflate(R.layout.dialog_delete, null, false);
         TextView cancel = inflate.findViewById(R.id.cancel);
         cancel.setOnClickListener(v -> {
             if (alertDialog.isShowing())
@@ -283,6 +284,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         return shopCartAdapter;
     }
 
+    @SuppressWarnings("unchecked")
     private void upDataGoodsNumber(ShopCartBean ItemObject) {
 //        showWaitDialog(true);
         mViewModel.updateCartGoodsNumber(ItemObject.getId(), ItemObject.getQty()).observe(this, beanResource -> {
@@ -403,7 +405,7 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(String event) {
-        if (event.equals("refreshShopCart")) {
+        if (event.equals("WXPayCallBack")) {
             refresh();
         }
     }

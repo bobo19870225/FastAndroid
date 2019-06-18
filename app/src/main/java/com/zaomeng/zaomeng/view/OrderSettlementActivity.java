@@ -368,7 +368,7 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(String event) {
-        if (event.equals("ok"))
+        if (event.equals("WXPayCallBack"))
             finish();
     }
 }

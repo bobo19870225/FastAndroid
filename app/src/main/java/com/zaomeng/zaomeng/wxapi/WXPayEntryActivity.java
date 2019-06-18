@@ -4,7 +4,6 @@ package com.zaomeng.zaomeng.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -44,16 +43,17 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onResp(BaseResp resp) {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
-                Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), OrderActivity.class);
-                startActivity(intent);
-                EventBus.getDefault().post("ok");
-                finish();
-            } else {
-                Toast.makeText(getApplicationContext(), resp.errStr, Toast.LENGTH_LONG).show();
-                finish();
-            }
+//            if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(), OrderActivity.class);
+            startActivity(intent);
+            EventBus.getDefault().post("WXPayCallBack");
+            finish();
+//            } else {
+//                Toast.makeText(getApplicationContext(), resp.errStr, Toast.LENGTH_LONG).show();
+//                EventBus.getDefault().post("ERR_USER_CANCEL");
+//                finish();
+//            }
         }
     }
 }
