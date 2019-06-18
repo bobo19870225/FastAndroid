@@ -3,7 +3,6 @@ package com.zaomeng.zaomeng.view;
 import android.view.Gravity;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +12,6 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.databinding.ActivityGoodsDetailsBinding;
 import com.zaomeng.zaomeng.model.repository.http.HttpHelper;
 import com.zaomeng.zaomeng.model.repository.http.InterfaceLogin;
-import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
-import com.zaomeng.zaomeng.model.repository.http.bean.BodyBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsHeaderBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.GoodsDetailsImageBean;
@@ -22,7 +19,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
-import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.specification.InterfaceShowSpecification;
 import com.zaomeng.zaomeng.utils.specification.ShowSpecificationHelper;
 import com.zaomeng.zaomeng.view.adapter.goods_details.GoodsDetailsAdapter;
@@ -149,36 +145,18 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     skipTo(MainActivity.class, 3, true);
                     break;
                 case "addToShopCar":
-                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice);
+                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice, true);
                     mViewModel.getObjectFeatureItemList(goodsId).observe(this, specificationsBeanResource -> {
                         if (specificationsBeanResource.isSuccess()) {
                             SpecificationsBean resource = specificationsBeanResource.getResource();
                             if (resource != null && resource.getHeader().getCode() == 0) {
                                 List<SpecificationsBean.BodyBean.DataBean> data = resource.getBody().getData();
                                 if (data.size() == 0) {
-                                    int qty = 1;
-                                    LiveData<Resource<Bean<String>>> addGoodsShopToCart = mViewModel.addGoodsToCart(goodsId, qty, null);
-                                    if (addGoodsShopToCart != null) {
-                                        addGoodsShopToCart.observe(this, beanResource -> {
-                                            BodyBean<String> addToShopCartBean = httpHelper.AnalyticalDataBody(beanResource, new InterfaceLogin() {
-                                                @Override
-                                                public void skipLoginActivity() {
-                                                    toLogin();
-                                                }
-
-                                                @Override
-                                                public void reLoad() {
-//                                                    mViewModel.addCollect(goodsId, goodsName);
-                                                }
-                                            }, this);
-                                            badge.setBadgeNumber(badge.getBadgeNumber() + addToShopCartBean.getQty());
-                                        });
-                                    }
-
+                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice, false);
                                 } else {
                                     SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
                                     List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
-                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, goodsId, realPrice);
+                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, goodsId, realPrice, false);
                                 }
 
                             } else {

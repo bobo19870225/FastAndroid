@@ -47,7 +47,7 @@ public class ShowSpecificationHelper {
     }
 
     public void showSpecificationDialog(LayoutInflater layoutInflater, List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList,
-                                        String goodsID, double realPrice) {
+                                        String goodsID, double realPrice, boolean isLoading) {
 
         //默认Cancelable和CanceledOnTouchOutside均为true
         //bsDialog.setCancelable(true);
@@ -61,6 +61,7 @@ public class ShowSpecificationHelper {
         RecyclerView recyclerView = view.findViewById(R.id.list);
         Button ok = view.findViewById(R.id.ok);
         ImageView cancel = view.findViewById(R.id.cancel);
+        TextView textView = view.findViewById(R.id.textView);
         cancel.setOnClickListener(v -> {
             if (bottomSheetDialog.isShowing())
                 bottomSheetDialog.dismiss();
@@ -83,54 +84,58 @@ public class ShowSpecificationHelper {
         price = view.findViewById(R.id.price);
         setPrice(realPrice);
         bottomSheetDialog.setContentView(view);
-        if (itemList == null) {
+        if (isLoading) {
             root.setVisibility(View.GONE);
             loading.setVisibility(View.VISIBLE);
         } else {
             root.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
-            FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(view.getContext());
-            layoutManager.setFlexWrap(FlexWrap.WRAP);
-            layoutManager.setFlexDirection(FlexDirection.ROW);
-            layoutManager.setAlignItems(AlignItems.STRETCH);
-            layoutManager.setJustifyContent(JustifyContent.FLEX_START);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(new CommonAdapter<SpecificationsBean.BodyBean.DataBean.ItemListBean>(view.getContext(), R.layout.flexbox_item_text, itemList) {
+            if (itemList != null) {
+                textView.setVisibility(View.VISIBLE);
+                FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(view.getContext());
+                layoutManager.setFlexWrap(FlexWrap.WRAP);
+                layoutManager.setFlexDirection(FlexDirection.ROW);
+                layoutManager.setAlignItems(AlignItems.STRETCH);
+                layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(new CommonAdapter<SpecificationsBean.BodyBean.DataBean.ItemListBean>(view.getContext(), R.layout.flexbox_item_text, itemList) {
+                    @Override
+                    protected void convert(ViewHolder holder, SpecificationsBean.BodyBean.DataBean.ItemListBean itemListBean, int position) {
 
-
-                @Override
-                protected void convert(ViewHolder holder, SpecificationsBean.BodyBean.DataBean.ItemListBean itemListBean, int position) {
-
-                    TextView te = holder.getView(R.id.imageview);
-                    te.setText(itemListBean.getObjectFeatureItemName());
-                    if (oldPosition == position) {
-                        te.setBackground(view.getContext().getResources().getDrawable(R.drawable.button_them_color_select));
-                    } else {
-                        te.setBackground(view.getContext().getResources().getDrawable(R.drawable.button_them_color_un_select));
-                    }
-                    te.setOnClickListener(v -> {
-                                objectFeatureItemID = itemListBean.getObjectFeatureItemID();
-                                specificationName = itemListBean.getObjectFeatureItemName();
-                                oldPosition = position;
+                        TextView te = holder.getView(R.id.imageview);
+                        te.setText(itemListBean.getObjectFeatureItemName());
+                        if (oldPosition == position) {
+                            te.setBackground(view.getContext().getResources().getDrawable(R.drawable.button_them_color_select));
+                        } else {
+                            te.setBackground(view.getContext().getResources().getDrawable(R.drawable.button_them_color_un_select));
+                        }
+                        te.setOnClickListener(v -> {
+                                    objectFeatureItemID = itemListBean.getObjectFeatureItemID();
+                                    specificationName = itemListBean.getObjectFeatureItemName();
+                                    oldPosition = position;
 //                        price.setText(itemListBean.);
-                                interfaceShowSpecification.getPrice(goodsID, objectFeatureItemID);
-                                notifyDataSetChanged();
-                            }
-                    );
-                    ViewGroup.LayoutParams lp = te.getLayoutParams();
-                    if (lp instanceof FlexboxLayoutManager.LayoutParams) {
-                        FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
-                        flexBoxLp.width = itemListBean.getObjectFeatureItemName().getBytes().length * 32;
+                                    interfaceShowSpecification.getPrice(goodsID, objectFeatureItemID);
+                                    notifyDataSetChanged();
+                                }
+                        );
+                        ViewGroup.LayoutParams lp = te.getLayoutParams();
+                        if (lp instanceof FlexboxLayoutManager.LayoutParams) {
+                            FlexboxLayoutManager.LayoutParams flexBoxLp = (FlexboxLayoutManager.LayoutParams) lp;
+                            flexBoxLp.width = itemListBean.getObjectFeatureItemName().getBytes().length * 32;
 //                        flexBoxLp.setFlexGrow(1.0f);
 //                        flexBoxLp.setFlexGrow(itemListBean.getObjectFeatureItemName().length());
+                        }
+
                     }
 
-                }
+                });
+            } else {
+                textView.setVisibility(View.GONE);
+            }
 
-            });
             ok.setOnClickListener(v -> {
                 int qty = Integer.parseInt(number.getText().toString());
-                if (specificationName == null) {
+                if (itemList != null && specificationName == null) {
                     interfaceShowSpecification.toast("请选择规格");
                     return;
                 }
