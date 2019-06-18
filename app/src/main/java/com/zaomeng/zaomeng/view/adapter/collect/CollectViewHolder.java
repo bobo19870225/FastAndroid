@@ -44,7 +44,10 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
     void bind(CollectInfoBean collectInfoBean, OnItemClick<CollectInfoBean> onItemClick, OnItemClick<CollectInfoBean> onAddClick) {
         goodsName.setText(collectInfoBean.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(collectInfoBean.getShowPrice()));
-        specifications.setText(String.format("规格：%s", collectInfoBean.getUnitDescription()));
+        String unitDescription = collectInfoBean.getUnitDescription();
+        if (!FormatUtils.isStringNull(unitDescription))
+            specifications.setText(String.format("规格：%s", unitDescription));
+//        specifications.setText(String.format("规格：%s", collectInfoBean.getUnitDescription()));
         Glide.with(goodsIcon).load(collectInfoBean.getListImage()).into(goodsIcon);
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)

@@ -44,7 +44,10 @@ public class BranchGoodsViewHolder extends RecyclerView.ViewHolder {
     void bind(BranchGoodsBean goods, OnItemClick<BranchGoodsBean> onItemClick, OnItemClick<BranchGoodsBean> onAddClick) {
         goodsName.setText(goods.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(goods.getShowPrice()));
-        specifications.setText(String.format("规格：%s", goods.getUnitDescription()));
+        String unitDescription = goods.getUnitDescription();
+        if (!FormatUtils.isStringNull(unitDescription))
+            specifications.setText(String.format("规格：%s", unitDescription));
+//        specifications.setText(String.format("规格：%s", goods.getUnitDescription()));
         Glide.with(goodsIcon).load(goods.getListImage()).into(goodsIcon);
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)

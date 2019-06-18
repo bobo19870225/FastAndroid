@@ -52,7 +52,10 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
               OnItemClick<ShopCartBean> onAddClick,
               OnItemClick<ShopCartBean> onReduceClick) {
         goodsName.setText(shopCartBean.getName());
-        specifications.setText(shopCartBean.getObjectFeatureItemName1());
+        String unitDescription = shopCartBean.getObjectFeatureItemName1();
+        if (!FormatUtils.isStringNull(unitDescription))
+            specifications.setText(String.format("规格：%s", unitDescription));
+//        specifications.setText(shopCartBean.getObjectFeatureItemName1());
         Glide.with(goodsIcon).load(shopCartBean.getLittleImage()).into(goodsIcon);
         price.setText(FormatUtils.numberFormatMoney(shopCartBean.getPriceNow()));
         number.setText(String.valueOf(shopCartBean.getQty()));

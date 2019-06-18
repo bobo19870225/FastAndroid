@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.http.bean.AfterSaleBean;
+import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 import com.zaomeng.zaomeng.view.custom_view.RoundRectImageView;
 
@@ -62,7 +63,10 @@ public class AfterSaleRecordViewHolder extends RecyclerView.ViewHolder {
                 break;
         }
         goodsName.setText(afterSaleBean.getGoodsShopName());
-        specifications.setText(afterSaleBean.getObjectFeatureItemName1());
+        String unitDescription = afterSaleBean.getObjectFeatureItemName1();
+        if (!FormatUtils.isStringNull(unitDescription))
+            specifications.setText(String.format("规格：%s", unitDescription));
+//        specifications.setText(afterSaleBean.getObjectFeatureItemName1());
         qty.setText(String.format("件数：%s", String.valueOf(afterSaleBean.getQty())));
         Glide.with(roundRectImageView).load(afterSaleBean.getLittleImage()).into(roundRectImageView);
         relativeLayout.setOnClickListener(v -> {

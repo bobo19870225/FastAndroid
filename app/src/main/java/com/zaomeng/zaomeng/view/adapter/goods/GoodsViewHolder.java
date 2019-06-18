@@ -45,7 +45,9 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
     void bind(GoodsListRowsBean goods, OnItemClick<GoodsListRowsBean> onItemClick, OnItemClick<GoodsListRowsBean> onAddClick) {
         goodsName.setText(goods.getName());
         Glide.with(goodsIcon).load(goods.getLargerImage()).into(goodsIcon);
-        specifications.setText(String.format("规格：%s", goods.getUnitDescription()));
+        String unitDescription = goods.getUnitDescription();
+        if (!FormatUtils.isStringNull(unitDescription))
+            specifications.setText(String.format("规格：%s", unitDescription));
         price.setText(FormatUtils.numberFormatMoney(goods.getShowPrice()));
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)

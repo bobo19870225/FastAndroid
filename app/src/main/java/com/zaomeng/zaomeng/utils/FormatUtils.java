@@ -62,4 +62,17 @@ public class FormatUtils {
         res = simpleDateFormat.format(date);
         return res;
     }
+
+    public static Boolean isStringNull(String s) {
+        if (s == null || s.isEmpty()) {
+            return true;
+        } else {
+            String trim = s.trim();
+            if (trim.equals("null")) {
+                return true;
+            }
+            return trim.equals("");
+        }
+
+    }
 }

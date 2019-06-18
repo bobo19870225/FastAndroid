@@ -44,7 +44,10 @@ public class GoodsGridViewHolder extends RecyclerView.ViewHolder {
         NavigatorBean.GoodsListBean data = goods.getData();
         goodsName.setText(data.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(data.getShowPrice()));
-        specifications.setText(String.format("规格：%s", data.getUnitDescription()));
+        String unitDescription = data.getUnitDescription();
+        if (!FormatUtils.isStringNull(unitDescription))
+            specifications.setText(String.format("规格：%s", unitDescription));
+//        specifications.setText(String.format("规格：%s", data.getUnitDescription()));
         glideUtils.into(icon_goods, data.getListImage());
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
