@@ -40,7 +40,7 @@
                     android:layout_toEndOf="@+id/dingwei"
                     android:layout_toRightOf="@+id/dingwei"
                     android:gravity="center"
-                    android:text="上海"
+                    android:text="@{model.ldLocation}"
                     android:textSize="@dimen/text3" />
 
                 <ImageView

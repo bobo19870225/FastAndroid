@@ -24,6 +24,10 @@ android {
         versionCode 1
         versionName "V1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk { //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64", "mips", "mips64"
+            // 还可以添加   'mips', 'mips64'
+        }
         vectorDrawables.useSupportLibrary = true
         signingConfig signingConfigs.release
         javaCompileOptions {
@@ -149,4 +153,8 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     //等待框
     implementation 'com.github.gittjy:LoadingDialog:1.0.2'
+//   2D地图so及jar
+    implementation 'com.amap.api:map2d:latest.integration'
+    //定位功能
+    implementation 'com.amap.api:location:latest.integration'
 }

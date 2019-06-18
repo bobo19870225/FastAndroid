@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
@@ -21,7 +22,7 @@ import com.zaomeng.zaomeng.utils.SingleLiveEvent;
 public class MainFragmentVM extends BaseViewModel {
     private ApiService apiService;
     public final SingleLiveEvent<String> action = new SingleLiveEvent<>();
-
+    public final MutableLiveData<String> ldLocation = new MutableLiveData<>();
 
     public MainFragmentVM(@NonNull Application application, ApiService apiService) {
         super(application);
