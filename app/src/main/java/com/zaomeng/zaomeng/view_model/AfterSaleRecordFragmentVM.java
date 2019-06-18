@@ -54,7 +54,7 @@ public class AfterSaleRecordFragmentVM extends ListViewModel<Integer, AfterSaleB
     public boolean setLoadCallback(PageBean<AfterSaleBean> body, PageKeyedDataSource.LoadParams<Integer> params, PageKeyedDataSource.LoadCallback<Integer, AfterSaleBean> callback, Listing<AfterSaleBean> listing) {
 //        if (body.getHeader().getCode() == 0) {
 //            int total = body.getBody().getData().getTotalPage();
-//            if (total > params.key) {
+//            if (total >= params.key) {
 //                callback.onResult(body.getBody().getData().getRows(), params.key + 1);
 //            }
 //        } else {

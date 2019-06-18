@@ -58,7 +58,7 @@ public class AfterSaleOrderFragmentVM extends ListViewModel<Integer, OrderBean> 
     public boolean setLoadCallback(PageBean<OrderBean> body, PageKeyedDataSource.LoadParams<Integer> params, PageKeyedDataSource.LoadCallback<Integer, OrderBean> callback, Listing<OrderBean> listing) {
         if (body.getHeader().getCode() == 0) {
             int total = body.getBody().getData().getTotalPage();
-            if (total > params.key) {
+            if (total >= params.key) {
                 callback.onResult(body.getBody().getData().getRows(), params.key + 1);
             }
         } else {
