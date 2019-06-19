@@ -130,6 +130,8 @@
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
                     android:layout_toEndOf="@+id/tt_total"
                     android:layout_toRightOf="@+id/tt_total"
                     android:minWidth="72dp"

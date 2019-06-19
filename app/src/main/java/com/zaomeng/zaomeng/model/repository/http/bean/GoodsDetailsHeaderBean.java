@@ -11,7 +11,7 @@ public class GoodsDetailsHeaderBean {
     private String goodsName;
     private double price;
     private String describe;
-    private double stockOut;
+    private int stockOut;
 
     public List<String> getListBannerURL() {
         return listBannerURL;
@@ -45,11 +45,11 @@ public class GoodsDetailsHeaderBean {
         this.describe = describe;
     }
 
-    public double getStockOut() {
+    public int getStockOut() {
         return stockOut;
     }
 
-    public void setStockOut(double stockOut) {
+    public void setStockOut(int stockOut) {
         this.stockOut = stockOut;
     }
 }

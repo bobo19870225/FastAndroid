@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,7 +48,7 @@ public class ShowSpecificationHelper {
     }
 
     public void showSpecificationDialog(LayoutInflater layoutInflater, List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList,
-                                        String goodsID, double realPrice, double stock, boolean isLoading) {
+                                        String goodsID, double realPrice, int stock, boolean isLoading) {
 
         //默认Cancelable和CanceledOnTouchOutside均为true
         //bsDialog.setCancelable(true);
@@ -71,6 +72,10 @@ public class ShowSpecificationHelper {
         add.setOnClickListener(v -> {
             int sl = Integer.valueOf(number.getText().toString());
             sl += 1;
+            if (sl > stock) {
+                Toast.makeText(add.getContext(), "库存不足", Toast.LENGTH_LONG).show();
+                return;
+            }
             number.setText(String.valueOf(sl));
         });
         ImageView reduce = view.findViewById(R.id.reduce);

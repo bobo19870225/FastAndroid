@@ -11,25 +11,29 @@ public class ShopCartBean implements Parcelable {
 
 
     /**
-     * id : 2c9051726a82a80b016a832517f10000
-     * name : 知味观 小笼包 笋丁猪肉味 250g（包子 早餐 馒头花卷 杭州特产）
+     * id : 2c9051726b6b2b01016b6d51542e0012
+     * name : 可佰味黑米窝窝头
      * cartID : 2c9051726a646c47016a6484de6a0007
-     * goodsShopID : 2c9051726a3f6378016a482352ff0023
-     * standPrice : 7.8
-     * discountRate : 1.0
-     * priceNow : 7.8
+     * goodsShopID : 2c9051726b2c3bfb016b658f35390022
+     * stockNumber : 100
+     * stockOut : 100
+     * standPrice : 120.0
+     * discountRate : 0.0
+     * priceNow : 120.0
      * qty : 1
-     * priceTotal : 7.8
-     * objectFeatureItemID1 : 2c9051726a3f6378016a48243a2f002b
-     * objectFeatureItemName1 : 250g*12包
-     * isSelected : 0
-     * littleImage : http://wj.haoju.me/14ef7461cc2c42ebb3f10651b63a7826.jpg
+     * priceTotal : 120.0
+     * objectFeatureItemID1 : null
+     * objectFeatureItemName1 : null
+     * isSelected : 1
+     * littleImage : http://qn.wgclm.com/499b57a9edcd4f00bc82ffe6a7340bff.jpg
      */
 
     private String id;
     private String name;
     private String cartID;
     private String goodsShopID;
+    private int stockNumber;
+    private int stockOut;
     private double standPrice;
     private double discountRate;
     private double priceNow;
@@ -70,6 +74,22 @@ public class ShopCartBean implements Parcelable {
 
     public void setGoodsShopID(String goodsShopID) {
         this.goodsShopID = goodsShopID;
+    }
+
+    public int getStockNumber() {
+        return stockNumber;
+    }
+
+    public void setStockNumber(int stockNumber) {
+        this.stockNumber = stockNumber;
+    }
+
+    public int getStockOut() {
+        return stockOut;
+    }
+
+    public void setStockOut(int stockOut) {
+        this.stockOut = stockOut;
     }
 
     public double getStandPrice() {
@@ -155,6 +175,8 @@ public class ShopCartBean implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.cartID);
         dest.writeString(this.goodsShopID);
+        dest.writeInt(this.stockNumber);
+        dest.writeInt(this.stockOut);
         dest.writeDouble(this.standPrice);
         dest.writeDouble(this.discountRate);
         dest.writeDouble(this.priceNow);
@@ -174,6 +196,8 @@ public class ShopCartBean implements Parcelable {
         this.name = in.readString();
         this.cartID = in.readString();
         this.goodsShopID = in.readString();
+        this.stockNumber = in.readInt();
+        this.stockOut = in.readInt();
         this.standPrice = in.readDouble();
         this.discountRate = in.readDouble();
         this.priceNow = in.readDouble();

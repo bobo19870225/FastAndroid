@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,7 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
     private TextView specifications;
     private TextView price;
     private TextView number;
+    private TextView stock;
     private View add;
     private View reduce;
     private ImageView goodsIcon;
@@ -34,6 +36,7 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
         goodsName = itemView.findViewById(R.id.goods_name);
         specifications = itemView.findViewById(R.id.specifications);
         price = itemView.findViewById(R.id.price);
+        stock = itemView.findViewById(R.id.stock);
         number = itemView.findViewById(R.id.number);
         add = itemView.findViewById(R.id.add);
         reduce = itemView.findViewById(R.id.reduce);
@@ -59,6 +62,8 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
         Glide.with(goodsIcon).load(shopCartBean.getLittleImage()).into(goodsIcon);
         price.setText(FormatUtils.numberFormatMoney(shopCartBean.getPriceNow()));
         number.setText(String.valueOf(shopCartBean.getQty()));
+        int stockNumber = shopCartBean.getStockNumber();
+        stock.setText(String.valueOf(stockNumber));
         if (shopCartBean.getIsSelected() == 1) {
             select.setImageResource(R.mipmap.selected);
         } else {
@@ -75,6 +80,10 @@ public class ShopCartViewHolder extends RecyclerView.ViewHolder {
 
             int n = Integer.valueOf(number.getText().toString());
             n += 1;
+            if (n > stockNumber) {
+                Toast.makeText(add.getContext(), "库存不足", Toast.LENGTH_LONG).show();
+                return;
+            }
             number.setText(String.valueOf(n));
             shopCartBean.setQty(n);
             if (onAddClick != null) {

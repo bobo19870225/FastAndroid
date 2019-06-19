@@ -54,7 +54,7 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     private final MutableLiveData<Integer> ldIsCollect = new MutableLiveData<>();
     private String collectID;
     private double realPrice;
-    private double stockNumber;
+    private int stockNumber;
 
     @NonNull
     @Override
