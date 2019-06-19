@@ -47,7 +47,7 @@ public class ShowSpecificationHelper {
     }
 
     public void showSpecificationDialog(LayoutInflater layoutInflater, List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList,
-                                        String goodsID, double realPrice, boolean isLoading) {
+                                        String goodsID, double realPrice, double stock, boolean isLoading) {
 
         //默认Cancelable和CanceledOnTouchOutside均为true
         //bsDialog.setCancelable(true);
@@ -67,22 +67,24 @@ public class ShowSpecificationHelper {
                 bottomSheetDialog.dismiss();
         });
         TextView number = view.findViewById(R.id.number);
-        TextView add = view.findViewById(R.id.add);
+        ImageView add = view.findViewById(R.id.add);
         add.setOnClickListener(v -> {
             int sl = Integer.valueOf(number.getText().toString());
             sl += 1;
             number.setText(String.valueOf(sl));
         });
-        TextView reduce = view.findViewById(R.id.reduce);
+        ImageView reduce = view.findViewById(R.id.reduce);
         reduce.setOnClickListener(v -> {
             int sl = Integer.valueOf(number.getText().toString());
-            if (sl == 0)
+            if (sl == 1)
                 return;
             sl -= 1;
             number.setText(String.valueOf(sl));
         });
         price = view.findViewById(R.id.price);
+        TextView tvStock = view.findViewById(R.id.stock);
         setPrice(realPrice);
+        tvStock.setText(String.valueOf(stock));
         bottomSheetDialog.setContentView(view);
         if (isLoading) {
             root.setVisibility(View.GONE);

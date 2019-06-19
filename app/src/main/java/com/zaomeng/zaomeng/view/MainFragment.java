@@ -194,7 +194,8 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mlocationClient.stopLocation();
+        if (mlocationClient != null)
+            mlocationClient.stopLocation();
     }
 
     @Override

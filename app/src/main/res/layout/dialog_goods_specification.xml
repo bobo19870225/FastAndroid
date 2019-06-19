@@ -73,6 +73,27 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/text_them" />
 
+            <TextView
+                android:id="@+id/tt_stock"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/stock"
+                android:layout_toLeftOf="@+id/stock"
+                android:gravity="center_vertical"
+                android:text="库存："
+                android:textColor="@color/text_black" />
+
+            <TextView
+                android:id="@+id/stock"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_main" />
+
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -117,7 +138,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp">
 
-            <TextView
+            <ImageView
+                android:padding="@dimen/image_padding"
                 android:id="@+id/reduce"
                 android:layout_toStartOf="@+id/number"
                 android:layout_width="40dp"
@@ -125,9 +147,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_toLeftOf="@+id/number"
-                android:padding="@dimen/image_padding"
-                android:gravity="center"
-                android:text="@string/reduce" />
+                android:src="@mipmap/jian" />
 
             <TextView
                 android:layout_height="32dp"
@@ -140,7 +160,7 @@
                 android:background="@color/bg_color"
                 android:text="1" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/add"
                 android:layout_alignParentEnd="true"
                 android:layout_width="40dp"
@@ -148,8 +168,7 @@
                 android:layout_alignParentRight="true"
                 android:padding="@dimen/image_padding"
                 android:gravity="center"
-                android:src="@mipmap/add"
-                android:text="@string/add" />
+                android:src="@mipmap/jia" />
         </RelativeLayout>
 
 

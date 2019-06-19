@@ -54,6 +54,7 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
     private final MutableLiveData<Integer> ldIsCollect = new MutableLiveData<>();
     private String collectID;
     private double realPrice;
+    private double stockNumber;
 
     @NonNull
     @Override
@@ -145,18 +146,18 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     skipTo(MainActivity.class, 3, true);
                     break;
                 case "addToShopCar":
-                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice, true);
+                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice, 0, true);
                     mViewModel.getObjectFeatureItemList(goodsId).observe(this, specificationsBeanResource -> {
                         if (specificationsBeanResource.isSuccess()) {
                             SpecificationsBean resource = specificationsBeanResource.getResource();
                             if (resource != null && resource.getHeader().getCode() == 0) {
                                 List<SpecificationsBean.BodyBean.DataBean> data = resource.getBody().getData();
                                 if (data.size() == 0) {
-                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice, false);
+                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice, stockNumber, false);
                                 } else {
                                     SpecificationsBean.BodyBean.DataBean dataBean = data.get(0);
                                     List<SpecificationsBean.BodyBean.DataBean.ItemListBean> itemList = dataBean.getItemList();
-                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, goodsId, realPrice, false);
+                                    showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), itemList, goodsId, realPrice, stockNumber, false);
                                 }
 
                             } else {
@@ -210,6 +211,7 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     goodsDetailsHeaderBean.setPrice(realPrice);
                     goodsDetailsHeaderBean.setDescribe(goodsDetailsBean.getDescription());
                     goodsDetailsHeaderBean.setStockOut(goodsDetailsBean.getStockOut());
+                    stockNumber = goodsDetailsBean.getStockNumber();
                     getBannerImage();
                 }
             }

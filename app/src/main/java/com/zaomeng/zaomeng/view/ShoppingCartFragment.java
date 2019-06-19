@@ -350,18 +350,18 @@ public class ShoppingCartFragment extends MVVMListFragment<ShoppingCartFragmentV
         if (requestCode == PERMISSIONS_REQUEST_CODE) {
             // 用户取消了权限弹窗
             if (grantResults.length == 0) {
-                toast("用户取消了权限弹窗");
+//                toast("用户取消了权限弹窗");
                 return;
             }
             // 用户拒绝了某些权限
             for (int x : grantResults) {
                 if (x == PackageManager.PERMISSION_DENIED) {
-                    toast("用户拒绝了某些权限");
+//                    toast("用户拒绝了某些权限");
                     return;
                 }
             }
             // 所需的权限均正常获取
-            toast("所需的权限均正常获取");
+//            toast("所需的权限均正常获取");
         }
     }
 
