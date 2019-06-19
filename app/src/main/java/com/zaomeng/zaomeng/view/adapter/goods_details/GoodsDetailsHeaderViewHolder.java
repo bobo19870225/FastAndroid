@@ -24,6 +24,7 @@ public class GoodsDetailsHeaderViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
     private TextView price;
     private TextView describe;
+    private TextView salesVolume;
 
     private GoodsDetailsHeaderViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -31,6 +32,7 @@ public class GoodsDetailsHeaderViewHolder extends RecyclerView.ViewHolder {
         goodsName = itemView.findViewById(R.id.goods_name);
         price = itemView.findViewById(R.id.price);
         describe = itemView.findViewById(R.id.describe_text);
+        salesVolume = itemView.findViewById(R.id.salesVolume);
     }
 
     public static GoodsDetailsHeaderViewHolder create(ViewGroup parent) {
@@ -47,6 +49,7 @@ public class GoodsDetailsHeaderViewHolder extends RecyclerView.ViewHolder {
             goodsName.setText(goodsDetailsHeaderBean.getGoodsName());
             price.setText(FormatUtils.numberFormatMoney(goodsDetailsHeaderBean.getPrice()));
             describe.setText(goodsDetailsHeaderBean.getDescribe());
+            salesVolume.setText(String.valueOf(goodsDetailsHeaderBean.getStockOut()));
         }
 
     }

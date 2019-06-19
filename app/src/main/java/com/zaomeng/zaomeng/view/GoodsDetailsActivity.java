@@ -209,6 +209,7 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     realPrice = goodsDetailsBean.getRealPrice();
                     goodsDetailsHeaderBean.setPrice(realPrice);
                     goodsDetailsHeaderBean.setDescribe(goodsDetailsBean.getDescription());
+                    goodsDetailsHeaderBean.setStockOut(goodsDetailsBean.getStockOut());
                     getBannerImage();
                 }
             }

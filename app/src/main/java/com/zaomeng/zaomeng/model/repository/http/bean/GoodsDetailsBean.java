@@ -5,41 +5,30 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
  * FastAndroid
  */
 public class GoodsDetailsBean {
-
     /**
-     * id : 2c9051726a3f6378016a482352ff0023
+     * id : 2c9051726b2c3bfb016b651d7ace0021
      * goodsCategoryID : fa7c2854-8b56-492b-b542-58a4ab2a7358
-     * name : 知味观 小笼包 笋丁猪肉味 250g（包子 早餐 馒头花卷 杭州特产）
+     * name : 可佰味玉米窝窝头
      * shortName : null
-     * showName : 知味观 小笼包 笋丁猪肉味 250g（包子 早餐 馒头花卷 杭州特产）
-     * description : 商品名称：知味观小笼包
-     商品编号：7088658
-     商品毛重：290.00g
-     商品产地：浙江省杭州市
-     货号：6957310403004
-     风味：中式套餐
-     份量：1人份
-     净含量：300g以下
-     分类：包子
-     国产/进口：国产售卖
-     方式：单品
-     * largerImage : http://wj.haoju.me/14ef7461cc2c42ebb3f10651b63a7826.jpg
-     * littleImage : http://wj.haoju.me/14ef7461cc2c42ebb3f10651b63a7826.jpg
+     * showName : null
+     * description : null
+     * largerImage : http://qn.wgclm.com/dcc7301dd37e49efab268f6ff847e37b.png
+     * littleImage : http://qn.wgclm.com/dcc7301dd37e49efab268f6ff847e37b.png
      * standPrice : 0.0
-     * realPrice : 7.8
-     * stockNumber : 0.0
-     * stockOut : 0.0
+     * realPrice : 120.0
+     * stockNumber : 100.0
+     * stockOut : 100.0
      * salesUnit : null
-     * brandName : 知味观
+     * brandName : null
      * showPrice : 0.0
-     * isCollect : 1
-     * collectID : 2c9051726b17b4db016b1885da3b0004
+     * isCollect : 0
+     * collectID : null
      */
 
     private String id;
     private String goodsCategoryID;
     private String name;
-    private Object shortName;
+    private String shortName;
     private String showName;
     private String description;
     private String largerImage;
@@ -48,7 +37,7 @@ public class GoodsDetailsBean {
     private double realPrice;
     private double stockNumber;
     private double stockOut;
-    private Object salesUnit;
+    private String salesUnit;
     private String brandName;
     private double showPrice;
     private int isCollect;
@@ -78,11 +67,11 @@ public class GoodsDetailsBean {
         this.name = name;
     }
 
-    public Object getShortName() {
+    public String getShortName() {
         return shortName;
     }
 
-    public void setShortName(Object shortName) {
+    public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
@@ -150,11 +139,11 @@ public class GoodsDetailsBean {
         this.stockOut = stockOut;
     }
 
-    public Object getSalesUnit() {
+    public String getSalesUnit() {
         return salesUnit;
     }
 
-    public void setSalesUnit(Object salesUnit) {
+    public void setSalesUnit(String salesUnit) {
         this.salesUnit = salesUnit;
     }
 

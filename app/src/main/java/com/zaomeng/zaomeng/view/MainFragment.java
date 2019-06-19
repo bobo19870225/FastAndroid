@@ -51,9 +51,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
     @Inject
     HttpHelper httpHelper;
     //声明mlocationClient对象
-    public AMapLocationClient mlocationClient;
-    //声明mLocationOption对象
-    public AMapLocationClientOption mLocationOption = null;
+    private AMapLocationClient mlocationClient;
 
     @Inject
     public MainFragment() {
@@ -72,7 +70,8 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
         Context context = getContext();
         mlocationClient = new AMapLocationClient(context);
 //初始化定位参数
-        mLocationOption = new AMapLocationClientOption();
+        //声明mLocationOption对象
+        AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
 //设置定位监听
         mlocationClient.setLocationListener(this);
 //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
