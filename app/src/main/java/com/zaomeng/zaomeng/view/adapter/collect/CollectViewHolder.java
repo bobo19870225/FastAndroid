@@ -1,8 +1,11 @@
 package com.zaomeng.zaomeng.view.adapter.collect;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +51,14 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
         if (!FormatUtils.isStringNull(unitDescription))
             specifications.setText(String.format("规格：%s", unitDescription));
 //        specifications.setText(String.format("规格：%s", collectInfoBean.getUnitDescription()));
+        Context context = itemView.getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        wm.getDefaultDisplay().getSize(point);
+        ViewGroup.LayoutParams layoutParams = goodsIcon.getLayoutParams();
+        layoutParams.height = point.x / 3;
+        layoutParams.width = point.x / 3;
+        goodsIcon.setLayoutParams(layoutParams);
         Glide.with(goodsIcon).load(collectInfoBean.getListImage()).into(goodsIcon);
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
@@ -57,11 +68,6 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
             if (onAddClick != null)
                 onAddClick.onClick(v, collectInfoBean, getLayoutPosition());
         });
-//        delete.setOnClickListener(v -> {
-//            if (onDeleteClick != null) {
-//                onDeleteClick.onClick(v, collectInfoBean, getLayoutPosition());
-//            }
-//        });
     }
 
 }

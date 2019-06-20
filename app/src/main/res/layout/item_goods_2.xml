@@ -16,6 +16,7 @@
         android:id="@+id/icon_goods"
         android:layout_width="match_parent"
         android:layout_height="160dp"
+        android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop" />
 
 

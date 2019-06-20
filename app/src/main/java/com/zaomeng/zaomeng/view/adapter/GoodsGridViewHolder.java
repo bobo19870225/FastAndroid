@@ -1,8 +1,11 @@
 package com.zaomeng.zaomeng.view.adapter;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +51,15 @@ public class GoodsGridViewHolder extends RecyclerView.ViewHolder {
         if (!FormatUtils.isStringNull(unitDescription))
             specifications.setText(String.format("规格：%s", unitDescription));
 //        specifications.setText(String.format("规格：%s", data.getUnitDescription()));
+        Context context = itemView.getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        wm.getDefaultDisplay().getSize(point);
+        ViewGroup.LayoutParams layoutParams = icon_goods.getLayoutParams();
+        layoutParams.height = point.x / 2 - 50;
+        layoutParams.width = point.x / 2 - 50;
+//        layoutParams.height = layoutParams.width;
+        icon_goods.setLayoutParams(layoutParams);
         glideUtils.into(icon_goods, data.getListImage());
         itemView.setOnClickListener(v -> {
             if (onItemClick != null)
