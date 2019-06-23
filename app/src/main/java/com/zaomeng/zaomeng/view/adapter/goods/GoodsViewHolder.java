@@ -59,9 +59,11 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
 
         String unitDescription = goods.getUnitDescription();
         if (!FormatUtils.isStringNull(unitDescription)) {
+            goodsName.setMaxLines(1);
             specifications.setVisibility(View.VISIBLE);
             specifications.setText(String.format("规格：%s", unitDescription));
         } else {
+            goodsName.setMaxLines(2);
             specifications.setVisibility(View.GONE);
         }
 
