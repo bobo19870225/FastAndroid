@@ -27,6 +27,15 @@
         android:textSize="@dimen/text1" />
 
     <TextView
+        android:id="@+id/stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/specifications"
+        android:layout_toEndOf="@+id/icon_goods"
+        android:layout_toRightOf="@+id/icon_goods"
+        android:gravity="center_vertical" />
+
+    <TextView
         android:id="@+id/specifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,9 +67,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/add"
-            android:layout_marginEnd="8dp" />
+            android:src="@mipmap/add" />
     </RelativeLayout>
 
     <View

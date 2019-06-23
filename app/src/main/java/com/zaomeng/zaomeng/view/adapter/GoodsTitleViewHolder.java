@@ -18,6 +18,8 @@ import com.zaomeng.zaomeng.model.repository.http.bean.NavigatorBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.utils.GlideUtils;
 
+import java.util.Locale;
+
 /**
  * Created by Sampson on 2019/3/11.
  * FastAndroid
@@ -26,13 +28,14 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
     private TextView specifications;
     private TextView price;
-
+    private TextView stock;
     private ImageView add;
     private ImageView goodsIcon;
 
     private GoodsTitleViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
+        stock = itemView.findViewById(R.id.stock);
         specifications = itemView.findViewById(R.id.specifications);
         price = itemView.findViewById(R.id.price);
         add = itemView.findViewById(R.id.add);
@@ -56,6 +59,14 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
         layoutParams.width = point.x / 3;
         goodsIcon.setLayoutParams(layoutParams);
         Glide.with(goodsIcon).load(goods.getData().getListImage()).into(goodsIcon);
+
+        int stockNumber = goods.getData().getStockNumber();
+        if (stockNumber > 0) {
+            stock.setText(String.format(Locale.CHINA, "库存：%d", stockNumber));
+        } else {
+            stock.setText("售罄");
+        }
+
         String unitDescription = goods.getData().getUnitDescription();
         if (!FormatUtils.isStringNull(unitDescription))
             specifications.setText(String.format("规格：%s", unitDescription));

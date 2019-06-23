@@ -18,12 +18,15 @@ import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
+import java.util.Locale;
+
 /**
  * Created by Sampson on 2019/3/11.
  * FastAndroid
  */
 public class CollectViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
+    private TextView stock;
     private TextView price;
     private ImageView add;
     private TextView specifications;
@@ -32,6 +35,7 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
     private CollectViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
+        stock = itemView.findViewById(R.id.stock);
         price = itemView.findViewById(R.id.price);
         add = itemView.findViewById(R.id.add);
         specifications = itemView.findViewById(R.id.specifications);
@@ -47,6 +51,14 @@ public class CollectViewHolder extends RecyclerView.ViewHolder {
     void bind(CollectInfoBean collectInfoBean, OnItemClick<CollectInfoBean> onItemClick, OnItemClick<CollectInfoBean> onAddClick) {
         goodsName.setText(collectInfoBean.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(collectInfoBean.getShowPrice()));
+
+        int stockNumber = collectInfoBean.getStockNumber();
+        if (stockNumber > 0) {
+            stock.setText(String.format(Locale.CHINA, "库存：%d", stockNumber));
+        } else {
+            stock.setText("售罄");
+        }
+
         String unitDescription = collectInfoBean.getUnitDescription();
         if (!FormatUtils.isStringNull(unitDescription))
             specifications.setText(String.format("规格：%s", unitDescription));

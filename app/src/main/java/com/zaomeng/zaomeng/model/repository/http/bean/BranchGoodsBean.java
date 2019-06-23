@@ -22,8 +22,8 @@ public class BranchGoodsBean {
     private String objectName;
     private String listImage;
     private double showPrice;
-    private double stockNumber;
-    private double stockOut;
+    private int stockNumber;
+    private int stockOut;
     private String unitDescription;
     private String objectFeatureItemID1;
 
@@ -59,19 +59,19 @@ public class BranchGoodsBean {
         this.showPrice = showPrice;
     }
 
-    public double getStockNumber() {
+    public int getStockNumber() {
         return stockNumber;
     }
 
-    public void setStockNumber(double stockNumber) {
+    public void setStockNumber(int stockNumber) {
         this.stockNumber = stockNumber;
     }
 
-    public double getStockOut() {
+    public int getStockOut() {
         return stockOut;
     }
 
-    public void setStockOut(double stockOut) {
+    public void setStockOut(int stockOut) {
         this.stockOut = stockOut;
     }
 

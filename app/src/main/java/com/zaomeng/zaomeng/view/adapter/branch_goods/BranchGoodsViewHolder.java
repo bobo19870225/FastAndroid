@@ -18,12 +18,15 @@ import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
 import com.zaomeng.zaomeng.view.adapter.OnItemClick;
 
+import java.util.Locale;
+
 /**
  * Created by Sampson on 2019/3/11.
  * FastAndroid
  */
 public class BranchGoodsViewHolder extends RecyclerView.ViewHolder {
     private TextView goodsName;
+    private TextView stock;
     private ImageView add;
     private ImageView goodsIcon;
     private TextView price;
@@ -32,6 +35,7 @@ public class BranchGoodsViewHolder extends RecyclerView.ViewHolder {
     private BranchGoodsViewHolder(@NonNull View itemView) {
         super(itemView);
         goodsName = itemView.findViewById(R.id.goods_name);
+        stock = itemView.findViewById(R.id.stock);
         add = itemView.findViewById(R.id.add);
         price = itemView.findViewById(R.id.price);
         specifications = itemView.findViewById(R.id.specifications);
@@ -47,6 +51,14 @@ public class BranchGoodsViewHolder extends RecyclerView.ViewHolder {
     void bind(BranchGoodsBean goods, OnItemClick<BranchGoodsBean> onItemClick, OnItemClick<BranchGoodsBean> onAddClick) {
         goodsName.setText(goods.getObjectName());
         price.setText(FormatUtils.numberFormatMoney(goods.getShowPrice()));
+
+        int stockNumber = goods.getStockNumber();
+        if (stockNumber > 0) {
+            stock.setText(String.format(Locale.CHINA, "库存：%d", stockNumber));
+        } else {
+            stock.setText("售罄");
+        }
+
         String unitDescription = goods.getUnitDescription();
         if (!FormatUtils.isStringNull(unitDescription))
             specifications.setText(String.format("规格：%s", unitDescription));
