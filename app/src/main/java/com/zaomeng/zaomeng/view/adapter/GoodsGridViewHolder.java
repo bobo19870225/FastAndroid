@@ -58,8 +58,13 @@ public class GoodsGridViewHolder extends RecyclerView.ViewHolder {
             stock.setText("售罄");
         }
         String unitDescription = data.getUnitDescription();
-        if (!FormatUtils.isStringNull(unitDescription))
+
+        if (!FormatUtils.isStringNull(unitDescription)) {
+            specifications.setVisibility(View.VISIBLE);
             specifications.setText(String.format("规格：%s", unitDescription));
+        } else {
+            specifications.setVisibility(View.GONE);
+        }
 //        specifications.setText(String.format("规格：%s", data.getUnitDescription()));
         Context context = itemView.getContext();
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
