@@ -60,8 +60,12 @@ public class BranchGoodsViewHolder extends RecyclerView.ViewHolder {
         }
 
         String unitDescription = goods.getUnitDescription();
-        if (!FormatUtils.isStringNull(unitDescription))
+        if (!FormatUtils.isStringNull(unitDescription)) {
+            specifications.setVisibility(View.VISIBLE);
             specifications.setText(String.format("规格：%s", unitDescription));
+        } else {
+            specifications.setVisibility(View.GONE);
+        }
 //        specifications.setText(String.format("规格：%s", goods.getUnitDescription()));
         Context context = itemView.getContext();
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);

@@ -42,7 +42,10 @@
         android:layout_above="@+id/tt_price"
         android:layout_toEndOf="@+id/icon_goods"
         android:layout_toRightOf="@+id/icon_goods"
-        android:gravity="center_vertical" />
+        android:background="@drawable/text_corner_bc"
+        android:gravity="center_vertical"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp" />
 
     <RelativeLayout
         android:id="@+id/tt_price"

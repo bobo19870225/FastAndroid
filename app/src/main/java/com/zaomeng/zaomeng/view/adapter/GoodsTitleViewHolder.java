@@ -68,8 +68,12 @@ public class GoodsTitleViewHolder extends RecyclerView.ViewHolder {
         }
 
         String unitDescription = goods.getData().getUnitDescription();
-        if (!FormatUtils.isStringNull(unitDescription))
+        if (!FormatUtils.isStringNull(unitDescription)) {
+            specifications.setVisibility(View.VISIBLE);
             specifications.setText(String.format("规格：%s", unitDescription));
+        } else {
+            specifications.setVisibility(View.GONE);
+        }
 //        specifications.setText(String.format("规格：%s", goods.getData().getUnitDescription()));
         price.setText(FormatUtils.numberFormatMoney(goods.getData().getShowPrice()));
         itemView.setOnClickListener(v -> {
