@@ -5,24 +5,26 @@ package com.zaomeng.zaomeng.model.repository.http.bean;
  * FastAndroid
  */
 public class GoodsDetailsBean {
+
     /**
-     * id : 2c9051726b2c3bfb016b651d7ace0021
-     * goodsCategoryID : fa7c2854-8b56-492b-b542-58a4ab2a7358
-     * name : 可佰味玉米窝窝头
+     * id : 2c9051726b2c3bfb016b65a6aa350047
+     * goodsCategoryID : 70c3a3b8-cd44-411a-9682-070715a9a595
+     * name : 南瓜糕
      * shortName : null
      * showName : null
      * description : null
-     * largerImage : http://qn.wgclm.com/dcc7301dd37e49efab268f6ff847e37b.png
-     * littleImage : http://qn.wgclm.com/dcc7301dd37e49efab268f6ff847e37b.png
+     * largerImage : http://qn.wgclm.com/e57e1e86e73b4378a4c8df098bde0b6d.jpg
+     * littleImage : http://qn.wgclm.com/e57e1e86e73b4378a4c8df098bde0b6d.jpg
      * standPrice : 0.0
      * realPrice : 120.0
-     * stockNumber : 100.0
-     * stockOut : 100.0
+     * stockNumber : 99.0
+     * stockOut : 101.0
      * salesUnit : null
      * brandName : null
      * showPrice : 0.0
      * isCollect : 0
      * collectID : null
+     * unitDescription : 1*5包*24个*100g
      */
 
     private String id;
@@ -42,6 +44,7 @@ public class GoodsDetailsBean {
     private double showPrice;
     private int isCollect;
     private String collectID;
+    private String unitDescription;
 
     public String getId() {
         return id;
@@ -177,6 +180,14 @@ public class GoodsDetailsBean {
 
     public void setCollectID(String collectID) {
         this.collectID = collectID;
+    }
+
+    public String getUnitDescription() {
+        return unitDescription;
+    }
+
+    public void setUnitDescription(String unitDescription) {
+        this.unitDescription = unitDescription;
     }
 }
 

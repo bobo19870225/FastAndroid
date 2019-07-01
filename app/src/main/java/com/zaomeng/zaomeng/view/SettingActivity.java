@@ -65,7 +65,7 @@ public class SettingActivity extends MVVMActivity<SettingVM, ActivitySettingBind
      * 返回当前程序版本名
      */
     private void getAppVersionName() {
-        String versionName = "";
+        String versionName;
         try {
             // ---get the package info---
             PackageManager pm = getApplicationContext().getPackageManager();

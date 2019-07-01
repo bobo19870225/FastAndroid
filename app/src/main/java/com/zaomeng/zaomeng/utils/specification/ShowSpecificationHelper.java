@@ -136,6 +136,8 @@ public class ShowSpecificationHelper {
                     }
 
                 });
+            } else if (specificationName != null) {
+                textView.setText(String.format("规格：%s", specificationName));
             } else {
                 textView.setVisibility(View.GONE);
             }
@@ -168,5 +170,9 @@ public class ShowSpecificationHelper {
         if (this.price != null) {
             this.price.setText(FormatUtils.numberFormatMoney(price));
         }
+    }
+
+    public void setSpecificationName(String specificationName) {
+        this.specificationName = specificationName;
     }
 }

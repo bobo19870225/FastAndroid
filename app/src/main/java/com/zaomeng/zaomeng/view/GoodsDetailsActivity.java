@@ -212,6 +212,7 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
                     goodsDetailsHeaderBean.setDescribe(goodsDetailsBean.getDescription());
                     goodsDetailsHeaderBean.setStockOut(goodsDetailsBean.getStockOut());
                     stockNumber = goodsDetailsBean.getStockNumber();
+                    showSpecificationHelper.setSpecificationName(goodsDetailsBean.getUnitDescription());
                     getBannerImage();
                 }
             }
