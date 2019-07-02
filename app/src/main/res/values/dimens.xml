@@ -21,7 +21,7 @@
     <dimen name="line">1dp</dimen>
     <dimen name="indicator_height">2dp</dimen>
     <dimen name="line_margin">4dp</dimen>
-    <dimen name="goods_list_parent">100dp</dimen>
+    <dimen name="goods_list_parent">80dp</dimen>
     <dimen name="divide_padding">16dp</dimen>
     <dimen name="tab_padding_left_right">24dp</dimen>
     <dimen name="title_text_size">18sp</dimen>

@@ -8,8 +8,8 @@
 
     <com.zaomeng.zaomeng.view.custom_view.RoundRectImageView
         android:id="@+id/icon_goods"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_margin="8dp"
         android:scaleType="centerCrop" />
 

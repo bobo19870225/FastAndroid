@@ -52,7 +52,7 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
 
         int stockNumber = goods.getStockNumber();
         if (stockNumber > 0) {
-            stock.setText(String.format(Locale.CHINA, "库存：%d", stockNumber));
+            stock.setText(String.format(Locale.CHINA, "库存:%d", stockNumber));
         } else {
             stock.setText("售罄");
         }
