@@ -52,7 +52,7 @@ public class GoodsAdapter extends BasePagedListAdapter<GoodsListRowsBean> {
 
     @Override
     protected int giveItemViewType(int position) {
-        return R.layout.item_goods;
+        return R.layout.item_sort_goods;
     }
 
 

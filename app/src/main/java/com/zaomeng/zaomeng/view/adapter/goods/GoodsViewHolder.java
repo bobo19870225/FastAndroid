@@ -42,7 +42,7 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
 
     public static GoodsViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_goods, parent, false);
+                .inflate(R.layout.item_sort_goods, parent, false);
         return new GoodsViewHolder(view);
     }
 
@@ -61,7 +61,7 @@ public class GoodsViewHolder extends RecyclerView.ViewHolder {
         if (!FormatUtils.isStringNull(unitDescription)) {
             goodsName.setMaxLines(1);
             specifications.setVisibility(View.VISIBLE);
-            specifications.setText(String.format("规格：%s", unitDescription));
+            specifications.setText(unitDescription);
         } else {
             goodsName.setMaxLines(2);
             specifications.setVisibility(View.GONE);
