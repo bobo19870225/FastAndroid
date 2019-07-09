@@ -19,6 +19,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.utils.specification.InterfaceShowSpecification;
 import com.zaomeng.zaomeng.utils.specification.ShowSpecificationHelper;
 import com.zaomeng.zaomeng.view.adapter.goods_details.GoodsDetailsAdapter;
@@ -143,7 +144,13 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
 
                     break;
                 case "shopCar":
-                    skipTo(MainActivity.class, 3, true);
+                    String sessionID = SharedPreferencesUtils.getSessionID(getApplicationContext());
+                    if (sessionID == null) {
+                        skipTo(LoginActivity.class);
+                    } else {
+                        skipTo(MainActivity.class, 3, true);
+                    }
+
                     break;
                 case "addToShopCar":
                     showSpecificationHelper.showSpecificationDialog(getLayoutInflater(), null, goodsId, realPrice, 0, true);
