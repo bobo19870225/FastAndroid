@@ -63,11 +63,13 @@ public class SearchActivity extends MVVMActivity<SearchViewModel, ActivitySearch
     @Override
     protected void setView() {
         userDao.getAllUser().observe(this, loginBeans -> {
-            memberID = loginBeans.get(0).getId();
-            searchDao.getSearchKeyByMemberID(memberID).observe(this, historySearchKeys -> {
-                list = historySearchKeys;
-                initHistoryListView(list);
-            });
+            if (loginBeans.size() > 0) {
+                memberID = loginBeans.get(0).getId();
+                searchDao.getSearchKeyByMemberID(memberID).observe(this, historySearchKeys -> {
+                    list = historySearchKeys;
+                    initHistoryListView(list);
+                });
+            }
         });
         mViewModel.getHotWordList().observe(this, pageBeanResource -> {
             PageDataBean<HotWordBean> hotWordBeanPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {

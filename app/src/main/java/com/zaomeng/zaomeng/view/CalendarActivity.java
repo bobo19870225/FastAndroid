@@ -60,10 +60,12 @@ public class CalendarActivity extends MVVMActivity<CalendarVM, ActivityCalendarB
         LiveData<List<LoginBean>> user = mViewModel.getUser();
         if (user != null)
             user.observe(this, loginBeans -> {
-            LoginBean loginBean = loginBeans.get(0);
-            mViewModel.ldUserName.setValue(loginBean.getShortName());
-            CircleImageView iconUser = mViewDataBinding.iconUser;
-            Glide.with(iconUser).load(loginBean.getAvatarURL()).into(iconUser);
+                if (loginBeans.size() > 0) {
+                    LoginBean loginBean = loginBeans.get(0);
+                    mViewModel.ldUserName.setValue(loginBean.getShortName());
+                    CircleImageView iconUser = mViewDataBinding.iconUser;
+                    Glide.with(iconUser).load(loginBean.getAvatarURL()).into(iconUser);
+                }
         });
         setDialog();
         setCalendar();
