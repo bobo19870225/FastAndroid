@@ -1,8 +1,10 @@
 package com.zaomeng.zaomeng.view;
 
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.KeyEvent;
 
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -28,7 +30,7 @@ public class MainActivity extends BaseDaggerActivity {
     ApiService apiService;
     @Inject
     HttpHelper httpHelper;
-
+    private NavController navController;
     public Badge badge;
     protected BottomNavigationView navigation;
 
@@ -63,7 +65,8 @@ public class MainActivity extends BaseDaggerActivity {
                 .setGravityOffset(10, 0, true)
 //                .setOnDragStateChangedListener(null)
                 .setBadgeNumber(0);
-        apiService.getCartGoodsListLD(SharedPreferencesUtils.getSessionID(getApplicationContext()), 1, 10)
+        final String sessionID = SharedPreferencesUtils.getSessionID(getApplicationContext());
+        apiService.getCartGoodsListLD(sessionID, 1, 10)
                 .observe(this, pageBeanResource -> {
                     PageDataBean<ShopCartBean> goodsPageDataBean = httpHelper.AnalyticalPageData(pageBeanResource, new InterfaceLogin() {
                         @Override
@@ -82,13 +85,47 @@ public class MainActivity extends BaseDaggerActivity {
                     }
                 });
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_fragment);
+//        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//                if (menuItem.getItemId() == R.id.treeFragment) {
+//
+//                }
+//                return false;
+//            }
+//        });
+        navController = Navigation.findNavController(this, R.id.nav_fragment);
         NavigationUI.setupWithNavController(navigation, navController);
         if (transferData instanceof Integer) {
             if ((int) transferData == 3)
                 navController.navigate(R.id.shoppingCartFragment);
         }
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() != R.id.mainFragment && destination.getId() != R.id.sortFragment) {
+                if (sessionID == null) {
 
+//                        navigation.setSelectedItemId(R.id.mainFragment);
+//                        navigation.setSelectedItemId(navigation.getMenu().getItem(0).getItemId());
+                    Intent intent = new Intent();
+                    intent.setClass(getApplicationContext(), LoginActivity.class);
+                    startActivityForResult(intent, 110);
+//                    skipTo(LoginActivity.class);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 110) {
+            navController.navigate(R.id.mainFragment);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private long firstTime;// 记录点击返回时第一次的时间毫秒值

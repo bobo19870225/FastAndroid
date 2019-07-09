@@ -12,8 +12,6 @@ import com.zaomeng.zaomeng.model.repository.http.ApiService;
 import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.CollectInfoBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.PriceBean;
-import com.zaomeng.zaomeng.model.repository.http.bean.SpecificationsBean;
 import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
 import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.CommonlyUsedFragment;
@@ -80,9 +78,9 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     /**
      * 商品规格
      */
-    public LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(String objectID) {
-        return apiService.getObjectFeatureItemList(objectID);
-    }
+//    public LiveData<Resource<SpecificationsBean>> getObjectFeatureItemList(String objectID) {
+//        return apiService.getObjectFeatureItemList(objectID);
+//    }
 
     public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
 
@@ -95,7 +93,7 @@ public class CommonlyUsedFragmentVM extends ListViewModel<Integer, CollectInfoBe
     }
 
 
-    public LiveData<Resource<Bean<PriceBean>>> getPrice(String objectFeatureItemID1) {
-        return apiService.getObjectFeatureData("402892e76a0bd37c016a0be8a94e001e", objectFeatureItemID1);
-    }
+//    public LiveData<Resource<Bean<PriceBean>>> getPrice(String objectFeatureItemID1) {
+//        return apiService.getObjectFeatureData("402892e76a0bd37c016a0be8a94e001e", objectFeatureItemID1);
+//    }
 }

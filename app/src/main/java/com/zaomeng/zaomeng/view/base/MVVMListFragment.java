@@ -11,7 +11,6 @@ import com.zaomeng.zaomeng.R;
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.Status;
-import com.zaomeng.zaomeng.view.LoginActivity;
 import com.zaomeng.zaomeng.view.adapter.BasePagedListAdapter;
 import com.zaomeng.zaomeng.view_model.ListViewModel;
 
@@ -63,9 +62,10 @@ public abstract class MVVMListFragment<VM extends ListViewModel, VDB extends Vie
                     toast(((NetWorkState) o).getMsg());
                     adapter.setNetworkState((NetWorkState) o);
 //                    doError((NetWorkState) o);
-                } else if (status == Status.NEED_LOGIN) {
-                    skipTo(LoginActivity.class);
                 }
+//                else if (status == Status.NEED_LOGIN) {
+//                    skipTo(LoginActivity.class);
+//                }
             });
         }
     }

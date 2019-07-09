@@ -59,12 +59,12 @@ public class MeFragment extends MVVMFragment<MeFragmentVM, FragmentMeBinding> {
     protected void initUI() {
         context = getContext();
         if (context != null) {
-            String[] loginInfo = SharedPreferencesUtils.getLoginInfo(context);
-            if (loginInfo == null) {
-                skipTo(LoginActivity.class);
-            } else if (loginInfo[0] == null || loginInfo[1] == null) {
-                skipTo(LoginActivity.class);
-            }
+//            String[] loginInfo = SharedPreferencesUtils.getLoginInfo(context);
+//            if (loginInfo == null) {
+//                skipTo(LoginActivity.class);
+//            } else if (loginInfo[0] == null || loginInfo[1] == null) {
+//                skipTo(LoginActivity.class);
+//            }
             msgBadge = new QBadgeView(context).bindTarget(mViewDataBinding.iconMsg);
         }
 
