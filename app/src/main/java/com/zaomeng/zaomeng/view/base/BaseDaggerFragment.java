@@ -13,6 +13,9 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
+import com.zaomeng.zaomeng.view.LoginActivity;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -98,6 +101,19 @@ public abstract class BaseDaggerFragment extends DaggerFragment {
 
     public void skipTo(Class mClass) {
         skipTo(mClass, null);
+    }
+
+    public void skipTo(Class mClass, boolean isNeedLogin) {
+        if (isNeedLogin) {
+            String sessionID = SharedPreferencesUtils.getSessionID(getContext());
+            if (sessionID == null) {
+                skipTo(LoginActivity.class);
+            } else {
+                skipTo(mClass, null);
+            }
+        } else {
+            skipTo(mClass, null);
+        }
     }
     /**
      * 跳转

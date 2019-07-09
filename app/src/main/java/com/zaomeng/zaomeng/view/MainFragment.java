@@ -115,7 +115,7 @@ public class MainFragment extends MVVMFragment<MainFragmentVM, FragmentMainBindi
         mViewModel.action.observe(this, s -> {
             switch (s) {
                 case "msg":
-                    skipTo(MessageTypeActivity.class, null);
+                    skipTo(MessageTypeActivity.class, true);
                     break;
                 case "location":
                     Intent intent = new Intent();
