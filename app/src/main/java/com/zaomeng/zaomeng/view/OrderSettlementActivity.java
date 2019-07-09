@@ -2,7 +2,6 @@ package com.zaomeng.zaomeng.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alipay.sdk.app.PayTask;
+import com.android.tu.loadingdialog.LoadingDailog;
 import com.bumptech.glide.Glide;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -32,7 +32,6 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.ShopCartBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.WeChatPayBean;
 import com.zaomeng.zaomeng.utils.FormatUtils;
-import com.zaomeng.zaomeng.utils.PayResult;
 import com.zaomeng.zaomeng.view.base.MVVMActivity;
 import com.zaomeng.zaomeng.view_model.OrderSettlementVM;
 import com.zaomeng.zaomeng.view_model.ViewModelFactory;
@@ -95,6 +94,10 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
             if (s != null) {
                 EventBus.getDefault().post("refreshShopCart");
                 if (ldPayType == R.id.radio_weixin) {
+                    LoadingDailog loadingDailog = new LoadingDailog.Builder(this).setCancelable(true).
+                            setCancelOutside(true).
+                            setShowMessage(true).setMessage("加载中...").create();
+                    loadingDailog.show();
                     mViewModel.appApplyMemberOrderPayForWeChat(s).observe(this, payBeanResource -> {
                         if (payBeanResource.isSuccess()) {
                             WeChatPayBean weChatPayBean = payBeanResource.getResource();
@@ -102,12 +105,16 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
                                 weChatPay(weChatPayBean.getBody());
                             } else {
                                 if (weChatPayBean != null) {
+                                    if (loadingDailog.isShowing())
+                                        loadingDailog.dismiss();
                                     toast(weChatPayBean.getHeader().getMsg());
                                 }
                             }
                         } else {
                             Throwable error = beanResource.getError();
                             if (error != null) {
+                                if (loadingDailog.isShowing())
+                                    loadingDailog.dismiss();
                                 toast(error.toString());
                             }
                         }
@@ -136,23 +143,24 @@ public class OrderSettlementActivity extends MVVMActivity<OrderSettlementVM, Act
             }
         });
         ldResult.observe(this, stringStringMap -> {
-            PayResult payResult = new PayResult(stringStringMap);
+//            PayResult payResult = new PayResult(stringStringMap);
             /*
              * 对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
              */
-            String resultStatus = payResult.getResultStatus();
+//            String resultStatus = payResult.getResultStatus();
             // 判断resultStatus 为9000则代表支付成功
-            if (TextUtils.equals(resultStatus, "9000")) {
+//            if (TextUtils.equals(resultStatus, "9000")) {
                 // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
 //                showAlert(PayDemoActivity.this, getString(R.string.pay_success) + payResult);
-                toast("支付成功" + payResult.toString());
-                skipTo(OrderActivity.class, null);
-                finish();
-            } else {
-                toast("支付失败" + payResult.toString());
+//                toast("支付成功" + payResult.toString());
+
+//            } else {
+//                toast("支付失败" + payResult.toString());
                 // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
 //                showAlert(PayDemoActivity.this, getString(R.string.pay_failed) + payResult);
-            }
+//            }
+            skipTo(OrderActivity.class, null);
+            finish();
         });
         mViewDataBinding.ttUhq.setClickable(false);
         mViewModel.getMyMemberBonusList().observe(this, pageBeanResource -> {
