@@ -16,6 +16,7 @@ import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageDataBean;
 import com.zaomeng.zaomeng.utils.GlideImageLoader;
 import com.zaomeng.zaomeng.utils.GlideUtils;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.adapter.GoodsWithTitleAdapter;
 import com.zaomeng.zaomeng.view.adapter.Item;
 import com.zaomeng.zaomeng.view.base.MVVMFragment;
@@ -173,17 +174,23 @@ public class MainGoodsFragment extends MVVMFragment<MainGoodsFragmentVM, Fragmen
                 case "commonlyUsed":
                     FragmentActivity activity = getActivity();
                     if (activity != null) {
-                        ((MainActivity) activity).navigation.setSelectedItemId(R.id.treeFragment);
+                        String sessionID = SharedPreferencesUtils.getSessionID(getContext());
+                        if (sessionID == null) {
+                            skipTo(LoginActivity.class);
+                        } else {
+                            ((MainActivity) activity).navigation.setSelectedItemId(R.id.treeFragment);
+                        }
+
                     }
                     break;
                 case "myOrder":
-                    skipTo(OrderActivity.class, null);
+                    skipTo(OrderActivity.class, true);
                     break;
                 case "myBonus":
-                    skipTo(BonusActivity.class, null);
+                    skipTo(BonusActivity.class, true);
                     break;
                 case "signIn":
-                    skipTo(CalendarActivity.class, null);
+                    skipTo(CalendarActivity.class, true);
                     break;
             }
         });
