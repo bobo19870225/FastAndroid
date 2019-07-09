@@ -19,9 +19,7 @@ import javax.inject.Inject;
 public class LocationActivity extends BaseDaggerActivity {
     @Inject
     DBUtils dbUtils;
-    private List<Address> addressList;
-    private List<Address> addressList1;
-    private List<Address> addressList2;
+
     @Override
     protected int setToolBarMenu() {
         return 0;
@@ -40,7 +38,7 @@ public class LocationActivity extends BaseDaggerActivity {
     @Override
     protected void initView() {
 
-        addressList = dbUtils.getProvincesFromDB();
+        List<Address> addressList = dbUtils.getProvincesFromDB();
         RecyclerView listView = findViewById(R.id.list);
         LocationAdapter locationAdapter = new LocationAdapter();
         locationAdapter.setOnItemClick((view, ItemObject, position) -> {

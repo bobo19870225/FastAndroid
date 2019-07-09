@@ -3,13 +3,17 @@ package com.zaomeng.zaomeng.view_model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.zaomeng.zaomeng.model.repository.Listing;
 import com.zaomeng.zaomeng.model.repository.NetWorkState;
 import com.zaomeng.zaomeng.model.repository.http.ApiService;
+import com.zaomeng.zaomeng.model.repository.http.bean.Bean;
 import com.zaomeng.zaomeng.model.repository.http.bean.BranchGoodsBean;
 import com.zaomeng.zaomeng.model.repository.http.bean.PageBean;
+import com.zaomeng.zaomeng.model.repository.http.live_data_call_adapter.Resource;
+import com.zaomeng.zaomeng.utils.SharedPreferencesUtils;
 import com.zaomeng.zaomeng.view.BranchGoodsFragment;
 
 import retrofit2.Call;
@@ -72,4 +76,13 @@ public class BranchGoodsFragmentVM extends ListViewModel<Integer, BranchGoodsBea
         return body.getHeader().getCode() == 0;
     }
 
+    public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
+        String sessionID = SharedPreferencesUtils.getSessionID(getApplication());
+//        if (sessionID != null) {
+        return apiService.addGoodsShopToCart(sessionID,
+                goodsShopID, qty, objectFeatureItemID1);
+
+//        }
+//        return null;
+    }
 }

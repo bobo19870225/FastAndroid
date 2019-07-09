@@ -89,11 +89,11 @@ public class SearchGoodsListVM extends ListViewModel<Integer, GoodsListRowsBean>
 
     public LiveData<Resource<Bean<String>>> addGoodsShopToCart(@NonNull String goodsShopID, @NonNull Integer qty, String objectFeatureItemID1) {
         String sessionID = SharedPreferencesUtils.getSessionID(getApplication());
-        if (sessionID != null) {
+//        if (sessionID != null) {
             return apiService.addGoodsShopToCart(sessionID,
                     goodsShopID, qty, objectFeatureItemID1);
 
-        }
-        return null;
+//        }
+//        return null;
     }
 }
