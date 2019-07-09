@@ -79,12 +79,12 @@ public class GoodsDetailsActivity extends MVVMListActivity<GoodsDetailsVM, Activ
 
                 @Override
                 public void skipLoginActivity() {
-                    toLogin();
+//                    toLogin();
                 }
 
                 @Override
                 public void reLoad() {
-                    mViewModel.getCartGoodsListLD();
+//                    mViewModel.getCartGoodsListLD();
                 }
             }, this);
             if (goodsPageDataBean != null) {
