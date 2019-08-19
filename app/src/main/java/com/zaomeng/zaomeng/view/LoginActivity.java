@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -156,6 +157,17 @@ public class LoginActivity extends MVVMActivity<LoginViewModel, ActivityLoginBin
                         case "密码不少于6位":
                         case "电话号码错误":
                             toast(s);
+                            break;
+                        case "密码可见":
+                            int inputType = mViewDataBinding.password.getInputType();
+                            if (inputType == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+                                mViewDataBinding.password.setInputType(InputType.TYPE_CLASS_TEXT);
+                                mViewDataBinding.iconNoSee.setImageResource(R.mipmap.mimakejian);
+                            } else {
+                                mViewDataBinding.password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                                mViewDataBinding.iconNoSee.setImageResource(R.mipmap.mimabukejian);
+                            }
+
                             break;
                     }
 

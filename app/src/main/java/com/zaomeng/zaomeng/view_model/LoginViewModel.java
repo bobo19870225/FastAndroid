@@ -69,4 +69,8 @@ public class LoginViewModel extends BaseViewModel {
         }
 
     }
+
+    public void visible() {
+        action.setValue("密码可见");
+    }
 }
